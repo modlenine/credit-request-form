@@ -209,7 +209,7 @@ getModal();
                                 </a>
                             </li>
                             <li>
-                                <a href="<?=base_url('main/list')?>" class="">
+                                <a href="<?=base_url('main/listex')?>" class="">
                                     <i class="metismenu-icon fas fa-list-alt"></i><b>EN</b>
                                     แสดงรายการ นอกประเทศ
                                 </a>

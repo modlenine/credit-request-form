@@ -2244,6 +2244,30 @@ $('#searchdata').change(function(){
         $('.searchByCompany').css('display' , 'none');
     }
 });
+
+
+
+
+
+$('#searchdataex').change(function(){
+    if($(this).val() == 'bydatecreate'){
+        $('.searchByDate').css('display' , '');
+    }else{
+        $('.searchByDate').css('display' , 'none');
+    }
+    
+    if($(this).val() == 'byformno'){
+        $('.searchByForm').css('display' , '');
+    }else{
+        $('.searchByForm').css('display' , 'none');
+    }
+    
+    if($(this).val() == 'bycompanyname'){
+        $('.searchByCompany').css('display' , '');
+    }else{
+        $('.searchByCompany').css('display' , 'none');
+    }
+});
 //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
 //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
 

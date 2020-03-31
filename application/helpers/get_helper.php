@@ -116,8 +116,8 @@ function getFormNoEX()
     } else {
 
         $getFormno = $checkRowdata->row()->crfex_formno; //อันนี้ดึงเอามาทั้งหมด CRF2003001
-        $cutGetFormno = substr($getFormno, 3, 2); //อันนี้ตัดเอาเฉพาะปีจาก 2020 ตัดเหลือ 20
-        $cutNo = substr($getFormno, 7, 3); //อันนี้ตัดเอามาแค่ตัวเลขจาก CRF2003001 ตัดเหลือ 001
+        $cutGetFormno = substr($getFormno, 5, 2); //อันนี้ตัดเอาเฉพาะปีจาก 2020 ตัดเหลือ 20
+        $cutNo = substr($getFormno, 9, 3); //อันนี้ตัดเอามาแค่ตัวเลขจาก CRF2003001 ตัดเหลือ 001
         $cutNo++;
 
         if ($cutNo < 10) {

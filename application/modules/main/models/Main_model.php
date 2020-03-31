@@ -1239,13 +1239,13 @@ class Main_model extends CI_Model
                 "crfex_userdeptcode" => $this->input->post("crfex_userdeptcode"),
                 "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime"))
             );
-            $this->db->insert("crfex_customers",$arcustomer);
+            
 
 
 
             $armaindata = array(
                 "crfex_formno" => $getFormNo,
-                "crfex_cusid" => $getCustomerNumber,
+                "crfex_customerid" => $getCustomerNumber,
                 "crfex_company" => $this->input->post("crf_company"),
                 "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                 "crfex_custype" => $this->input->post("crfex_custype"),
@@ -1258,8 +1258,11 @@ class Main_model extends CI_Model
                 "crfex_status" => "Open",
                 "crfex_report_date" => $report_date,
                 "crfex_report_month" => $report_month,
-                "crfex_report_year" => $report_year
+                "crfex_report_year" => $report_year,
+                "crfex_topic" => "Add new customer."
             );
+
+            $this->db->insert("crfex_customers",$arcustomer);
             $this->db->insert("crfex_maindata" , $armaindata);
 
 
@@ -1276,6 +1279,320 @@ class Main_model extends CI_Model
 
 
 
+
+    public function count_allex()
+    {
+        $query = $this->db->get("crfex_maindata");
+        return $query->num_rows();
+    }
+
+    public function fetch_detailsex($limit, $start)
+    {
+        $output = '';
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN");
+        $this->db->from("crfex_maindata");
+        $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
+        $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
+        $this->db->order_by("crfex_formno", "DESC");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+
+            if ($row->crfex_status == "Open") {
+                $bgcolor = "background-color:#33CCFF;";
+                $fontcolor = "color:#FFFFFF";
+            }else if($row->crfex_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
+                $fontcolor = "color:#FFFFFF";
+            } else {
+                $fontcolor = "";
+                $bgcolor = "background-color:#D3D3D3;";
+            }
+
+            
+
+            $output .= '
+      <div class="card mt-3">
+      <div class="card-header" style="'.$bgcolor.'">
+            <div class="col-md-3 col-sm-12">
+                Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+            </div>
+            <div class="col-md-3 statustext">
+                Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
+            </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+            <p><label><b>Topic. :</b></label>&nbsp;' . $row->crfex_topic .'</p>
+            <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfex_cusnameEN . '</p>
+            </div>
+
+            <div class="col-md-6">
+            <label><b>Address : </b></label>&nbsp;' . $row->crfex_address . '
+            </div>
+
+            <div class="col-md-3">
+            <label><b>Sales Reps : </b></label>&nbsp;' . $row->crfex_salesreps . '
+            </div>
+        </div>
+
+      </div>
+    </div>
+      ';
+        }
+        $output .= '</table>';
+        return $output;
+    }
+
+
+
+    public function count_all_Dateex($dateStart , $dateEnd)
+    {
+        $this->db->select("*");
+        $this->db->from("crfex_maindata");
+        $this->db->where("crfex_datecreate >=" , $dateStart);
+        $this->db->where("crfex_datecreate <=" , $dateEnd);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function fetch_detailsByDateex($limit, $start , $dateStart , $dateEnd)
+    {
+        $output = '';
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN");
+        $this->db->from("crfex_maindata");
+        $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
+        $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
+        $this->db->where("crfex_datecreate >=" , $dateStart);
+        $this->db->where("crfex_datecreate <=" , $dateEnd);
+        $this->db->order_by("crfex_formno", "DESC");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+
+            if ($row->crfex_status == "Open") {
+                $bgcolor = "background-color:#33CCFF;";
+                $fontcolor = "color:#FFFFFF";
+            }else if($row->crfex_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
+                $fontcolor = "color:#FFFFFF";
+            } else {
+                $fontcolor = "";
+                $bgcolor = "background-color:#D3D3D3;";
+            }
+
+            
+
+            $output .= '
+      <div class="card mt-3">
+      <div class="card-header" style="'.$bgcolor.'">
+            <div class="col-md-3 col-sm-12">
+                Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+            </div>
+            <div class="col-md-3 statustext">
+                Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
+            </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+            <p><label><b>Topic. :</b></label>&nbsp;' . $row->crfex_topic .'</p>
+            <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfex_cusnameEN . '</p>
+            </div>
+
+            <div class="col-md-6">
+            <label><b>Address : </b></label>&nbsp;' . $row->crfex_address . '
+            </div>
+
+            <div class="col-md-3">
+            <label><b>Sales Reps : </b></label>&nbsp;' . $row->crfex_salesreps . '
+            </div>
+        </div>
+
+      </div>
+    </div>
+      ';
+        }
+        $output .= '</table>';
+        return $output;
+    }
+
+
+
+
+
+    public function count_all_FormNoex($formNo)
+    {
+        $this->db->select("*");
+        $this->db->from("crfex_maindata");
+        $this->db->like("crfex_formno" , $formNo , 'both');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function fetch_detailsByFormNoex($limit, $start , $formNo)
+    {
+        $output = '';
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN");
+        $this->db->from("crfex_maindata");
+        $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
+        $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
+        $this->db->like("crfex_formno" , $formNo , 'both');
+        $this->db->order_by("crfex_formno", "DESC");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+
+            if ($row->crfex_status == "Open") {
+                $bgcolor = "background-color:#33CCFF;";
+                $fontcolor = "color:#FFFFFF";
+            }else if($row->crfex_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
+                $fontcolor = "color:#FFFFFF";
+            } else {
+                $fontcolor = "";
+                $bgcolor = "background-color:#D3D3D3;";
+            }
+
+            
+
+            $output .= '
+      <div class="card mt-3">
+      <div class="card-header" style="'.$bgcolor.'">
+            <div class="col-md-3 col-sm-12">
+                Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+            </div>
+            <div class="col-md-3 statustext">
+                Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
+            </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+            <p><label><b>Topic. :</b></label>&nbsp;' . $row->crfex_topic .'</p>
+            <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfex_cusnameEN . '</p>
+            </div>
+
+            <div class="col-md-6">
+            <label><b>Address : </b></label>&nbsp;' . $row->crfex_address . '
+            </div>
+
+            <div class="col-md-3">
+            <label><b>Sales Reps : </b></label>&nbsp;' . $row->crfex_salesreps . '
+            </div>
+        </div>
+
+      </div>
+    </div>
+      ';
+        }
+        $output .= '</table>';
+        return $output;
+    }
+
+
+
+
+
+
+    public function count_all_Companyex($companyname)
+    {
+        $this->db->select("crfex_cusnameEN");
+        $this->db->from("crfex_maindata");
+        $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
+        $this->db->like("crfex_cusnameEN" , $companyname , 'both');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function fetch_detailsByCompanyex($limit, $start , $companyname)
+    {
+        $output = '';
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN");
+        $this->db->from("crfex_maindata");
+        $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
+        $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
+        $this->db->like("crfex_cusnameEN" , $companyname , 'both');
+        $this->db->order_by("crfex_formno", "DESC");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+
+            if ($row->crfex_status == "Open") {
+                $bgcolor = "background-color:#33CCFF;";
+                $fontcolor = "color:#FFFFFF";
+            }else if($row->crfex_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
+                $fontcolor = "color:#FFFFFF";
+            } else {
+                $fontcolor = "";
+                $bgcolor = "background-color:#D3D3D3;";
+            }
+
+            
+
+            $output .= '
+      <div class="card mt-3">
+      <div class="card-header" style="'.$bgcolor.'">
+            <div class="col-md-3 col-sm-12">
+                Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+            </div>
+            <div class="col-md-3 statustext">
+                Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
+            </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+            <p><label><b>Topic. :</b></label>&nbsp;' . $row->crfex_topic .'</p>
+            <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfex_cusnameEN . '</p>
+            </div>
+
+            <div class="col-md-6">
+            <label><b>Address : </b></label>&nbsp;' . $row->crfex_address . '
+            </div>
+
+            <div class="col-md-3">
+            <label><b>Sales Reps : </b></label>&nbsp;' . $row->crfex_salesreps . '
+            </div>
+        </div>
+
+      </div>
+    </div>
+      ';
+        }
+        $output .= '</table>';
+        return $output;
+    }
 
 
 
