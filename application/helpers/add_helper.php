@@ -246,3 +246,105 @@ function saveCustomersCode($crfid,$crfcusid)
     $obj->gci()->db->where("crfcus_id" , $crfcusid);
     $obj->gci()->db->update("crf_customers" , $arUpdateCuscode);
 }
+
+
+
+function exManagerApprove($crfexid)
+{
+    $obj = new addfn();
+    $arManager = array(
+        "crfex_mgrapp_status" => $obj->gci()->input->post("ex_mgrApprove"),
+        "crfex_mgrapp_detail" => $obj->gci()->input->post("ex_mgrApproveDetail"),
+        "crfex_mgrapp_username" => $obj->gci()->input->post("ex_mgrApproveName"),
+        "crfex_mgrapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_mgrApproveDateTime")),
+        "crfex_status" => "Manager approved"
+    );
+    $obj->gci()->db->where("crfex_id" , $crfexid);
+    $obj->gci()->db->update("crfex_maindata" , $arManager);
+}
+
+function exCsAddBr($crfexid)
+{
+    $obj = new addfn();
+    $arCs = array(
+        "crfex_brcode" => $obj->gci()->input->post("ex_csBrCode"),
+        "crfex_csmemo" => $obj->gci()->input->post("ex_csBrMemo"),
+        "crfex_csuserpost" => $obj->gci()->input->post("ex_csBrName"),
+        "crfex_csdatetime" => conDateTimeToDb($obj->gci()->input->post("excsBrDateTime")),
+        "crfex_status" => "CS Added BR CODE"
+    );
+    $obj->gci()->db->where("crfex_id" , $crfexid);
+    $obj->gci()->db->update("crfex_maindata" , $arCs);
+}
+
+
+function exAccMgrApprove($crfexid)
+{
+    $obj = new addfn();
+    $arAccMgr = array(
+        "crfex_accmgr_status" => $obj->gci()->input->post("ex_accMgrApprove"),
+        "crfex_accmgr_username" => $obj->gci()->input->post("ex_accMgrApproveName"),
+        "crfex_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_accMgrApproveDateTime")),
+        "crfex_accmgr_detail" => $obj->gci()->input->post("ex_accMgrApproveDetail"),
+        "crfex_status" => "Account Manager Approved"
+    );
+    $obj->gci()->db->where("crfex_id" , $crfexid);
+    $obj->gci()->db->update("crfex_maindata" , $arAccMgr);
+}
+
+function exDirectorApprove($crfexid)
+{
+    $obj = new addfn();
+if($obj->gci()->input->post("check_custype_direc") == 1){
+    // Maindata table
+    $arDirector = array(
+        "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
+        "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
+        "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
+        "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
+        "crfex_status" => "Director Approved"
+    );
+    $obj->gci()->db->where("crfex_id" , $crfexid);
+    $obj->gci()->db->update("crfex_maindata" , $arDirector);
+
+}else if($obj->gci()->input->post("check_custype_direc") == 2){
+
+}
+    
+
+
+    // Customer table
+
+}
+
+
+
+function exAccountAddCusCode($crfexid)
+{
+    $obj = new addfn();
+
+    // Maindata table
+    $arAccCusCodeMain = array(
+        "crfex_acccuscode" => $obj->gci()->input->post("ex_accCostomerCode"),
+        "crfex_accuserpost" => $obj->gci()->input->post("ex_accName"),
+        "crfex_accdatetime" => conDateTimeToDb($obj->gci()->input->post("ex_accDateTime")),
+        "crfex_accmemo" => $obj->gci()->input->post("ex_accMemo"),
+        "crfex_status" => "Complated"
+    );
+    $obj->gci()->db->where("crfex_id" , $crfexid);
+    $obj->gci()->db->update("crfex_maindata" , $arAccCusCodeMain);
+
+
+    
+    // Customer table
+    $arAccCusCode = array(
+        "crfex_cuscode" => $obj->gci()->input->post("ex_accCostomerCode"),
+        "crfex_usermodify" => $obj->gci()->input->post("ex_accName"),
+        "crfex_userecodemodify" => conDateTimeToDb($obj->gci()->input->post("crfex_userecodemodify")),
+        "crfex_userdeptcodemodify" => $obj->gci()->input->post("crfex_userdeptcodemodify"),
+        "crfex_datetimemodify" => $obj->gci()->input->post("ex_accDateTime")
+    );
+    $obj->gci()->db->where("crfex_cusid" , $obj->gci()->input->post("accCusCode_getCusid"));
+    $obj->gci()->db->update("crfex_customers" , $arAccCusCode);
+
+}

@@ -564,6 +564,121 @@ class Main extends MX_Controller
     }
 
 
+    public function viewdataEx($crfexid)
+    {
+        $data = array(
+            'username' => getUser()->Fname." ".getUser()->Lname,
+            'deptcode' => getUser()->DeptCode,
+            'deptname' => getUser()->Dept,
+            'ecode' => getUser()->ecode,
+            'posi' => getUser()->posi,
+            'datenow' => date("d-m-Y H:i:s"),
+            'formcode' => getFormCodeEN(),
+            'company' => viewdataEX($crfexid)->crfex_company,
+            'customertype' => viewdataEX($crfexid)->crfex_custype,
+            'datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
+            'customercode' => viewdataEX($crfexid)->crfex_cuscode,
+            'salesreps' => viewdataEX($crfexid)->crfex_salesreps,
+            'customernameEN' => viewdataEX($crfexid)->crfex_cusnameEN,
+            'customernameTH' => viewdataEX($crfexid)->crfex_cusnameTH,
+            'cusaddress' => viewdataEX($crfexid)->crfex_address,
+            'tel' => viewdataEX($crfexid)->crfex_tel,
+            'fax' => viewdataEX($crfexid)->crfex_fax,
+            'email' => viewdataEX($crfexid)->crfex_email,
+            'pcreditlimit' => viewdataEX($crfexid)->crfex_pcreditlimit,
+            'pterm' => viewdataEX($crfexid)->crfex_pterm,
+            'pdiscount' => viewdataEX($crfexid)->crfex_pdiscount,
+            'ccreditlimit' => viewdataEX($crfexid)->crfex_ccreditlimit,
+            'cterm' => viewdataEX($crfexid)->crfex_cterm,
+            'cdiscount' => viewdataEX($crfexid)->crfex_cdiscount,
+            'crfex_bg' => viewdataEX($crfexid)->crfex_bg,
+            'brcode' => viewdataEX($crfexid)->crfex_brcode,
+            'userpost' => viewdataEX($crfexid)->crfex_userpost,
+            'userdept' => viewdataEX($crfexid)->crfex_userdept,
+            'userdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_userdatetime),
+            'status' => viewdataEX($crfexid)->crfex_status,
+            'checkpage' => $this->uri->segment(2),
+            'exManagerApprove' => base_url('main/exManagerApprove/').$crfexid,
+            'show_crfex_mgrapp_status' => viewdataEX($crfexid)->crfex_mgrapp_status,
+            'show_crfex_mgrapp_detail' => viewdataEX($crfexid)->crfex_mgrapp_detail,
+            'show_crfex_mgrapp_username' => viewdataEX($crfexid)->crfex_mgrapp_username,
+            'show_crfex_mgrapp_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_mgrapp_datetime),
+            'exCsAddBr' => base_url('main/exCsAddBr/').$crfexid,
+            'crfex_csuserpost' => viewdataEX($crfexid)->crfex_csuserpost,
+            'crfex_csmemo' => viewdataEX($crfexid)->crfex_csmemo,
+            'crfex_csdept' => viewdataEX($crfexid)->crfex_csdept,
+            'crfex_csdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_csdatetime),
+            'exAccMgrApprove' => base_url('main/exAccMgrApprove/').$crfexid,
+            'crfex_accmgr_status' => viewdataEX($crfexid)->crfex_accmgr_status,
+            'crfex_accmgr_username' => viewdataEX($crfexid)->crfex_accmgr_username,
+            'crfex_accmgr_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accmgr_datetime),
+            'crfex_accmgr_detail' => viewdataEX($crfexid)->crfex_accmgr_detail,
+            'exDirectorApprove' => base_url('main/exDirectorApprove/').$crfexid,
+            'crfex_directorapp_status' => viewdataEX($crfexid)->crfex_directorapp_status,
+            'crfex_directorapp_username' => viewdataEX($crfexid)->crfex_directorapp_username,
+            'crfex_directorapp_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_directorapp_datetime),
+            'crfex_directorapp_detail' => viewdataEX($crfexid)->crfex_directorapp_detail,
+            'crfex_customerid' => viewdataEX($crfexid)->crfex_customerid,
+            'exAccountAddCusCode' => base_url('main/exAccountAddCusCode/').$crfexid,
+            'crfex_accmemo' => viewdataEX($crfexid)->crfex_accmemo,
+            'crfex_accuserpost' => viewdataEX($crfexid)->crfex_accuserpost,
+            'crfex_accdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accdatetime),
+            
+            
+        );
+
+        getHead();
+        getContentData('view_data_ex' , $data);
+        getFooter();
+    }
+
+
+
+    public function exManagerApprove($crfexid)
+    {
+        if(isset($_POST['ex_mgrSubmit'])){
+            $this->main->exManagerApprove($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
+
+    public function exCsAddBr($crfexid)
+    {
+        if(isset($_POST['ex_csSubmit'])){
+            $this->main->exCsAddBr($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
+
+    public function exAccMgrApprove($crfexid)
+    {
+        if(isset($_POST['ex_accManagerSubmit'])){
+            $this->main->exAccMgrApprove($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
+
+    public function exDirectorApprove($crfexid)
+    {
+        if(isset($_POST['ex_directorSubmit'])){
+            $this->main->exDirectorApprove($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
+
+    public function exAccountAddCusCode($crfexid)
+    {
+        if(isset($_POST['ex_accSubmit'])){
+            $this->main->exAccountAddCusCode($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
+
 
 
 

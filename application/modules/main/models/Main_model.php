@@ -1221,7 +1221,7 @@ class Main_model extends CI_Model
 
             $arcustomer = array(
                 "crfex_cusid" => $getCustomerNumber,
-                "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
+                "crfex_cusdatecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                 "crfex_salesreps" => $this->input->post("crfex_salesreps"),
                 "crfex_cusnameEN" => $this->input->post("crfex_cusnameEN"),
                 "crfex_cusnameTH" => $this->input->post("crfex_cusnameTH"),
@@ -1246,7 +1246,7 @@ class Main_model extends CI_Model
             $armaindata = array(
                 "crfex_formno" => $getFormNo,
                 "crfex_customerid" => $getCustomerNumber,
-                "crfex_company" => $this->input->post("crf_company"),
+                "crfex_company" => $this->input->post("crfex_company"),
                 "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                 "crfex_custype" => $this->input->post("crfex_custype"),
                 "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
@@ -1592,6 +1592,34 @@ class Main_model extends CI_Model
         }
         $output .= '</table>';
         return $output;
+    }
+
+
+
+
+    public function exManagerApprove($crfexid)
+    {
+        exManagerApprove($crfexid);
+    }
+
+    public function exCsAddBr($crfexid)
+    {
+        exCsAddBr($crfexid);
+    }
+
+    public function exAccMgrApprove($crfexid)
+    {
+        exAccMgrApprove($crfexid);
+    }
+
+    public function exDirectorApprove($crfexid)
+    {
+        exDirectorApprove($crfexid);
+    }
+
+    public function exAccountAddCusCode($crfexid)
+    {
+        exAccountAddCusCode($crfexid);
     }
 
 

@@ -391,3 +391,95 @@ function getFormBeforeSave($formno)
 
 
 
+
+
+
+// Export Zone
+function viewdataEX($crfexid)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crfex_maindata.crfex_id,
+    crfex_maindata.crfex_formno,
+    crfex_maindata.crfex_customerid,
+    crfex_maindata.crfex_company,
+    crfex_maindata.crfex_datecreate,
+    crfex_maindata.crfex_custype,
+    crfex_maindata.crfex_pcreditlimit,
+    crfex_maindata.crfex_pterm,
+    crfex_maindata.crfex_pdiscount,
+    crfex_maindata.crfex_ccreditlimit,
+    crfex_maindata.crfex_cterm,
+    crfex_maindata.crfex_cdiscount,
+    crfex_maindata.crfex_brcode,
+    crfex_maindata.crfex_userpost,
+    crfex_maindata.crfex_userdept,
+    crfex_maindata.crfex_userdatetime,
+    crfex_maindata.crfex_status,
+    crfex_maindata.crfex_csuserpost,
+    crfex_maindata.crfex_csmemo,
+    crfex_maindata.crfex_csdept,
+    crfex_maindata.crfex_csdatetime,
+    crfex_maindata.crfex_mgrapp_status,
+    crfex_maindata.crfex_mgrapp_username,
+    crfex_maindata.crfex_mgrapp_datetime,
+    crfex_maindata.crfex_mgrapp_detail,
+    crfex_maindata.crfex_accmgr_status,
+    crfex_maindata.crfex_accmgr_username,
+    crfex_maindata.crfex_accmgr_datetime,
+    crfex_maindata.crfex_accmgr_detail,
+    crfex_maindata.crfex_directorapp_status,
+    crfex_maindata.crfex_directorapp_username,
+    crfex_maindata.crfex_directorapp_datetime,
+    crfex_maindata.crfex_directorapp_detail,
+    crfex_maindata.crfex_accmemo,
+    crfex_maindata.crfex_accuserpost,
+    crfex_maindata.crfex_accdatetime,
+    crfex_maindata.crfex_report_date,
+    crfex_maindata.crfex_report_month,
+    crfex_maindata.crfex_report_year,
+    crfex_maindata.crfex_topic,
+    crfex_customers.crfex_cuscode,
+    crfex_customers.crfex_cusdatecreate,
+    crfex_customers.crfex_salesreps,
+    crfex_customers.crfex_cusnameEN,
+    crfex_customers.crfex_cusnameTH,
+    crfex_customers.crfex_address,
+    crfex_customers.crfex_file,
+    crfex_customers.crfex_tel,
+    crfex_customers.crfex_fax,
+    crfex_customers.crfex_email,
+    crfex_customers.crfex_creditlimit,
+    crfex_customers.crfex_term,
+    crfex_customers.crfex_discount,
+    crfex_customers.crfex_bg,
+    crfex_customers.crfex_his_month1,
+    crfex_customers.crfex_his_tvolume1,
+    crfex_customers.crfex_histsales1,
+    crfex_customers.crfex_his_month2,
+    crfex_customers.crfex_his_tvolume2,
+    crfex_customers.crfex_histsales2,
+    crfex_customers.crfex_his_month3,
+    crfex_customers.crfex_his_tvolume3,
+    crfex_customers.crfex_histsales3,
+    crfex_customers.crfex_usercreate,
+    crfex_customers.crfex_userecode,
+    crfex_customers.crfex_userdeptcode,
+    crfex_customers.crfex_userdatetime,
+    crfex_customers.crfex_usermodify,
+    crfex_customers.crfex_userecodemodify,
+    crfex_customers.crfex_userdeptcodemodify,
+    crfex_customers.crfex_datetimemodify,
+    crf_alltype.crf_alltype_subnameEN
+    FROM
+    crfex_maindata
+    INNER JOIN crfex_customers ON crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid
+    INNER JOIN crf_alltype ON crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype
+    WHERE crfex_id = '$crfexid';
+    ");
+    return $query->row();
+}
+
+
+
+

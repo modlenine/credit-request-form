@@ -2538,7 +2538,99 @@ if($(this).val() == 1){
 
 
 
+}
 
+});
+
+
+
+
+// Control view export page
+if($('#checkPage').val() == 'viewdataEx'){
+
+    $('#crf_company_sln_view , #crf_company_poly_view , #crf_company_ca_view').attr('onclick' , 'return false');
+
+    if($('#check_crf_company').val() == 'sln'){
+        $('#crf_company_sln_view').prop('checked' , true);
+    }else if($('#check_crf_company').val() == 'poly'){
+        $('#crf_company_poly_view').prop('checked' , true);
+    }else if($('#check_crf_company').val() == 'ca'){
+        $('#crf_company_ca_view').prop('checked' , true);
+    }
+    // End check company
+
+    if($('#check_crfex_custype').val() == 1){
+        $('#crfex_custype1').prop('checked' , true);
+    }else if($('#check_crfex_custype').val() == 2){
+        $('#crfex_custype2').prop('checked' , true);
+    }
+    $('#crfex_custype1 , #crfex_custype2').attr('onclick' , 'return false');
+
+
+
+// Control Approve Section
+var checkStatus = $('#checkStatusView').val();
+var checkUserDeptView = $('#checkUserDeptView').val();
+var checkCusType = $('#checkCusType').val();
+var checkCusPosi = $('#checkCusPosi').val();
+
+if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75){
+    $('.managerSection').css('display' , '');
+}else if(checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
+    $('.managerSection').css('display' , 'none');
+    $('.managerSection1').css('display' , '');
+
+    $('#ex_mgrApprove1 , #ex_mgrApprove2').attr('onclick' , 'return false');
+    if($('#show_crfex_mgrapp_status').val() == "Approve"){
+        $('#ex_mgrApprove1').prop('checked' , true);
+    }else{
+        $('#ex_mgrApprove2').prop('checked' , true);
+    }
+}
+
+if(checkStatus == 'Manager approved' && checkUserDeptView == 1010){
+    $('.csAddBrDection').css('display' , '');
+}else if(checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
+    $('.csAddBrDection1').css('display' , '');
+}
+
+
+if(checkStatus == 'CS Added BR CODE' && checkUserDeptView == 1003 && checkCusPosi > 55){
+    $('.accManagerApprove').css('display' , '');
+}else if(checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
+    $('.accManagerApprove1').css('display' , '');
+}
+
+
+// Control account manager approve section
+$('#ex_accMgrApprove1 , #ex_accMgrApprove2').attr('onclick' , 'return false');
+if($('#check_ex_accMgrApprove').val() == 'Approve'){
+    $('#ex_accMgrApprove1').prop('checked' , true);
+}else if ($('#check_ex_accMgrApprove').val() == 'Not approve'){
+    $('#ex_accMgrApprove2').prop('checked' , true);
+}
+
+
+// Control director approve section
+if(checkStatus == 'Account Manager Approved' && checkCusPosi > 75){
+    $('.directorApprove').css('display' , '');
+}else if(checkStatus == 'Director Approved' || checkStatus == 'Complated'){
+    $('.directorApprove1').css('display' , '');
+}
+
+if($('#check_director_status').val() == 'Approve'){
+    $('#ex_directorApprove1').prop('checked' , true);
+}else if($('#check_director_status').val() == 'Not approve'){
+    $('#ex_directorApprove2').prop('checked' , true);
+}
+
+
+// Control account staff when add new customer
+if(checkStatus == 'Director Approved' && checkUserDeptView == 1003){
+    $('.accAddCustomerCode').css('display' , '');
+}else if(checkStatus == 'Complated'){
+    $('.accAddCustomerCode1').css('display' , '');
+}
 
 
 
@@ -2551,19 +2643,7 @@ if($(this).val() == 1){
 
 
 }
-
-
-
-
-
-
-
-
-});
-
-
-
-
+// End check page
 
 
 
