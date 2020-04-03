@@ -174,8 +174,9 @@
 
 	function load_data_byCompany(page, companyName) {
 		$.ajax({
-			url: "<?php echo base_url(); ?>main/paginationByCompany/" + page + "/" + companyName,
-			method: "GET",
+			url: "<?php echo base_url(); ?>main/paginationByCompany/" + page ,
+			method: "POST",
+			data:{companyName:companyName},
 			dataType: "json",
 			success: function(data) {
 				$('#country_table').html(data.country_table);

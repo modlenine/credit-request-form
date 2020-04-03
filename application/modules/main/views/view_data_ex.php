@@ -17,9 +17,9 @@
 
         <!-- Check all data for control page -->
         <input hidden type="text" name="checkStatusView" id="checkStatusView" value="{status}">
-        <input type="text" name="checkUserDeptView" id="checkUserDeptView" value="{deptcode}">
-        <input type="text" name="checkCusType" id="checkCusType" value="{customertype}">
-        <input type="text" name="checkCusPosi" id="checkCusPosi" value="{posi}">
+        <input hidden type="text" name="checkUserDeptView" id="checkUserDeptView" value="{deptcode}">
+        <input hidden type="text" name="checkCusType" id="checkCusType" value="{customertype}">
+        <input hidden type="text" name="checkCusPosi" id="checkCusPosi" value="{posi}">
 
         <hr>
 
@@ -472,6 +472,7 @@
             <!-- Director apparove zone -->
             <form action="{exDirectorApprove}" method="POST" name="" class="directorApprove" style="display:none;">
             <input type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
+            <input type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
                 <hr>
                 <h6><b><u>FOR DIRECTOR</u></b></h6>
                 <div class="row form-group">
@@ -485,11 +486,13 @@
                         <textarea name="ex_directorApproveDetail" id="ex_directorApproveDetail" cols="30" rows="3" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="">Account Manager Approver.</label>
+                        <label for="">Director Approver.</label>
                         <input readonly type="text" name="ex_directorApproveName" id="ex_directorApproveName" class="form-control form-control-sm" value="{username}">
                         <input readonly type="text" name="ex_directorApproveDateTime" id="ex_directorApproveDateTime" class="form-control form-control-sm mt-1" value="{datenow}">
                     </div>
                 </div>
+
+
                 <div class="row form-group ">
                     <div class="col-md-4"></div>
                     <div class="col-md-4"></div>
@@ -514,7 +517,7 @@
                         <textarea readonly name="ex_directorApproveDetail" id="ex_directorApproveDetail" cols="30" rows="3" class="form-control form-control-sm">{crfex_directorapp_detail}</textarea>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="">Account Manager Approver.</label>
+                        <label for="">Director Approver.</label>
                         <input readonly type="text" name="ex_directorApproveName" id="ex_directorApproveName" class="form-control form-control-sm" value="{crfex_directorapp_username}">
                         <input readonly type="text" name="ex_directorApproveDateTime" id="ex_directorApproveDateTime" class="form-control form-control-sm mt-1" value="{crfex_directorapp_datetime}">
                     </div>

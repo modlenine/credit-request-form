@@ -523,14 +523,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crf_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
-                $fontcolor = "color:#FFFFFF";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
             }else if($row->crf_status == "Complated"){
                 $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             if($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated"){
@@ -552,10 +552,10 @@ class Main_model extends CI_Model
                 เลขที่คำขอ &nbsp;<a href="' . base_url('main/viewdata/') . $row->crf_id . '">' . $row->crf_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                วันที่สร้างรายการ : &nbsp;<span style="">' . conDateFromDb($row->crf_datecreate) . '</span>
+                วันที่สร้างรายการ : &nbsp;<span style="'.$fontcolor.'">' . conDateFromDb($row->crf_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                ประเภทลูกค้า : &nbsp;<span style="">' . $row->crf_alltype_subname . '</span>
+                ประเภทลูกค้า : &nbsp;<span style="'.$fontcolor.'">' . $row->crf_alltype_subname . '</span>
             </div>
             <div class="col-md-3 statustext">
                 สถานะ : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_status . '</span>
@@ -614,11 +614,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crf_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
+            }else if($row->crf_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             if($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated"){
@@ -702,11 +705,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crf_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
+            }else if($row->crf_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             if($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated"){
@@ -771,7 +777,7 @@ class Main_model extends CI_Model
         $this->db->select("crfcus_name");
         $this->db->from("crf_maindata");
         $this->db->join('crf_customers', 'crf_customers.crfcus_id = crf_maindata.crf_cuscode');
-        $this->db->like("crfcus_name" , $companyname , 'both');
+        $this->db->like("crfcus_name" , $companyname);
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -784,7 +790,7 @@ class Main_model extends CI_Model
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
         $this->db->join('crf_customers', 'crf_customers.crfcus_id = crf_maindata.crf_cuscode');
         $this->db->join('crf_suboldcus', 'crf_suboldcus.crfsubold_id = crf_maindata.crf_sub_oldcus_changearea');
-        $this->db->like("crfcus_name" , $companyname , 'both');
+        $this->db->like("crfcus_name" , $companyname);
         $this->db->order_by("crf_formno", "DESC");
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -792,11 +798,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crf_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
+            }else if($row->crf_status == "Complated"){
+                $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             if($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated"){
@@ -1062,6 +1071,90 @@ class Main_model extends CI_Model
         echo $output;
     }
 
+
+
+    public function searchCustomerDetailEx()
+    {
+        $cusCode = "";
+        $cusCode = $this->input->post("cusCode");
+        $query = $this->db->query("SELECT
+        crfex_customers.crfex_cusid,
+        crfex_customers.crfex_cuscode,
+        crfex_customers.crfex_cusdatecreate,
+        crfex_customers.crfex_salesreps,
+        crfex_customers.crfex_cusnameEN,
+        crfex_customers.crfex_cusnameTH,
+        crfex_customers.crfex_address,
+        crfex_customers.crfex_file,
+        crfex_customers.crfex_tel,
+        crfex_customers.crfex_fax,
+        crfex_customers.crfex_email,
+        crfex_customers.crfex_creditlimit,
+        crfex_customers.crfex_term,
+        crfex_customers.crfex_discount,
+        crfex_customers.crfex_bg,
+        crfex_customers.crfex_his_month1,
+        crfex_customers.crfex_his_tvolume1,
+        crfex_customers.crfex_histsales1,
+        crfex_customers.crfex_his_month2,
+        crfex_customers.crfex_his_tvolume2,
+        crfex_customers.crfex_histsales2,
+        crfex_customers.crfex_his_month3,
+        crfex_customers.crfex_his_tvolume3,
+        crfex_customers.crfex_histsales3,
+        crfex_customers.crfex_usercreate,
+        crfex_customers.crfex_userecode,
+        crfex_customers.crfex_userdeptcode,
+        crfex_customers.crfex_userdatetimecreate,
+        crfex_customers.crfex_usermodify,
+        crfex_customers.crfex_userecodemodify,
+        crfex_customers.crfex_userdeptcodemodify,
+        crfex_customers.crfex_datetimemodify
+        FROM
+        crfex_customers
+        WHERE crfex_cuscode LIKE '$cusCode%' ORDER BY crfex_cuscode DESC
+        ");
+
+
+$output = "";
+        foreach ($query->result() as $rs) {
+            $output .= "<ul class='list-group'>";
+            $output .= "<a href='javascript:void(0)' class='selectCusCodeEx' 
+            data_crfex_salesreps = '$rs->crfex_salesreps'
+            data_crfex_cusnameEN = '$rs->crfex_cusnameEN'
+            data_crfex_cusnameTH = '$rs->crfex_cusnameTH'
+            data_crfex_address = '$rs->crfex_address'
+            data_crfex_tel = '$rs->crfex_tel'
+            data_crfex_fax = '$rs->crfex_fax'
+            data_crfex_email = '$rs->crfex_email'
+            data_crfex_file = '$rs->crfex_file'
+            data_crfex_creditlimit = '$rs->crfex_creditlimit'
+            data_crfex_term = '$rs->crfex_term'
+            data_crfex_discount = '$rs->crfex_discount'
+            data_crfex_bg = '$rs->crfex_bg'
+            data_crfex_cuscode = '$rs->crfex_cuscode'
+            data_crfex_cusid = '$rs->crfex_cusid'
+
+            ><li class='list-group-item'>" . $rs->crfex_cuscode . "</li></a>";
+            $output .= "</ul>";
+        }
+
+        echo $output;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Process Use Section
     public function queryProcessUse()
     {
@@ -1237,7 +1330,7 @@ class Main_model extends CI_Model
                 "crfex_usercreate" => $this->input->post("crfex_usercreate"),
                 "crfex_userecode" => $this->input->post("crfex_userecode"),
                 "crfex_userdeptcode" => $this->input->post("crfex_userdeptcode"),
-                "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime"))
+                "crfex_userdatetimecreate" => conDateTimeToDb($this->input->post("crfex_userdatetime"))
             );
             
 
@@ -1271,6 +1364,91 @@ class Main_model extends CI_Model
 
 
         }else if($this->input->post("crfex_custype") == 2){
+
+            if($this->input->post("crfex_curcustopic") == 11){
+
+                if ($_FILES["crfex_file"]["name"] != "") {
+                    $file = "crfex_file";
+                    $fileType = "Document";
+                    $this->uploadFiles($file, $fileType);
+                    $resultFile = $this->uploadFiles($file, $fileType);
+                } else {
+                    $resultFile = "";
+                    echo "Not found document !<br>";
+                }
+
+                $armaindata = array(
+                    "crfex_formno" => $getFormNo,
+                    "crfex_customerid" => $this->input->post("getCusid"),
+                    "crfex_company" => $this->input->post("crfex_company"),
+                    "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
+                    "crfex_custype" => $this->input->post("crfex_custype"),
+                    "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                    "crfex_pterm" => $this->input->post("crfex_term"),
+                    "crfex_pdiscount" => $this->input->post("crfex_discount"),
+                    "crfex_userpost" => $this->input->post("crfex_usercreate"),
+                    "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
+                    "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
+                    "crfex_status" => "Open",
+                    "crfex_report_date" => $report_date,
+                    "crfex_report_month" => $report_month,
+                    "crfex_report_year" => $report_year,
+                    "crfex_topic" => "Change customer information.",
+                    "crfex_methodcurcus" => $this->input->post("crfex_curcustopic"),
+                    "crfexm_salesreps" => $this->input->post("crfex_salesreps"),
+                    "crfexm_cusnameEN" => $this->input->post("crfex_cusnameEN"),
+                    "crfexm_cusnameTH" => $this->input->post("crfex_cusnameTH"),
+                    "crfexm_address" => $this->input->post("crfex_address"),
+                    "crfexm_file" => $resultFile,
+                    "crfexm_tel" => $this->input->post("crfex_tel"),
+                    "crfexm_fax" => $this->input->post("crfex_fax"),
+                    "crfexm_email" => $this->input->post("crfex_email"),
+                    "crfexm_creditlimit" => $this->input->post("crfex_creditlimit2"),
+                    "crfexm_term" => $this->input->post("crfex_term2"),
+                    "crfexm_discount" => $this->input->post("crfex_discount2"),
+                    "crfexm_bg" => $this->input->post("crfex_combg")
+                );
+                $this->db->insert("crfex_maindata" , $armaindata);
+
+            }else if ($this->input->post("crfex_curcustopic") == 12){
+
+                $armaindata = array(
+                    "crfex_formno" => $getFormNo,
+                    "crfex_customerid" => $this->input->post("getCusid"),
+                    "crfex_company" => $this->input->post("crfex_company"),
+                    "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
+                    "crfex_custype" => $this->input->post("crfex_custype"),
+                    // "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                    // "crfex_pterm" => $this->input->post("crfex_term"),
+                    // "crfex_pdiscount" => $this->input->post("crfex_discount"),
+                    "crfex_userpost" => $this->input->post("crfex_usercreate"),
+                    "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
+                    "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
+                    "crfex_status" => "Open",
+                    "crfex_report_date" => $report_date,
+                    "crfex_report_month" => $report_month,
+                    "crfex_report_year" => $report_year,
+                    "crfex_topic" => "Change credit & term.",
+                    "crfex_methodcurcus" => $this->input->post("crfex_curcustopic"),
+                    "crfexm_salesreps" => $this->input->post("crfex_salesreps"),
+                    "crfexm_cusnameEN" => $this->input->post("crfex_cusnameEN"),
+                    "crfexm_cusnameTH" => $this->input->post("crfex_cusnameTH"),
+                    "crfexm_address" => $this->input->post("crfex_address"),
+                    "crfexm_tel" => $this->input->post("crfex_tel"),
+                    "crfexm_fax" => $this->input->post("crfex_fax"),
+                    "crfexm_email" => $this->input->post("crfex_email"),
+                    "crfexm_creditlimit" => $this->input->post("crfex_creditlimit2"),
+                    "crfexm_term" => $this->input->post("crfex_term2"),
+                    "crfexm_discount" => $this->input->post("crfex_discount2"),
+                    "crfexm_bg" => $this->input->post("crfex_combg"),
+                    "crfexm_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                    "crfexm_pterm" => $this->input->post("crfex_term"),
+                    "crfexm_pdiscount" => $this->input->post("crfex_discount")
+                );
+                $this->db->insert("crfex_maindata" , $armaindata);
+
+            }
+
             return 1;
         }else{
             return 2;
@@ -1300,14 +1478,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crfex_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
-                $fontcolor = "color:#FFFFFF";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
             }else if($row->crfex_status == "Complated"){
                 $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             
@@ -1319,10 +1497,10 @@ class Main_model extends CI_Model
                 Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+                Date create. : &nbsp;<span style="' . $fontcolor . '">' . conDateFromDb($row->crfex_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+                Customer Type : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_alltype_subnameEN . '</span>
             </div>
             <div class="col-md-3 statustext">
                 Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
@@ -1380,14 +1558,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crfex_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
-                $fontcolor = "color:#FFFFFF";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
             }else if($row->crfex_status == "Complated"){
                 $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             
@@ -1399,10 +1577,10 @@ class Main_model extends CI_Model
                 Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+                Date create. : &nbsp;<span style="' . $fontcolor . '">' . conDateFromDb($row->crfex_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+                Customer Type : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_alltype_subnameEN . '</span>
             </div>
             <div class="col-md-3 statustext">
                 Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
@@ -1460,14 +1638,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crfex_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
-                $fontcolor = "color:#FFFFFF";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
             }else if($row->crfex_status == "Complated"){
                 $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             
@@ -1479,10 +1657,10 @@ class Main_model extends CI_Model
                 Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+                Date create. : &nbsp;<span style="' . $fontcolor . '">' . conDateFromDb($row->crfex_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+                Customer Type : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_alltype_subnameEN . '</span>
             </div>
             <div class="col-md-3 statustext">
                 Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>
@@ -1522,7 +1700,7 @@ class Main_model extends CI_Model
         $this->db->select("crfex_cusnameEN");
         $this->db->from("crfex_maindata");
         $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
-        $this->db->like("crfex_cusnameEN" , $companyname , 'both');
+        $this->db->like("crfex_cusnameEN" , $companyname );
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -1534,7 +1712,7 @@ class Main_model extends CI_Model
         $this->db->from("crfex_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
         $this->db->join('crfex_customers', 'crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid');
-        $this->db->like("crfex_cusnameEN" , $companyname , 'both');
+        $this->db->like("crfex_cusnameEN" , $companyname);
         $this->db->order_by("crfex_formno", "DESC");
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -1542,14 +1720,14 @@ class Main_model extends CI_Model
         foreach ($query->result() as $row) {
 
             if ($row->crfex_status == "Open") {
-                $bgcolor = "background-color:#33CCFF;";
-                $fontcolor = "color:#FFFFFF";
+                $bgcolor = "background-color:#bccbd0;";
+                $fontcolor = "color:#777777";
             }else if($row->crfex_status == "Complated"){
                 $bgcolor = "background-color:#32CD32;";
                 $fontcolor = "color:#FFFFFF";
             } else {
-                $fontcolor = "";
-                $bgcolor = "background-color:#D3D3D3;";
+                $fontcolor = "color:#777777";
+                $bgcolor = "background-color:#bccbd0;";
             }
 
             
@@ -1561,10 +1739,10 @@ class Main_model extends CI_Model
                 Form no. &nbsp;<a href="' . base_url('main/viewdataEx/') . $row->crfex_id . '">' . $row->crfex_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                Date create. : &nbsp;<span style="">' . conDateFromDb($row->crfex_datecreate) . '</span>
+                Date create. : &nbsp;<span style="' . $fontcolor . '">' . conDateFromDb($row->crfex_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                Customer Type : &nbsp;<span style="">' . $row->crf_alltype_subnameEN . '</span>
+                Customer Type : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_alltype_subnameEN . '</span>
             </div>
             <div class="col-md-3 statustext">
                 Status : &nbsp;<span style="' . $fontcolor . '">' . $row->crfex_status . '</span>

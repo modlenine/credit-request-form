@@ -25,6 +25,21 @@ function autoSearchCustomerDetail(cusCode)
 }
 
 
+function autoSearchCustomerDetailEx(cusCode)
+{
+	$.ajax({
+        url:'main/searchCustomerDetailEx',
+        method:'POST',
+        data:{
+            cusCode: cusCode
+        },
+        success:function(data){
+			$('#autoCusCodeEx').html(data);
+        }
+    });
+}
+
+
 function setChecked(targetval)
 {
 	$('input:checkbox[name="crf_process"]').each(function(){

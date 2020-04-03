@@ -2538,7 +2538,61 @@ if($(this).val() == 1){
 
 
 
+    // Get Old customer information to form when keyup
+$('#crfex_customercode').on('keyup', function () {
+    var cusCode = $(this).val();
+    if (cusCode != '') {
+        autoSearchCustomerDetailEx(cusCode);
+    } else {
+        $('#autoCusCodeEx').html('')
+    }
+
+});
+
+$(document).on('click', '.selectCusCodeEx', function () {
+
+    var data_crfex_salesreps = $(this).attr('data_crfex_salesreps');
+    var data_crfex_cusnameEN = $(this).attr('data_crfex_cusnameEN');
+    var data_crfex_cusnameTH = $(this).attr('data_crfex_cusnameTH');
+    var data_crfex_address = $(this).attr('data_crfex_address');
+    var data_crfex_tel = $(this).attr('data_crfex_tel');
+    var data_crfex_fax = $(this).attr('data_crfex_fax');
+    var data_crfex_email = $(this).attr('data_crfex_email');
+    var data_crfex_file = $(this).attr('data_crfex_file');
+    var data_crfex_creditlimit = $(this).attr('data_crfex_creditlimit');
+    var data_crfex_term = $(this).attr('data_crfex_term');
+    var data_crfex_discount = $(this).attr('data_crfex_discount');
+    var data_crfex_bg = $(this).attr('data_crfex_bg');
+    var data_crfex_cuscode = $(this).attr('data_crfex_cuscode');
+    var data_crfex_cusid = $(this).attr('data_crfex_cusid');
+
+
+    $('#crfex_salesreps').val(data_crfex_salesreps);
+    $('#crfex_cusnameEN').val(data_crfex_cusnameEN);
+    $('#crfex_cusnameTH').val(data_crfex_cusnameTH);
+    $('#crfex_address').val(data_crfex_address);
+    $('#crfex_tel').val(data_crfex_tel);
+    $('#crfex_fax').val(data_crfex_fax);
+    $('#crfex_email').val(data_crfex_email);
+    $('#crfex_fileShow').text(data_crfex_file);
+    $('#crfex_creditlimit2').val(data_crfex_creditlimit);
+    $('#crfex_term2').val(data_crfex_term);
+    $('#crfex_discount2').val(data_crfex_discount);
+    $('#crfex_combg').val(data_crfex_bg);
+    $('#crfex_customercode').val(data_crfex_cuscode).prop('readonly' , true);
+    $('#getCusid').val(data_crfex_cusid);
+
+
+
+    $('#autoCusCodeEx').html('')
+
+});
+
+
+
+
 }
+// End Section current customer
 
 });
 
@@ -2576,6 +2630,15 @@ var checkCusPosi = $('#checkCusPosi').val();
 
 if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75){
     $('.managerSection').css('display' , '');
+    $('#ex_mgrSubmit').prop('disabled' , true);
+    $('input:radio[name="ex_mgrApprove"]').click(function(){
+        if($(this).val() != '')
+        {
+            $('#ex_mgrSubmit').prop('disabled' , false);
+        }else{
+            $('#ex_mgrSubmit').prop('disabled' , true);
+        }
+    });
 }else if(checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
     $('.managerSection').css('display' , 'none');
     $('.managerSection1').css('display' , '');
@@ -2589,15 +2652,34 @@ if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || c
 }
 
 if(checkStatus == 'Manager approved' && checkUserDeptView == 1010){
-    $('.csAddBrDection').css('display' , '');
+    if(checkCusType == 2){
+        $('.csAddBrDection').remove();
+    }else{
+        $('.csAddBrDection').css('display' , '');
+    }
 }else if(checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
-    $('.csAddBrDection1').css('display' , '');
+    if(checkCusType == 2){
+        $('.csAddBrDection1').remove();
+    }else{
+        $('.csAddBrDection1').css('display' , '');
+    }
 }
 
 
 if(checkStatus == 'CS Added BR CODE' && checkUserDeptView == 1003 && checkCusPosi > 55){
     $('.accManagerApprove').css('display' , '');
-}else if(checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
+}else if(checkStatus == 'Manager approved' && checkUserDeptView == 1003 && checkCusPosi > 55){
+    $('.accManagerApprove').css('display' , '');
+    $('#ex_accManagerSubmit').prop('disabled' , true);
+    $('input:radio[name="ex_accMgrApprove"]').click(function(){
+        if($(this).val() != ''){
+            $('#ex_accManagerSubmit').prop('disabled' , false);
+        }else{
+            $('#ex_accManagerSubmit').prop('disabled' , true);
+        }
+    });
+}
+else if(checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
     $('.accManagerApprove1').css('display' , '');
 }
 
@@ -2614,6 +2696,14 @@ if($('#check_ex_accMgrApprove').val() == 'Approve'){
 // Control director approve section
 if(checkStatus == 'Account Manager Approved' && checkCusPosi > 75){
     $('.directorApprove').css('display' , '');
+    $('#ex_directorSubmit').prop('disabled' , true);
+    $('input:radio[name="ex_directorApprove"]').click(function (){
+        if($(this).val() != ''){
+            $('#ex_directorSubmit').prop('disabled' , false);
+        }else{
+            $('#ex_directorSubmit').prop('disabled' , true);
+        }
+    });
 }else if(checkStatus == 'Director Approved' || checkStatus == 'Complated'){
     $('.directorApprove1').css('display' , '');
 }
@@ -2629,21 +2719,20 @@ if($('#check_director_status').val() == 'Approve'){
 if(checkStatus == 'Director Approved' && checkUserDeptView == 1003){
     $('.accAddCustomerCode').css('display' , '');
 }else if(checkStatus == 'Complated'){
-    $('.accAddCustomerCode1').css('display' , '');
+    if(checkCusType == 2){
+        $('.accAddCustomerCode1').remove();
+    }else{
+        $('.accAddCustomerCode1').css('display' , '');
+    }
+    
 }
-
-
-
-
-
-
-
-
-
 
 
 }
 // End check page
+
+
+
 
 
 

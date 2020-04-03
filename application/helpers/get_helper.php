@@ -465,18 +465,42 @@ function viewdataEX($crfexid)
     crfex_customers.crfex_usercreate,
     crfex_customers.crfex_userecode,
     crfex_customers.crfex_userdeptcode,
-    crfex_customers.crfex_userdatetime,
+    crfex_customers.crfex_userdatetimecreate,
     crfex_customers.crfex_usermodify,
     crfex_customers.crfex_userecodemodify,
     crfex_customers.crfex_userdeptcodemodify,
     crfex_customers.crfex_datetimemodify,
-    crf_alltype.crf_alltype_subnameEN
+    crf_alltype.crf_alltype_subnameEN,
+    crfex_maindata.crfexm_salesreps,
+    crfex_maindata.crfexm_cusnameEN,
+    crfex_maindata.crfexm_cusnameTH,
+    crfex_maindata.crfexm_address,
+    crfex_maindata.crfexm_file,
+    crfex_maindata.crfexm_tel,
+    crfex_maindata.crfexm_fax,
+    crfex_maindata.crfexm_email,
+    crfex_maindata.crfexm_creditlimit,
+    crfex_maindata.crfexm_term,
+    crfex_maindata.crfexm_discount,
+    crfex_maindata.crfexm_bg,
+    crfex_maindata.crfex_methodcurcus,
+    crfex_maindata.crfexm_pcreditlimit,
+    crfex_maindata.crfexm_pterm,
+    crfex_maindata.crfexm_pdiscount
     FROM
     crfex_maindata
     INNER JOIN crfex_customers ON crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid
     INNER JOIN crf_alltype ON crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype
-    WHERE crfex_id = '$crfexid';
+    WHERE crfex_id = '$crfexid'
     ");
+    return $query->row();
+}
+
+
+function getMethodCus($crfexid)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT crfex_methodcurcus FROM crfex_maindata WHERE crfex_id = '$crfexid' ");
     return $query->row();
 }
 

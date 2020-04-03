@@ -26,7 +26,7 @@
                 </div>
 
 
-<div id="alert_crfex_company"></div>
+                <div id="alert_crfex_company"></div>
                 <div class="row form-group mt-3 p-2">
                     <div class="col-md-4 form-group">
                         <div class="form-check">
@@ -71,10 +71,10 @@
                         </select>
                         <div id="alert_crfex_topic"></div>
                     </div>
-                    
+
                 </div>
 
-
+                <input hidden type="text" name="getCusid" id="getCusid">
                 <div class="row form-group">
                     <div class="col-md-4">
                         <label for="">Date</label>
@@ -83,7 +83,9 @@
                     <div class="col-md-4">
                         <label for="">Customer code</label>
                         <input type="text" name="crfex_customercode" id="crfex_customercode" class="form-control form-control-sm">
+                        <div id="autoCusCodeEx"></div>
                     </div>
+                    
                     <div class="col-md-4">
                         <label for="">Sales Reps</label>
                         <input type="text" name="crfex_salesreps" id="crfex_salesreps" class="form-control form-control-sm">
@@ -140,7 +142,7 @@
                     </div>
                     <div class="col-md-6 crfex_oldfile">
                         <label for="">File upload</label>
-                        <span></span>
+                        <span id="crfex_fileShow"></span>
                     </div>
                 </div>
 
@@ -221,7 +223,7 @@
                 <label for="">History sales record ( previous 3 months )</label>
                 <div class="row form-group">
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_his_month1" id="crfex_his_month1" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2"></span>
@@ -237,7 +239,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_histsales1" id="crfex_histsales1" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
@@ -247,7 +249,7 @@
 
 
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_his_month2" id="crfex_his_month2" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2"></span>
@@ -263,7 +265,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_histsales2" id="crfex_histsales2" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
@@ -272,7 +274,7 @@
                     </div>
 
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_his_month3" id="crfex_his_month3" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2"></span>
@@ -288,7 +290,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <input name="crfex_histsales3" id="crfex_histsales3" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>

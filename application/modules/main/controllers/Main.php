@@ -199,7 +199,8 @@ class Main extends MX_Controller
     {
         //  $this->load->model("ajax_pagination_model");
         //  $this->load->library("pagination");
-        $companyname = $this->uri->segment(4);
+        $companyname = "";
+        $companyname =$this->input->post("companyName");
 
         $config = array();
         $config["base_url"] = "#";
@@ -317,6 +318,10 @@ class Main extends MX_Controller
     {
         $this->main->searchCustomerDetail();
     }
+    public function searchCustomerDetailEx()
+    {
+        $this->main->searchCustomerDetailEx();
+    }
 
     public function queryProcessUse()
     {
@@ -345,21 +350,29 @@ class Main extends MX_Controller
     // Export Zone // Export Zone // Export Zone // Export Zone // Export Zone // Export Zone
     public function addEx()
     {
-        $data = array(
-            'username' => getUser()->Fname." ".getUser()->Lname,
-            'deptcode' => getUser()->DeptCode,
-            'deptname' => getUser()->Dept,
-            'ecode' => getUser()->ecode,
-            'datenow' => date("d-m-Y H:i:s"),
-            'formcode' => getFormCodeEN(),
-            'test' => array(
-                array('title' => 'Title1' , 'body' => 'Body1'),
-                array('title' => 'Title2' , 'body' => 'Body2')
-            )
-        );
-        getHead();
-        getContentData('add_en' , $data);
-        getFooter();
+        callLogin();
+        if(getUser()->DeptCode == 1006 || getUser()->DeptCode == 1010){
+            $data = array(
+                'username' => getUser()->Fname . " " . getUser()->Lname,
+                'deptcode' => getUser()->DeptCode,
+                'deptname' => getUser()->Dept,
+                'ecode' => getUser()->ecode,
+                'datenow' => date("d-m-Y H:i:s"),
+                'formcode' => getFormCodeEN(),
+                'test' => array(
+                    array('title' => 'Title1', 'body' => 'Body1'),
+                    array('title' => 'Title2', 'body' => 'Body2')
+                )
+            );
+            getHead();
+            getContentData('add_en', $data);
+            getFooter();
+        }else{
+            echo "<script>alert('Sorry you can not access to this page , Please contact admin !')</script>";
+            header("refresh:0; url=" . base_url('main/listex'));
+            die();
+        }
+       
     }
 
     public function savedataEX()
@@ -566,8 +579,57 @@ class Main extends MX_Controller
 
     public function viewdataEx($crfexid)
     {
+
+        if (viewdataEX($crfexid)->crfex_custype == 1) {
+            $salesreps = viewdataEX($crfexid)->crfex_salesreps;
+            $customernameEN = viewdataEX($crfexid)->crfex_cusnameEN;
+            $customernameTH = viewdataEX($crfexid)->crfex_cusnameTH;
+            $cusaddress = viewdataEX($crfexid)->crfex_address;
+            $tel = viewdataEX($crfexid)->crfex_tel;
+            $fax = viewdataEX($crfexid)->crfex_fax;
+            $email = viewdataEX($crfexid)->crfex_email;
+            $creditlimit = viewdataEX($crfexid)->crfex_creditlimit;
+            $cterm = viewdataEX($crfexid)->crfex_cterm;
+            $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
+            $crfex_bg = viewdataEX($crfexid)->crfex_bg;
+        } else if (viewdataEX($crfexid)->crfex_custype == 2) {
+            if (viewdataEX($crfexid)->crfex_status == 'Complated') {
+                $salesreps = viewdataEX($crfexid)->crfex_salesreps;
+                $customernameEN = viewdataEX($crfexid)->crfex_cusnameEN;
+                $customernameTH = viewdataEX($crfexid)->crfex_cusnameTH;
+                $cusaddress = viewdataEX($crfexid)->crfex_address;
+                $tel = viewdataEX($crfexid)->crfex_tel;
+                $fax = viewdataEX($crfexid)->crfex_fax;
+                $email = viewdataEX($crfexid)->crfex_email;
+                $creditlimit = viewdataEX($crfexid)->crfex_creditlimit;
+                $cterm = viewdataEX($crfexid)->crfex_cterm;
+                $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
+                $crfex_bg = viewdataEX($crfexid)->crfex_bg;
+                $crfexm_pcreditlimit = viewdataEX($crfexid)->crfex_pcreditlimit;
+                $crfexm_pterm = viewdataEX($crfexid)->crfex_pterm;
+                $crfexm_pdiscount = viewdataEX($crfexid)->crfex_pdiscount;
+            } else {
+                $salesreps = viewdataEX($crfexid)->crfexm_salesreps;
+                $customernameEN = viewdataEX($crfexid)->crfexm_cusnameEN;
+                $customernameTH = viewdataEX($crfexid)->crfexm_cusnameTH;
+                $cusaddress = viewdataEX($crfexid)->crfexm_address;
+                $tel = viewdataEX($crfexid)->crfexm_tel;
+                $fax = viewdataEX($crfexid)->crfexm_fax;
+                $email = viewdataEX($crfexid)->crfexm_email;
+                $creditlimit = viewdataEX($crfexid)->crfexm_creditlimit;
+                $cterm = viewdataEX($crfexid)->crfexm_term;
+                $cdiscount = viewdataEX($crfexid)->crfexm_discount;
+                $crfex_bg = viewdataEX($crfexid)->crfexm_bg;
+                $crfexm_pcreditlimit = viewdataEX($crfexid)->crfexm_pcreditlimit;
+                $crfexm_pterm = viewdataEX($crfexid)->crfexm_pterm;
+                $crfexm_pdiscount = viewdataEX($crfexid)->crfexm_pdiscount;
+            }
+        }
+
+
+
         $data = array(
-            'username' => getUser()->Fname." ".getUser()->Lname,
+            'username' => getUser()->Fname . " " . getUser()->Lname,
             'deptcode' => getUser()->DeptCode,
             'deptname' => getUser()->Dept,
             'ecode' => getUser()->ecode,
@@ -578,57 +640,58 @@ class Main extends MX_Controller
             'customertype' => viewdataEX($crfexid)->crfex_custype,
             'datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
             'customercode' => viewdataEX($crfexid)->crfex_cuscode,
-            'salesreps' => viewdataEX($crfexid)->crfex_salesreps,
-            'customernameEN' => viewdataEX($crfexid)->crfex_cusnameEN,
-            'customernameTH' => viewdataEX($crfexid)->crfex_cusnameTH,
-            'cusaddress' => viewdataEX($crfexid)->crfex_address,
-            'tel' => viewdataEX($crfexid)->crfex_tel,
-            'fax' => viewdataEX($crfexid)->crfex_fax,
-            'email' => viewdataEX($crfexid)->crfex_email,
-            'pcreditlimit' => viewdataEX($crfexid)->crfex_pcreditlimit,
-            'pterm' => viewdataEX($crfexid)->crfex_pterm,
-            'pdiscount' => viewdataEX($crfexid)->crfex_pdiscount,
-            'ccreditlimit' => viewdataEX($crfexid)->crfex_ccreditlimit,
-            'cterm' => viewdataEX($crfexid)->crfex_cterm,
-            'cdiscount' => viewdataEX($crfexid)->crfex_cdiscount,
-            'crfex_bg' => viewdataEX($crfexid)->crfex_bg,
+            'salesreps' => $salesreps,
+            'customernameEN' => $customernameEN,
+            'customernameTH' => $customernameTH,
+            'cusaddress' => $cusaddress,
+            'tel' => $tel,
+            'fax' => $fax,
+            'email' => $email,
+            'pcreditlimit' => $crfexm_pcreditlimit,
+            'pterm' => $crfexm_pterm,
+            'pdiscount' =>  $crfexm_pdiscount,
+            'ccreditlimit' => $creditlimit,
+            'cterm' => $cterm,
+            'cdiscount' => $cdiscount,
+            'crfex_bg' => $crfex_bg,
             'brcode' => viewdataEX($crfexid)->crfex_brcode,
             'userpost' => viewdataEX($crfexid)->crfex_userpost,
             'userdept' => viewdataEX($crfexid)->crfex_userdept,
             'userdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_userdatetime),
             'status' => viewdataEX($crfexid)->crfex_status,
             'checkpage' => $this->uri->segment(2),
-            'exManagerApprove' => base_url('main/exManagerApprove/').$crfexid,
+            'exManagerApprove' => base_url('main/exManagerApprove/') . $crfexid,
             'show_crfex_mgrapp_status' => viewdataEX($crfexid)->crfex_mgrapp_status,
             'show_crfex_mgrapp_detail' => viewdataEX($crfexid)->crfex_mgrapp_detail,
             'show_crfex_mgrapp_username' => viewdataEX($crfexid)->crfex_mgrapp_username,
             'show_crfex_mgrapp_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_mgrapp_datetime),
-            'exCsAddBr' => base_url('main/exCsAddBr/').$crfexid,
+            'exCsAddBr' => base_url('main/exCsAddBr/') . $crfexid,
             'crfex_csuserpost' => viewdataEX($crfexid)->crfex_csuserpost,
             'crfex_csmemo' => viewdataEX($crfexid)->crfex_csmemo,
             'crfex_csdept' => viewdataEX($crfexid)->crfex_csdept,
             'crfex_csdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_csdatetime),
-            'exAccMgrApprove' => base_url('main/exAccMgrApprove/').$crfexid,
+            'exAccMgrApprove' => base_url('main/exAccMgrApprove/') . $crfexid,
             'crfex_accmgr_status' => viewdataEX($crfexid)->crfex_accmgr_status,
             'crfex_accmgr_username' => viewdataEX($crfexid)->crfex_accmgr_username,
             'crfex_accmgr_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accmgr_datetime),
             'crfex_accmgr_detail' => viewdataEX($crfexid)->crfex_accmgr_detail,
-            'exDirectorApprove' => base_url('main/exDirectorApprove/').$crfexid,
+            'exDirectorApprove' => base_url('main/exDirectorApprove/') . $crfexid,
             'crfex_directorapp_status' => viewdataEX($crfexid)->crfex_directorapp_status,
             'crfex_directorapp_username' => viewdataEX($crfexid)->crfex_directorapp_username,
             'crfex_directorapp_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_directorapp_datetime),
             'crfex_directorapp_detail' => viewdataEX($crfexid)->crfex_directorapp_detail,
             'crfex_customerid' => viewdataEX($crfexid)->crfex_customerid,
-            'exAccountAddCusCode' => base_url('main/exAccountAddCusCode/').$crfexid,
+            'exAccountAddCusCode' => base_url('main/exAccountAddCusCode/') . $crfexid,
             'crfex_accmemo' => viewdataEX($crfexid)->crfex_accmemo,
             'crfex_accuserpost' => viewdataEX($crfexid)->crfex_accuserpost,
             'crfex_accdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accdatetime),
-            
-            
+            'crfex_methodcurcus' => viewdataEX($crfexid)->crfex_methodcurcus
+
+
         );
 
         getHead();
-        getContentData('view_data_ex' , $data);
+        getContentData('view_data_ex', $data);
         getFooter();
     }
 
@@ -636,7 +699,7 @@ class Main extends MX_Controller
 
     public function exManagerApprove($crfexid)
     {
-        if(isset($_POST['ex_mgrSubmit'])){
+        if (isset($_POST['ex_mgrSubmit'])) {
             $this->main->exManagerApprove($crfexid);
             header("refresh:0; url=" . base_url('main/listex'));
         }
@@ -645,7 +708,7 @@ class Main extends MX_Controller
 
     public function exCsAddBr($crfexid)
     {
-        if(isset($_POST['ex_csSubmit'])){
+        if (isset($_POST['ex_csSubmit'])) {
             $this->main->exCsAddBr($crfexid);
             header("refresh:0; url=" . base_url('main/listex'));
         }
@@ -654,7 +717,7 @@ class Main extends MX_Controller
 
     public function exAccMgrApprove($crfexid)
     {
-        if(isset($_POST['ex_accManagerSubmit'])){
+        if (isset($_POST['ex_accManagerSubmit'])) {
             $this->main->exAccMgrApprove($crfexid);
             header("refresh:0; url=" . base_url('main/listex'));
         }
@@ -663,7 +726,7 @@ class Main extends MX_Controller
 
     public function exDirectorApprove($crfexid)
     {
-        if(isset($_POST['ex_directorSubmit'])){
+        if (isset($_POST['ex_directorSubmit'])) {
             $this->main->exDirectorApprove($crfexid);
             header("refresh:0; url=" . base_url('main/listex'));
         }
@@ -672,41 +735,10 @@ class Main extends MX_Controller
 
     public function exAccountAddCusCode($crfexid)
     {
-        if(isset($_POST['ex_accSubmit'])){
+        if (isset($_POST['ex_accSubmit'])) {
             $this->main->exAccountAddCusCode($crfexid);
             header("refresh:0; url=" . base_url('main/listex'));
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 // Main Controller
