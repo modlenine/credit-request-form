@@ -218,46 +218,46 @@ function getViewData($crf_id)
     crf_maindata.crf_cuscode,
     crf_maindata.crf_company,
     crf_maindata.crf_datecreate,
-    crf_customers.crfcus_id,
-    crf_customers.crfcus_code,
-    crf_customers.crfcus_salesreps,
-    crf_customers.crfcus_name,
-    crf_customers.crfcus_comdatecreate,
-    crf_customers.crfcus_addresstype,
-    crf_customers.crfcus_address,
-    crf_customers.crfcus_contactname,
-    crf_customers.crfcus_phone,
-    crf_customers.crfcus_fax,
-    crf_customers.crfcus_email,
-    crf_customers.crfcus_regiscapital,
-    crf_customers.crfcus_companytype,
+    crf_customers_temp.crfcus_id,
+    crf_customers_temp.crfcus_code,
+    crf_customers_temp.crfcus_salesreps,
+    crf_customers_temp.crfcus_name,
+    crf_customers_temp.crfcus_comdatecreate,
+    crf_customers_temp.crfcus_addresstype,
+    crf_customers_temp.crfcus_address,
+    crf_customers_temp.crfcus_contactname,
+    crf_customers_temp.crfcus_phone,
+    crf_customers_temp.crfcus_fax,
+    crf_customers_temp.crfcus_email,
+    crf_customers_temp.crfcus_regiscapital,
+    crf_customers_temp.crfcus_companytype,
     crf_company_type.crf_comname,
-    crf_customers.crfcus_comtype2,
-    crf_customers.crfcus_comtype31,
-    crf_customers.crfcus_comtype32,
-    crf_customers.crfcus_comtype33,
-    crf_customers.crfcus_comtype34,
-    crf_customers.crfcus_typebussi,
-    crf_customers.crfcus_forecast,
-    crf_customers.crfcus_file1,
-    crf_customers.crfcus_file2,
-    crf_customers.crfcus_file3,
-    crf_customers.crfcus_file4,
-    crf_customers.crfcus_file5,
-    crf_customers.crfcus_file6,
-    crf_customers.crfcus_creditterm,
-    crf_customers.crfcus_creditterm2,
+    crf_customers_temp.crfcus_comtype2,
+    crf_customers_temp.crfcus_comtype31,
+    crf_customers_temp.crfcus_comtype32,
+    crf_customers_temp.crfcus_comtype33,
+    crf_customers_temp.crfcus_comtype34,
+    crf_customers_temp.crfcus_typebussi,
+    crf_customers_temp.crfcus_forecast,
+    crf_customers_temp.crfcus_file1,
+    crf_customers_temp.crfcus_file2,
+    crf_customers_temp.crfcus_file3,
+    crf_customers_temp.crfcus_file4,
+    crf_customers_temp.crfcus_file5,
+    crf_customers_temp.crfcus_file6,
+    crf_customers_temp.crfcus_creditterm,
+    crf_customers_temp.crfcus_creditterm2,
     credit_term_category.credit_name,
-    crf_customers.crfcus_conditionbill,
-    crf_customers.crfcus_tablebill,
-    crf_customers.crfcus_mapbill,
-    crf_customers.crfcus_datebill,
-    crf_customers.crfcus_mapbill2,
-    crf_customers.crfcus_conditionmoney,
-    crf_customers.crfcus_cheuqetable,
-    crf_customers.crfcus_cheuqedetail,
-    crf_customers.crfcus_moneylimit,
-    crf_customers.crfcus_moneylimit2,
+    crf_customers_temp.crfcus_conditionbill,
+    crf_customers_temp.crfcus_tablebill,
+    crf_customers_temp.crfcus_mapbill,
+    crf_customers_temp.crfcus_datebill,
+    crf_customers_temp.crfcus_mapbill2,
+    crf_customers_temp.crfcus_conditionmoney,
+    crf_customers_temp.crfcus_cheuqetable,
+    crf_customers_temp.crfcus_cheuqedetail,
+    crf_customers_temp.crfcus_moneylimit,
+    crf_customers_temp.crfcus_moneylimit2,
     crf_maindata.crf_type,
     crf_alltype.crf_alltype_subname,
     crf_maindata.crf_sub_oldcus_changearea,
@@ -310,9 +310,9 @@ function getViewData($crf_id)
     
     FROM
     crf_maindata
-    INNER JOIN crf_customers ON crf_customers.crfcus_id = crf_maindata.crf_cuscode
-    INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
-    INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
+    INNER JOIN crf_customers_temp ON crf_customers_temp.crfcus_id = crf_maindata.crf_cuscode
+    INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers_temp.crfcus_companytype
+    INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers_temp.crfcus_creditterm
     INNER JOIN crf_alltype ON crf_alltype.crf_alltype_subcode = crf_maindata.crf_type
     
     
@@ -330,6 +330,18 @@ function getPrimanage($crfcus_id)
     ");
     return $query;
 }
+
+function getPrimanageEdit($crfcus_id)
+{
+    $obj = new getfn();
+    $obj->gci()->db->select("crf_primanage_id , crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email");
+    $obj->gci()->db->from("crf_pri_manage");
+    $obj->gci()->db->where("crf_pricusid" , $crfcus_id);
+    $obj->gci()->db->order_by("crf_primanage_id" , "DESC");
+    $result = $obj->gci()->db->get();
+    return $result->result_array();
+}
+
 function getProcess($crfcus_id)
 {
     $obj = new getfn();
@@ -377,7 +389,8 @@ function conCreditTerm($creditid)
     $obj = new getfn();
     $query = $obj->gci()->db->query("SELECT credit_name FROM credit_term_category WHERE credit_id = '$creditid'
     ");
-    return $query->row()->credit_name;
+    $result = $query->row();
+    return $result;
 }
 
 function getFormBeforeSave($formno)
@@ -502,6 +515,28 @@ function getMethodCus($crfexid)
     $obj = new getfn();
     $query = $obj->gci()->db->query("SELECT crfex_methodcurcus FROM crfex_maindata WHERE crfex_id = '$crfexid' ");
     return $query->row();
+}
+
+
+// For Delete Primanage
+function deletePrimanage($cusid)
+{
+    $obj = new getfn();
+    $obj->gci()->db->where("crf_pricusid" , $cusid);
+    $query = $obj->gci()->db->delete("crf_pri_manage");
+
+    return $query;
+}
+
+
+// For delete Process Used
+function deleteProcess($cusid)
+{
+    $obj = new getfn();
+    $obj->gci()->db->where("crf_cusid" , $cusid);
+    $query = $obj->gci()->db->delete("crf_process_use");
+
+    return $query;
 }
 
 

@@ -20,11 +20,16 @@ if ($result->crf_status == "Open") {
         <h4 align="center"><?= $result->crf_formno . "&nbsp;&nbsp;<b>สถานะ : </b>&nbsp;<span " . $colorFont . ">" . $result->crf_status . "</span>" ?></h4>
 
         <hr>
+        <div id="btnEditZone" class="row" style="display:none;">
+            <div class="col-md-12">
+                <a href="<?=base_url('main/editdata/').$result->crf_id?>"><button class="btn btn-warning mt-2">แก้ไขข้อมูล</button></a>
+                <button class="btn btn-danger mt-2">ยกเลิกเอกสาร</button>
+            </div>
+        </div>
 
 
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
-            <form action="<?= base_url('main/savedata') ?>" method="POST" id="form1" enctype="multipart/form-data">
 
                 <!-- Document Head -->
                 <div class="row form-group">
@@ -136,6 +141,7 @@ if ($result->crf_status == "Open") {
                         ?>
                         <label for="">Sales Reps : &nbsp;</label>
                         <input readonly type="text" name="crf_salesreps_view" id="crf_salesreps_view" class="form-control form-control-sm" value="<?= $salesReps ?>">
+                        <div id="showedit_salesreps"></div>
                     </div>
                 </div>
 
@@ -623,7 +629,6 @@ if ($result->crf_status == "Open") {
                     </div>
                 </div>
                 <hr>
-            </form>
 
             <!-- Data Check From Data base -->
             <input hidden type="text" name="checkStatus" id="checkStatus" value="<?= $result->crf_status ?>">
@@ -887,5 +892,12 @@ if ($result->crf_status == "Open") {
 
 
     </div>
+
+
+
+
+
+
+    
 
 </body>

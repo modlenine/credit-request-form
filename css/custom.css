@@ -58,6 +58,14 @@
     }
 }
 
+.editcolor{
+    color:#FF6600;
+}
+
+.editcolor:hover {
+    color:rgb(165, 66, 0);
+}
+
 
 
 

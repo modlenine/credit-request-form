@@ -1,8 +1,6 @@
 
 
 
-
-
 <!-- Modal Show ไฟล์แนบ1 -->
 <div class="modal fade" id="show_file1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -295,6 +293,97 @@
 
 				<div id="show_file10" class="col-md-12">
 					<embed id="embedshowfile10" src="" type="application/pdf" width="100%" height="500px" />
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- Edit data when status still open -->
+
+<!-- Modal Show edit sales reps -->
+<!-- <div class="modal fade" id="edit_salesreps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">
+					ไฟล์เอกสาร&nbsp;
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<input type="text" name="edit_cusid" id="edit_cusid">
+				<input type="text" name="edit_salesrepV" id="edit_salesrepV">
+				<button id="btnEditSaleRep" name="btnEditSaleRep" class="btn btn-warning">edit</button>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_editsalesreps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="text" name="edit_cusid" id="edit_cusid">
+				<input type="text" name="edit_salesrepV" id="edit_salesrepV">
+				<button type="button" id="btnEditSaleRep" name="btnEditSaleRep" class="btn btn-warning">edit</button>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal Show edit page ไฟล์แนบ1 -->
+<div class="modal fade" id="show_editfile1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">
+					ไฟล์เอกสาร&nbsp;
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div id="show_file1" class="col-md-12">
+					<embed id="embedshow_editfile1" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
 			</div>

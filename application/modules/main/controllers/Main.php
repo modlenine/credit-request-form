@@ -7,6 +7,7 @@ class Main extends MX_Controller
         parent::__construct();
         //Do your magic here
         $this->load->model("main_model", "main");
+        $this->load->model("edit_model", "edit");
         date_default_timezone_set("Asia/Bangkok");
         $this->load->library("pagination");
     }
@@ -200,7 +201,7 @@ class Main extends MX_Controller
         //  $this->load->model("ajax_pagination_model");
         //  $this->load->library("pagination");
         $companyname = "";
-        $companyname =$this->input->post("companyName");
+        $companyname = $this->input->post("companyName");
 
         $config = array();
         $config["base_url"] = "#";
@@ -351,7 +352,7 @@ class Main extends MX_Controller
     public function addEx()
     {
         callLogin();
-        if(getUser()->DeptCode == 1006 || getUser()->DeptCode == 1010){
+        if (getUser()->DeptCode == 1006 || getUser()->DeptCode == 1010) {
             $data = array(
                 'username' => getUser()->Fname . " " . getUser()->Lname,
                 'deptcode' => getUser()->DeptCode,
@@ -367,12 +368,11 @@ class Main extends MX_Controller
             getHead();
             getContentData('add_en', $data);
             getFooter();
-        }else{
+        } else {
             echo "<script>alert('Sorry you can not access to this page , Please contact admin !')</script>";
             header("refresh:0; url=" . base_url('main/listex'));
             die();
         }
-       
     }
 
     public function savedataEX()
@@ -592,6 +592,9 @@ class Main extends MX_Controller
             $cterm = viewdataEX($crfexid)->crfex_cterm;
             $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
             $crfex_bg = viewdataEX($crfexid)->crfex_bg;
+            $crfexm_pcreditlimit = viewdataEX($crfexid)->crfexm_pcreditlimit;
+            $crfexm_pterm = viewdataEX($crfexid)->crfexm_pterm;
+            $crfexm_pdiscount = viewdataEX($crfexid)->crfexm_pdiscount;
         } else if (viewdataEX($crfexid)->crfex_custype == 2) {
             if (viewdataEX($crfexid)->crfex_status == 'Complated') {
                 $salesreps = viewdataEX($crfexid)->crfex_salesreps;
@@ -740,5 +743,127 @@ class Main extends MX_Controller
             header("refresh:0; url=" . base_url('main/listex'));
         }
     }
+
+
+// Check Duplicate customer name
+public function checkDuplicateNameCustomer()
+{
+    echo $this->main->checkDuplicateNameCustomer();
+}
+
+
+
+
+
+
+
+// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+function editViewPage(){
+
+    $customerid = $this->input->post("editcusid");
+    $salesreps = $this->input->post("editsalesreps");
+
+    $arsalereps = array(
+        "crfcus_id" => $customerid,
+        "crfcus_salesreps" => $salesreps
+    );
+
+    $this->db->insert("crf_customers" , $arsalereps);
+}
+
+
+public function editdata($crf_id)
+{
+    $crfcus_id = getViewData($crf_id)->crfcus_id;
+
+
+    $data = array(
+        "getFormCode" => getFormCode(),
+        "getCusProcess" => getCusProcess(),
+        "getCreditTerm" => getCreditTerm(),
+        "edit_company" => getViewData($crf_id)->crf_company,
+        "edit_custype" => getViewData($crf_id)->crf_type,
+        "edit_datecreate" => conDateFromDb(getViewData($crf_id)->crf_datecreate),
+        "edit_salesreps" => getViewData($crf_id)->crfcus_salesreps,
+        "edit_cusname" => getViewData($crf_id)->crfcus_name,
+        "edit_comcreate" => getViewData($crf_id)->crfcus_comdatecreate,
+        "edit_ivoicetype" => getViewData($crf_id)->crfcus_addresstype,
+        "edit_address" => getViewData($crf_id)->crfcus_address,
+        "edit_contactname" => getViewData($crf_id)->crfcus_contactname,
+        "edit_contacttel" => getViewData($crf_id)->crfcus_phone,
+        "edit_contactfax" => getViewData($crf_id)->crfcus_fax,
+        "edit_contactemail" => getViewData($crf_id)->crfcus_email,
+        "edit_regiscapital" => getViewData($crf_id)->crfcus_regiscapital,
+        "edit_comtype" => getViewData($crf_id)->crfcus_companytype,
+        "editprimanage" => getPrimanageEdit($crfcus_id),
+        "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
+        "crfcus_id" => getViewData($crf_id)->crfcus_id,
+        "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
+        "edit_creditterm" => getViewData($crf_id)->crfcus_creditterm,
+        "edit_creditname" => getViewData($crf_id)->credit_name,
+        "edit_conditionbill" => getViewData($crf_id)->crfcus_conditionbill,
+        "edit_conditionmoney" => getViewData($crf_id)->crfcus_conditionmoney,
+        "edit_finance" => getViewData($crf_id)->crf_finance,
+        "datenow" => date("d-m-Y"),
+        "edit_moneylimit" => getViewData($crf_id)->crfcus_moneylimit,
+        "get_file1" => getViewData($crf_id)->crfcus_file1,
+        "get_file2" => getViewData($crf_id)->crfcus_file2,
+        "get_file3" => getViewData($crf_id)->crfcus_file3,
+        "get_file4" => getViewData($crf_id)->crfcus_file4,
+        "get_file5" => getViewData($crf_id)->crfcus_file5,
+        "get_file6" => getViewData($crf_id)->crfcus_file6,
+        "get_crfid" => getViewData($crf_id)->crf_id,
+        "get_changearea" => getViewData($crf_id)->crf_sub_oldcus_changearea,
+        "get_changeaddress" => getViewData($crf_id)->crf_sub_oldcus_changeaddress,
+        "get_changecredit" => getViewData($crf_id)->crf_sub_oldcus_changecredit,
+        "get_changefinance" => getViewData($crf_id)->crf_sub_oldcus_changefinance,
+        "get_cuscode" => getViewData($crf_id)->crfcus_code,
+        "get_tablebill" => getViewData($crf_id)->crfcus_tablebill,
+        "get_mapbill" => getViewData($crf_id)->crfcus_mapbill,
+        "get_datebill" => getViewData($crf_id)->crfcus_datebill,
+        "get_mapbill2" => getViewData($crf_id)->crfcus_mapbill2,
+    );
+
+
+
+    getHead();
+    getContentData("edit_view" , $data);
+    getFooter();
+}
+
+public function save_editdata(){
+    $this->main->save_editdata();  
+}
+
+
+
+
+// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 // Main Controller

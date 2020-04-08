@@ -901,7 +901,9 @@ $(document).ready(function () {
             $('.change_credit').css('display', 'none');
             $('.suboldcustomer').css('display', 'none');
 
-            $('#crf_finance').prop('checked', true);
+            $('input:radio[class="crf_financev1"]').prop('checked', true);
+            $('input:radio[class="crf_financev2"]').prop('disabled' , true);
+
             $('.finance_request_detail').css('display', '');
 
             // Clear ประเภทการดำเนินงาน
@@ -951,10 +953,12 @@ $(document).ready(function () {
                 }
             });
             $('#crf_customername').blur(function () {
+                var cusname =  $('#crf_customername').val();
                 if ($(this).val() == '') {
                     $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
                 } else {
-                    $('#alert_customername').html();
+                    $('#alert_customername').html('');
+                    checkDuplicateNameCustomer(cusname);
                 }
             });
             // Check ข้อมูลช่อง ชื่อลูกค้าว่ามีการกรอกข้อมูลหรือไม่
@@ -1902,6 +1906,7 @@ $(document).ready(function () {
     if ($('#forcrf_finance_view').val() == "ขอวงเงิน") {
         $('input:radio[id="crf_finance1_view"]').prop('checked', true);
         $('.finance_request_detail').css('display', '');
+        $('#crf_finance_old_view').css('display' , 'none');
     } else if ($('#forcrf_finance_view').val() == "ปรับวงเงิน") {
         $('input:radio[id="crf_finance2_view"]').prop('checked', true);
         $('.finance_change_detail').css('display', '');
@@ -1927,8 +1932,15 @@ $(document).ready(function () {
     // Master input Control Section
 
 
+    // Control btn edit
+    if(checkStatus == "Open"){
+        $('#btnEditZone').css('display' , '');
+    }
+
 
     // Control CS , Sales Approve
+   
+
     if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 55) {
         $('.author_manager').css('display', '');
     } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Complated") {
@@ -2732,16 +2744,141 @@ if(checkStatus == 'Director Approved' && checkUserDeptView == 1003){
 // End check page
 
 
-
-
-
-
-
-
-
-
 // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
 // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Edit Internal Zone
+
+// Edit sales reps
+// Get data
+$('.edit_salesreps').click(function(){
+    var data_edit_cusid = $(this).attr('data_edit_cusid');
+    var data_edit_salesreps = $(this).attr('data_edit_salesreps');
+
+    $('#edit_salesrepV').val(data_edit_salesreps);
+    $('#edit_cusid').val(data_edit_cusid);
+
+});
+
+// Update data
+$('#btnEditSaleRep').click(function (){
+    var editview_cusid = $('#edit_cusid').val();
+    var editview_salesrepV = $('#edit_salesrepV').val();
+    // var cusId = "test";
+
+    //call ajax function
+    edit_salesreps(editview_cusid , editview_salesrepV);
+
+});
+
+
+// Edit page
+// Check edit บริษัท
+if($('#check_editcom').val() == 'sln'){
+    $('#edit_company_sln').prop('checked' , true);
+}else if($('#check_editcom').val() == 'poly'){
+    $('#edit_company_poly').prop('checked' , true);
+}else if($('#check_editcom').val() == 'ca'){
+    $('#edit_company_ca').prop('checked' , true);
+}
+
+// Check edit ลูกค้าเก่า , ลูกค้าใหม่
+if($('#check_editcustype').val() == 1){
+    $('#edit_custype1').prop('checked' ,true);
+}else if($('#check_editcustype').val() == 2){
+    $('#edit_custype2').prop('checked' ,true);
+    $('.suboldcustomer').css('display' , '');
+}
+
+
+// Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
+if($('#check_addtype').val() == "ตาม ภ.พ.20"){
+    $('#edit_addresstype1').prop('checked' , true);
+}else if($('#check_addtype').val() == "อื่นๆ"){
+    $('#edit_addresstype2').prop('checked' , true);
+}
+
+
+// Check ประเภทบริษัท
+if($('#check_comtype').val() == 1){
+    $('.crf_companytype1').prop('checked' , true);
+}else if($('#check_comtype').val() == 2){
+    $('.crf_companytype2').prop('checked' , true);
+}else if($('#check_comtype').val() == 3){
+    $('.crf_companytype3').prop('checked' , true);
+}
+
+
+
+// Check ประเภทของธุรกิจ
+if($('#check_busitype').val() == "ผู้ผลิต"){
+    $('.crf_typeofbussi1').prop('checked' , true);
+}else if($('#check_busitype').val() == "ผู้ค้า"){
+    $('.crf_typeofbussi2').prop('checked' , true);
+}
+
+
+// Check เงื่อนไขการวางบิล
+if($('#check_conditionbill').val() == "ส่งของพร้อมวางบิล"){
+    $('.crf_condition_billv1').prop('checked' , true);
+}else if($('#check_conditionbill').val() == "วางบิลตามตาราง"){
+    $('.crf_condition_billv2').prop('checked' , true);
+}else if($('#check_conditionbill').val() == "วางบิลทุกวันที่"){
+    $('.crf_condition_billv3').prop('checked' , true);
+}
+
+
+// Check เงื่อนไขการรับชำระเงิน
+if($('#check_conditionmoney').val() == "โอนเงิน"){
+    $('.crf_condition_moneyv1').prop('checked' , true);
+}else if($('#check_conditionmoney').val() == "รับเช็ค"){
+    $('.crf_condition_moneyv2').prop('checked' , true);
+}
+
+
+// Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
+if($('#check_editfinance').val() == "ขอวงเงิน"){
+    $('.crf_financev1').prop('checked' , true);
+}else if($('#check_editfinance').val() == "ปรับวงเงิน"){
+    $('.crf_financev2').prop('checked' , true);
+}
+
+// กรณีที่เป็นลูกค้าเก่า
+// Control subold customer method
+if($('#check_changearea').val() == 1){
+    $('input[name="crf_sub_oldcus_changearea"]').prop('checked' , true);
+}
+if($('#check_changeaddress').val() == 2){
+    $('input[name="crf_sub_oldcus_changeaddress"]').prop('checked' , true);
+}
+if($('#check_changecredit').val() == 3){
+    $('input[name="crf_sub_oldcus_changecredit"]').prop('checked' , true);
+}
+if($('#check_changefinance').val() == 4){
+    $('input[name="crf_sub_oldcus_changefinance"]').prop('checked' , true);
+}
+
+
+// For view file
+
+
+
+
+
+
+
 
 
 
