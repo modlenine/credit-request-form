@@ -275,9 +275,10 @@ class Main extends MX_Controller
     {
         if (isset($_POST['br_submit'])) {
             $this->main->csbr($crfid);
-            header("refresh:0; url=" . base_url('main/list'));
         }
     }
+
+
 
 
     public function accMgr($crfid)
@@ -311,7 +312,6 @@ class Main extends MX_Controller
     {
         if (isset($_POST['acc_staff'])) {
             $this->main->saveCustomersCode($crfid, $crfcusid);
-            header("refresh:0; url=" . base_url('main/list'));
         }
     }
 
@@ -337,6 +337,15 @@ class Main extends MX_Controller
     public function filterCreditTerm()
     {
         $this->main->filterCreditTerm();
+    }
+
+    public function filterCredit()
+    {
+        if($this->input->post("oldCredit")){
+            $oldCredit = $this->input->post("oldCredit");
+            $creditMethod = $this->input->post("creditMethod");
+            echo $this->main->fetch_filterCredit($oldCredit,$creditMethod);
+        }
     }
 
 
@@ -777,6 +786,14 @@ public function editdata($crf_id)
 {
     $crfcus_id = getViewData($crf_id)->crfcus_id;
 
+    if(getViewData($crf_id)->crfcus_creditterm2 != ''){
+        $creditterm = getViewData($crf_id)->crfcus_creditterm2;
+        $creditname = conCreditTerm($creditterm);
+    }else{
+        $creditterm = getViewData($crf_id)->crfcus_creditterm;
+        $creditname = conCreditTerm($creditterm);
+    }
+
 
     $data = array(
         "getFormCode" => getFormCode(),
@@ -786,6 +803,7 @@ public function editdata($crf_id)
         "edit_custype" => getViewData($crf_id)->crf_type,
         "edit_datecreate" => conDateFromDb(getViewData($crf_id)->crf_datecreate),
         "edit_salesreps" => getViewData($crf_id)->crfcus_salesreps,
+        "edit_salesrepsOld" => getViewData($crf_id)->crfw_salesreps,
         "edit_cusname" => getViewData($crf_id)->crfcus_name,
         "edit_comcreate" => getViewData($crf_id)->crfcus_comdatecreate,
         "edit_ivoicetype" => getViewData($crf_id)->crfcus_addresstype,
@@ -800,8 +818,8 @@ public function editdata($crf_id)
         "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
         "crfcus_id" => getViewData($crf_id)->crfcus_id,
         "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
-        "edit_creditterm" => getViewData($crf_id)->crfcus_creditterm,
-        "edit_creditname" => getViewData($crf_id)->credit_name,
+        "edit_creditterm" => $creditterm,
+        "edit_creditname" => $creditname,
         "edit_conditionbill" => getViewData($crf_id)->crfcus_conditionbill,
         "edit_conditionmoney" => getViewData($crf_id)->crfcus_conditionmoney,
         "edit_finance" => getViewData($crf_id)->crf_finance,
@@ -819,10 +837,14 @@ public function editdata($crf_id)
         "get_changecredit" => getViewData($crf_id)->crf_sub_oldcus_changecredit,
         "get_changefinance" => getViewData($crf_id)->crf_sub_oldcus_changefinance,
         "get_cuscode" => getViewData($crf_id)->crfcus_code,
-        "get_tablebill" => getViewData($crf_id)->crfcus_tablebill,
-        "get_mapbill" => getViewData($crf_id)->crfcus_mapbill,
+        "get_file7" => getViewData($crf_id)->crfcus_tablebill,
+        "get_file8" => getViewData($crf_id)->crfcus_mapbill,
         "get_datebill" => getViewData($crf_id)->crfcus_datebill,
         "get_mapbill2" => getViewData($crf_id)->crfcus_mapbill2,
+        "get_cheuqetable" => getViewData($crf_id)->crfcus_cheuqetable,
+        "get_cheuqedetail" => getViewData($crf_id)->crfcus_cheuqedetail,
+        "geturl" => $this->uri->segment(2),
+
     );
 
 
@@ -834,6 +856,18 @@ public function editdata($crf_id)
 
 public function save_editdata(){
     $this->main->save_editdata();  
+}
+
+
+public function canceldata($crfid)
+{
+    $arCancel = array(
+        "crf_status" => "Cancel"
+    );
+
+    $this->db->where("crf_id" , $crfid);
+    $this->db->update("crf_maindata" ,  $arCancel);
+    header("refresh:0; url=".base_url('main/list'));
 }
 
 

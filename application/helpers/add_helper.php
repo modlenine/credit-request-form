@@ -50,6 +50,16 @@ function saveCsBr($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $arbr);
+
+
+
+
+    $arCustomer = array(
+        "crfcus_brcode" => $obj->gci()->input->post("crf_brcode"),
+    );
+
+    $obj->gci()->db->where("crfcus_id", getCustomerCode($crfid)->crf_cuscode);
+    $obj->gci()->db->update("crf_customers_temp", $arCustomer);
 }
 
 
@@ -115,6 +125,18 @@ function saveDirector2ChangSales($crfid)
     if ($obj->gci()->db->update("crf_maindata", $arDirector)) {
         $salesreps = getWhenComplate($crfid)->crfw_salesreps;
         $customerid = getWhenComplate($crfid)->crf_cuscode;
+        $arupdateCustomer_temp = array(
+            "crfcus_salesreps" => $salesreps,
+            "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
+            "crfcus_usermodify_ecode" => $obj->gci()->input->post("ecodepostD2"),
+            "crfcus_usermodify_deptcode" => $obj->gci()->input->post("deptcodeD2"),
+            "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_id", $customerid);
+        $obj->gci()->db->update("crf_customers_temp", $arupdateCustomer_temp);
+
+
+
         $arupdateCustomer = array(
             "crfcus_salesreps" => $salesreps,
             "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
@@ -146,6 +168,20 @@ function saveDirector2ChangeAddress($crfid)
         $file1 = getWhenComplate($crfid)->crfw_cusfile1;
 
         $customerid = getWhenComplate($crfid)->crf_cuscode;
+        $arupdateCustomer_temp = array(
+            "crfcus_addresstype" => $addresstype,
+            "crfcus_address" => $address,
+            "crfcus_file1" => $file1,
+            "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
+            "crfcus_usermodify_ecode" => $obj->gci()->input->post("ecodepostD2"),
+            "crfcus_usermodify_deptcode" => $obj->gci()->input->post("deptcodeD2"),
+            "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_id", $customerid);
+        $obj->gci()->db->update("crf_customers_temp", $arupdateCustomer_temp);
+
+
+
         $arupdateCustomer = array(
             "crfcus_addresstype" => $addresstype,
             "crfcus_address" => $address,
@@ -178,9 +214,23 @@ function saveDirector2ChangeCredit($crfid)
         $creditterm2 = getWhenComplate($crfid)->crf_creditterm2;
 
         $customerid = getWhenComplate($crfid)->crf_cuscode;
+        $arupdateCustomer_temp = array(
+            "crfcus_creditterm" => $creditterm2,
+            // "crfcus_creditterm2" => $creditterm2,
+
+            "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
+            "crfcus_usermodify_ecode" => $obj->gci()->input->post("ecodepostD2"),
+            "crfcus_usermodify_deptcode" => $obj->gci()->input->post("deptcodeD2"),
+            "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_id", $customerid);
+        $obj->gci()->db->update("crf_customers_temp", $arupdateCustomer_temp);
+
+
+
         $arupdateCustomer = array(
-            "crfcus_creditterm" => $creditterm,
-            "crfcus_creditterm2" => $creditterm2,
+            "crfcus_creditterm" => $creditterm2,
+            // "crfcus_creditterm2" => $creditterm2,
 
             "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
             "crfcus_usermodify_ecode" => $obj->gci()->input->post("ecodepostD2"),
@@ -207,6 +257,20 @@ function saveDirector2ChangeMoney($crfid)
     $obj->gci()->db->where("crf_id", $crfid);
     if ($obj->gci()->db->update("crf_maindata", $arDirector)) {
         $crfcus_moneylimit = getWhenComplate($crfid)->crf_finance_change_total;
+
+        $customerid = getWhenComplate($crfid)->crf_cuscode;
+        $arupdateCustomer_temp = array(
+            "crfcus_moneylimit" => $crfcus_moneylimit,
+
+            "crfcus_usermodify" => $obj->gci()->input->post("userpostD2"),
+            "crfcus_usermodify_ecode" => $obj->gci()->input->post("ecodepostD2"),
+            "crfcus_usermodify_deptcode" => $obj->gci()->input->post("deptcodeD2"),
+            "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_id", $customerid);
+        $obj->gci()->db->update("crf_customers_temp", $arupdateCustomer_temp);
+
+
 
         $customerid = getWhenComplate($crfid)->crf_cuscode;
         $arupdateCustomer = array(
@@ -238,13 +302,79 @@ function saveCustomersCode($crfid, $crfcusid)
 
     $arUpdateCuscode = array(
         "crfcus_code" => $obj->gci()->input->post("cusCode"),
+        "crfcus_tempstatus" => "Updated",
+        "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
     );
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $arAccStaff);
 
     $obj->gci()->db->where("crfcus_id", $crfcusid);
-    $obj->gci()->db->update("crf_customers", $arUpdateCuscode);
+    $updateCus = $obj->gci()->db->update("crf_customers_temp", $arUpdateCuscode);
+
+    if($updateCus){
+        $obj->gci()->db->select("*");
+        $obj->gci()->db->from("crf_customers_temp");
+        $obj->gci()->db->where("crfcus_id" , $crfcusid);
+        $query = $obj->gci()->db->get();
+
+        
+        
+        foreach ($query->result() as $result){
+            $arCopyToCustomerTable = array(
+                "crfcus_id" => $result->crfcus_id,
+                "crfcus_code" => $result->crfcus_code,
+                "crfcus_brcode" => $result->crfcus_brcode,
+                "crfcus_salesreps" => $result->crfcus_salesreps,
+                "crfcus_name" => $result->crfcus_name,
+                "crfcus_comdatecreate" => $result->crfcus_comdatecreate,
+                "crfcus_addresstype" => $result->crfcus_addresstype,
+                "crfcus_address" => $result->crfcus_address,
+                "crfcus_contactname" => $result->crfcus_contactname,
+                "crfcus_phone" => $result->crfcus_phone,
+                "crfcus_fax" => $result->crfcus_fax,
+                "crfcus_email" => $result->crfcus_email,
+                "crfcus_regiscapital" => $result->crfcus_regiscapital,
+                "crfcus_companytype" => $result->crfcus_companytype,
+                "crfcus_comtype2" => $result->crfcus_comtype2,
+                "crfcus_comtype31" => $result->crfcus_comtype31,
+                "crfcus_comtype32" => $result->crfcus_comtype32,
+                "crfcus_comtype33" => $result->crfcus_comtype33,
+                "crfcus_comtype34" => $result->crfcus_comtype34,
+                "crfcus_typebussi" => $result->crfcus_typebussi,
+                "crfcus_forecast" => $result->crfcus_forecast,
+                "crfcus_file1" => $result->crfcus_file1,
+                "crfcus_file2" => $result->crfcus_file2,
+                "crfcus_file3" => $result->crfcus_file3,
+                "crfcus_file4" => $result->crfcus_file4,
+                "crfcus_file5" => $result->crfcus_file5,
+                "crfcus_file6" => $result->crfcus_file6,
+                "crfcus_creditterm" => $result->crfcus_creditterm,
+                "crfcus_creditterm2" => $result->crfcus_creditterm2,
+                "crfcus_conditionbill" => $result->crfcus_conditionbill,
+                "crfcus_tablebill" => $result->crfcus_tablebill,
+                "crfcus_mapbill" => $result->crfcus_mapbill,
+                "crfcus_datebill" => $result->crfcus_datebill,
+                "crfcus_mapbill2" => $result->crfcus_mapbill2,
+                "crfcus_conditionmoney" => $result->crfcus_conditionmoney,
+                "crfcus_cheuqetable" => $result->crfcus_cheuqetable,
+                "crfcus_cheuqedetail" => $result->crfcus_cheuqedetail,
+                "crfcus_moneylimit" => $result->crfcus_moneylimit,
+                "crfcus_moneylimit2" => $result->crfcus_moneylimit2,
+                "crfcus_usercreate" => $result->crfcus_usercreate,
+                "crfcus_usercreate_ecode" => $result->crfcus_usercreate_ecode,
+                "crfcus_usercreate_deptcode" => $result->crfcus_usercreate_deptcode,
+                "crfcus_datemodify" => $result->crfcus_datemodify,
+                "crfcus_usermodify" => $result->crfcus_usermodify,
+                "crfcus_usermodify_ecode" => $result->crfcus_usermodify_ecode,
+                "crfcus_usermodify_deptcode" => $result->crfcus_usermodify_deptcode,
+                "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+                
+            );
+            $obj->gci()->db->insert("crf_customers" , $arCopyToCustomerTable);
+        }
+        
+    }
 }
 
 

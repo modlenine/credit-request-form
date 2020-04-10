@@ -139,3 +139,19 @@ function edit_salesreps(editcusid , editsalesreps){
     });
 }
 
+
+
+//Function for check duplicate BR Code
+function checkDupliBR(query)
+{
+    $.ajax({
+        url: "main/checkbrcode",
+        method: "post",
+        data: { query:query },
+        success: function(data){
+            console.log(data);
+        }
+    });
+
+}
+

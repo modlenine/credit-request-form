@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Page</title>  
-<!-- <script type="text/javascript">
+    <title>Edit Page</title>
+    <!-- <script type="text/javascript">
             function noBack(){
                 window.history.forward()
             }
@@ -22,7 +22,7 @@
 
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
-            <form action="<?=base_url('main/save_editdata/')?>" method="POST" id="form1" enctype="multipart/form-data">
+            <form action="<?= base_url('main/save_editdata/') ?>" method="POST" id="form1" enctype="multipart/form-data">
 
                 <!-- Document Head -->
                 <div class="row form-group">
@@ -128,7 +128,8 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">Sales Reps : &nbsp;</label>
-                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm" value="{edit_salesreps}">
+                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm edit_salesrepsCur" value="{edit_salesreps}">
+                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm edit_salesrepsOld" value="{edit_salesrepsOld}">
                         <div id="alert_salesreps"></div>
                     </div>
                 </div>
@@ -361,38 +362,44 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
                         <label for="">ภพ.20</label><br>
+                        <input hidden type="text" name="get_crf_file1" id="get_crf_file1" value="{get_file1}">
                         <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <a id="editdatafile1" href="#" data-toggle="modal" data-target="#show_editfile1" data_file1="{get_file1}"><label for="">{get_file1}</label></a>
+                        <a id="datafile1" href="#" data-toggle="modal" data-target="#show_file1" data_file1="{get_file1}"><label for=""><b>{get_file1}</b></label></a>
                         <div id="alert_file1"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file2">
                         <label for="">หนังสือรับรอง</label><br>
+                        <input hidden type="text" name="get_crf_file2" id="get_crf_file2" value="{get_file2}">
                         <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <label for="">{get_file1}</label>
+                        <a id="datafile2" href="#" data-toggle="modal" data-target="#show_file2" data_file2="{get_file2}"><label for=""><b>{get_file2}</b></label></a>
                         <div id="alert_file2"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file3">
                         <label for="">ข้อมูลทั่วไป</label><br>
+                        <input hidden type="text" name="get_crf_file3" id="get_crf_file3" value="{get_file3}">
                         <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <label for="">{get_file1}</label>
+                        <a id="datafile3" href="#" data-toggle="modal" data-target="#show_file3" data_file3="{get_file3}"><label for=""><b>{get_file3}</b></label></a>
                         <div id="alert_file3"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file4">
                         <label for="">งบแสดงฐานะทางการเงิน</label><br>
+                        <input hidden type="text" name="get_crf_file4" id="get_crf_file4" value="{get_file4}">
                         <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <label for="">{get_file1}</label>
+                        <a id="datafile4" href="#" data-toggle="modal" data-target="#show_file4" data_file4="{get_file4}"><label for=""><b>{get_file4}</b></label></a>
                         <div id="alert_file4"></div>
                     </div>
                     <div class="col-md-4 crf_file5">
                         <label for="">งบกำไรขาดทุน</label><br>
+                        <input hidden type="text" name="get_crf_file5" id="get_crf_file5" value="{get_file5}">
                         <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <label for="">{get_file1}</label>
+                        <a id="datafile5" href="#" data-toggle="modal" data-target="#show_file5" data_file5="{get_file5}"><label for=""><b>{get_file5}</b></label></a>
                         <div id="alert_file5"></div>
                     </div>
                     <div class="col-md-4 crf_file6">
                         <label for="">อัตราส่วนสภาพคล่อง</label>
+                        <input hidden type="text" name="get_crf_file6" id="get_crf_file6" value="{get_file6}">
                         <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
-                        <label for="">{get_file1}</label>
+                        <a id="datafile6" href="#" data-toggle="modal" data-target="#show_file6" data_file6="{get_file6}"><label for=""><b>{get_file6}</b></label></a>
                         <div id="alert_file6"></div>
                     </div>
                 </div>
@@ -412,13 +419,14 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group">
 
-                    <!-- For Change CreditTerm method -->
-                        <input type="text" name="oldCreditTerm" id="oldCreditTerm" style="display:none;">
+                        <!-- For Change CreditTerm method -->
+                        <input type="text" name="oldCreditTerm" id="oldCreditTerm" value="{edit_creditterm}">
                         <label for="">โปรดเลือกรายการ</label>
+                        <input readonly type="text" name="showCreditname" id="showCreditname" value="{edit_creditname}" class="form-control" style="display:none;">
                         <select name="crf_creditterm" id="crf_creditterm" class="form-control">
                             <option value="{edit_creditterm}">{edit_creditname}</option>
                             {getCreditTerm}
-                                <option value="{credit_id}">{credit_name}</option>
+                            <option value="{credit_id}">{credit_name}</option>
                             {/getCreditTerm}
                         </select>
                     </div>
@@ -473,7 +481,7 @@
 
 
                 <!-- Check Condition bill -->
-                <input type="text" name="check_conditionbill" id="check_conditionbill" value="{edit_conditionbill}" style="display:none;">
+                <input type="text" name="check_conditionbill" id="check_conditionbill" value="{edit_conditionbill}">
                 <label for="">
                     <h6><b><u>เงื่อนไขการวางบิล</u></b></h6>
                 </label>
@@ -493,17 +501,19 @@
                 </div>
                 <div id="alert_condition_bill"></div>
 
-                <div class="row form-group crf_condition_bill2" style="display:none">
+                <div class="row form-group crf_condition_bill2edit" style="display:none">
                     <div class="col-md-6">
                         <label for="">ตารางวางบิล</label><br>
-                        <input type="text" name="edit_crf_tablebill" id="edit_crf_tablebill" value="{get_tablebill}" class="form-control form-control-sm">
-                        <input type="file" name="crf_tablebill" id="crf_tablebill" class="form-control form-control-sm newcustomer1" accept=".jpg,.png,.pdf">
+                        <input hidden type="text" name="get_crf_file7" id="get_crf_file7" value="{get_file7}">
+                        <a id="tablebill" href="#" data-toggle="modal" data-target="#show_file7" data_tablebill="{get_file7}"><label for=""><b>{get_file7}</b></label></a>
+                        <input type="file" name="crf_file7" id="crf_file7" class="form-control form-control-sm newcustomer1" accept=".jpg,.png,.pdf">
                         <!-- <input type="text" name="crf_tablebill" id="crf_tablebill" class="form-control form-control-sm oldcustomer1" style="display:none"> -->
                     </div>
                     <div class="col-md-6">
                         <label for="">แผนที่ ที่ไปวางบิล</label><br>
-                        <input type="text" name="edit_crf_mapbill" id="edit_crf_mapbill" value="{get_mapbill}" class="form-control form-control-sm">
-                        <input type="file" name="crf_mapbill" id="crf_mapbill" class="form-control form-control-sm newcustomer2" accept=".jpg,.png,.pdf">
+                        <input hidden type="text" name="get_crf_file8" id="get_crf_file8" value="{get_file8}">
+                        <a id="mapbill" href="#" data-toggle="modal" data-target="#show_file8" data_mapbill="{get_file8}"><label for=""><b>{get_file8}</b></label></a>
+                        <input type="file" name="crf_file8" id="crf_file8" class="form-control form-control-sm newcustomer2" accept=".jpg,.png,.pdf">
                         <!-- <input type="text" name="crf_mapbill" id="crf_mapbill" class="form-control form-control-sm oldcustomer2" style="display:none"> -->
                     </div>
                 </div>
@@ -515,8 +525,9 @@
                     </div>
                     <div class="col-md-6">
                         <label for="">แผนที่ ที่ไปวางบิล</label><br>
-                        <input type="text" name="edit_crf_mapbill2" id="edit_crf_mapbill2" value="{get_mapbill2}" class="form-control form-control-sm">
-                        <input type="file" name="crf_mapbill2" id="crf_mapbill2" class="form-control form-control-sm newcustomer3" accept=".jpg,.png,.pdf">
+                        <input hidden type="text" name="get_crf_file9" id="get_crf_file9" value="{get_mapbill2}">
+                        <input type="file" name="crf_file9" id="crf_file9" class="form-control form-control-sm newcustomer3" accept=".jpg,.png,.pdf">
+                        <a id="mapbill2" href="#" data-toggle="modal" data-target="#show_file9" data_mapbill2="{get_mapbill2}"><label for=""><b>{get_mapbill2}</b></label></a>
                         <!-- <input type="text" name="crf_mapbill2" id="crf_mapbill2" class="form-control form-control-sm oldcustomer3" style="display:none;"> -->
                     </div>
                 </div><br>
@@ -525,7 +536,7 @@
 
 
                 <!-- Check condition money -->
-                <input type="text" name="check_conditionmoney" id="check_conditionmoney" value="{edit_conditionmoney}" style="display:none;">
+                <input type="text" name="check_conditionmoney" id="check_conditionmoney" value="{edit_conditionmoney}">
                 <label for="">
                     <h6><b><u>เงื่อนไขการรับชำระเงิน</u></b></h6>
                 </label>
@@ -547,13 +558,15 @@
                     <div class="col-md-6 form-group">
                         <label for="">แนบตารางวางบิล / รับเช็ค</label>
                         <input type="file" name="crf_recive_cheuqetable" id="crf_recive_cheuqetable" class="form-control form-control-sm newcustomer4" accept=".jpg,.png,.pdf">
-                        <input type="text" name="crf_recive_cheuqetable" id="crf_recive_cheuqetable" class="form-control form-control-sm oldcustomer4" style="display:none;">
-                        <div id="alert_recive_cheuqetable"></div>
+                        <span>
+                            <b>
+                                <a id="recive_cheuqetable" href="#" data-toggle="modal" data-target="#show_file10" data_recive_cheuqetable="{get_cheuqetable}">{get_cheuqetable}</a>
+                            </b>
+                        </span>
                     </div>
                     <div class="col-md-12 form-group">
                         <label for="">ระบุรายละเอียด</label>
-                        <textarea name="crf_recive_cheuqedetail" id="crf_recive_cheuqedetail" cols="30" rows="4" class="form-control form-control-sm"></textarea>
-                        <div id="alert_recive_cheuqedetail"></div>
+                        <textarea name="crf_recive_cheuqedetail" id="crf_recive_cheuqedetail" cols="30" rows="4" class="form-control form-control-sm">{get_cheuqedetail}</textarea>
                     </div>
                 </div><br>
 
@@ -633,13 +646,13 @@
 
                     <div class="col-md-4 form-group">
                         <label for="">ผู้บันทึกข้อมูล</label>
-                        <input readonly type="text" name="crf_userpost" id="crf_userpost" class="form-control form-control-sm" value="<?=getUser()->Fname."&nbsp;".getUser()->Lname?>">
+                        <input readonly type="text" name="crf_userpost" id="crf_userpost" class="form-control form-control-sm" value="<?= getUser()->Fname . "&nbsp;" . getUser()->Lname ?>">
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">แผนก</label>
-                        <input readonly type="text" name="crf_userdeptpost" id="crf_userdeptpost" class="form-control form-control-sm" value="<?=getUser()->Dept?>">
-                        <input hidden type="text" name="crf_userdeptcodepost" id="crf_userdeptcodepost" value="<?=getUser()->DeptCode?>">
-                        <input hidden type="text" name="crf_userecodepost" id="crf_userecodepost" value="<?=getUser()->ecode?>">
+                        <input readonly type="text" name="crf_userdeptpost" id="crf_userdeptpost" class="form-control form-control-sm" value="<?= getUser()->Dept ?>">
+                        <input hidden type="text" name="crf_userdeptcodepost" id="crf_userdeptcodepost" value="<?= getUser()->DeptCode ?>">
+                        <input hidden type="text" name="crf_userecodepost" id="crf_userecodepost" value="<?= getUser()->ecode ?>">
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">วันที่บันทึกข้อมูล</label>
@@ -647,10 +660,10 @@
                     </div>
                 </div>
 
-<!-- Customer id -->
-<input type="text" name="getCustomerid_edit" id="getCustomerid_edit" value="{crfcus_id}">
-<!-- Crf ID -->
-<input type="text" name="getCrfid_edit" id="getCrfid_edit" value="{get_crfid}">
+                <!-- Customer id -->
+                <input type="text" name="getCustomerid_edit" id="getCustomerid_edit" value="{crfcus_id}">
+                <!-- Crf ID -->
+                <input type="text" name="getCrfid_edit" id="getCrfid_edit" value="{get_crfid}">
 
 
                 <div class="row form-group">
@@ -660,3 +673,25 @@
                 </div>
                 <hr>
             </form>
+
+            <script>
+                $(document).ready(function() {
+                    $('#crf_condition_credit').change(function() {
+                        var oldCredit = $('#crf_creditterm').val();
+                        var creditMethod = $('#crf_condition_credit').val();
+                        if (oldCredit != '') {
+                            $.ajax({
+                                url: "<?php echo base_url(); ?>main/filterCreditTerm",
+                                method: "POST",
+                                data: {
+                                    oldCredit: oldCredit,
+                                    creditMethod: creditMethod
+                                }, //ส่งค่าออกไปแล้วนำไปใช้ใน Controller fetch_topic
+                                success: function(data) {
+                                    $('#showcredit2').html(data);
+                                }
+                            })
+                        }
+                    });
+                });
+            </script>

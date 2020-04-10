@@ -144,7 +144,7 @@ function getCustomerNumber()
     $obj = new getfn();
     // check formno ซ้ำในระบบ
     $checkRowdata = $obj->gci()->db->query("SELECT
-    crfcus_id FROM crf_customers ORDER BY crfcus_id DESC LIMIT 1 
+    crfcus_id FROM crf_customers_temp ORDER BY crfcus_id DESC LIMIT 1 
     ");
     $result = $checkRowdata->num_rows();
 
@@ -390,7 +390,12 @@ function conCreditTerm($creditid)
     $query = $obj->gci()->db->query("SELECT credit_name FROM credit_term_category WHERE credit_id = '$creditid'
     ");
     $result = $query->row();
-    return $result;
+    if($creditid == ''){
+        return false;
+    }else{
+        return $result->credit_name;
+    }
+    
 }
 
 function getFormBeforeSave($formno)
@@ -537,6 +542,18 @@ function deleteProcess($cusid)
     $query = $obj->gci()->db->delete("crf_process_use");
 
     return $query;
+}
+
+
+//Get customer code
+function getCustomerCode($crfid)
+{
+    $obj = new getfn();
+    $obj->gci()->db->select("crf_cuscode");
+    $obj->gci()->db->from("crf_maindata");
+    $obj->gci()->db->where("crf_id" , $crfid);
+    $result = $obj->gci()->db->get();
+    return $result->row();
 }
 
 

@@ -191,7 +191,8 @@ class Main_model extends CI_Model
                 "crfcus_usercreate" => $this->input->post("crf_userpost"),
                 "crfcus_usercreate_ecode" => $this->input->post("crf_userecodepost"),
                 "crfcus_usercreate_deptcode" => $this->input->post("crf_userdeptcodepost"),
-                "crfcus_datemodify" => date("Y-m-d H:i:s")
+                "crfcus_datemodify" => date("Y-m-d H:i:s"),
+                "crfcus_tempstatus" => "Processing"
             );
 
 
@@ -266,20 +267,71 @@ class Main_model extends CI_Model
         } else {
 
 
+
+            if($this->input->post("crf_cusid") != ""){
+                $this->db->select("*");
+                $this->db->from("crf_customers");
+                $this->db->where("crfcus_id" , $this->input->post("crf_cusid"));
+        $query = $this->db->get();
+        
+        foreach ($query->result() as $result){
+            $arCopyToTempTable = array(
+                "crfcus_id" => $result->crfcus_id,
+                "crfcus_code" => $result->crfcus_code,
+                "crfcus_brcode" => $result->crfcus_brcode,
+                "crfcus_salesreps" => $result->crfcus_salesreps,
+                "crfcus_name" => $result->crfcus_name,
+                "crfcus_comdatecreate" => $result->crfcus_comdatecreate,
+                "crfcus_addresstype" => $result->crfcus_addresstype,
+                "crfcus_address" => $result->crfcus_address,
+                "crfcus_contactname" => $result->crfcus_contactname,
+                "crfcus_phone" => $result->crfcus_phone,
+                "crfcus_fax" => $result->crfcus_fax,
+                "crfcus_email" => $result->crfcus_email,
+                "crfcus_regiscapital" => $result->crfcus_regiscapital,
+                "crfcus_companytype" => $result->crfcus_companytype,
+                "crfcus_comtype2" => $result->crfcus_comtype2,
+                "crfcus_comtype31" => $result->crfcus_comtype31,
+                "crfcus_comtype32" => $result->crfcus_comtype32,
+                "crfcus_comtype33" => $result->crfcus_comtype33,
+                "crfcus_comtype34" => $result->crfcus_comtype34,
+                "crfcus_typebussi" => $result->crfcus_typebussi,
+                "crfcus_forecast" => $result->crfcus_forecast,
+                "crfcus_file1" => $result->crfcus_file1,
+                "crfcus_file2" => $result->crfcus_file2,
+                "crfcus_file3" => $result->crfcus_file3,
+                "crfcus_file4" => $result->crfcus_file4,
+                "crfcus_file5" => $result->crfcus_file5,
+                "crfcus_file6" => $result->crfcus_file6,
+                "crfcus_creditterm" => $result->crfcus_creditterm,
+                "crfcus_creditterm2" => $result->crfcus_creditterm2,
+                "crfcus_conditionbill" => $result->crfcus_conditionbill,
+                "crfcus_tablebill" => $result->crfcus_tablebill,
+                "crfcus_mapbill" => $result->crfcus_mapbill,
+                "crfcus_datebill" => $result->crfcus_datebill,
+                "crfcus_mapbill2" => $result->crfcus_mapbill2,
+                "crfcus_conditionmoney" => $result->crfcus_conditionmoney,
+                "crfcus_cheuqetable" => $result->crfcus_cheuqetable,
+                "crfcus_cheuqedetail" => $result->crfcus_cheuqedetail,
+                "crfcus_moneylimit" => $result->crfcus_moneylimit,
+                "crfcus_moneylimit2" => $result->crfcus_moneylimit2,
+                "crfcus_usercreate" => $result->crfcus_usercreate,
+                "crfcus_usercreate_ecode" => $result->crfcus_usercreate_ecode,
+                "crfcus_usercreate_deptcode" => $result->crfcus_usercreate_deptcode,
+                "crfcus_datemodify" => $result->crfcus_datemodify,
+                "crfcus_usermodify" => $result->crfcus_usermodify,
+                "crfcus_usermodify_ecode" => $result->crfcus_usermodify_ecode,
+                "crfcus_usermodify_deptcode" => $result->crfcus_usermodify_deptcode,
+                "crfcus_usermodify_datetime" => date("Y-m-d H:i:s"),
+                "crfcus_tempstatus" => "Processing"
+            );
+            $this->db->insert("crf_customers_temp" ,  $arCopyToTempTable);
+                
+            }
+
+
+
             if ($this->input->post("crf_sub_oldcus_changearea") == 1) {  // กรณีที่เลือกเปลี่ยนเขตการขาย
-
-                // $arcustomer = array(
-                //     "crfcus_salesreps" => $this->input->post("crf_salesreps"),
-                //     "crfcus_usercreate" => $this->input->post("crf_userpost"),
-                //     "crfcus_usercreate_ecode" => $this->input->post("crf_userecodepost"),
-                //     "crfcus_usercreate_deptcode" => $this->input->post("crf_userdeptcodepost"),
-                //     "crfcus_datemodify" => date("Y-m-d H:i:s")
-                // );
-                // $this->db->where("crfcus_code", $this->input->post("crf_customercode"));
-                // $this->db->update("crf_customers", $arcustomer);
-
-
-
                 $arsavedata = array(
                     "crf_formno" => $getFormNo,
                     "crf_cuscode" => $this->input->post("crf_cusid"),
@@ -303,6 +355,13 @@ class Main_model extends CI_Model
                     "crf_report_month" => $report_month,
                     "crf_report_year" => $report_year
                 );
+
+                $arSaveToTemp = array(
+                    "crfcus_id" => $this->input->post("crf_cusid"),
+                    "crfcus_code" => $this->input->post("crf_customercode"),
+
+                );
+
                 if (getFormBeforeSave($getFormNo) > 0) {
                     $this->db->where("crf_formno", $getFormNo);
                     $this->db->update("crf_maindata", $arsavedata);
@@ -321,6 +380,7 @@ class Main_model extends CI_Model
                 );
                 $this->db->insert("crf_userlog", $aruserlog);
             }
+
 
             if ($this->input->post("crf_sub_oldcus_changeaddress") == 2) {  //กรณีที่เลือกเปลี่ยนที่อยู่
 
@@ -519,15 +579,21 @@ class Main_model extends CI_Model
 
         foreach ($query->result() as $row) {
 
+            $bgcolor = "background-color:#E8E8E8;";
+            $fontcolor = "color:#000000;";
+
             if ($row->crf_status == "Open") {
-                $bgcolor = "background-color:#bccbd0;";
-                $fontcolor = "color:#777777";
+                $statusColor = "color:#0066FF;";
+                $lineStatusColor = "background-color:#0066FF;height:3px;";
             } else if ($row->crf_status == "Complated") {
-                $bgcolor = "background-color:#32CD32;";
-                $fontcolor = "color:#FFFFFF";
+                $statusColor = "color:#009900;";
+                $lineStatusColor = "background-color:#009900;height:3px;";
+            } else if ($row->crf_status == "Cancel") {
+                $statusColor = "color:#CC0000;";
+                $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
-                $fontcolor = "color:#777777";
-                $bgcolor = "background-color:#bccbd0;";
+                $statusColor = "color:#0066FF;";
+                $lineStatusColor = "background-color:#0066FF;height:3px;";
             }
 
             if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated") {
@@ -544,20 +610,21 @@ class Main_model extends CI_Model
 
             $output .= '
       <div class="card mt-3">
-      <div class="card-header" style="' . $bgcolor . '">
+      <div class="card-header" style="' . $bgcolor . $fontcolor . '">
             <div class="col-md-3 col-sm-12">
                 เลขที่คำขอ &nbsp;<a href="' . base_url('main/viewdata/') . $row->crf_id . '">' . $row->crf_formno . '</a>
             </div>
             <div class="col-md-3 col-sm-12">
-                วันที่สร้างรายการ : &nbsp;<span style="' . $fontcolor . '">' . conDateFromDb($row->crf_datecreate) . '</span>
+                วันที่สร้างรายการ : &nbsp;<span style="">' . conDateFromDb($row->crf_datecreate) . '</span>
             </div>
             <div class="col-md-3 col-sm-12">
-                ประเภทลูกค้า : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_alltype_subname . '</span>
+                ประเภทลูกค้า : &nbsp;<span style="">' . $row->crf_alltype_subname . '</span>
             </div>
             <div class="col-md-3 statustext">
-                สถานะ : &nbsp;<span style="' . $fontcolor . '">' . $row->crf_status . '</span>
+                สถานะ : &nbsp;<span style="' . $statusColor . '">' . $row->crf_status . '</span>
             </div>
       </div>
+      <div style="' . $lineStatusColor . '"></div>
       <div class="card-body">
         <div class="row">
             <div class="col-md-3">
@@ -915,9 +982,31 @@ class Main_model extends CI_Model
         saveApprove($crfid);
     }
 
+
     public function csbr($crfid)
     {
-        saveCsBr($crfid);
+        $brcode = $this->input->post("crf_brcode");
+
+        $this->db->select("crfcus_brcode");
+        $this->db->from("crf_customers_temp");
+        $this->db->where("crfcus_brcode", $brcode);
+        $result = $this->db->get();
+
+        echo $result->num_rows();
+        if ($result->num_rows() > 0) {
+            echo "<script>";
+            echo "alert('พบข้อมูลซ้ำในระบบ')";
+            echo "</script>";
+            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
+        } else if ($result->num_rows() == 0) {
+            saveCsBr($crfid);
+            header("refresh:0; url=" . base_url('main/list'));
+        }
+    }
+    // Check Duplicate Br code
+    public function checkDupliBR()
+    {
+        $brcode = "";
     }
 
     public function accMgr($crfid)
@@ -955,7 +1044,24 @@ class Main_model extends CI_Model
 
     public function saveCustomersCode($crfid, $crfcusid)
     {
-        saveCustomersCode($crfid, $crfcusid);
+
+        $customercode = $this->input->post("cusCode");
+
+        $this->db->select("crfcus_code");
+        $this->db->from("crf_customers_temp");
+        $this->db->where("crfcus_code", $customercode);
+        $result = $this->db->get();
+
+        echo $result->num_rows();
+        if ($result->num_rows() > 0) {
+            echo "<script>
+            alert('พบข้อมูลซ้ำในระบบ');
+            </script>";
+            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
+        } else if ($result->num_rows() == 0) {
+            saveCustomersCode($crfid, $crfcusid);
+            header("refresh:0; url=" . base_url('main/list'));
+        }
     }
 
 
@@ -1019,7 +1125,7 @@ class Main_model extends CI_Model
         INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
         INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
         INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
-        WHERE crfcus_code LIKE '$cusCode%' ORDER BY crf_maindata.crf_id DESC LIMIT 1
+        WHERE crfcus_code LIKE '$cusCode%' GROUP BY crf_customers.crfcus_code ORDER BY crf_maindata.crf_id DESC
         ");
         $output = "";
         foreach ($query->result() as $rs) {
@@ -1058,7 +1164,7 @@ class Main_model extends CI_Model
             data_crf_finance = '$rs->crf_finance'
             data_crf_finance_req_number = '$rs->crfcus_moneylimit'
             data_crf_creditterm2 = '$rs->crfcus_creditterm2'
-            data_crf_creditterm2name = '" . conCreditTerm($rs->crfcus_creditterm2) . "'
+            data_crf_creditterm2name = '$rs->crfcus_creditterm2'
             data_crf_moneylimit = '$rs->crfcus_moneylimit'
             
             ><li class='list-group-item'>" . $rs->crfcus_code . "</li></a>";
@@ -1263,6 +1369,21 @@ class Main_model extends CI_Model
         }
         $output .= '</select>';
 
+        echo $output;
+    }
+
+
+    public function fetch_filterCredit($oldCredit, $creditMethod)
+    {
+        if ($creditMethod == "เพิ่ม") {
+            $query = $this->db->query("SELECT * FROM credit_term_category WHERE credit_id > $oldCredit");
+        } else if ($creditMethod == "ลด") {
+            $query = $this->db->query("SELECT * FROM credit_term_category WHERE credit_id < $oldCredit");
+        }
+        $output = '';
+        foreach ($query->result() as $rs) {
+            $output .= '<option value="' . $rs->credit_id . '">' . $rs->credit_name . '</option>';
+        }
         echo $output;
     }
 
@@ -1846,7 +1967,7 @@ class Main_model extends CI_Model
             $this->uploadFiles($file2, $fileType2);
             $resultFile2 = $this->uploadFiles($file2, $fileType2);
         } else {
-            $resultFile2 = $this->input->post("get_crf_file1");
+            $resultFile2 = $this->input->post("get_crf_file2");
         }
 
         if ($_FILES["crf_file3"]["name"] != "") {
@@ -1855,7 +1976,7 @@ class Main_model extends CI_Model
             $this->uploadFiles($file3, $fileType3);
             $resultFile3 = $this->uploadFiles($file3, $fileType3);
         } else {
-            $resultFile3 = $this->input->post("get_crf_file1");
+            $resultFile3 = $this->input->post("get_crf_file3");
         }
 
         if ($_FILES["crf_file4"]["name"] != "") {
@@ -1864,7 +1985,7 @@ class Main_model extends CI_Model
             $this->uploadFiles($file4, $fileType4);
             $resultFile4 = $this->uploadFiles($file4, $fileType4);
         } else {
-            $resultFile4 = $this->input->post("get_crf_file1");
+            $resultFile4 = $this->input->post("get_crf_file4");
         }
 
         if ($_FILES["crf_file5"]["name"] != "") {
@@ -1873,7 +1994,7 @@ class Main_model extends CI_Model
             $this->uploadFiles($file5, $fileType5);
             $resultFile5 = $this->uploadFiles($file5, $fileType5);
         } else {
-            $resultFile5 = $this->input->post("get_crf_file1");
+            $resultFile5 = $this->input->post("get_crf_file5");
         }
 
         if ($_FILES["crf_file6"]["name"] != "") {
@@ -1882,14 +2003,41 @@ class Main_model extends CI_Model
             $this->uploadFiles($file6, $fileType6);
             $resultFile6 = $this->uploadFiles($file6, $fileType6);
         } else {
-            $resultFile6 = $this->input->post("get_crf_file1");
+            $resultFile6 = $this->input->post("get_crf_file6");
+        }
+
+        if ($_FILES["crf_file7"]["name"] != "") {
+            $file7 = "crf_file7";
+            $fileType7 = "ตารางวางบิล";
+            $this->uploadFiles($file7, $fileType7);
+            $resultFile7 = $this->uploadFiles($file7, $fileType7);
+        } else {
+            $resultFile7 = $this->input->post("get_crf_file7");
+        }
+
+        if ($_FILES["crf_file8"]["name"] != "") {
+            $file8 = "crf_file8";
+            $fileType8 = "แผนที่ที่ไปวางบิล";
+            $this->uploadFiles($file8, $fileType8);
+            $resultFile8 = $this->uploadFiles($file8, $fileType8);
+        } else {
+            $resultFile8 = $this->input->post("get_crf_file8");
+        }
+
+        if ($_FILES["crf_file9"]["name"] != "") {
+            $file9 = "crf_file9";
+            $fileType9 = "แผนที่ที่ไปวางบิล2";
+            $this->uploadFiles($file9, $fileType9);
+            $resultFile9 = $this->uploadFiles($file9, $fileType9);
+        } else {
+            $resultFile9 = $this->input->post("get_crf_file9");
         }
 
 
 
         if (isset($_POST['user_edit'])) {
 
-            if($this->input->post("crf_type") == 1){
+            if ($this->input->post("crf_type") == 1) {
                 $arcustomer = array(
                     "crfcus_salesreps" => $this->input->post("edit_salesreps"),
                     "crfcus_name" => $this->input->post("edit_customername"),
@@ -1917,10 +2065,10 @@ class Main_model extends CI_Model
                     "crfcus_file6" => $resultFile6,
                     "crfcus_creditterm" => $this->input->post("crf_creditterm"),
                     "crfcus_conditionbill" => $this->input->post("crf_condition_bill"),
-                    "crfcus_tablebill" => $this->input->post("crf_tablebill"),
-                    "crfcus_mapbill" => $this->input->post("crf_mapbill"),
+                    "crfcus_tablebill" => $resultFile7,
+                    "crfcus_mapbill" => $resultFile8,
                     "crfcus_datebill" => $this->input->post("crf_datebill"),
-                    "crfcus_mapbill2" => $this->input->post("crf_mapbill2"),
+                    "crfcus_mapbill2" => $resultFile9,
                     "crfcus_conditionmoney" => $this->input->post("edit_condition_money"),
                     "crfcus_moneylimit" => $this->input->post("crf_finance_req_number"),
                     "crfcus_usermodify" => $this->input->post("crf_userpost"),
@@ -1928,153 +2076,16 @@ class Main_model extends CI_Model
                     "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),
                     "crfcus_usermodify_datetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime"))
                 );
-                $this->db->where("crfcus_id" , $this->input->post("getCustomerid_edit"));
-                $this->db->update("crf_customers_temp" , $arcustomer);
-    
-    
+                $this->db->where("crfcus_id", $this->input->post("getCustomerid_edit"));
+                $this->db->update("crf_customers_temp", $arcustomer);
+
+
                 $arcrfmain = array(
                     "crf_company" => $this->input->post("crf_company"),
                     "crf_type" => $this->input->post("crf_type"),
                     "crf_datecreate" => conDateToDb($this->input->post("crf_datecreate")),
                     "crf_finance" => $this->input->post("crf_finance"),
                     "crf_userpost" => $this->input->post("crf_userpost"),
-                    "crf_userecodepost" => $this->input->post("crf_userecodepost"),
-                    "crf_userdeptcodepost" => $this->input->post("crf_userdeptcodepost"),
-                    "crf_userdeptpost" => $this->input->post("crf_userdeptpost"),
-                    "crf_userpostdatetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime")),
-                    "crf_report_date" => $report_date,
-                    "crf_report_month" => $report_month,
-                    "crf_report_year" => $report_year
-                );
-                $this->db->where("crf_id" , $this->input->post("getCrfid_edit"));
-                $this->db->update("crf_maindata" , $arcrfmain);
-    
-    
-    
-    
-                if (isset($_POST["crf_primanage_dept"])) {
-    
-                    if (deletePrimanage($this->input->post("getCustomerid_edit"))) {
-                        $crf_primanage_dept = $this->input->post('crf_primanage_dept');
-    
-                        foreach ($crf_primanage_dept as $key => $rs) {
-    
-                            $arsavePri = array(
-                                "crf_pricusid" => $this->input->post("getCustomerid_edit"),
-                                "crf_primanage_dept" => $rs,
-                                "crf_primanage_name" => $this->input->post("crf_primanage_name")[$key],
-                                "crf_primanage_posi" => $this->input->post("crf_primanage_posi")[$key],
-                                "crf_primanage_email" => $this->input->post("crf_primanage_email")[$key]
-                            );
-                            $this->db->insert("crf_pri_manage", $arsavePri);
-                        }
-                    }
-                }
-    
-                if (isset($_POST["crf_process"])) {
-                    if (deleteProcess($this->input->post('getCustomerid_edit'))) {
-                        $crf_process = $this->input->post("crf_process");
-    
-                        foreach ($crf_process as $key => $rs) {
-    
-                            $arsaveProcess = array(
-                                "crf_cusid" => $this->input->post('getCustomerid_edit'),
-                                "crf_process_name" => $rs
-                            );
-                            $this->db->insert("crf_process_use",  $arsaveProcess);
-                        }
-                    }
-                }
-    
-    
-                //Update User log table
-                $aruserlog = array(
-                    "crfuserlog_datetime" => date("Y-m-d H:i:s"),
-                    "crfuserlog_activity" => "แก้ไขข้อมูล",
-                    "crfuserlog_username" => $this->input->post("crf_userpost"),
-                    "crfuserlog_deptcode" => $this->input->post("crf_userdeptcodepost"),
-                    "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
-                );
-                $this->db->insert("crf_userlog", $aruserlog);
-                header("refresh:0; url=".base_url('main/viewdata/').$this->input->post("getCrfid_edit"));
-
-
-            }else if($this->input->post("crf_type") == 2){ //When current customer
-
-                if($this->input->post("crf_sub_oldcus_changearea") != ""){
-                    $changearea = $this->input->post("crf_sub_oldcus_changearea");
-                }else{
-                    $changearea = 0;
-                }
-
-                if($this->input->post("crf_sub_oldcus_changeaddress") != ""){
-                    $changeaddress = $this->input->post("crf_sub_oldcus_changeaddress");
-                }else{
-                    $changeaddress = 0;
-                }
-
-                if($this->input->post("crf_sub_oldcus_changecredit") != ""){
-                    $changecredit = $this->input->post("crf_sub_oldcus_changecredit");
-                }else{
-                    $changecredit = 0;
-                }
-
-                if($this->input->post("crf_sub_oldcus_changefinance") != ""){
-                    $changefinance = $this->input->post("crf_sub_oldcus_changefinance");
-                }else{
-                    $changefinance = 0;
-                }
-
-
-                $arcustomer = array(
-                    "crfcus_salesreps" => $this->input->post("edit_salesreps"),
-                    "crfcus_name" => $this->input->post("edit_customername"),
-                    "crfcus_comdatecreate" => conDateToDb($this->input->post("edit_cuscompanycreate")),
-                    "crfcus_addresstype" => $this->input->post("edit_addresstype"),
-                    "crfcus_address" => $this->input->post("edit_addressname"),
-                    "crfcus_contactname" => $this->input->post("edit_namecontact"),
-                    "crfcus_phone" => $this->input->post("edit_telcontact"),
-                    "crfcus_fax" => $this->input->post("edit_faxcontact"),
-                    "crfcus_email" => $this->input->post("edit_emailcontact"),
-                    "crfcus_regiscapital" => $this->input->post("edit_regiscost"),
-                    "crfcus_companytype" => $this->input->post("crf_companytype"),
-                    "crfcus_comtype2" => $this->input->post("crf_companytype2"),
-                    "crfcus_comtype31" => $this->input->post("crf_companytype3_1_1"),
-                    "crfcus_comtype32" => $this->input->post("crf_companytype3_1_2"),
-                    "crfcus_comtype33" => $this->input->post("crf_companytype3_2_1"),
-                    "crfcus_comtype34" => $this->input->post("crf_companytype3_2_2"),
-                    "crfcus_typebussi" => $this->input->post("edit_typeofbussi"),
-                    "crfcus_forecast" => $this->input->post("edit_forecast"),
-                    "crfcus_file1" => $resultFile1,
-                    "crfcus_file2" => $resultFile2,
-                    "crfcus_file3" => $resultFile3,
-                    "crfcus_file4" => $resultFile4,
-                    "crfcus_file5" => $resultFile5,
-                    "crfcus_file6" => $resultFile6,
-                    "crfcus_creditterm" => $this->input->post("crf_creditterm"),
-                    "crfcus_conditionbill" => $this->input->post("crf_condition_bill"),
-                    "crfcus_conditionmoney" => $this->input->post("edit_condition_money"),
-                    "crfcus_moneylimit" => $this->input->post("crf_finance_req_number"),
-                    "crfcus_usermodify" => $this->input->post("crf_userpost"),
-                    "crfcus_usermodify_ecode" => $this->input->post("crf_userecodepost"),
-                    "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),
-                    "crfcus_usermodify_datetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime"))
-                );
-                $this->db->where("crfcus_id" , $this->input->post("getCustomerid_edit"));
-                $this->db->update("crf_customers_temp" , $arcustomer);
-    
-    
-                $arcrfmain = array(
-                    "crf_company" => $this->input->post("crf_company"),
-                    "crf_type" => $this->input->post("crf_type"),
-                    "crf_sub_oldcus_changearea" => $changearea,
-                    "crf_sub_oldcus_changeaddress" => $changeaddress,
-                    "crf_sub_oldcus_changecredit" => $changecredit,
-                    "crf_sub_oldcus_changefinance" => $changefinance,
-                    "crf_datecreate" => conDateToDb($this->input->post("crf_datecreate")),
-                    "crf_finance" => $this->input->post("crf_finance"),
-                    "crf_userpost" => $this->input->post("crf_userpost"),
-                    "crfw_cusaddress" => $this->input->post("edit_addressname"),
                     "crf_userecodepost" => $this->input->post("crf_userecodepost"),
                     "crf_userdeptcodepost" => $this->input->post("crf_userdeptcodepost"),
                     "crf_userdeptpost" => $this->input->post("crf_userdeptpost"),
@@ -2084,19 +2095,19 @@ class Main_model extends CI_Model
                     "crf_report_year" => $report_year,
                     "crf_status" => "Edit"
                 );
-                $this->db->where("crf_id" , $this->input->post("getCrfid_edit"));
-                $this->db->update("crf_maindata" , $arcrfmain);
-    
-    
-    
-    
+                $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
+                $this->db->update("crf_maindata", $arcrfmain);
+
+
+
+
                 if (isset($_POST["crf_primanage_dept"])) {
-    
+
                     if (deletePrimanage($this->input->post("getCustomerid_edit"))) {
                         $crf_primanage_dept = $this->input->post('crf_primanage_dept');
-    
+
                         foreach ($crf_primanage_dept as $key => $rs) {
-    
+
                             $arsavePri = array(
                                 "crf_pricusid" => $this->input->post("getCustomerid_edit"),
                                 "crf_primanage_dept" => $rs,
@@ -2108,13 +2119,13 @@ class Main_model extends CI_Model
                         }
                     }
                 }
-    
+
                 if (isset($_POST["crf_process"])) {
                     if (deleteProcess($this->input->post('getCustomerid_edit'))) {
                         $crf_process = $this->input->post("crf_process");
-    
+
                         foreach ($crf_process as $key => $rs) {
-    
+
                             $arsaveProcess = array(
                                 "crf_cusid" => $this->input->post('getCustomerid_edit'),
                                 "crf_process_name" => $rs
@@ -2123,8 +2134,8 @@ class Main_model extends CI_Model
                         }
                     }
                 }
-    
-    
+
+
                 //Update User log table
                 $aruserlog = array(
                     "crfuserlog_datetime" => date("Y-m-d H:i:s"),
@@ -2134,24 +2145,221 @@ class Main_model extends CI_Model
                     "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
                 );
                 $this->db->insert("crf_userlog", $aruserlog);
-                header("refresh:0; url=".base_url('main/viewdata/').$this->input->post("getCrfid_edit"));
+                header("refresh:0; url=" . base_url('main/viewdata/') . $this->input->post("getCrfid_edit"));
+            } else if ($this->input->post("crf_type") == 2) { //When current customer
+                //When current customer//When current customer//When current customer//When current customer//When current customer
+
+
+
+
+                if ($this->input->post("crf_sub_oldcus_changearea") != "") {
+                    $changearea = $this->input->post("crf_sub_oldcus_changearea");
+                    $topic1 = "เปลี่ยนเขตการขาย";
+                } else {
+                    $changearea = 0;
+                    $topic1 = "";
+                }
+                if ($this->input->post("crf_sub_oldcus_changearea") == 1) {
+
+                    $arChangearea_main = array(
+                        "crfw_salesreps" => $this->input->post("edit_salesreps"),
+                        "crf_sub_oldcus_changearea" => $changearea,
+                        "crf_topic" => $topic1,
+                    );
+                    $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
+                    $this->db->update("crf_maindata", $arChangearea_main);
+                }
+
+
+
+
+
+                if ($this->input->post("crf_sub_oldcus_changeaddress") != "") {
+                    $changeaddress = $this->input->post("crf_sub_oldcus_changeaddress");
+                    $topic2 = "เปลี่ยนที่อยู่";
+                } else {
+                    $changeaddress = 0;
+                    $topic2 = "";
+                }
+                if ($this->input->post("crf_sub_oldcus_changeaddress") == 2) {
+                    $arChangeAddress_main = array(
+                        "crfw_cusaddresstype" => $this->input->post("edit_addresstype"),
+                        "crfw_cusaddress" => $this->input->post("edit_addressname"),
+                        "crfw_contactname" => $this->input->post("edit_namecontact"),
+                        "crfw_phone" => $this->input->post("edit_telcontact"),
+                        "crfw_fax" => $this->input->post("edit_faxcontact"),
+                        "crfw_email" => $this->input->post("edit_emailcontact"),
+                        "crfw_cusfile1" => $resultFile1,
+                        "crf_topic2" => $topic2,
+                        "crf_sub_oldcus_changeaddress" => $changeaddress,
+                    );
+                    $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
+                    $this->db->update("crf_maindata", $arChangeAddress_main);
+                }
+
+
+
+
+
+
+
+                if ($this->input->post("crf_sub_oldcus_changecredit") != "") {
+                    $changecredit = $this->input->post("crf_sub_oldcus_changecredit");
+                    $topic3 = "ปรับ Credit term. เพิ่ม / ลด";
+                } else {
+                    $changecredit = 0;
+                    $topic3 = "";
+                }
+                if($this->input->post("crf_sub_oldcus_changecredit") == 3){
+                    $arChangeCredit = array(
+                        "crf_creditterm" => $this->input->post("oldCreditTerm"),
+                        "crf_change_creditterm" => $this->input->post("crf_change_creditterm"),
+                        "crf_condition_credit" => $this->input->post("crf_condition_credit"),
+                        "crf_creditterm2" => $this->input->post("showcredit2"),
+                        "crf_sub_oldcus_changecredit" => $changecredit,
+                        "crf_topic3" => $topic3,
+                    );
+                    $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
+                    $this->db->update("crf_maindata", $arChangeCredit);
+                }
+
+
+
+
+
+
+
+
+
+                if ($this->input->post("crf_sub_oldcus_changefinance") != "") {
+                    $changefinance = $this->input->post("crf_sub_oldcus_changefinance");
+                    $topic4 = "ปรับวงเงิน เพิ่ม / ลด";
+                } else {
+                    $changefinance = 0;
+                    $topic4 = "";
+                }
+
+
+
+
+
+                $arcustomer = array(
+
+                    "crfcus_name" => $this->input->post("edit_customername"),
+                    "crfcus_comdatecreate" => conDateToDb($this->input->post("edit_cuscompanycreate")),
+                    "crfcus_addresstype" => $this->input->post("edit_addresstype"),
+                    "crfcus_address" => $this->input->post("edit_addressname"),
+                    "crfcus_contactname" => $this->input->post("edit_namecontact"),
+                    "crfcus_phone" => $this->input->post("edit_telcontact"),
+                    "crfcus_fax" => $this->input->post("edit_faxcontact"),
+                    "crfcus_email" => $this->input->post("edit_emailcontact"),
+                    "crfcus_regiscapital" => $this->input->post("edit_regiscost"),
+                    "crfcus_companytype" => $this->input->post("crf_companytype"),
+                    "crfcus_comtype2" => $this->input->post("crf_companytype2"),
+                    "crfcus_comtype31" => $this->input->post("crf_companytype3_1_1"),
+                    "crfcus_comtype32" => $this->input->post("crf_companytype3_1_2"),
+                    "crfcus_comtype33" => $this->input->post("crf_companytype3_2_1"),
+                    "crfcus_comtype34" => $this->input->post("crf_companytype3_2_2"),
+                    "crfcus_typebussi" => $this->input->post("edit_typeofbussi"),
+                    "crfcus_forecast" => $this->input->post("edit_forecast"),
+                    "crfcus_file1" => $resultFile1,
+                    "crfcus_file2" => $resultFile2,
+                    "crfcus_file3" => $resultFile3,
+                    "crfcus_file4" => $resultFile4,
+                    "crfcus_file5" => $resultFile5,
+                    "crfcus_file6" => $resultFile6,
+                    "crfcus_creditterm" => $this->input->post("oldCreditTerm"),
+                    "crfcus_conditionbill" => $this->input->post("crf_condition_bill"),
+                    "crfcus_conditionmoney" => $this->input->post("edit_condition_money"),
+                    "crfcus_moneylimit" => $this->input->post("crf_finance_req_number"),
+                    "crfcus_usermodify" => $this->input->post("crf_userpost"),
+                    "crfcus_usermodify_ecode" => $this->input->post("crf_userecodepost"),
+                    "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),
+                    "crfcus_usermodify_datetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime"))
+                );
+                $this->db->where("crfcus_id", $this->input->post("getCustomerid_edit"));
+                $this->db->update("crf_customers_temp", $arcustomer);
+
+
+                $arcrfmain = array(
+                    "crf_company" => $this->input->post("crf_company"),
+                    "crf_type" => $this->input->post("crf_type"),
+
+                    
+                   
+                    "crf_sub_oldcus_changefinance" => $changefinance,
+                    "crf_datecreate" => conDateToDb($this->input->post("crf_datecreate")),
+                    
+                    "crf_finance" => $this->input->post("crf_finance"),
+                    "crf_userpost" => $this->input->post("crf_userpost"),
+
+
+
+                    
+                    
+                    "crf_topic4" => $topic4,
+                    "crf_userecodepost" => $this->input->post("crf_userecodepost"),
+                    "crf_userdeptcodepost" => $this->input->post("crf_userdeptcodepost"),
+                    "crf_userdeptpost" => $this->input->post("crf_userdeptpost"),
+                    "crf_userpostdatetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime")),
+                    "crf_report_date" => $report_date,
+                    "crf_report_month" => $report_month,
+                    "crf_report_year" => $report_year,
+                    "crf_status" => "Edit"
+                );
+                $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
+                $this->db->update("crf_maindata", $arcrfmain);
+
+
+
+
+                if (isset($_POST["crf_primanage_dept"])) {
+
+                    if (deletePrimanage($this->input->post("getCustomerid_edit"))) {
+                        $crf_primanage_dept = $this->input->post('crf_primanage_dept');
+
+                        foreach ($crf_primanage_dept as $key => $rs) {
+
+                            $arsavePri = array(
+                                "crf_pricusid" => $this->input->post("getCustomerid_edit"),
+                                "crf_primanage_dept" => $rs,
+                                "crf_primanage_name" => $this->input->post("crf_primanage_name")[$key],
+                                "crf_primanage_posi" => $this->input->post("crf_primanage_posi")[$key],
+                                "crf_primanage_email" => $this->input->post("crf_primanage_email")[$key]
+                            );
+                            $this->db->insert("crf_pri_manage", $arsavePri);
+                        }
+                    }
+                }
+
+                if (isset($_POST["crf_process"])) {
+                    if (deleteProcess($this->input->post('getCustomerid_edit'))) {
+                        $crf_process = $this->input->post("crf_process");
+
+                        foreach ($crf_process as $key => $rs) {
+
+                            $arsaveProcess = array(
+                                "crf_cusid" => $this->input->post('getCustomerid_edit'),
+                                "crf_process_name" => $rs
+                            );
+                            $this->db->insert("crf_process_use",  $arsaveProcess);
+                        }
+                    }
+                }
+
+
+                //Update User log table
+                $aruserlog = array(
+                    "crfuserlog_datetime" => date("Y-m-d H:i:s"),
+                    "crfuserlog_activity" => "แก้ไขข้อมูล",
+                    "crfuserlog_username" => $this->input->post("crf_userpost"),
+                    "crfuserlog_deptcode" => $this->input->post("crf_userdeptcodepost"),
+                    "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
+                );
+                $this->db->insert("crf_userlog", $aruserlog);
+                header("refresh:0; url=" . base_url('main/viewdata/') . $this->input->post("getCrfid_edit"));
             }
-
-
-
-            
         }
-
-        
-
     }
-
-
-
-
-
-
-
-
 }
 // Main Model
