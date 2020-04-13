@@ -303,7 +303,7 @@ class Main extends MX_Controller
     {
         if (isset($_POST['director_submit2'])) {
             $this->main->director2($crfid);
-            header("refresh:0; url=" . base_url('main/list'));
+            // header("refresh:0; url=" . base_url('main/list'));
         }
     }
 
@@ -803,7 +803,6 @@ public function editdata($crf_id)
         "edit_custype" => getViewData($crf_id)->crf_type,
         "edit_datecreate" => conDateFromDb(getViewData($crf_id)->crf_datecreate),
         "edit_salesreps" => getViewData($crf_id)->crfcus_salesreps,
-        "edit_salesrepsOld" => getViewData($crf_id)->crfw_salesreps,
         "edit_cusname" => getViewData($crf_id)->crfcus_name,
         "edit_comcreate" => getViewData($crf_id)->crfcus_comdatecreate,
         "edit_ivoicetype" => getViewData($crf_id)->crfcus_addresstype,
@@ -844,6 +843,12 @@ public function editdata($crf_id)
         "get_cheuqetable" => getViewData($crf_id)->crfcus_cheuqetable,
         "get_cheuqedetail" => getViewData($crf_id)->crfcus_cheuqedetail,
         "geturl" => $this->uri->segment(2),
+        "get_comtype2" => getViewData($crf_id)->crfcus_comtype2,
+        "get_formno" => getViewData($crf_id)->crfcus_formno,
+        "get_comtype31" => getViewData($crf_id)->crfcus_comtype31,
+        "get_comtype32" => getViewData($crf_id)->crfcus_comtype32,
+        "get_comtype33" => getViewData($crf_id)->crfcus_comtype33,
+        "get_comtype34" => getViewData($crf_id)->crfcus_comtype34,
 
     );
 
@@ -859,15 +864,9 @@ public function save_editdata(){
 }
 
 
-public function canceldata($crfid)
+public function canceldata($crfid,$crfcuscode)
 {
-    $arCancel = array(
-        "crf_status" => "Cancel"
-    );
-
-    $this->db->where("crf_id" , $crfid);
-    $this->db->update("crf_maindata" ,  $arCancel);
-    header("refresh:0; url=".base_url('main/list'));
+    $this->main->canceldata($crfid,$crfcuscode);
 }
 
 

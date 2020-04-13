@@ -526,7 +526,7 @@
                     <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
                 </label>
                 <div class="row form-group">
-                    <input type="text" name="value_crf_finance" id="value_crf_finance" style="display:none">
+                    <input type="text" name="value_crf_finance" id="value_crf_finance">
                     <div class="col-md-4 from-group">
                         <input type="radio" name="crf_finance" id="crf_finance" value="ขอวงเงิน" class="crf_financev1">
                         <label for="">ขอวงเงิน</label>
@@ -778,6 +778,7 @@
     </div>
 
 </body>
+
 
 
 </html>

@@ -306,17 +306,18 @@ function getViewData($crf_id)
     crf_maindata.crfw_salesreps,
     crf_maindata.crfw_cusaddresstype,
     crf_maindata.crfw_cusaddress,
-    crf_maindata.crfw_cusfile1
+    crf_maindata.crfw_cusfile1,
+    crf_customers_temp.crfcus_formno
     
     FROM
     crf_maindata
-    INNER JOIN crf_customers_temp ON crf_customers_temp.crfcus_id = crf_maindata.crf_cuscode
+    INNER JOIN crf_customers_temp ON crf_customers_temp.crfcus_formno = crf_maindata.crf_formno
     INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers_temp.crfcus_companytype
     INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers_temp.crfcus_creditterm
     INNER JOIN crf_alltype ON crf_alltype.crf_alltype_subcode = crf_maindata.crf_type
     
     
-    WHERE crf_id = '$crf_id' 
+    WHERE crf_id = '$crf_id' ORDER BY crfcus_tempid DESC LIMIT 1
     ");
 
     return $query->row();

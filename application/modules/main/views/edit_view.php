@@ -37,6 +37,7 @@
 
                 <!-- Chose Company -->
                 <input type="text" name="check_editcom" id="check_editcom" value="{edit_company}" style="display:none;">
+                <input type="text" name="check_EditFormNo" id="check_EditFormNo" value="{get_formno}">
                 <div id="alert_company"></div>
                 <div class="row form-group mt-3 p-2">
                     <div class="col-md-4 form-group">
@@ -62,7 +63,7 @@
 
 
                 <!-- Check ลูกค้าใหม่หรือเดิม -->
-                <input type="text" name="check_editcustype" id="check_editcustype" value="{edit_custype}" style="display:none;">
+                <input type="text" name="check_editcustype" id="check_editcustype" value="{edit_custype}">
                 <div id="alert_custype"></div>
                 <div class="row form-group p-2">
                     <div class="col-md-3 form-group">
@@ -82,7 +83,7 @@
 
 
                 <!-- Check สิ่งที่ต้องการดำเนินการ -->
-                <input style="display:none;" type="text" name="check_changearea" id="check_changearea" value="{get_changearea}">
+                <input  type="text" name="check_changearea" id="check_changearea" value="{get_changearea}">
                 <input style="display:none;" type="text" name="check_changeaddress" id="check_changeaddress" value="{get_changeaddress}">
                 <input style="display:none;" type="text" name="check_changecredit" id="check_changecredit" value="{get_changecredit}">
                 <input style="display:none;" type="text" name="check_changefinance" id="check_changefinance" value="{get_changefinance}">
@@ -128,8 +129,8 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">Sales Reps : &nbsp;</label>
-                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm edit_salesrepsCur" value="{edit_salesreps}">
-                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm edit_salesrepsOld" value="{edit_salesrepsOld}">
+                        <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm" value="{edit_salesreps}">
+                        <!-- <input type="text" name="edit_salesreps" id="edit_salesreps" class="form-control form-control-sm edit_salesrepsOld" value="{edit_salesrepsOld}"> -->
                         <div id="alert_salesreps"></div>
                     </div>
                 </div>
@@ -153,7 +154,7 @@
 
 
                 <!-- Check ประเภทที่อยู่ -->
-                <input type="text" name="check_addtype" id="check_addtype" value="{edit_ivoicetype}" style="display:none;">
+                <input type="text" name="check_addtype" id="check_addtype" value="{edit_ivoicetype}">
                 <div class="row form-group">
                     <div class="col-md-4">
                         <label for="">ที่อยู่สำหรับการเปิดใบกำกับภาษี : </label>
@@ -167,7 +168,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <div class="form-check">
-                            <input id="edit_addresstype1" class="form-check-input" type="radio" name="edit_addresstype" value="อื่นๆ">
+                            <input id="edit_addresstype2" class="form-check-input" type="radio" name="edit_addresstype" value="อื่นๆ">
                             <label for="my-input" class="form-check-label">อื่นๆ</label>
                         </div>
                     </div>
@@ -215,7 +216,7 @@
 
 
                 <!-- Check ประเภทบริษัท -->
-                <input type="text" name="check_comtype" id="check_comtype" value="{edit_comtype}" style="display:none;">
+                <input type="text" name="check_comtype" id="check_comtype" value="{edit_comtype}">
                 <label for="">
                     <h6><b><u>ประเภทบริษัท</u></b></h6>
                 </label>
@@ -238,7 +239,7 @@
 
                 <div id="companytype2" class="row form-group" style="display:none">
                     <div class="col-md-12">
-                        <input type="text" name="crf_companytype2" id="crf_companytype2" class="form-control form-control-sm" placeholder="กรุณาระบุสัญชาติ">
+                        <input type="text" name="crf_companytype2" id="crf_companytype2" class="form-control form-control-sm" placeholder="กรุณาระบุสัญชาติ" value="{get_comtype2}">
                     </div>
                 </div>
 
@@ -246,18 +247,18 @@
                 <div id="companytype3" class="row form-group" style="display:none">
                     <div class="col-md-3 form-inline">
                         <label for="">สัญชาติ :&nbsp;</label>
-                        <input type="text" name="crf_companytype3_1_1" id="crf_companytype3_1_1" class="form-control form-control-sm">
+                        <input type="text" name="crf_companytype3_1_1" id="crf_companytype3_1_1" class="form-control form-control-sm" value="{get_comtype31}">
                     </div>
                     <div class="col-md-3 form-inline">
-                        <input type="text" name="crf_companytype3_1_2" id="crf_companytype3_1_2" class="form-control form-control-sm">
+                        <input type="text" name="crf_companytype3_1_2" id="crf_companytype3_1_2" class="form-control form-control-sm" value="{get_comtype32}">
                         <label for="">&nbsp;%</label>
                     </div>
                     <div class="col-md-3 form-inline">
                         <label for="">สัญชาติ :&nbsp;</label>
-                        <input type="text" name="crf_companytype3_2_1" id="crf_companytype3_2_1" class="form-control form-control-sm">
+                        <input type="text" name="crf_companytype3_2_1" id="crf_companytype3_2_1" class="form-control form-control-sm" value="{get_comtype33}">
                     </div>
                     <div class="col-md-3 form-inline">
-                        <input type="text" name="crf_companytype3_2_2" id="crf_companytype3_2_2" class="form-control form-control-sm">
+                        <input type="text" name="crf_companytype3_2_2" id="crf_companytype3_2_2" class="form-control form-control-sm" value="{get_comtype34}">
                         <label for="">&nbsp;%</label>
                     </div>
                 </div><br>
@@ -574,12 +575,11 @@
 
 
                 <!-- Check finance -->
-                <input type="text" name="check_editfinance" id="check_editfinance" value="{edit_finance}" style="display:none;">
+                <input type="text" name="check_editfinance" id="check_editfinance" value="{edit_finance}">
                 <label for="">
                     <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
                 </label>
                 <div class="row form-group">
-                    <input type="text" name="value_crf_finance" id="value_crf_finance" style="display:none">
                     <div class="col-md-4 from-group">
                         <input type="radio" name="crf_finance" id="crf_finance" value="ขอวงเงิน" class="crf_financev1">
                         <label for="">ขอวงเงิน</label>

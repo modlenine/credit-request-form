@@ -2244,6 +2244,7 @@ $(document).ready(function () {
         $('#crf_emailcontact').val(data_crf_emailcontact);
         $('#crf_regiscost').val(data_crf_regiscost);
         $('#crf_forecast').val(data_crf_forecast);
+        $('#value_crf_finance').val(data_crf_finance);
         if(data_crf_creditterm2 != ''){
             $('#crf_creditterm option:selected').val(data_crf_creditterm2).text(data_crf_creditterm2name);
             $('#oldCreditTerm').val(data_crf_creditterm2);
@@ -2909,6 +2910,7 @@ if($('#check_editcom').val() == 'sln'){
 // Check edit ลูกค้าเก่า , ลูกค้าใหม่
 if($('#check_editcustype').val() == 1){
     $('#edit_custype1').prop('checked' ,true);
+    $('input:radio[name="crf_type"]').prop('disabled' , true);
 // Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
 if($('#check_addtype').val() == "ตาม ภ.พ.20"){
     $('#edit_addresstype1').prop('checked' , true);
@@ -2922,9 +2924,23 @@ if($('#check_comtype').val() == 1){
     $('.crf_companytype1').prop('checked' , true);
 }else if($('#check_comtype').val() == 2){
     $('.crf_companytype2').prop('checked' , true);
+    $('#companytype2').css('display' , '');
 }else if($('#check_comtype').val() == 3){
     $('.crf_companytype3').prop('checked' , true);
+    $('#companytype3').css('display' , '');
 }
+
+$('input:radio[name="crf_companytype"]').click(function(){
+    if($(this).val() == 1){
+        $('#crf_companytype2 , #crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
+    }
+    if($(this).val() == 2){
+        $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
+    }
+    if($(this).val() == 3){
+        $('#crf_companytype2').val('');
+    }
+});
 
 
 
@@ -2946,6 +2962,24 @@ if($('#check_conditionbill').val() == "ส่งของพร้อมวา�
     $('.crf_condition_billv3').prop('checked' , true);
     $('.crf_condition_bill3').css('display' , '');
 }
+$('input:radio[name="crf_condition_bill"]').click(function(){
+    if($(this).val() == 'ส่งของพร้อมวางบิล'){
+
+    }
+
+    if($(this).val() == 'วางบิลตามตาราง'){
+        $('.crf_condition_bill2edit').css('display' , '');
+    }else{
+        $('.crf_condition_bill2edit').css('display' , 'none');
+    }
+
+    if($(this).val() == 'วางบิลทุกวันที่'){
+        $('.crf_condition_bill3').css('display' , '');
+    }else{
+        $('.crf_condition_bill3').css('display' , 'none');
+    }
+
+});
 
 
 // Check เงื่อนไขการรับชำระเงิน
@@ -2955,11 +2989,19 @@ if($('#check_conditionmoney').val() == "โอนเงิน"){
     $('.crf_condition_moneyv2').prop('checked' , true);
     $('.recive_cheuqe').css('display' , '');
 }
+$('input:radio[name="edit_condition_money"]').click(function(){
+    if($(this).val() == 'รับเช็ค'){
+        $('.recive_cheuqe').css('display' , '');
+    }else{
+        $('.recive_cheuqe').css('display' , 'none');
+    }
+});
 
 
 // Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
 if($('#check_editfinance').val() == "ขอวงเงิน"){
     $('.crf_financev1').prop('checked' , true);
+    $('input:radio[name="crf_finance"]').prop('disabled' , true);
 }else if($('#check_editfinance').val() == "ปรับวงเงิน"){
     $('.crf_financev2').prop('checked' , true);
 }

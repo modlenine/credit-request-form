@@ -23,7 +23,7 @@ if ($result->crf_status == "Open") {
         <div id="btnEditZone" class="row" style="display:none;">
             <div class="col-md-12">
                 <a href="<?= base_url('main/editdata/') . $result->crf_id ?>"><button class="btn btn-warning mt-2">แก้ไขข้อมูล</button></a>
-                <a href="<?= base_url('main/canceldata/') . $result->crf_id ?>"><button class="btn btn-danger mt-2">ยกเลิกเอกสาร</button></a>
+                <a href="<?= base_url('main/canceldata/') . $result->crf_id ."/".$result->crf_cuscode?>"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">ยกเลิกเอกสาร</button></a>
             </div>
         </div>
 
@@ -428,11 +428,12 @@ if ($result->crf_status == "Open") {
                 <?php
                 $creditterm2 = "";
                 $oldcreditterm = "";
-                if ($result->crf_creditterm2 != '') {
+                if ($result->crf_creditterm2 != 0) {
                     $creditterm2 = conCreditTerm($result->crf_creditterm2);
-                } else {
-                    $creditterm2 = "";
                     $oldcreditterm = conCreditTerm($result->crf_creditterm);
+                } else if($result->crf_creditterm2 == 0){
+                    $creditterm2 = "";
+                    $oldcreditterm = conCreditTerm($result->crfcus_creditterm);
                 }
 
                 ?>
@@ -544,7 +545,7 @@ if ($result->crf_status == "Open") {
             <label for="">
                 <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
             </label>
-            <input type="text" name="forcrf_finance_view" id="forcrf_finance_view" value="<?= $result->crf_finance ?>" style="display:none">
+            <input type="text" name="forcrf_finance_view" id="forcrf_finance_view" value="<?= $result->crf_finance ?>">
             <div class="row form-group">
                 <div class="col-md-4 from-group">
                     <input type="radio" name="crf_finance_view" id="crf_finance1_view" value="ขอวงเงิน" onclick="return false">
@@ -667,6 +668,8 @@ if ($result->crf_status == "Open") {
                 <div class="row form-group">
                     <!-- Check data -->
                     <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
+                    <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?=$result->crf_cuscode?>">
+
                     <div class="col-md-12" id="mgr_appro">
                         <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
                         <input type="radio" name="mgr_appro" id="mgr_appro0" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
@@ -742,7 +745,10 @@ if ($result->crf_status == "Open") {
             <!-- Section สำหรับ Account Manager -->
             <form action="<?= base_url('main/accMgr/') . $result->crf_id ?>" method="post" class="acc_manager" style="display:none;">
                 <h6 class=""><b><u>ความเห็นประกอบการพิจารณาจากฝ่ายบัญชีและการเงิน</u></b></h6>
+                <!-- Check data Zone -->
                 <input hidden type="text" name="formgraccappro" id="formgraccappro" value="<?= $result->crf_accmgrapprove_status ?>">
+                <input hidden type="text" name="accMgrCuscode" id="accMgrCuscode" value="<?=$result->crf_cuscode?>">
+
                 <div class="row form-group">
                     <div class="col-md-12 mgr_appro">
                         <input type="radio" name="mgracc_appro" id="mgracc_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
@@ -785,7 +791,11 @@ if ($result->crf_status == "Open") {
             <!-- Section สำหรับ Directorคนที่1 -->
             <form action="<?= base_url('main/director1/') . $result->crf_id ?>" method="post" class="director1" style="display:none;">
                 <h6 class=""><b><u>สำหรับฝ่ายบริหาร1</u></b></h6>
+
+                <!-- Check Data -->
                 <input hidden type="text" name="checkfordirector1_appro" id="checkfordirector1_appro" value="<?= $result->crf_directorapprove_status1 ?>">
+                <input hidden type="text" name="Director1Cuscode" id="Director1Cuscode" value="<?=$result->crf_cuscode?>">
+
                 <div class="row form-group ">
                     <div class="col-md-12 director1_appro">
                         <input type="radio" name="director1_appro" id="director1_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
@@ -826,9 +836,13 @@ if ($result->crf_status == "Open") {
             <!-- Section สำหรับ Directorคนที่2 -->
             <form action="<?= base_url('main/director2/') . $result->crf_id ?>" method="post" class="director2" style="display:none">
 
+            <!-- Check data -->
                 <input style="display:none" type="text" name="userpostD2" id="userpostD2" value="<?= $result->crf_userpost ?>">
                 <input style="display:none" type="text" name="ecodepostD2" id="ecodepostD2" value="<?= $result->crf_userecodepost ?>">
                 <input style="display:none" type="text" name="deptcodeD2" id="deptcodeD2" value="<?= $result->crf_userdeptcodepost ?>">
+                <input hidden type="text" name="Director2Cuscode" id="Director2Cuscode" value="<?=$result->crf_cuscode?>">
+                <input hidden type="text" name="direc2FormNo" id="direc2FormNo" value="<?=$result->crfcus_formno?>">
+
                 <h6 class=""><b><u>สำหรับฝ่ายบริหาร2</u></b></h6>
                 <input hidden type="text" name="checkfordirector2_appro" id="checkfordirector2_appro" value="<?= $result->crf_directorapprove_status2 ?>">
                 <div class="row form-group">
