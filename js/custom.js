@@ -2401,9 +2401,17 @@ $('#searchdataex').change(function(){
 
 
 
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
 
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+$('#usercrfex_submit').prop('disabled' , true);
+
 $('input[name="crfex_company"]').click(function(){
     if($('input[name="crfex_company"]:checked').length > 0){
         $('#alert_crfex_company').html('');
@@ -2449,10 +2457,11 @@ $('input[name="crfex_custype"]').click(function(){
     }
 
 
-// When click new customer
+// When click new customer // When click new customer// When click new customer
+// When click new customer // When click new customer// When click new customer
+// When click new customer // When click new customer// When click new customer
 if($(this).val() == 1){
     $('#crfex_customercode').prop('readonly' , true);
-    $('#usercrfex_submit').prop('disabled' , true);
 
     $('#crfex_his_month1 , #crfex_his_month2 , #crfex_his_month3 , #crfex_his_tvolume1 , #crfex_his_tvolume2 , #crfex_his_tvolume3 , #crfex_histsales1 , #crfex_histsales2 , #crfex_histsales3 , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
 
@@ -2609,22 +2618,20 @@ if($(this).val() == 1){
         }
     });
 
-
-
-
-
-
-    
-
-
+$('#crfex_term').blur(function(){
+    if($(this).val() != ''){
+        $('#usercrfex_submit').prop('disabled' , false);
+    }
+});
 
 
 
 }else if($(this).val() == 2){
+
     $('#crfex_customercode').prop('readonly' , false);
     $('.crfex_topic').css('display' , '');
 
-    $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+    $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly' , true);
 
     $('#alert_crfex_salesreps , #alert_crfex_cusnameEN , #alert_crfex_address , #alert_crfex_tel , #alert_crfex_email , #alert_crfex_creditlimit , #alert_crfex_term').html('');
 
@@ -2644,21 +2651,36 @@ if($(this).val() == 1){
             exit;
         }
     });
-    $('#crfex_curcustopic').change(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_topic').html('');
-        }
 
-        if($(this).val() == 11){
+
+    $('#crfex_curcustopic1').click(function(){
+        if($(this).prop('checked') == true){
+            $('#alert_crfex_topic').html('');
             $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , false);
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-        }else if($(this).val() == 12){
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
+            // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+            $('#crfex_address').blur(function(){
+                if($(this).val() != ''){
+                    $('#usercrfex_submit').prop('disabled' , false);
+                }else{
+                    alert('Please fill address');
+                    $('#usercrfex_submit').prop('disabled' , true);
+                }
+            });
         }else{
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
         }
     });
+
+    $('#crfex_curcustopic2').click(function(){
+        if($(this).prop('checked') == true){
+            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
+            // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
+        }else{
+            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+        }
+
+    });
+
 
 
 
@@ -2690,6 +2712,7 @@ $(document).on('click', '.selectCusCodeEx', function () {
     var data_crfex_bg = $(this).attr('data_crfex_bg');
     var data_crfex_cuscode = $(this).attr('data_crfex_cuscode');
     var data_crfex_cusid = $(this).attr('data_crfex_cusid');
+    var data_crfex_cuspayment = $(this).attr('data_crfex_cuspayment');
 
 
     $('#crfex_salesreps').val(data_crfex_salesreps);
@@ -2706,6 +2729,7 @@ $(document).on('click', '.selectCusCodeEx', function () {
     $('#crfex_combg').val(data_crfex_bg);
     $('#crfex_customercode').val(data_crfex_cuscode).prop('readonly' , true);
     $('#getCusid').val(data_crfex_cusid);
+    $('#crfex_payment').val(data_crfex_cuspayment);
 
 
 
@@ -2742,6 +2766,18 @@ if($('#checkPage').val() == 'viewdataEx'){
         $('#crfex_custype1').prop('checked' , true);
     }else if($('#check_crfex_custype').val() == 2){
         $('#crfex_custype2').prop('checked' , true);
+        $('.excurcusmethod').css('display' , '');
+        if($('#checkcurcustopic1').val() != ''){
+            $('input:checkbox[name="crfex_curcustopic1"]').prop('checked' , true);
+        }else{
+            $('input:checkbox[name="crfex_curcustopic1"]').prop('checked' , false);
+        }
+
+        if($('#checkcurcustopic2').val() != ''){
+            $('input:checkbox[name="crfex_curcustopic2"]').prop('checked' , true);
+        }else{
+            $('input:checkbox[name="crfex_curcustopic2"]').prop('checked' , false);
+        }
     }
     $('#crfex_custype1 , #crfex_custype2').attr('onclick' , 'return false');
 
@@ -2753,7 +2789,7 @@ var checkUserDeptView = $('#checkUserDeptView').val();
 var checkCusType = $('#checkCusType').val();
 var checkCusPosi = $('#checkCusPosi').val();
 
-if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75){
+if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1004 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1012 && checkCusPosi == 75){
     $('.managerSection').css('display' , '');
     $('#ex_mgrSubmit').prop('disabled' , true);
     $('input:radio[name="ex_mgrApprove"]').click(function(){
@@ -2852,12 +2888,24 @@ if(checkStatus == 'Director Approved' && checkUserDeptView == 1003){
     
 }
 
+if(checkStatus != "Open" && checkUserDeptView != 1006 || checkStatus != "Open" && checkUserDeptView != 1010 || checkStatus != "Open" && checkUserDeptView != 1004 || checkStatus != "Open" && checkUserDeptView != 1012){
+    $('#btnEditZoneEx').css('display' , 'none');
+}else{
+    $('#btnEditZoneEx').css('display' , '');
+}
+
 
 }
 // End check page
 
 
 // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
 // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
 
 

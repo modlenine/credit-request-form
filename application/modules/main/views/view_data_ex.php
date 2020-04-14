@@ -22,6 +22,12 @@
         <input hidden type="text" name="checkCusPosi" id="checkCusPosi" value="{posi}">
 
         <hr>
+        <div id="btnEditZoneEx" class="row" style="display:none;">
+            <div class="col-md-12">
+                <a href="<?= base_url('main/editdataEx/')?>"><button class="btn btn-warning mt-2">Edit Form</button></a>
+                <a href="{crfex_cancelForm}"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">Cancel Form</button></a>
+            </div>
+        </div>
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
 
@@ -62,7 +68,8 @@
 
 
             <!-- check customer type -->
-            <input style="display:none;" type="text" name="check_crfex_custype" id="check_crfex_custype" value="{customertype}">
+            <input hidden type="text" name="check_crfex_custype" id="check_crfex_custype" value="{customertype}">
+
             <div class="row form-group mt-3 p-2">
                 <div class="col-md-4 form-group">
                     <div class="form-check">
@@ -77,6 +84,26 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Check Method -->
+            <input hidden type="text" name="checkcurcustopic1" id="checkcurcustopic1" value="{crfex_curcustopic1}">
+            <input hidden type="text" name="checkcurcustopic2" id="checkcurcustopic2" value="{crfex_curcustopic2}">
+
+            <div class="row form-group mt-3 p-2 excurcusmethod" style="display:none;">
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic1" id="crfex_curcustopic1" value="1">
+                            <label for="my-input" class="form-check-label">Change customer information.</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic2" id="crfex_curcustopic2" value="1">
+                            <label for="my-input" class="form-check-label">Change credit & term</label>
+                        </div>
+                    </div>
+                </div>
 
 
             <div class="row form-group">
@@ -362,6 +389,8 @@
             <form action="{exCsAddBr}" method="POST" name="" class="csAddBrDection" style="display:none;">
                 <hr>
                 <h6><b><u>FOR CS ADD BR CODE</u></b></h6>
+                <!-- Check formno -->
+                <input type="text" name="csFromno" id="csFromno" value="{crfex_formno}">
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
                         <label for="">BR CODE</label>
@@ -473,6 +502,14 @@
             <form action="{exDirectorApprove}" method="POST" name="" class="directorApprove" style="display:none;">
             <input type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
             <input type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
+
+            <input type="text" name="checkDirecFormNo" id="checkDirecFormNo" value="{crfex_formno}">
+
+            <input type="text" name="checkDireccurcustopic1" id="checkDireccurcustopic1" value="{crfex_curcustopic1}">
+            <input type="text" name="checkDireccurcustopic2" id="checkDireccurcustopic2" value="{crfex_curcustopic2}">
+
+            <input type="text" name="checkDirecCusid" id="checkDirecCusid" value="{crfexcus_id}">
+
                 <hr>
                 <h6><b><u>FOR DIRECTOR</u></b></h6>
                 <div class="row form-group">
@@ -549,6 +586,7 @@
                 <input type="text" name="crfex_userecodemodify" id="crfex_userecodemodify" value="{ecode}">
                 <input type="text" name="crfex_userdeptcodemodify" id="crfex_userdeptcodemodify" value="{deptcode}">
                 <input type="text" name="accCusCode_getCusid" id="accCusCode_getCusid" value="{crfex_customerid}">
+                <input type="text" name="accFormno" id="accFormno" value="{crfex_formno}">
                 <div class="row form-group ">
                     <div class="col-md-4"></div>
                     <div class="col-md-4"></div>

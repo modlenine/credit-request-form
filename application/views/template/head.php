@@ -211,7 +211,7 @@ getModal();
                             <li>
                                 <a href="<?=base_url('main/listex')?>" class="">
                                     <i class="metismenu-icon fas fa-list-alt"></i><b>EN</b>
-                                    แสดงรายการ นอกประเทศ
+                                    แสดงรายการ ต่างประเทศ
                                 </a>
                             </li>
                             <li>
@@ -223,7 +223,7 @@ getModal();
                             <li>
                                 <a href="<?=base_url('main/addEx')?>" class="">
                                 <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>
-                                    เพิ่มรายการ นอกประเทศ
+                                    เพิ่มรายการ ต่างประเทศ
                                 </a>
                             </li>
                             <li>

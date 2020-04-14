@@ -168,7 +168,7 @@ function getCustomerNumberEX()
     $obj = new getfn();
     // check formno ซ้ำในระบบ
     $checkRowdata = $obj->gci()->db->query("SELECT
-    crfex_cusid FROM crfex_customers ORDER BY crfex_cusid DESC LIMIT 1
+    crfexcus_id FROM crfex_customers ORDER BY crfexcus_id DESC LIMIT 1
     ");
     $result = $checkRowdata->num_rows();
 
@@ -177,7 +177,7 @@ function getCustomerNumberEX()
         $cusnumber = 1;
     } else {
 
-        $getFormno = $checkRowdata->row()->crfex_cusid; //อันนี้ดึงเอามาทั้งหมด CRF2003001
+        $getFormno = $checkRowdata->row()->crfexcus_id; //อันนี้ดึงเอามาทั้งหมด CRF2003001
         $cutNo =  $getFormno;
         $cutNo++;
 
@@ -406,6 +406,13 @@ function getFormBeforeSave($formno)
     $numrow = $query->num_rows();
     return $numrow;
 }
+function getFormBeforeSaveEx($formno)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT crfex_formno FROM crfex_maindata WHERE crfex_formno = '$formno' ");
+    $numrow = $query->num_rows();
+    return $numrow;
+}
 
 
 
@@ -458,57 +465,45 @@ function viewdataEX($crfexid)
     crfex_maindata.crfex_report_month,
     crfex_maindata.crfex_report_year,
     crfex_maindata.crfex_topic,
-    crfex_customers.crfex_cuscode,
-    crfex_customers.crfex_cusdatecreate,
-    crfex_customers.crfex_salesreps,
-    crfex_customers.crfex_cusnameEN,
-    crfex_customers.crfex_cusnameTH,
-    crfex_customers.crfex_address,
-    crfex_customers.crfex_file,
-    crfex_customers.crfex_tel,
-    crfex_customers.crfex_fax,
-    crfex_customers.crfex_email,
-    crfex_customers.crfex_creditlimit,
-    crfex_customers.crfex_term,
-    crfex_customers.crfex_discount,
-    crfex_customers.crfex_bg,
-    crfex_customers.crfex_his_month1,
-    crfex_customers.crfex_his_tvolume1,
-    crfex_customers.crfex_histsales1,
-    crfex_customers.crfex_his_month2,
-    crfex_customers.crfex_his_tvolume2,
-    crfex_customers.crfex_histsales2,
-    crfex_customers.crfex_his_month3,
-    crfex_customers.crfex_his_tvolume3,
-    crfex_customers.crfex_histsales3,
-    crfex_customers.crfex_usercreate,
-    crfex_customers.crfex_userecode,
-    crfex_customers.crfex_userdeptcode,
-    crfex_customers.crfex_userdatetimecreate,
-    crfex_customers.crfex_usermodify,
-    crfex_customers.crfex_userecodemodify,
-    crfex_customers.crfex_userdeptcodemodify,
-    crfex_customers.crfex_datetimemodify,
-    crf_alltype.crf_alltype_subnameEN,
-    crfex_maindata.crfexm_salesreps,
-    crfex_maindata.crfexm_cusnameEN,
-    crfex_maindata.crfexm_cusnameTH,
-    crfex_maindata.crfexm_address,
-    crfex_maindata.crfexm_file,
-    crfex_maindata.crfexm_tel,
-    crfex_maindata.crfexm_fax,
-    crfex_maindata.crfexm_email,
-    crfex_maindata.crfexm_creditlimit,
-    crfex_maindata.crfexm_term,
-    crfex_maindata.crfexm_discount,
-    crfex_maindata.crfexm_bg,
-    crfex_maindata.crfex_methodcurcus,
-    crfex_maindata.crfexm_pcreditlimit,
-    crfex_maindata.crfexm_pterm,
-    crfex_maindata.crfexm_pdiscount
+    crfex_maindata.crfex_curcustopic1,
+    crfex_maindata.crfex_curcustopic2,
+
+    crfex_customers_temp.crfexcus_code,
+    crfex_customers_temp.crfexcus_datecreate,
+    crfex_customers_temp.crfexcus_salesreps,
+    crfex_customers_temp.crfexcus_nameEN,
+    crfex_customers_temp.crfexcus_nameTH,
+    crfex_customers_temp.crfexcus_address,
+    crfex_customers_temp.crfexcus_file,
+    crfex_customers_temp.crfexcus_tel,
+    crfex_customers_temp.crfexcus_fax,
+    crfex_customers_temp.crfexcus_email,
+    crfex_customers_temp.crfexcus_creditlimit,
+    crfex_customers_temp.crfexcus_term,
+    crfex_customers_temp.crfexcus_discount,
+    crfex_customers_temp.crfexcus_bg,
+    crfex_customers_temp.crfexcus_his_month1,
+    crfex_customers_temp.crfexcus_his_tvolume1,
+    crfex_customers_temp.crfexcus_histsales1,
+    crfex_customers_temp.crfexcus_his_month2,
+    crfex_customers_temp.crfexcus_his_tvolume2,
+    crfex_customers_temp.crfexcus_histsales2,
+    crfex_customers_temp.crfexcus_his_month3,
+    crfex_customers_temp.crfexcus_his_tvolume3,
+    crfex_customers_temp.crfexcus_histsales3,
+    crfex_customers_temp.crfexcus_usercreate,
+    crfex_customers_temp.crfexcus_userecode,
+    crfex_customers_temp.crfexcus_userdeptcode,
+    crfex_customers_temp.crfexcus_userdatetimecreate,
+    crfex_customers_temp.crfexcus_usermodify,
+    crfex_customers_temp.crfexcus_userecodemodify,
+    crfex_customers_temp.crfexcus_userdeptcodemodify,
+    crfex_customers_temp.crfexcus_datetimemodify,
+    crfex_customers_temp.crfexcus_id,
+    crf_alltype.crf_alltype_subnameEN
     FROM
     crfex_maindata
-    INNER JOIN crfex_customers ON crfex_customers.crfex_cusid = crfex_maindata.crfex_customerid
+    INNER JOIN crfex_customers_temp ON crfex_customers_temp.crfexcus_formno = crfex_maindata.crfex_formno
     INNER JOIN crf_alltype ON crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype
     WHERE crfex_id = '$crfexid'
     ");

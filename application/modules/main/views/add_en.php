@@ -63,18 +63,36 @@
                             <label for="my-input" class="form-check-label">Current customer.</label>
                         </div>
                     </div>
-                    <div class="col-md-4 form-group crfex_topic" style="display:none;">
+                    <!-- <div class="col-md-4 form-group crfex_topic" style="display:none;">
                         <select name="crfex_curcustopic" id="crfex_curcustopic" class="form-control form-control-sm">
                             <option value="">Select Topic</option>
                             <option value="11">Change customer information</option>
                             <option value="12">Change credit & term</option>
                         </select>
                         <div id="alert_crfex_topic"></div>
-                    </div>
-
+                    </div> -->
                 </div>
 
-                <input hidden type="text" name="getCusid" id="getCusid">
+
+                <div class="row form-group mt-3 p-2">
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic1" id="crfex_curcustopic1" value="1">
+                            <label for="my-input" class="form-check-label">Change customer information.</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic2" id="crfex_curcustopic2" value="1">
+                            <label for="my-input" class="form-check-label">Change credit & term</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            <!-- Check Customer id -->
+                <input type="text" name="getCusid" id="getCusid">
+
                 <div class="row form-group">
                     <div class="col-md-4">
                         <label for="">Date</label>
@@ -85,7 +103,7 @@
                         <input type="text" name="crfex_customercode" id="crfex_customercode" class="form-control form-control-sm">
                         <div id="autoCusCodeEx"></div>
                     </div>
-                    
+
                     <div class="col-md-4">
                         <label for="">Sales Reps</label>
                         <input type="text" name="crfex_salesreps" id="crfex_salesreps" class="form-control form-control-sm">
@@ -149,11 +167,17 @@
 
                 <hr>
                 <h5 align="left"><u>PROPOSE FOR CREDIT LIMIT , CREDIT TERM AND CONDITION.</u></h5>
+
                 <div class="row form-group mt-3">
                     <div class="col-md-6">
-
+                        <label for="">Payment</label>
+                        <input type="text" name="crfex_payment" id="crfex_payment" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row form-group mt-3">
+                    <div class="col-md-6">
                         <div class="input-group mb-3">
-                            <input name="crfex_creditlimit" id="crfex_creditlimit" type="text" class="form-control" placeholder="Propose credit limit." aria-label="Propose credit limit." aria-describedby="basic-addon2">
+                            <input name="crfex_creditlimit" id="crfex_creditlimit" type="number" class="form-control" placeholder="Propose credit limit." aria-label="Propose credit limit." aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
                             </div>
@@ -163,7 +187,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-3">
-                            <input name="crfex_term" id="crfex_term" type="text" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2">
+                            <input name="crfex_term" id="crfex_term" type="number" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">days</span>
                             </div>
@@ -172,7 +196,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-3">
-                            <input name="crfex_discount" id="crfex_discount" type="text" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon2">
+                            <input name="crfex_discount" id="crfex_discount" type="number" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">%</span>
                             </div>
@@ -186,7 +210,7 @@
                     <div class="col-md-6">
 
                         <div class="input-group mb-3">
-                            <input name="crfex_creditlimit2" id="crfex_creditlimit2" type="text" class="form-control" placeholder="Current credit limit." aria-label="Current credit limit." aria-describedby="basic-addon2">
+                            <input name="crfex_creditlimit2" id="crfex_creditlimit2" type="number" class="form-control" placeholder="Current credit limit." aria-label="Current credit limit." aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
                             </div>
@@ -195,7 +219,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-3">
-                            <input name="crfex_term2" id="crfex_term2" type="text" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2">
+                            <input name="crfex_term2" id="crfex_term2" type="number" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">days</span>
                             </div>
@@ -203,7 +227,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-3">
-                            <input name="crfex_discount2" id="crfex_discount2" type="text" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon2">
+                            <input name="crfex_discount2" id="crfex_discount2" type="number" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">%</span>
                             </div>

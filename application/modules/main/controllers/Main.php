@@ -361,7 +361,7 @@ class Main extends MX_Controller
     public function addEx()
     {
         callLogin();
-        if (getUser()->DeptCode == 1006 || getUser()->DeptCode == 1010) {
+        if (getUser()->DeptCode == 1006 || getUser()->DeptCode == 1010 || getUser()->DeptCode == 1004 || getUser()->DeptCode == 1012) {
             $data = array(
                 'username' => getUser()->Fname . " " . getUser()->Lname,
                 'deptcode' => getUser()->DeptCode,
@@ -589,52 +589,54 @@ class Main extends MX_Controller
     public function viewdataEx($crfexid)
     {
 
+        $crfex_formno = viewdataEx($crfexid)->crfex_formno;
+
         if (viewdataEX($crfexid)->crfex_custype == 1) {
-            $salesreps = viewdataEX($crfexid)->crfex_salesreps;
-            $customernameEN = viewdataEX($crfexid)->crfex_cusnameEN;
-            $customernameTH = viewdataEX($crfexid)->crfex_cusnameTH;
-            $cusaddress = viewdataEX($crfexid)->crfex_address;
-            $tel = viewdataEX($crfexid)->crfex_tel;
-            $fax = viewdataEX($crfexid)->crfex_fax;
-            $email = viewdataEX($crfexid)->crfex_email;
-            $creditlimit = viewdataEX($crfexid)->crfex_creditlimit;
+            $salesreps = viewdataEX($crfexid)->crfexcus_salesreps;
+            $customernameEN = viewdataEX($crfexid)->crfexcus_nameEN;
+            $customernameTH = viewdataEX($crfexid)->crfexcus_nameTH;
+            $cusaddress = viewdataEX($crfexid)->crfexcus_address;
+            $tel = viewdataEX($crfexid)->crfexcus_tel;
+            $fax = viewdataEX($crfexid)->crfexcus_fax;
+            $email = viewdataEX($crfexid)->crfexcus_email;
+            $creditlimit = "";
             $cterm = viewdataEX($crfexid)->crfex_cterm;
             $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
-            $crfex_bg = viewdataEX($crfexid)->crfex_bg;
-            $crfexm_pcreditlimit = viewdataEX($crfexid)->crfexm_pcreditlimit;
-            $crfexm_pterm = viewdataEX($crfexid)->crfexm_pterm;
-            $crfexm_pdiscount = viewdataEX($crfexid)->crfexm_pdiscount;
+            $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
+            $crfexm_pcreditlimit = viewdataEX($crfexid)->crfexcus_creditlimit;
+            $crfexm_pterm = viewdataEX($crfexid)->crfexcus_term;
+            $crfexm_pdiscount = viewdataEX($crfexid)->crfexcus_discount;
         } else if (viewdataEX($crfexid)->crfex_custype == 2) {
             if (viewdataEX($crfexid)->crfex_status == 'Complated') {
-                $salesreps = viewdataEX($crfexid)->crfex_salesreps;
-                $customernameEN = viewdataEX($crfexid)->crfex_cusnameEN;
-                $customernameTH = viewdataEX($crfexid)->crfex_cusnameTH;
-                $cusaddress = viewdataEX($crfexid)->crfex_address;
-                $tel = viewdataEX($crfexid)->crfex_tel;
-                $fax = viewdataEX($crfexid)->crfex_fax;
-                $email = viewdataEX($crfexid)->crfex_email;
-                $creditlimit = viewdataEX($crfexid)->crfex_creditlimit;
+                $salesreps = viewdataEX($crfexid)->crfexcus_salesreps;
+                $customernameEN = viewdataEX($crfexid)->crfexcus_nameEN;
+                $customernameTH = viewdataEX($crfexid)->crfexcus_nameTH;
+                $cusaddress = viewdataEX($crfexid)->crfexcus_address;
+                $tel = viewdataEX($crfexid)->crfexcus_tel;
+                $fax = viewdataEX($crfexid)->crfexcus_fax;
+                $email = viewdataEX($crfexid)->crfexcus_email;
+                $creditlimit = viewdataEX($crfexid)->crfexcus_creditlimit;
                 $cterm = viewdataEX($crfexid)->crfex_cterm;
                 $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
-                $crfex_bg = viewdataEX($crfexid)->crfex_bg;
+                $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
                 $crfexm_pcreditlimit = viewdataEX($crfexid)->crfex_pcreditlimit;
                 $crfexm_pterm = viewdataEX($crfexid)->crfex_pterm;
                 $crfexm_pdiscount = viewdataEX($crfexid)->crfex_pdiscount;
             } else {
-                $salesreps = viewdataEX($crfexid)->crfexm_salesreps;
-                $customernameEN = viewdataEX($crfexid)->crfexm_cusnameEN;
-                $customernameTH = viewdataEX($crfexid)->crfexm_cusnameTH;
-                $cusaddress = viewdataEX($crfexid)->crfexm_address;
-                $tel = viewdataEX($crfexid)->crfexm_tel;
-                $fax = viewdataEX($crfexid)->crfexm_fax;
-                $email = viewdataEX($crfexid)->crfexm_email;
-                $creditlimit = viewdataEX($crfexid)->crfexm_creditlimit;
-                $cterm = viewdataEX($crfexid)->crfexm_term;
-                $cdiscount = viewdataEX($crfexid)->crfexm_discount;
-                $crfex_bg = viewdataEX($crfexid)->crfexm_bg;
-                $crfexm_pcreditlimit = viewdataEX($crfexid)->crfexm_pcreditlimit;
-                $crfexm_pterm = viewdataEX($crfexid)->crfexm_pterm;
-                $crfexm_pdiscount = viewdataEX($crfexid)->crfexm_pdiscount;
+                $salesreps = viewdataEX($crfexid)->crfexcus_salesreps;
+                $customernameEN = viewdataEX($crfexid)->crfexcus_nameEN;
+                $customernameTH = viewdataEX($crfexid)->crfexcus_nameTH;
+                $cusaddress = viewdataEX($crfexid)->crfexcus_address;
+                $tel = viewdataEX($crfexid)->crfexcus_tel;
+                $fax = viewdataEX($crfexid)->crfexcus_fax;
+                $email = viewdataEX($crfexid)->crfexcus_email;
+                $creditlimit = viewdataEX($crfexid)->crfexcus_creditlimit;
+                $cterm = viewdataEX($crfexid)->crfex_cterm;
+                $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
+                $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
+                $crfexm_pcreditlimit = viewdataEX($crfexid)->crfex_pcreditlimit;
+                $crfexm_pterm = viewdataEX($crfexid)->crfex_pterm;
+                $crfexm_pdiscount = viewdataEX($crfexid)->crfex_pdiscount;
             }
         }
 
@@ -651,14 +653,14 @@ class Main extends MX_Controller
             'company' => viewdataEX($crfexid)->crfex_company,
             'customertype' => viewdataEX($crfexid)->crfex_custype,
             'datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
-            'customercode' => viewdataEX($crfexid)->crfex_cuscode,
-            'salesreps' => $salesreps,
-            'customernameEN' => $customernameEN,
-            'customernameTH' => $customernameTH,
-            'cusaddress' => $cusaddress,
-            'tel' => $tel,
-            'fax' => $fax,
-            'email' => $email,
+            'customercode' => viewdataEX($crfexid)->crfexcus_code,
+            'salesreps' => viewdataEX($crfexid)->crfexcus_salesreps,
+            'customernameEN' => viewdataEX($crfexid)->crfexcus_nameEN,
+            'customernameTH' => viewdataEX($crfexid)->crfexcus_nameTH,
+            'cusaddress' => viewdataEX($crfexid)->crfexcus_address,
+            'tel' => viewdataEX($crfexid)->crfexcus_tel,
+            'fax' => viewdataEX($crfexid)->crfexcus_fax,
+            'email' => viewdataEX($crfexid)->crfexcus_email,
             'pcreditlimit' => $crfexm_pcreditlimit,
             'pterm' => $crfexm_pterm,
             'pdiscount' =>  $crfexm_pdiscount,
@@ -697,7 +699,11 @@ class Main extends MX_Controller
             'crfex_accmemo' => viewdataEX($crfexid)->crfex_accmemo,
             'crfex_accuserpost' => viewdataEX($crfexid)->crfex_accuserpost,
             'crfex_accdatetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accdatetime),
-            'crfex_methodcurcus' => viewdataEX($crfexid)->crfex_methodcurcus
+            'crfex_formno' => $crfex_formno,
+            'crfex_curcustopic1' => viewdataEX($crfexid)->crfex_curcustopic1,
+            'crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
+            'crfexcus_id' => viewdataEX($crfexid)->crfexcus_id,
+            'crfex_cancelForm' => base_url('main/canceldataEx/').viewdataEX($crfexid)->crfex_id."/".viewdataEX($crfexid)->crfex_formno,
 
 
         );
@@ -796,6 +802,8 @@ public function editdata($crf_id)
     }else{
         $creditterm = getViewData($crf_id)->crfcus_creditterm;
         $creditname = conCreditTerm($creditterm);
+        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+        $creditname1 = conCreditTerm($creditterm1);
     }
 
 
@@ -868,9 +876,13 @@ public function save_editdata(){
 }
 
 
-public function canceldata($crfid,$crfcuscode)
+public function canceldata($crfid,$crfformno)
 {
-    $this->main->canceldata($crfid,$crfcuscode);
+    $this->main->canceldata($crfid,$crfformno);
+}
+public function canceldataEx($crfid,$crfformno)
+{
+    $this->main->canceldataEx($crfid,$crfformno);
 }
 
 

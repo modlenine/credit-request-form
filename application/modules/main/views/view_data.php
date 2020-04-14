@@ -23,7 +23,7 @@ if ($result->crf_status == "Open") {
         <div id="btnEditZone" class="row" style="display:none;">
             <div class="col-md-12">
                 <a href="<?= base_url('main/editdata/') . $result->crf_id ?>"><button class="btn btn-warning mt-2">แก้ไขข้อมูล</button></a>
-                <a href="<?= base_url('main/canceldata/') . $result->crf_id ."/".$result->crf_cuscode?>"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">ยกเลิกเอกสาร</button></a>
+                <a href="<?= base_url('main/canceldata/') . $result->crf_id ."/".$result->crf_formno?>"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">ยกเลิกเอกสาร</button></a>
             </div>
         </div>
 
