@@ -37,7 +37,8 @@
 
                 <!-- Chose Company -->
                 <input type="text" name="check_editcom" id="check_editcom" value="{edit_company}" style="display:none;">
-                <input type="text" name="check_EditFormNo" id="check_EditFormNo" value="{get_formno}">
+                <input hidden type="text" name="check_EditFormNo" id="check_EditFormNo" value="{get_formno}">
+
                 <div id="alert_company"></div>
                 <div class="row form-group mt-3 p-2">
                     <div class="col-md-4 form-group">
@@ -63,7 +64,8 @@
 
 
                 <!-- Check ลูกค้าใหม่หรือเดิม -->
-                <input type="text" name="check_editcustype" id="check_editcustype" value="{edit_custype}">
+                <input hidden type="text" name="check_editcustype" id="check_editcustype" value="{edit_custype}">
+
                 <div id="alert_custype"></div>
                 <div class="row form-group p-2">
                     <div class="col-md-3 form-group">
@@ -83,10 +85,11 @@
 
 
                 <!-- Check สิ่งที่ต้องการดำเนินการ -->
-                <input  type="text" name="check_changearea" id="check_changearea" value="{get_changearea}">
-                <input style="display:none;" type="text" name="check_changeaddress" id="check_changeaddress" value="{get_changeaddress}">
-                <input style="display:none;" type="text" name="check_changecredit" id="check_changecredit" value="{get_changecredit}">
-                <input style="display:none;" type="text" name="check_changefinance" id="check_changefinance" value="{get_changefinance}">
+                <input hidden type="text" name="check_changearea" id="check_changearea" value="{get_changearea}">
+                <input hidden type="text" name="check_changeaddress" id="check_changeaddress" value="{get_changeaddress}">
+                <input hidden type="text" name="check_changecredit" id="check_changecredit" value="{get_changecredit}">
+                <input hidden type="text" name="check_changefinance" id="check_changefinance" value="{get_changefinance}">
+
                 <div id="alert_crf_sub_oldcus"></div>
                 <div class="row form-group p-2 suboldcustomer">
                     <div class="col-md-3 form-group">
@@ -154,7 +157,8 @@
 
 
                 <!-- Check ประเภทที่อยู่ -->
-                <input type="text" name="check_addtype" id="check_addtype" value="{edit_ivoicetype}">
+                <input hidden type="text" name="check_addtype" id="check_addtype" value="{edit_ivoicetype}">
+
                 <div class="row form-group">
                     <div class="col-md-4">
                         <label for="">ที่อยู่สำหรับการเปิดใบกำกับภาษี : </label>
@@ -216,7 +220,8 @@
 
 
                 <!-- Check ประเภทบริษัท -->
-                <input type="text" name="check_comtype" id="check_comtype" value="{edit_comtype}">
+                <input hidden type="text" name="check_comtype" id="check_comtype" value="{edit_comtype}">
+
                 <label for="">
                     <h6><b><u>ประเภทบริษัท</u></b></h6>
                 </label>
@@ -421,7 +426,8 @@
                     <div class="col-md-4 form-group">
 
                         <!-- For Change CreditTerm method -->
-                        <input type="text" name="oldCreditTerm" id="oldCreditTerm" value="{edit_creditterm}">
+                        <input hidden type="text" name="oldCreditTerm" id="oldCreditTerm" value="{edit_creditterm}">
+
                         <label for="">โปรดเลือกรายการ</label>
                         <input readonly type="text" name="showCreditname" id="showCreditname" value="{edit_creditname}" class="form-control" style="display:none;">
                         <select name="crf_creditterm" id="crf_creditterm" class="form-control">
@@ -482,7 +488,8 @@
 
 
                 <!-- Check Condition bill -->
-                <input type="text" name="check_conditionbill" id="check_conditionbill" value="{edit_conditionbill}">
+                <input hidden type="text" name="check_conditionbill" id="check_conditionbill" value="{edit_conditionbill}">
+
                 <label for="">
                     <h6><b><u>เงื่อนไขการวางบิล</u></b></h6>
                 </label>
@@ -537,7 +544,8 @@
 
 
                 <!-- Check condition money -->
-                <input type="text" name="check_conditionmoney" id="check_conditionmoney" value="{edit_conditionmoney}">
+                <input hidden type="text" name="check_conditionmoney" id="check_conditionmoney" value="{edit_conditionmoney}">
+
                 <label for="">
                     <h6><b><u>เงื่อนไขการรับชำระเงิน</u></b></h6>
                 </label>
@@ -575,7 +583,8 @@
 
 
                 <!-- Check finance -->
-                <input type="text" name="check_editfinance" id="check_editfinance" value="{edit_finance}">
+                <input hidden type="text" name="check_editfinance" id="check_editfinance" value="{edit_finance}">
+
                 <label for="">
                     <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
                 </label>
@@ -596,7 +605,7 @@
                     <div class="col-md-6">
                         <label for="">วงเงิน</label>
                         <input type="text" name="crf_finance_req_number" id="crf_finance_req_number" class="form-control form-control-sm" value="{edit_moneylimit}">
-                        <input hidden type="text" name="crf_finance_req_number_calc" id="crf_finance_req_number_calc">
+                        <input hidden type="text" name="crf_finance_req_number_calc" id="crf_finance_req_number_calc" value="{edit_moneylimit}">
                     </div>
                 </div>
 
@@ -661,9 +670,9 @@
                 </div>
 
                 <!-- Customer id -->
-                <input type="text" name="getCustomerid_edit" id="getCustomerid_edit" value="{crfcus_id}">
+                <input hidden type="text" name="getCustomerid_edit" id="getCustomerid_edit" value="{crfcus_id}">
                 <!-- Crf ID -->
-                <input type="text" name="getCrfid_edit" id="getCrfid_edit" value="{get_crfid}">
+                <input hidden type="text" name="getCrfid_edit" id="getCrfid_edit" value="{get_crfid}">
 
 
                 <div class="row form-group">

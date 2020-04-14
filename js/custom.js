@@ -3014,6 +3014,7 @@ if($('#check_editfinance').val() == "ขอวงเงิน"){
 }else if($('#check_editcustype').val() == 2){
     $('#edit_custype2').prop('checked' ,true);
     $('.suboldcustomer').css('display' , '');
+    $('input:radio[name="crf_type"]').prop('disabled' , true);
 
     // Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
 if($('#check_addtype').val() == "ตาม ภ.พ.20"){
@@ -3105,11 +3106,15 @@ if($('#check_changecredit').val() == 3){
     $('.change_credit , .change_credit_detail').css('display' , '');
     $('#crf_change_creditterm').prop('checked' , true);
 }else{
-
+    $('.change_credit , .change_credit_detail').css('display' , 'none');
+    $('#crf_change_creditterm').prop('checked' , false);
 }
 
 if($('#check_changefinance').val() == 4){
     $('input[name="crf_sub_oldcus_changefinance"]').prop('checked' , true);
+    $('.finance_change_detail').css('display' , '');
+}else{
+    $('.finance_change_detail').css('display' , 'none');
 }
 
 
@@ -3146,9 +3151,35 @@ $('input:checkbox[name="crf_sub_oldcus_changecredit"]').click(function(){
 
 $('input:checkbox[name="crf_sub_oldcus_changefinance"]').click(function(){
     if($(this).prop('checked') == true){
-        
+        $('.finance_change_detail , #crf_finance_req_number').css('display' , '');
+        $('input:radio[name="crf_finance"]').attr('onclick' , '');
+        $('.crf_financev2').prop('checked' , true);
     }else{
+        $('.finance_change_detail , #crf_finance_req_number').css('display' , 'none');
+        $('.crf_financev2').prop('checked' , false);
+    }
+});
 
+
+$('#crf_finance_change_number').keyup(function(){
+    var oldmoney = parseInt($('#crf_finance_req_number_calc').val());
+    var newmoney = parseInt($(this).val())
+    if($('#crf_finance_change_status').val() == 'เพิ่ม'){
+        $('#crf_finance_change_total').val(oldmoney+newmoney);
+    }else if($('#crf_finance_change_status').val() == 'ลด'){
+        $('#crf_finance_change_total').val(oldmoney-newmoney);
+    }
+   
+    $('#crf_finance_change_total').val(function (index, value) {
+        return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+    });
+    if($(this).val() != ''){
+        $('#user_submit').prop('disabled' , false);
+    }else{
+        $('#user_submit').prop('disabled' , true);
     }
 });
 

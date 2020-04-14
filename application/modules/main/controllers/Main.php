@@ -303,7 +303,7 @@ class Main extends MX_Controller
     {
         if (isset($_POST['director_submit2'])) {
             $this->main->director2($crfid);
-            // header("refresh:0; url=" . base_url('main/list'));
+            header("refresh:0; url=" . base_url('main/list'));
         }
     }
 
@@ -789,6 +789,10 @@ public function editdata($crf_id)
     if(getViewData($crf_id)->crfcus_creditterm2 != ''){
         $creditterm = getViewData($crf_id)->crfcus_creditterm2;
         $creditname = conCreditTerm($creditterm);
+        $creditterm2 = getViewData($crf_id)->crfcus_creditterm2;
+        $creditname2 = conCreditTerm($creditterm2);
+        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+        $creditname1 = conCreditTerm($creditterm1);
     }else{
         $creditterm = getViewData($crf_id)->crfcus_creditterm;
         $creditname = conCreditTerm($creditterm);
@@ -817,8 +821,8 @@ public function editdata($crf_id)
         "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
         "crfcus_id" => getViewData($crf_id)->crfcus_id,
         "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
-        "edit_creditterm" => $creditterm,
-        "edit_creditname" => $creditname,
+        "edit_creditterm" =>  $creditterm1,
+        "edit_creditname" => $creditname1,
         "edit_conditionbill" => getViewData($crf_id)->crfcus_conditionbill,
         "edit_conditionmoney" => getViewData($crf_id)->crfcus_conditionmoney,
         "edit_finance" => getViewData($crf_id)->crf_finance,

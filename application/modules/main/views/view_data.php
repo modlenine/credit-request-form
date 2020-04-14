@@ -134,7 +134,7 @@ if ($result->crf_status == "Open") {
                 <div class="col-md-4 form-group">
                     <?php
                     if ($result->crf_sub_oldcus_changearea == 1 && $result->crf_status != "Complated") {
-                        $salesReps = $result->crfw_salesreps;
+                        $salesReps = $result->crfcus_salesreps;
                     } else {
                         $salesReps = $result->crfcus_salesreps;
                     }
@@ -163,9 +163,9 @@ if ($result->crf_status == "Open") {
 
             <?php
             if ($result->crf_sub_oldcus_changeaddress == 2 && $result->crf_status != "Complated") {
-                $addresstype = $result->crfw_cusaddresstype;
-                $address = $result->crfw_cusaddress;
-                $file1 = $result->crfw_cusfile1;
+                $addresstype = $result->crfcus_addresstype;
+                $address = $result->crfcus_address;
+                $file1 = $result->crfcus_file1;
             } else {
                 $addresstype = $result->crfcus_addresstype;
                 $address = $result->crfcus_address;
@@ -545,7 +545,8 @@ if ($result->crf_status == "Open") {
             <label for="">
                 <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
             </label>
-            <input type="text" name="forcrf_finance_view" id="forcrf_finance_view" value="<?= $result->crf_finance ?>">
+            <!-- For check -->
+            <input hidden type="text" name="forcrf_finance_view" id="forcrf_finance_view" value="<?= $result->crf_finance ?>">
             <div class="row form-group">
                 <div class="col-md-4 from-group">
                     <input type="radio" name="crf_finance_view" id="crf_finance1_view" value="ขอวงเงิน" onclick="return false">
