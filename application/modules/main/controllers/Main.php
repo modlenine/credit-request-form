@@ -372,7 +372,8 @@ class Main extends MX_Controller
                 'test' => array(
                     array('title' => 'Title1', 'body' => 'Body1'),
                     array('title' => 'Title2', 'body' => 'Body2')
-                )
+                ),
+                'addExPage' => $this->uri->segment(2),
             );
             getHead();
             getContentData('add_en', $data);
@@ -704,6 +705,9 @@ class Main extends MX_Controller
             'crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
             'crfexcus_id' => viewdataEX($crfexid)->crfexcus_id,
             'crfex_cancelForm' => base_url('main/canceldataEx/').viewdataEX($crfexid)->crfex_id."/".viewdataEX($crfexid)->crfex_formno,
+            'crfex_editdata' => base_url('main/editdataEx/').viewdataEX($crfexid)->crfex_id,
+            'file' => viewdataEX($crfexid)->crfexcus_file,
+            'fileAddress' => base_url('upload/').viewdataEX($crfexid)->crfexcus_file,
 
 
         );
@@ -892,6 +896,104 @@ public function canceldataEx($crfid,$crfformno)
 // EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
 
 
+
+
+
+
+
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+
+
+public function editdataEx($crfexid)
+{
+
+
+    if(viewdataEX($crfexid)->crfexcus_file == ""){
+        $file = 'ไม่มีไฟล์อยู่ในระบบ';
+    }else{
+        $file = viewdataEX($crfexid)->crfexcus_file;
+    }
+
+
+    $data = array(
+        'username' => getUser()->Fname . " " . getUser()->Lname,
+        'deptcode' => getUser()->DeptCode,
+        'deptname' => getUser()->Dept,
+        'ecode' => getUser()->ecode,
+        'posi' => getUser()->posi,
+        'datenow' => date("d-m-Y H:i:s"),
+        'formcode' => getFormCodeEN(),
+
+        'checkEdit-crfex_company' => viewdataEX($crfexid)->crfex_company,
+        'checkEdit-crfex_custype' => viewdataEX($crfexid)->crfex_custype,
+        'checkEdit-crfex_curcustopic1' => viewdataEX($crfexid)->crfex_curcustopic1,
+        'checkEdit-crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
+        'checkEdit-crfex_formno' => viewdataEX($crfexid)->crfex_formno,
+        'checkEdit-crfex_id' => viewdataEX($crfexid)->crfex_id,
+        'checkEditPage' => $this->uri->segment(2),
+
+
+        'edit-crfex_datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
+        'edit-crfex_customercode' => viewdataEX($crfexid)->crfexcus_code,
+        'edit-crfex_salesreps' => viewdataEX($crfexid)->crfexcus_salesreps,
+        'edit-crfex_cusnameEN' => viewdataEX($crfexid)->crfexcus_nameEN,
+        'edit-crfex_cusnameTH' => viewdataEX($crfexid)->crfexcus_nameTH,
+        'edit-crfex_address' => viewdataEX($crfexid)->crfexcus_address,
+        'edit-crfex_tel' => viewdataEX($crfexid)->crfexcus_tel,
+        'edit-crfex_fax' => viewdataEX($crfexid)->crfexcus_fax,
+        'edit-crfex_email' => viewdataEX($crfexid)->crfexcus_email,
+        'edit-crfex_file' => $file,
+        'edit-crfex_fileAdd' => base_url('upload/').$file,
+        'edit-crfex_payment' => viewdataEX($crfexid)->crfexcus_payment,
+        'edit-crfex_creditlimit' => viewdataEX($crfexid)->crfex_pcreditlimit,
+        'edit-crfex_term' => viewdataEX($crfexid)->crfex_pterm,
+        'edit-crfex_discount' => viewdataEX($crfexid)->crfex_pdiscount,
+        'edit-crfex_creditlimit2' => viewdataEX($crfexid)->crfex_ccreditlimit,
+        'edit-crfex_term2' => viewdataEX($crfexid)->crfex_cterm,
+        'edit-crfex_discount2' => viewdataEX($crfexid)->crfex_cdiscount,
+        'edit-crfex_combg' => viewdataEX($crfexid)->crfexcus_bg,
+
+        'edit-crfex_his_month1' => viewdataEX($crfexid)->crfexcus_his_month1,
+        'edit-crfex_his_tvolume1' => viewdataEX($crfexid)->crfexcus_his_tvolume1,
+        'edit-crfex_histsales1' => viewdataEX($crfexid)->crfexcus_histsales1,
+
+        'edit-crfex_his_month2' => viewdataEX($crfexid)->crfexcus_his_month2,
+        'edit-crfex_his_tvolume2' => viewdataEX($crfexid)->crfexcus_his_tvolume2,
+        'edit-crfex_histsales2' => viewdataEX($crfexid)->crfexcus_histsales2,
+
+        'edit-crfex_his_month3' => viewdataEX($crfexid)->crfexcus_his_month3,
+        'edit-crfex_his_tvolume3' => viewdataEX($crfexid)->crfexcus_his_tvolume3,
+        'edit-crfex_histsales3' => viewdataEX($crfexid)->crfexcus_histsales3,
+
+
+        
+    );
+
+
+
+
+    getHead();
+    getContentData("edit_viewEx" , $data);
+    getFooter();
+}
+
+
+
+public function saveEditdataEx()
+{
+    $this->main->saveEditdataEx();
+}
+
+
+
+
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
 
 
 

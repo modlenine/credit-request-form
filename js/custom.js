@@ -112,10 +112,10 @@ $(document).ready(function () {
             $('#crf_forecast').prop('readonly', true);
 
             //วันที่ก่อตั้ง
-           $('#crf_cuscompanycreate').prop('readonly', true);
+            $('#crf_cuscompanycreate').prop('readonly', true);
 
             //วงเงิน
-            $('.finance_request_detail').css('display' , '');
+            $('.finance_request_detail').css('display', '');
             $('#crf_finance_req_number').prop('readonly', true);
 
 
@@ -123,10 +123,10 @@ $(document).ready(function () {
             $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', 'none');
 
             // Control radio button
-            $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled' , true);
+            $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled', true);
 
             // Control Credit Term
-            $('#crf_creditterm').prop('disabled' , true);
+            $('#crf_creditterm').prop('disabled', true);
 
 
             // Control กรณีเลือก เปลี่ยนเขตการขาย
@@ -136,10 +136,10 @@ $(document).ready(function () {
                     // $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', 'none');
                     // $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled' , true);
                     // $('#crf_creditterm').prop('disabled' , true);
-                    $('inpur:checkbox').prop('disabled' ,true);
-                    $('#crf_salesreps').keyup(function(){
-                        if($(this).val() != ''){
-                            $('#user_submit').prop('disabled' , false);
+                    $('inpur:checkbox').prop('disabled', true);
+                    $('#crf_salesreps').keyup(function () {
+                        if ($(this).val() != '') {
+                            $('#user_submit').prop('disabled', false);
                         }
                     });
                 } else {
@@ -155,28 +155,28 @@ $(document).ready(function () {
                 if ($(this).prop("checked") == true) {
                     $('#crf_addressname , #crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost').prop('readonly', false);
                     $('.crf_file1').css('display', '');
-                    $('input:radio[name="crf_addresstype"]').prop('disabled' , false);
+                    $('input:radio[name="crf_addresstype"]').prop('disabled', false);
 
-                    $('#crf_addressname').blur(function (){
-                        if($(this).val() == ''){
-                            $('#crf_file1').prop('disabled' , true);
-                            $('#user_submit').prop('disabled' , true);
-                        }else{
-                            $('#crf_file1').prop('disabled' , false);
+                    $('#crf_addressname').blur(function () {
+                        if ($(this).val() == '') {
+                            $('#crf_file1').prop('disabled', true);
+                            $('#user_submit').prop('disabled', true);
+                        } else {
+                            $('#crf_file1').prop('disabled', false);
                         }
                     });
-                    $('#crf_file1').change(function(){
-                        if($(this).val() != ''){
-                            $('#user_submit').prop('disabled' , false);
-                        }else{
-                            $('#user_submit').prop('disabled' , true);
+                    $('#crf_file1').change(function () {
+                        if ($(this).val() != '') {
+                            $('#user_submit').prop('disabled', false);
+                        } else {
+                            $('#user_submit').prop('disabled', true);
                         }
                     });
 
                 } else {
                     $('#crf_addressname').prop('readonly', false);
                     // $('.crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
-                    $('input:radio[name="crf_addresstype"]').prop('disabled' , true);
+                    $('input:radio[name="crf_addresstype"]').prop('disabled', true);
                     $('.crf_file1').css('display', 'none');
                     $('#crf_addressname').prop('readonly', true);
                 }
@@ -190,27 +190,27 @@ $(document).ready(function () {
                     $('.change_credit').css('display', '');
                     $('input[name=crf_change_creditterm]').prop('checked', true);
                     $('.change_credit_detail').css('display', '');
-                    $('#crf_condition_credit').attr('required','');
-                    $('#crf_creditterm').prop('readonly' , true);
+                    $('#crf_condition_credit').attr('required', '');
+                    $('#crf_creditterm').prop('readonly', true);
                 } else {
                     $('.change_credit').css('display', 'none');
                     $('input[name=crf_change_creditterm]').prop('checked', false);
                     $('.change_credit_detail').css('display', 'none');
                 }
 
-                $('#crf_condition_credit').change(function(){
+                $('#crf_condition_credit').change(function () {
                     $('.showcredit2').remove();
                     var creditMethod = $(this).val();
                     var oldCredit = $('#oldCreditTerm').val();
-                    filterCreditTerm(oldCredit , creditMethod);
-                    if($(this).val() != ''){
-                        $('#user_submit').prop('disabled' , false);
-                    }else{
-                        $('#user_submit').prop('disabled' , true);
+                    filterCreditTerm(oldCredit, creditMethod);
+                    if ($(this).val() != '') {
+                        $('#user_submit').prop('disabled', false);
+                    } else {
+                        $('#user_submit').prop('disabled', true);
                     }
                 });
             });
-            
+
 
 
             // Control กรณีเลือกปรับ ปรับวงเงิน
@@ -220,36 +220,36 @@ $(document).ready(function () {
                     $('.finance_change_detail').css('display', '');
                     $('input[name=crf_finance]').prop('checked', true);
 
-                    $('#crf_finance_change_status').change(function(){
+                    $('#crf_finance_change_status').change(function () {
                         $('#showChangeStatus').val($(this).val());
                     });
 
                     $('#value_crf_finance').val('ปรับวงเงิน');
-                   
-                    
-                    $('#crf_finance_change_number').keyup(function(){
+
+
+                    $('#crf_finance_change_number').keyup(function () {
                         var oldmoney = parseInt($('#crf_finance_req_number_calc').val());
                         var newmoney = parseInt($(this).val())
-                        if($('#showChangeStatus').val() == 'เพิ่ม'){
-                            $('#crf_finance_change_total').val(oldmoney+newmoney);
-                        }else if($('#showChangeStatus').val() == 'ลด'){
-                            $('#crf_finance_change_total').val(oldmoney-newmoney);
+                        if ($('#showChangeStatus').val() == 'เพิ่ม') {
+                            $('#crf_finance_change_total').val(oldmoney + newmoney);
+                        } else if ($('#showChangeStatus').val() == 'ลด') {
+                            $('#crf_finance_change_total').val(oldmoney - newmoney);
                         }
-                       
+
                         $('#crf_finance_change_total').val(function (index, value) {
                             return value
                                 .replace(/\D/g, "")
                                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                 ;
                         });
-                        if($(this).val() != ''){
-                            $('#user_submit').prop('disabled' , false);
-                        }else{
-                            $('#user_submit').prop('disabled' , true);
+                        if ($(this).val() != '') {
+                            $('#user_submit').prop('disabled', false);
+                        } else {
+                            $('#user_submit').prop('disabled', true);
                         }
                     });
-                    
-                    
+
+
                 } else {
                     $('.finance_change_detail').css('display', 'none');
                     $('input[name=crf_finance]').prop('checked', false);
@@ -902,7 +902,7 @@ $(document).ready(function () {
             $('.suboldcustomer').css('display', 'none');
 
             $('input:radio[class="crf_financev1"]').prop('checked', true);
-            $('input:radio[class="crf_financev2"]').prop('disabled' , true);
+            $('input:radio[class="crf_financev2"]').prop('disabled', true);
 
             $('.finance_request_detail').css('display', '');
 
@@ -953,7 +953,7 @@ $(document).ready(function () {
                 }
             });
             $('#crf_customername').blur(function () {
-                var cusname =  $('#crf_customername').val();
+                var cusname = $('#crf_customername').val();
                 if ($(this).val() == '') {
                     $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
                 } else {
@@ -1774,7 +1774,7 @@ $(document).ready(function () {
     }
     if ($('#forcrf_sub_oldcus_changecredit_view').val() == 3) {
         $('input:checkbox[id="crf_sub_oldcus_changecredit_view"]').prop('checked', true);
-        $('.change_credit_detail , .change_credit').css('display' , '');
+        $('.change_credit_detail , .change_credit').css('display', '');
         // if($('#checkStatus').val() == "Complated"){
         //     $('.change_credit_detail , .change_credit').css('display' , 'none');
         // }
@@ -1906,7 +1906,7 @@ $(document).ready(function () {
     if ($('#forcrf_finance_view').val() == "ขอวงเงิน") {
         $('input:radio[id="crf_finance1_view"]').prop('checked', true);
         $('.finance_request_detail').css('display', '');
-        $('#crf_finance_old_view').css('display' , 'none');
+        $('#crf_finance_old_view').css('display', 'none');
     } else if ($('#forcrf_finance_view').val() == "ปรับวงเงิน") {
         $('input:radio[id="crf_finance2_view"]').prop('checked', true);
         $('.finance_change_detail').css('display', '');
@@ -1933,25 +1933,25 @@ $(document).ready(function () {
 
 
     // Control btn edit
-    if(checkStatus == "Open" || checkStatus == "Edit"){
-        $('#btnEditZone').css('display' , '');
+    if (checkStatus == "Open" || checkStatus == "Edit") {
+        $('#btnEditZone').css('display', '');
     }
 
 
     // Control credit term complate
-    if(checkStatus == "Complated"){
-        $('.creditTermComplete').css('display' , '');
-        $('.creditTermOpen').css('display' , 'none');
+    if (checkStatus == "Complated") {
+        $('.creditTermComplete').css('display', '');
+        $('.creditTermOpen').css('display', 'none');
     }
 
     // Control Cancel status
-    if(checkStatus == "Cancel"){
+    if (checkStatus == "Cancel") {
         $('#cancel').remove();
     }
 
 
     // Control CS , Sales Approve
-   
+
     if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 55) {
         $('.author_manager').css('display', '');
     } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Complated") {
@@ -1964,9 +1964,9 @@ $(document).ready(function () {
         $('#crf_mgrapprovedetail , #crf_mgrapprove_name , #crf_mgrapprove_datetime , #mgr_submit ,#mgr_appro').css('display', 'none');
         if ($('#formgr_appro').val() == "อนุมัติ") {
             $('input:radio[id="formgr_appro1"]').prop('checked', true);
-        } else if($('#formgr_appro').val() == "ไม่อนุมัติ"){
+        } else if ($('#formgr_appro').val() == "ไม่อนุมัติ") {
             $('input:radio[id="formgr_appro0"]').prop('checked', true);
-        }else{
+        } else {
 
         }
     } else {
@@ -1974,12 +1974,12 @@ $(document).ready(function () {
     }
 
     // validate submit button
-    $('#mgr_submit').prop('disabled' , true);
-    $('input:radio[name="mgr_appro"]').click(function(){
-        if($(this).val() != ''){
-            $('#mgr_submit').prop('disabled' , false);
-        }else{
-            $('#mgr_submit').prop('disabled' , true);
+    $('#mgr_submit').prop('disabled', true);
+    $('input:radio[name="mgr_appro"]').click(function () {
+        if ($(this).val() != '') {
+            $('#mgr_submit').prop('disabled', false);
+        } else {
+            $('#mgr_submit').prop('disabled', true);
         }
     });
 
@@ -2004,31 +2004,31 @@ $(document).ready(function () {
         $('#crf_brcode , #crf_brcode_userpost , #crf_becode_datetime , #br_submit').css('display', 'none');
     }
 
-    $('#br_submit').prop('disabled' , true);
-    $('#crf_brcode').click(function(){
-        if($('#crf_brcode').val() == ''){
-            $('#br_submit').prop('disabled' , true);
-        }else{
-            $('#br_submit').prop('disabled' , false);
+    $('#br_submit').prop('disabled', true);
+    $('#crf_brcode').click(function () {
+        if ($('#crf_brcode').val() == '') {
+            $('#br_submit').prop('disabled', true);
+        } else {
+            $('#br_submit').prop('disabled', false);
         }
     });
-    $('#crf_brcode').keyup(function(){
-        if($('#crf_brcode').val() == ''){
-            $('#br_submit').prop('disabled' , true);
-        }else{
-            $('#br_submit').prop('disabled' , false);
+    $('#crf_brcode').keyup(function () {
+        if ($('#crf_brcode').val() == '') {
+            $('#br_submit').prop('disabled', true);
+        } else {
+            $('#br_submit').prop('disabled', false);
         }
     });
-    $('#crf_brcode').blur(function(){
-        if($('#crf_brcode').val() == ''){
-            $('#br_submit').prop('disabled' , true);
-        }else{
-            $('#br_submit').prop('disabled' , false);
+    $('#crf_brcode').blur(function () {
+        if ($('#crf_brcode').val() == '') {
+            $('#br_submit').prop('disabled', true);
+        } else {
+            $('#br_submit').prop('disabled', false);
         }
     });
-    
 
-    
+
+
 
 
 
@@ -2038,7 +2038,7 @@ $(document).ready(function () {
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
         }
-    }else if(checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeSales == 1 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeAddress == 2 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeCreditTerm == 3 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeFinance == 4){
+    } else if (checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeSales == 1 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeAddress == 2 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeCreditTerm == 3 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeFinance == 4) {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
@@ -2056,19 +2056,19 @@ $(document).ready(function () {
 
     if ($('#formgraccappro').val() == "อนุมัติ") {
         $('input:radio[id="formgracc_appro1"]').prop('checked', true);
-    } else if($('#formgraccappro').val() == "ไม่อนุมัติ"){
+    } else if ($('#formgraccappro').val() == "ไม่อนุมัติ") {
         $('input:radio[id="formgracc_appro2"]').prop('checked', true);
-    }else{
+    } else {
 
     }
 
     // validate submit form
-    $('#accmgr_submit').prop('disabled' , true);
-    $('input:radio[name="mgracc_appro"]').click(function (){
-        if($(this).val() != ''){
-            $('#accmgr_submit').prop('disabled' , false);
-        }else{
-            $('#accmgr_submit').prop('disabled' , true);
+    $('#accmgr_submit').prop('disabled', true);
+    $('input:radio[name="mgracc_appro"]').click(function () {
+        if ($(this).val() != '') {
+            $('#accmgr_submit').prop('disabled', false);
+        } else {
+            $('#accmgr_submit').prop('disabled', true);
         }
     });
 
@@ -2093,12 +2093,12 @@ $(document).ready(function () {
     }
 
     // validate submit button
-    $('#director_submit1').prop('disabled' , true);
-    $('input:radio[name="director1_appro"]').click(function(){
-        if($(this).val() != ''){
-            $('#director_submit1').prop('disabled' , false);
-        }else{
-            $('#director_submit1').prop('disabled' , true);
+    $('#director_submit1').prop('disabled', true);
+    $('input:radio[name="director1_appro"]').click(function () {
+        if ($(this).val() != '') {
+            $('#director_submit1').prop('disabled', false);
+        } else {
+            $('#director_submit1').prop('disabled', true);
         }
     });
 
@@ -2124,12 +2124,12 @@ $(document).ready(function () {
     }
 
     // validate submit button
-    $('#director_submit2').prop('disabled' , true);
-    $('input:radio[name="director2_appro"]').click(function(){
-        if($(this).val() != ''){
-            $('#director_submit2').prop('disabled' , false);
-        }else{
-            $('#director_submit2').prop('disabled' , true);
+    $('#director_submit2').prop('disabled', true);
+    $('input:radio[name="director2_appro"]').click(function () {
+        if ($(this).val() != '') {
+            $('#director_submit2').prop('disabled', false);
+        } else {
+            $('#director_submit2').prop('disabled', true);
         }
     });
 
@@ -2157,26 +2157,26 @@ $(document).ready(function () {
 
 
     // validate submit button
-    $('#acc_staff').prop('disabled' , true);
-    $('#cusCode').click(function(){
-        if($(this).val() != ''){
-            $('#acc_staff').prop('disabled' , false);
-        }else{
-            $('#acc_staff').prop('disabled' , true);
+    $('#acc_staff').prop('disabled', true);
+    $('#cusCode').click(function () {
+        if ($(this).val() != '') {
+            $('#acc_staff').prop('disabled', false);
+        } else {
+            $('#acc_staff').prop('disabled', true);
         }
     });
-    $('#cusCode').keyup(function(){
-        if($(this).val() != ''){
-            $('#acc_staff').prop('disabled' , false);
-        }else{
-            $('#acc_staff').prop('disabled' , true);
+    $('#cusCode').keyup(function () {
+        if ($(this).val() != '') {
+            $('#acc_staff').prop('disabled', false);
+        } else {
+            $('#acc_staff').prop('disabled', true);
         }
     });
-    $('#cusCode').blur(function(){
-        if($(this).val() != ''){
-            $('#acc_staff').prop('disabled' , false);
-        }else{
-            $('#acc_staff').prop('disabled' , true);
+    $('#cusCode').blur(function () {
+        if ($(this).val() != '') {
+            $('#acc_staff').prop('disabled', false);
+        } else {
+            $('#acc_staff').prop('disabled', true);
         }
     });
 
@@ -2233,7 +2233,7 @@ $(document).ready(function () {
         var data_crf_creditterm2name = $(this).attr('data_crf_creditterm2name');
         var data_crf_moneylimit = $(this).attr('data_crf_moneylimit');
 
-        $('#crf_customercode').val(data_crf_customercode).prop('readonly' , true);
+        $('#crf_customercode').val(data_crf_customercode).prop('readonly', true);
         $('#crf_salesreps').val(data_crf_salesreps);
         $('#crf_customername').val(data_crf_customername);
         $('#crf_cuscompanycreate').val(data_crf_cuscompanycreate);
@@ -2245,34 +2245,34 @@ $(document).ready(function () {
         $('#crf_regiscost').val(data_crf_regiscost);
         $('#crf_forecast').val(data_crf_forecast);
         $('#value_crf_finance').val(data_crf_finance);
-        if(data_crf_creditterm2 != ''){
+        if (data_crf_creditterm2 != '') {
             $('#crf_creditterm option:selected').val(data_crf_creditterm2).text(data_crf_creditterm2name);
             $('#oldCreditTerm').val(data_crf_creditterm2);
-        }else{
+        } else {
             $('#crf_creditterm option:selected').val(data_credit_id).text(data_credit_name);
             $('#oldCreditTerm').val(data_credit_id);
         }
         $('#crf_finance_req_number , #crf_finance_req_number_calc').val(data_crf_moneylimit);
         $('#crf_cusid').val(data_crf_cusid);
-        
 
 
-        if(data_oldcfr_addresstype == "ตาม ภ.พ.20"){
-            $('input:radio[id="crf_addresstype1"]').prop('checked' , true);
-        }else{
-            $('input:radio[id="crf_addresstype2"]').prop('checked' , true);
+
+        if (data_oldcfr_addresstype == "ตาม ภ.พ.20") {
+            $('input:radio[id="crf_addresstype1"]').prop('checked', true);
+        } else {
+            $('input:radio[id="crf_addresstype2"]').prop('checked', true);
         }
 
 
-        if(data_crf_companytype == 1){
-            $('input:radio[class="crf_companytype1"]').prop('checked' , true);
-        }else if (data_crf_companytype == 2) {
-            $('input:radio[class="crf_companytype2"]').prop('checked' , true);
-            $('#companytype2').css('display' , '');
+        if (data_crf_companytype == 1) {
+            $('input:radio[class="crf_companytype1"]').prop('checked', true);
+        } else if (data_crf_companytype == 2) {
+            $('input:radio[class="crf_companytype2"]').prop('checked', true);
+            $('#companytype2').css('display', '');
             $('#crf_companytype2').val(data_crf_companytype2);
-        }else{
-            $('input:radio[class="crf_companytype3"]').prop('checked' , true);
-            $('#companytype3').css('display' , '');
+        } else {
+            $('input:radio[class="crf_companytype3"]').prop('checked', true);
+            $('#companytype3').css('display', '');
             $('#crf_companytype3_1_1').val(data_crf_companytype3_1_1);
             $('#crf_companytype3_1_2').val(data_crf_companytype3_1_2);
             $('#crf_companytype3_2_1').val(data_crf_companytype3_2_1);
@@ -2280,10 +2280,10 @@ $(document).ready(function () {
         }
 
 
-        if(data_crf_typeofbussi == 'ผู้ผลิต'){
-            $('input:radio[class="crf_typeofbussi1"]').prop('checked' , true);
-        }else{
-            $('input:radio[class="crf_typeofbussi2"]').prop('checked' , true);
+        if (data_crf_typeofbussi == 'ผู้ผลิต') {
+            $('input:radio[class="crf_typeofbussi1"]').prop('checked', true);
+        } else {
+            $('input:radio[class="crf_typeofbussi2"]').prop('checked', true);
         }
 
 
@@ -2291,44 +2291,44 @@ $(document).ready(function () {
         queryPrimanageUse(data_crf_cusid);
 
 
-        if(data_crf_condition_bill == 'ส่งของพร้อมวางบิล'){
-            $('input:radio[class="crf_condition_billv1"]').prop('checked' , true);
-        }else if (data_crf_condition_bill == 'วางบิลตามตาราง'){
-            $('input:radio[class="crf_condition_billv2"]').prop('checked' , true);
-            $('.crf_condition_bill2').css('display' , '');
-            $('.oldcustomer1').css('display' , '').val(data_crf_tablebill);
-            $('.oldcustomer1').prop('readonly' , true);
-            $('.oldcustomer2').css('display' , '').val(data_crf_mapbill);
-            $('.oldcustomer2').prop('readonly' , true);
+        if (data_crf_condition_bill == 'ส่งของพร้อมวางบิล') {
+            $('input:radio[class="crf_condition_billv1"]').prop('checked', true);
+        } else if (data_crf_condition_bill == 'วางบิลตามตาราง') {
+            $('input:radio[class="crf_condition_billv2"]').prop('checked', true);
+            $('.crf_condition_bill2').css('display', '');
+            $('.oldcustomer1').css('display', '').val(data_crf_tablebill);
+            $('.oldcustomer1').prop('readonly', true);
+            $('.oldcustomer2').css('display', '').val(data_crf_mapbill);
+            $('.oldcustomer2').prop('readonly', true);
             $('.newcustomer1').remove();
             $('.newcustomer2').remove();
-        }else if (data_crf_condition_bill == 'วางบิลทุกวันที่'){
-            $('input:radio[class="crf_condition_billv3"]').prop('checked' , true);
-            $('.crf_condition_bill3').css('display' , '');
+        } else if (data_crf_condition_bill == 'วางบิลทุกวันที่') {
+            $('input:radio[class="crf_condition_billv3"]').prop('checked', true);
+            $('.crf_condition_bill3').css('display', '');
             $('#crf_datebill').val(data_crf_datebill);
             $('.newcustomer3').remove();
-            $('.oldcustomer3').css('display' , '').val(data_crf_mapbill2);
+            $('.oldcustomer3').css('display', '').val(data_crf_mapbill2);
         }
 
-        if(data_crf_condition_money == "โอนเงิน"){
-            $('input:radio[class="crf_condition_moneyv1"]').prop('checked' , true);
-        }else if (data_crf_condition_money == "รับเช็ค"){
-            $('input:radio[class="crf_condition_moneyv2"]').prop('checked' , true);
-            $('.recive_cheuqe').css('display' , '');
+        if (data_crf_condition_money == "โอนเงิน") {
+            $('input:radio[class="crf_condition_moneyv1"]').prop('checked', true);
+        } else if (data_crf_condition_money == "รับเช็ค") {
+            $('input:radio[class="crf_condition_moneyv2"]').prop('checked', true);
+            $('.recive_cheuqe').css('display', '');
             $('.newcustomer4').remove();
-            $('.oldcustomer4').css('display' , '').val(data_crf_recive_cheuqetable);
-            $('.oldcustomer4').prop('readonly' , true);
+            $('.oldcustomer4').css('display', '').val(data_crf_recive_cheuqetable);
+            $('.oldcustomer4').prop('readonly', true);
             $('#crf_recive_cheuqedetail').val(data_crf_recive_cheuqedetail);
-            $('#crf_recive_cheuqedetail').prop('readonly' , true);
+            $('#crf_recive_cheuqedetail').prop('readonly', true);
         }
 
 
-        if(data_crf_finance == "ขอวงเงิน"){
-            $('input:radio[class="crf_financev1"]').prop('checked' , true);
-            $('.finance_request_detail').css('display' , '');
+        if (data_crf_finance == "ขอวงเงิน") {
+            $('input:radio[class="crf_financev1"]').prop('checked', true);
+            $('.finance_request_detail').css('display', '');
             $('#crf_finance_req_number').val(data_crf_finance_req_number);
-        }else if(data_crf_finance == "ปรับวงเงิน"){
-            $('input:radio[class="crf_financev2"]').prop('checked' , true);
+        } else if (data_crf_finance == "ปรับวงเงิน") {
+            $('input:radio[class="crf_financev2"]').prop('checked', true);
         }
 
         $('#crf_finance_req_number').val(function (index, value) {
@@ -2348,97 +2348,413 @@ $(document).ready(function () {
 
 
 
-//////////// Search Zone Search Zone Search Zone Search Zone //////////////////
-//////////// Search Zone Search Zone Search Zone Search Zone //////////////////
-$('#searchdata').change(function(){
-    if($(this).val() == 'จากวันที่สร้างรายการ'){
-        $('.searchByDate').css('display' , '');
-    }else{
-        $('.searchByDate').css('display' , 'none');
+    //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
+    //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
+    $('#searchdata').change(function () {
+        if ($(this).val() == 'จากวันที่สร้างรายการ') {
+            $('.searchByDate').css('display', '');
+        } else {
+            $('.searchByDate').css('display', 'none');
+        }
+
+        if ($(this).val() == 'จากเลขที่คำขอ') {
+            $('.searchByForm').css('display', '');
+        } else {
+            $('.searchByForm').css('display', 'none');
+        }
+
+        if ($(this).val() == 'จากชื่อบริษัท') {
+            $('.searchByCompany').css('display', '');
+        } else {
+            $('.searchByCompany').css('display', 'none');
+        }
+    });
+
+
+
+
+
+    $('#searchdataex').change(function () {
+        if ($(this).val() == 'bydatecreate') {
+            $('.searchByDate').css('display', '');
+        } else {
+            $('.searchByDate').css('display', 'none');
+        }
+
+        if ($(this).val() == 'byformno') {
+            $('.searchByForm').css('display', '');
+        } else {
+            $('.searchByForm').css('display', 'none');
+        }
+
+        if ($(this).val() == 'bycompanyname') {
+            $('.searchByCompany').css('display', '');
+        } else {
+            $('.searchByCompany').css('display', 'none');
+        }
+    });
+    //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
+    //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
+
+
+
+
+
+
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+
+    $('#usercrfex_submit').prop('disabled', true);
+
+    $('input[name="crfex_company"]').click(function () {
+        if ($('input[name="crfex_company"]:checked').length > 0) {
+            $('#alert_crfex_company').html('');
+        }
+    });
+
+    $('#crfex_salesreps').click(function () {
+        if ($('input[name="crfex_custype"]:checked').length < 1) {
+            $('#alert_crfex_custype').html('<div class="alert alert-danger" role="alert">Please choose customer type.</div>');
+            $('#crfex_salesreps').val('');
+            exit;
+        }
+    });
+    $('#crfex_salesreps').keyup(function () {
+        if ($('input[name="crfex_custype"]:checked').length < 1) {
+            $('#alert_crfex_custype').html('<div class="alert alert-danger" role="alert">Please choose customer type.</div>');
+            $('#crfex_salesreps').val('');
+            exit;
+        }
+    });
+
+
+    $('input[name="crfex_custype"]').click(function () {
+        if ($('input[name="crfex_custype"]:checked').length > 0) {
+            $('#alert_crfex_custype').html('');
+        }
+    });
+
+
+
+    // Add page Zone
+    if ($('#checkAddPage').val() == 'addEx') {
+
+
+        $('input[name="crfex_custype"]').click(function () {
+            var crfex_company = $('input:radio[name="crfex_company"]:checked');
+            if (crfex_company.length < 1) {
+                $('#alert_crfex_company').html('<div class="alert alert-danger" role="alert">Please choose company name.</div>');
+                $('input[name="crfex_custype"]').prop('checked', false);
+                exit;
+            } else {
+                $('#alert_crfex_company').html('');
+            }
+
+
+            // When click new customer // When click new customer// When click new customer
+            // When click new customer // When click new customer// When click new customer
+            // When click new customer // When click new customer// When click new customer
+
+
+
+
+
+
+
+            if ($(this).val() == 1) {
+                $('#crfex_customercode').prop('readonly', true);
+
+                $('#crfex_his_month1 , #crfex_his_month2 , #crfex_his_month3 , #crfex_his_tvolume1 , #crfex_his_tvolume2 , #crfex_his_tvolume3 , #crfex_histsales1 , #crfex_histsales2 , #crfex_histsales3 , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
+
+                // check sales rep
+                $('#crfex_cusnameEN').click(function () {
+                    if ($('#crfex_salesreps').val() == '') {
+                        $('#alert_crfex_salesreps').html('<div class="alert alert-danger" role="alert">Please fill sales reps.</div>');
+                        $('#crfex_cusnameEN').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_cusnameEN').keyup(function () {
+                    if ($('#crfex_salesreps').val() == '') {
+                        $('#alert_crfex_salesreps').html('<div class="alert alert-danger" role="alert">Please fill sales reps.</div>');
+                        $('#crfex_cusnameEN').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_salesreps').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_salesreps').html('');
+                    }
+                });
+
+
+
+
+
+                // check customer name
+                $('#crfex_address').click(function () {
+                    if ($('#crfex_cusnameEN').val() == '') {
+                        $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please fill customer name (EN).</div>');
+                        $('#crfex_address').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_address').keyup(function () {
+                    if ($('#crfex_cusnameEN').val() == '') {
+                        $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please fill customer name (EN).</div>');
+                        $('#crfex_address').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_cusnameEN').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_cusnameEN').html('');
+                    }
+                });
+
+
+                // check address
+                $('#crfex_tel').click(function () {
+                    if ($('#crfex_address').val() == '') {
+                        $('#alert_crfex_address').html('<div class="alert alert-danger" role="alert">Please fill address.</div>');
+                        $('#crfex_tel').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_tel').keyup(function () {
+                    if ($('#crfex_address').val() == '') {
+                        $('#alert_crfex_address').html('<div class="alert alert-danger" role="alert">Please fill address.</div>');
+                        $('#crfex_tel').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_address').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_address').html('');
+                    }
+                });
+
+
+                // check tel
+                $('#crfex_email').click(function () {
+                    if ($('#crfex_tel').val() == '') {
+                        $('#alert_crfex_tel').html('<div class="alert alert-danger" role="alert">Please fill Tel.</div>');
+                        $('#crfex_email').val('');
+                        exit;
+                    }
+
+                });
+                $('#crfex_email').keyup(function () {
+                    if ($('#crfex_tel').val() == '') {
+                        $('#alert_crfex_tel').html('<div class="alert alert-danger" role="alert">Please fill Tel.</div>');
+                        $('#crfex_email').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_tel').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_tel').html('');
+                    }
+                });
+
+
+
+                // check email
+                $('#crfex_creditlimit').click(function () {
+                    if ($('#crfex_email').val() == '') {
+                        $('#alert_crfex_email').html('<div class="alert alert-danger" role="alert">Please fill Email.</div>');
+                        $('#crfex_creditlimit').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_creditlimit').keyup(function () {
+                    if ($('#crfex_email').val() == '') {
+                        $('#alert_crfex_email').html('<div class="alert alert-danger" role="alert">Please fill Email.</div>');
+                        $('#crfex_creditlimit').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_email').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_email').html('');
+                    }
+                });
+
+
+                // check credit
+                $('#crfex_term').click(function () {
+                    if ($('#crfex_creditlimit').val() == '') {
+                        $('#alert_crfex_creditlimit').html('<div class="alert alert-danger" role="alert">Please fill propose credit limit.</div>');
+                        $('#crfex_term').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_term').keyup(function () {
+                    if ($('#crfex_creditlimit').val() == '') {
+                        $('#alert_crfex_creditlimit').html('<div class="alert alert-danger" role="alert">Please fill propose credit limit.</div>');
+                        $('#crfex_term').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_creditlimit').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_creditlimit').html('');
+                    }
+                });
+
+
+
+                // check term
+                $('#crfex_term').blur(function () {
+                    if ($('#crfex_term').val() == '') {
+                        $('#alert_crfex_term').html('<div class="alert alert-danger" role="alert">Please fill credit term.</div>');
+                        $('#usercrfex_submit').prop('disabled', true);
+                        exit;
+                    }
+                });
+                $('#crfex_creditlimit').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#alert_crfex_term').html('');
+                        $('#usercrfex_submit').prop('disabled', false);
+                    }
+                });
+
+                $('#crfex_term').blur(function () {
+                    if ($(this).val() != '') {
+                        $('#usercrfex_submit').prop('disabled', false);
+                    }
+                });
+
+
+
+            } else if ($(this).val() == 2) {
+
+                $('#curcustopic_addpage').css('display', '');
+                $('#crfex_customercode').prop('readonly', false);
+                $('.crfex_topic').css('display', '');
+
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly', true);
+
+                $('#alert_crfex_salesreps , #alert_crfex_cusnameEN , #alert_crfex_address , #alert_crfex_tel , #alert_crfex_email , #alert_crfex_creditlimit , #alert_crfex_term').html('');
+
+
+                // check topic select
+                $('#crfex_customercode').click(function () {
+                    if ($('#crfex_curcustopic').val() == '') {
+                        $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
+                        $('#crfex_customercode').val('');
+                        exit;
+                    }
+                });
+                $('#crfex_customercode').keyup(function () {
+                    if ($('#crfex_curcustopic').val() == '') {
+                        $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
+                        $('#crfex_customercode').val('');
+                        exit;
+                    }
+                });
+
+
+                $('#crfex_curcustopic1_add').click(function () {
+                    if ($(this).prop('checked') == true) {
+                        $('#alert_crfex_topic').html('');
+                        $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly', false);
+                        // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+                        $('#crfex_address').blur(function () {
+                            if ($(this).val() != '') {
+                                $('#usercrfex_submit').prop('disabled', false);
+                            } else {
+                                alert('Please fill address');
+                                $('#usercrfex_submit').prop('disabled', true);
+                            }
+                        });
+                    } else {
+                        $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly', true);
+                    }
+                });
+
+                $('#crfex_curcustopic2_add').click(function () {
+                    if ($(this).prop('checked') == true) {
+                        $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', false);
+                        // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
+                    } else {
+                        $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
+                    }
+
+                });
+
+
+
+
+
+                // Get Old customer information to form when keyup
+                $('#crfex_customercode').on('keyup', function () {
+                    var cusCode = $(this).val();
+                    if (cusCode != '') {
+                        autoSearchCustomerDetailEx(cusCode);
+                    } else {
+                        $('#autoCusCodeEx').html('')
+                    }
+
+                });
+
+                $(document).on('click', '.selectCusCodeEx', function () {
+
+                    var data_crfex_salesreps = $(this).attr('data_crfex_salesreps');
+                    var data_crfex_cusnameEN = $(this).attr('data_crfex_cusnameEN');
+                    var data_crfex_cusnameTH = $(this).attr('data_crfex_cusnameTH');
+                    var data_crfex_address = $(this).attr('data_crfex_address');
+                    var data_crfex_tel = $(this).attr('data_crfex_tel');
+                    var data_crfex_fax = $(this).attr('data_crfex_fax');
+                    var data_crfex_email = $(this).attr('data_crfex_email');
+                    var data_crfex_file = $(this).attr('data_crfex_file');
+                    var data_crfex_creditlimit = $(this).attr('data_crfex_creditlimit');
+                    var data_crfex_term = $(this).attr('data_crfex_term');
+                    var data_crfex_discount = $(this).attr('data_crfex_discount');
+                    var data_crfex_bg = $(this).attr('data_crfex_bg');
+                    var data_crfex_cuscode = $(this).attr('data_crfex_cuscode');
+                    var data_crfex_cusid = $(this).attr('data_crfex_cusid');
+                    var data_crfex_cuspayment = $(this).attr('data_crfex_cuspayment');
+
+
+                    $('#crfex_salesreps').val(data_crfex_salesreps);
+                    $('#crfex_cusnameEN').val(data_crfex_cusnameEN);
+                    $('#crfex_cusnameTH').val(data_crfex_cusnameTH);
+                    $('#crfex_address').val(data_crfex_address);
+                    $('#crfex_tel').val(data_crfex_tel);
+                    $('#crfex_fax').val(data_crfex_fax);
+                    $('#crfex_email').val(data_crfex_email);
+                    $('#crfex_fileShow').text(data_crfex_file);
+                    $('#crfex_creditlimit2').val(data_crfex_creditlimit);
+                    $('#crfex_term2').val(data_crfex_term);
+                    $('#crfex_discount2').val(data_crfex_discount);
+                    $('#crfex_combg').val(data_crfex_bg);
+                    $('#crfex_customercode').val(data_crfex_cuscode).prop('readonly', true);
+                    $('#getCusid').val(data_crfex_cusid);
+                    $('#crfex_payment').val(data_crfex_cuspayment);
+
+
+
+                    $('#autoCusCodeEx').html('')
+
+                });
+
+
+
+
+            }
+            // End Section current customer
+
+        });
+
     }
-    
-    if($(this).val() == 'จากเลขที่คำขอ'){
-        $('.searchByForm').css('display' , '');
-    }else{
-        $('.searchByForm').css('display' , 'none');
-    }
-    
-    if($(this).val() == 'จากชื่อบริษัท'){
-        $('.searchByCompany').css('display' , '');
-    }else{
-        $('.searchByCompany').css('display' , 'none');
-    }
-});
-
-
-
-
-
-$('#searchdataex').change(function(){
-    if($(this).val() == 'bydatecreate'){
-        $('.searchByDate').css('display' , '');
-    }else{
-        $('.searchByDate').css('display' , 'none');
-    }
-    
-    if($(this).val() == 'byformno'){
-        $('.searchByForm').css('display' , '');
-    }else{
-        $('.searchByForm').css('display' , 'none');
-    }
-    
-    if($(this).val() == 'bycompanyname'){
-        $('.searchByCompany').css('display' , '');
-    }else{
-        $('.searchByCompany').css('display' , 'none');
-    }
-});
-//////////// Search Zone Search Zone Search Zone Search Zone //////////////////
-//////////// Search Zone Search Zone Search Zone Search Zone //////////////////
-
-
-
-
-
-
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-
-$('#usercrfex_submit').prop('disabled' , true);
-
-$('input[name="crfex_company"]').click(function(){
-    if($('input[name="crfex_company"]:checked').length > 0){
-        $('#alert_crfex_company').html('');
-    }
-});
-
-$('#crfex_salesreps').click(function(){
-    if($('input[name="crfex_custype"]:checked').length < 1){
-        $('#alert_crfex_custype').html('<div class="alert alert-danger" role="alert">Please choose customer type.</div>');
-        $('#crfex_salesreps').val('');
-        exit;
-    }
-});
-$('#crfex_salesreps').keyup(function(){
-    if($('input[name="crfex_custype"]:checked').length < 1){
-        $('#alert_crfex_custype').html('<div class="alert alert-danger" role="alert">Please choose customer type.</div>');
-        $('#crfex_salesreps').val('');
-        exit;
-    }
-});
-
-
-$('input[name="crfex_custype"]').click(function (){
-    if($('input[name="crfex_custype"]:checked').length > 0){
-        $('#alert_crfex_custype').html('');
-    }
-});
+    // Add page Zone
 
 
 
@@ -2446,803 +2762,614 @@ $('input[name="crfex_custype"]').click(function (){
 
 
 
-$('input[name="crfex_custype"]').click(function(){
-    var crfex_company = $('input:radio[name="crfex_company"]:checked');
-    if(crfex_company.length < 1){
-        $('#alert_crfex_company').html('<div class="alert alert-danger" role="alert">Please choose company name.</div>');
-        $('input[name="crfex_custype"]').prop('checked' , false);
-        exit;
-    }else{
-        $('#alert_crfex_company').html('');
-    }
+    // Control view export page
+    if ($('#checkPage').val() == 'viewdataEx') {
 
+        $('#crf_company_sln_view , #crf_company_poly_view , #crf_company_ca_view').attr('onclick', 'return false');
 
-// When click new customer // When click new customer// When click new customer
-// When click new customer // When click new customer// When click new customer
-// When click new customer // When click new customer// When click new customer
-if($(this).val() == 1){
-    $('#crfex_customercode').prop('readonly' , true);
-
-    $('#crfex_his_month1 , #crfex_his_month2 , #crfex_his_month3 , #crfex_his_tvolume1 , #crfex_his_tvolume2 , #crfex_his_tvolume3 , #crfex_histsales1 , #crfex_histsales2 , #crfex_histsales3 , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-
-    // check sales rep
-    $('#crfex_cusnameEN').click(function(){
-        if($('#crfex_salesreps').val() == ''){
-            $('#alert_crfex_salesreps').html('<div class="alert alert-danger" role="alert">Please fill sales reps.</div>');
-            $('#crfex_cusnameEN').val('');
-            exit;
+        if ($('#check_crf_company').val() == 'sln') {
+            $('#crf_company_sln_view').prop('checked', true);
+        } else if ($('#check_crf_company').val() == 'poly') {
+            $('#crf_company_poly_view').prop('checked', true);
+        } else if ($('#check_crf_company').val() == 'ca') {
+            $('#crf_company_ca_view').prop('checked', true);
         }
-    });
-    $('#crfex_cusnameEN').keyup(function(){
-        if($('#crfex_salesreps').val() == ''){
-            $('#alert_crfex_salesreps').html('<div class="alert alert-danger" role="alert">Please fill sales reps.</div>');
-            $('#crfex_cusnameEN').val('');
-            exit;
+        // End check company
+
+        if ($('#check_crfex_custype').val() == 1) {
+            $('#crfex_custype1v').prop('checked', true);
+        } else if ($('#check_crfex_custype').val() == 2) {
+            $('input:radio[id="crfex_custype2v"]').prop('checked', true);
+            $('.excurcusmethod').css('display', '');
+
+            if ($('#checkcurcustopic1').val() != '') {
+                $('input:checkbox[name="crfex_curcustopic1"]').prop('checked', true);
+            } else {
+                $('input:checkbox[name="crfex_curcustopic1"]').prop('checked', false);
+            }
+
+            if ($('#checkcurcustopic2').val() != '') {
+                $('input:checkbox[name="crfex_curcustopic2"]').prop('checked', true);
+            } else {
+                $('input:checkbox[name="crfex_curcustopic2"]').prop('checked', false);
+            }
         }
-    });
-    $('#crfex_salesreps').keyup(function (){
-        if($(this).val() != ''){
-            $('#alert_crfex_salesreps').html('');
-        }
-    });
+        $('#crfex_custype1 , #crfex_custype2').attr('onclick', 'return false');
 
 
 
+        // Control Approve Section
+        var checkStatus = $('#checkStatusView').val();
+        var checkUserDeptView = $('#checkUserDeptView').val();
+        var checkCusType = $('#checkCusType').val();
+        var checkCusPosi = $('#checkCusPosi').val();
 
-
-    // check customer name
-    $('#crfex_address').click(function(){
-        if($('#crfex_cusnameEN').val() == ''){
-            $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please fill customer name (EN).</div>');
-            $('#crfex_address').val('');
-            exit;
-        }
-    });
-    $('#crfex_address').keyup(function(){
-        if($('#crfex_cusnameEN').val() == ''){
-            $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please fill customer name (EN).</div>');
-            $('#crfex_address').val('');
-            exit;
-        }
-    });
-    $('#crfex_cusnameEN').keyup(function (){
-        if($(this).val() != ''){
-            $('#alert_crfex_cusnameEN').html('');
-        }
-    });
-
-
-    // check address
-    $('#crfex_tel').click(function(){
-        if($('#crfex_address').val() == ''){
-            $('#alert_crfex_address').html('<div class="alert alert-danger" role="alert">Please fill address.</div>');
-            $('#crfex_tel').val('');
-            exit;
-        }
-    });
-    $('#crfex_tel').keyup(function(){
-        if($('#crfex_address').val() == ''){
-            $('#alert_crfex_address').html('<div class="alert alert-danger" role="alert">Please fill address.</div>');
-            $('#crfex_tel').val('');
-            exit;
-        }
-    });
-    $('#crfex_address').keyup(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_address').html('');
-        }
-    });
-
-
-    // check tel
-    $('#crfex_email').click(function(){
-        if($('#crfex_tel').val() == ''){
-            $('#alert_crfex_tel').html('<div class="alert alert-danger" role="alert">Please fill Tel.</div>');
-        $('#crfex_email').val('');
-        exit;
-        }
-        
-    });
-    $('#crfex_email').keyup(function(){
-        if($('#crfex_tel').val() == ''){
-            $('#alert_crfex_tel').html('<div class="alert alert-danger" role="alert">Please fill Tel.</div>');
-        $('#crfex_email').val('');
-        exit;
-        }
-    });
-    $('#crfex_tel').keyup(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_tel').html('');
-        }
-    });
-
-
-
-    // check email
-    $('#crfex_creditlimit').click(function(){
-        if($('#crfex_email').val() == ''){
-            $('#alert_crfex_email').html('<div class="alert alert-danger" role="alert">Please fill Email.</div>');
-            $('#crfex_creditlimit').val('');
-            exit;
-        }
-    });
-    $('#crfex_creditlimit').keyup(function(){
-        if($('#crfex_email').val() == ''){
-            $('#alert_crfex_email').html('<div class="alert alert-danger" role="alert">Please fill Email.</div>');
-            $('#crfex_creditlimit').val('');
-            exit;
-        }
-    });
-    $('#crfex_email').keyup(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_email').html('');
-        }
-    });
-
-
-    // check credit
-    $('#crfex_term').click(function(){
-        if($('#crfex_creditlimit').val() == ''){
-            $('#alert_crfex_creditlimit').html('<div class="alert alert-danger" role="alert">Please fill propose credit limit.</div>');
-            $('#crfex_term').val('');
-            exit;
-        }
-    });
-    $('#crfex_term').keyup(function(){
-        if($('#crfex_creditlimit').val() == ''){
-            $('#alert_crfex_creditlimit').html('<div class="alert alert-danger" role="alert">Please fill propose credit limit.</div>');
-            $('#crfex_term').val('');
-            exit;
-        }
-    });
-    $('#crfex_creditlimit').keyup(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_creditlimit').html('');
-        }
-    });
-
-
-
-    // check term
-    $('#crfex_term').blur(function(){
-        if($('#crfex_term').val() == ''){
-            $('#alert_crfex_term').html('<div class="alert alert-danger" role="alert">Please fill credit term.</div>');
-            $('#usercrfex_submit').prop('disabled' , true);
-            exit;
-        }
-    });
-    $('#crfex_creditlimit').keyup(function(){
-        if($(this).val() != ''){
-            $('#alert_crfex_term').html('');
-            $('#usercrfex_submit').prop('disabled' , false);
-        }
-    });
-
-$('#crfex_term').blur(function(){
-    if($(this).val() != ''){
-        $('#usercrfex_submit').prop('disabled' , false);
-    }
-});
-
-
-
-}else if($(this).val() == 2){
-
-    $('#crfex_customercode').prop('readonly' , false);
-    $('.crfex_topic').css('display' , '');
-
-    $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly' , true);
-
-    $('#alert_crfex_salesreps , #alert_crfex_cusnameEN , #alert_crfex_address , #alert_crfex_tel , #alert_crfex_email , #alert_crfex_creditlimit , #alert_crfex_term').html('');
-
-
-    // check topic select
-    $('#crfex_customercode').click(function(){
-        if($('#crfex_curcustopic').val() == ''){
-            $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
-            $('#crfex_customercode').val('');
-            exit;
-        }
-    });
-    $('#crfex_customercode').keyup(function(){
-        if($('#crfex_curcustopic').val() == ''){
-            $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
-            $('#crfex_customercode').val('');
-            exit;
-        }
-    });
-
-
-    $('#crfex_curcustopic1').click(function(){
-        if($(this).prop('checked') == true){
-            $('#alert_crfex_topic').html('');
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , false);
-            // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-            $('#crfex_address').blur(function(){
-                if($(this).val() != ''){
-                    $('#usercrfex_submit').prop('disabled' , false);
-                }else{
-                    alert('Please fill address');
-                    $('#usercrfex_submit').prop('disabled' , true);
+        if (checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1004 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1012 && checkCusPosi == 75) {
+            $('.managerSection').css('display', '');
+            $('#ex_mgrSubmit').prop('disabled', true);
+            $('input:radio[name="ex_mgrApprove"]').click(function () {
+                if ($(this).val() != '') {
+                    $('#ex_mgrSubmit').prop('disabled', false);
+                } else {
+                    $('#ex_mgrSubmit').prop('disabled', true);
                 }
             });
-        }else{
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
+        } else if (checkStatus == 'Edit' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Edit' && checkUserDeptView == 1010 && checkCusPosi == 75 || checkStatus == 'Edit' && checkUserDeptView == 1004 && checkCusPosi == 75 || checkStatus == 'Edit' && checkUserDeptView == 1012 && checkCusPosi == 75) {
+
+            $('.managerSection').css('display', '');
+            $('#ex_mgrSubmit').prop('disabled', true);
+            $('input:radio[name="ex_mgrApprove"]').click(function () {
+                if ($(this).val() != '') {
+                    $('#ex_mgrSubmit').prop('disabled', false);
+                } else {
+                    $('#ex_mgrSubmit').prop('disabled', true);
+                }
+            });
+
         }
+        else if (checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated') {
+            $('.managerSection').css('display', 'none');
+            $('.managerSection1').css('display', '');
+
+            $('#ex_mgrApprove1 , #ex_mgrApprove2').attr('onclick', 'return false');
+            if ($('#show_crfex_mgrapp_status').val() == "Approve") {
+                $('#ex_mgrApprove1').prop('checked', true);
+            } else {
+                $('#ex_mgrApprove2').prop('checked', true);
+            }
+        }
+
+        if (checkStatus == 'Manager approved' && checkUserDeptView == 1010) {
+            if (checkCusType == 2) {
+                $('.csAddBrDection').remove();
+            } else {
+                $('.csAddBrDection').css('display', '');
+            }
+        } else if (checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated') {
+            if (checkCusType == 2) {
+                $('.csAddBrDection1').remove();
+            } else {
+                $('.csAddBrDection1').css('display', '');
+            }
+        }
+
+
+        if (checkStatus == 'CS Added BR CODE' && checkUserDeptView == 1003 && checkCusPosi > 55) {
+            $('.accManagerApprove').css('display', '');
+        } else if (checkStatus == 'Manager approved' && checkUserDeptView == 1003 && checkCusPosi > 55) {
+            $('.accManagerApprove').css('display', '');
+            $('#ex_accManagerSubmit').prop('disabled', true);
+            $('input:radio[name="ex_accMgrApprove"]').click(function () {
+                if ($(this).val() != '') {
+                    $('#ex_accManagerSubmit').prop('disabled', false);
+                } else {
+                    $('#ex_accManagerSubmit').prop('disabled', true);
+                }
+            });
+        }
+        else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated') {
+            $('.accManagerApprove1').css('display', '');
+        }
+
+
+        // Control account manager approve section
+        $('#ex_accMgrApprove1 , #ex_accMgrApprove2').attr('onclick', 'return false');
+        if ($('#check_ex_accMgrApprove').val() == 'Approve') {
+            $('#ex_accMgrApprove1').prop('checked', true);
+        } else if ($('#check_ex_accMgrApprove').val() == 'Not approve') {
+            $('#ex_accMgrApprove2').prop('checked', true);
+        }
+
+
+        // Control director approve section
+        if (checkStatus == 'Account Manager Approved' && checkCusPosi > 75) {
+            $('.directorApprove').css('display', '');
+            $('#ex_directorSubmit').prop('disabled', true);
+            $('input:radio[name="ex_directorApprove"]').click(function () {
+                if ($(this).val() != '') {
+                    $('#ex_directorSubmit').prop('disabled', false);
+                } else {
+                    $('#ex_directorSubmit').prop('disabled', true);
+                }
+            });
+        } else if (checkStatus == 'Director Approved' || checkStatus == 'Complated') {
+            $('.directorApprove1').css('display', '');
+        }
+
+        if ($('#check_director_status').val() == 'Approve') {
+            $('#ex_directorApprove1').prop('checked', true);
+        } else if ($('#check_director_status').val() == 'Not approve') {
+            $('#ex_directorApprove2').prop('checked', true);
+        }
+
+
+        // Control account staff when add new customer
+        if (checkStatus == 'Director Approved' && checkUserDeptView == 1003) {
+            $('.accAddCustomerCode').css('display', '');
+        } else if (checkStatus == 'Complated') {
+            if (checkCusType == 2) {
+                $('.accAddCustomerCode1').remove();
+            } else {
+                $('.accAddCustomerCode1').css('display', '');
+            }
+
+        }
+
+        if (checkStatus == "Open" && checkUserDeptView == 1006 || checkStatus == "Open" && checkUserDeptView == 1010 || checkStatus == "Open" && checkUserDeptView == 1004 || checkStatus == "Open" && checkUserDeptView == 1012) {
+            $('#btnEditZoneEx').css('display', '');
+        } else if (checkStatus == "Edit" && checkUserDeptView == 1006 || checkStatus == "Edit" && checkUserDeptView == 1010 || checkStatus == "Edit" && checkUserDeptView == 1004 || checkStatus == "Edit" && checkUserDeptView == 1012) {
+            $('#btnEditZoneEx').css('display', '');
+        }
+        else {
+            $('#btnEditZoneEx').css('display', 'none');
+        }
+
+        $('#fileExView').click(function () {
+
+            var data_file = $(this).attr('data_file');
+
+            $('#embedshow_viewEx').attr('src', data_file);
+
+        });
+
+    }
+    // End check page
+
+
+
+
+    // Edit page  // Edit page  // Edit page  // Edit page  // Edit page 
+    // Edit page  // Edit page  // Edit page  // Edit page  // Edit page 
+    // Edit page  // Edit page  // Edit page  // Edit page  // Edit page 
+
+
+    if ($('#checkEditPage').val() == "editdataEx") {
+
+        // Check Company name
+        if ($('#checkEdit_crfex_company').val() == "sln") {
+
+            $('#crf_company_sln').prop('checked', true);
+
+        } else {
+            $('#crf_company_sln').prop('checked', false);
+        }
+        if ($('#checkEdit_crfex_company').val() == "poly") {
+
+            $('#crf_company_poly').prop('checked', true);
+
+        } else {
+            $('#crf_company_poly').prop('checked', false);
+        }
+        if ($('#checkEdit_crfex_company').val() == "ca") {
+            $('#crf_company_ca').prop('checked', true);
+        } else {
+            $('#crf_company_ca').prop('checked', false);
+        }
+        // Check Company name
+
+
+
+        // Check ประเภทลูกค้า
+        if ($('#checkEdit_crfex_custype').val() == 1) {
+            $('#crfex_custype1').prop('checked', true);
+            $('.cusHistory').prop('readonly' , true);
+        } else {
+            $('#crfex_custype1').prop('checked', false);
+            $('.cusHistory').prop('readonly' , false);
+        }
+
+
+        if ($('#checkEdit_crfex_custype').val() == 2) {
+            $('#crfex_custype2').prop('checked', true);
+        } else {
+            $('#crfex_custype2').prop('checked', false);
+        }
+        $('.custype1e , .custype2e').attr('onclick', 'return false');
+        // Check ประเภทลูกค้า
+
+
+
+
+        // Check Current customer method
+
+        if ($('#checkEdit_crfex_curcustopic1').val() != '') {
+            $('#crfex_curcustopic1').prop('checked', true);
+        } else {
+            $('#crfex_curcustopic1').prop('checked', false);
+        }
+
+
+        if ($('#checkEdit_crfex_curcustopic2').val() != '') {
+            $('#crfex_curcustopic2').prop('checked', true);
+        } else {
+            $('#crfex_curcustopic2').prop('checked', false);
+        }
+
+
+        // Check Current customer method
+
+
+
+
+
+
+
+
+
+
+        // Edit page  // Edit page  // Edit page  // Edit page  // Edit page 
+        // Edit page  // Edit page  // Edit page  // Edit page  // Edit page 
+        // Edit page  // Edit page  // Edit page  // Edit page  // Edit page
+
+    }
+
+
+
+
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+    // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Edit Internal Zone
+
+    // Edit sales reps
+    // Get data
+    $('.edit_salesreps').click(function () {
+        var data_edit_cusid = $(this).attr('data_edit_cusid');
+        var data_edit_salesreps = $(this).attr('data_edit_salesreps');
+
+        $('#edit_salesrepV').val(data_edit_salesreps);
+        $('#edit_cusid').val(data_edit_cusid);
+
     });
 
-    $('#crfex_curcustopic2').click(function(){
-        if($(this).prop('checked') == true){
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
-            // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
-        }else{
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-        }
+    // Update data
+    $('#btnEditSaleRep').click(function () {
+        var editview_cusid = $('#edit_cusid').val();
+        var editview_salesrepV = $('#edit_salesrepV').val();
+        // var cusId = "test";
+
+        //call ajax function
+        edit_salesreps(editview_cusid, editview_salesrepV);
 
     });
 
 
-
-
-
-    // Get Old customer information to form when keyup
-$('#crfex_customercode').on('keyup', function () {
-    var cusCode = $(this).val();
-    if (cusCode != '') {
-        autoSearchCustomerDetailEx(cusCode);
-    } else {
-        $('#autoCusCodeEx').html('')
+    // Edit page
+    // Check edit บริษัท
+    if ($('#check_editcom').val() == 'sln') {
+        $('#edit_company_sln').prop('checked', true);
+    } else if ($('#check_editcom').val() == 'poly') {
+        $('#edit_company_poly').prop('checked', true);
+    } else if ($('#check_editcom').val() == 'ca') {
+        $('#edit_company_ca').prop('checked', true);
     }
 
-});
-
-$(document).on('click', '.selectCusCodeEx', function () {
-
-    var data_crfex_salesreps = $(this).attr('data_crfex_salesreps');
-    var data_crfex_cusnameEN = $(this).attr('data_crfex_cusnameEN');
-    var data_crfex_cusnameTH = $(this).attr('data_crfex_cusnameTH');
-    var data_crfex_address = $(this).attr('data_crfex_address');
-    var data_crfex_tel = $(this).attr('data_crfex_tel');
-    var data_crfex_fax = $(this).attr('data_crfex_fax');
-    var data_crfex_email = $(this).attr('data_crfex_email');
-    var data_crfex_file = $(this).attr('data_crfex_file');
-    var data_crfex_creditlimit = $(this).attr('data_crfex_creditlimit');
-    var data_crfex_term = $(this).attr('data_crfex_term');
-    var data_crfex_discount = $(this).attr('data_crfex_discount');
-    var data_crfex_bg = $(this).attr('data_crfex_bg');
-    var data_crfex_cuscode = $(this).attr('data_crfex_cuscode');
-    var data_crfex_cusid = $(this).attr('data_crfex_cusid');
-    var data_crfex_cuspayment = $(this).attr('data_crfex_cuspayment');
-
-
-    $('#crfex_salesreps').val(data_crfex_salesreps);
-    $('#crfex_cusnameEN').val(data_crfex_cusnameEN);
-    $('#crfex_cusnameTH').val(data_crfex_cusnameTH);
-    $('#crfex_address').val(data_crfex_address);
-    $('#crfex_tel').val(data_crfex_tel);
-    $('#crfex_fax').val(data_crfex_fax);
-    $('#crfex_email').val(data_crfex_email);
-    $('#crfex_fileShow').text(data_crfex_file);
-    $('#crfex_creditlimit2').val(data_crfex_creditlimit);
-    $('#crfex_term2').val(data_crfex_term);
-    $('#crfex_discount2').val(data_crfex_discount);
-    $('#crfex_combg').val(data_crfex_bg);
-    $('#crfex_customercode').val(data_crfex_cuscode).prop('readonly' , true);
-    $('#getCusid').val(data_crfex_cusid);
-    $('#crfex_payment').val(data_crfex_cuspayment);
-
-
-
-    $('#autoCusCodeEx').html('')
-
-});
-
-
-
-
-}
-// End Section current customer
-
-});
-
-
-
-
-// Control view export page
-if($('#checkPage').val() == 'viewdataEx'){
-
-    $('#crf_company_sln_view , #crf_company_poly_view , #crf_company_ca_view').attr('onclick' , 'return false');
-
-    if($('#check_crf_company').val() == 'sln'){
-        $('#crf_company_sln_view').prop('checked' , true);
-    }else if($('#check_crf_company').val() == 'poly'){
-        $('#crf_company_poly_view').prop('checked' , true);
-    }else if($('#check_crf_company').val() == 'ca'){
-        $('#crf_company_ca_view').prop('checked' , true);
-    }
-    // End check company
-
-    if($('#check_crfex_custype').val() == 1){
-        $('#crfex_custype1').prop('checked' , true);
-    }else if($('#check_crfex_custype').val() == 2){
-        $('#crfex_custype2').prop('checked' , true);
-        $('.excurcusmethod').css('display' , '');
-        if($('#checkcurcustopic1').val() != ''){
-            $('input:checkbox[name="crfex_curcustopic1"]').prop('checked' , true);
-        }else{
-            $('input:checkbox[name="crfex_curcustopic1"]').prop('checked' , false);
+    // Check edit ลูกค้าเก่า , ลูกค้าใหม่
+    if ($('#check_editcustype').val() == 1) {
+        $('#edit_custype1').prop('checked', true);
+        $('input:radio[name="crf_type"]').prop('disabled', true);
+        // Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
+        if ($('#check_addtype').val() == "ตาม ภ.พ.20") {
+            $('#edit_addresstype1').prop('checked', true);
+        } else if ($('#check_addtype').val() == "อื่นๆ") {
+            $('#edit_addresstype2').prop('checked', true);
         }
 
-        if($('#checkcurcustopic2').val() != ''){
-            $('input:checkbox[name="crfex_curcustopic2"]').prop('checked' , true);
-        }else{
-            $('input:checkbox[name="crfex_curcustopic2"]').prop('checked' , false);
+
+        // Check ประเภทบริษัท
+        if ($('#check_comtype').val() == 1) {
+            $('.crf_companytype1').prop('checked', true);
+        } else if ($('#check_comtype').val() == 2) {
+            $('.crf_companytype2').prop('checked', true);
+            $('#companytype2').css('display', '');
+        } else if ($('#check_comtype').val() == 3) {
+            $('.crf_companytype3').prop('checked', true);
+            $('#companytype3').css('display', '');
         }
-    }
-    $('#crfex_custype1 , #crfex_custype2').attr('onclick' , 'return false');
+
+        $('input:radio[name="crf_companytype"]').click(function () {
+            if ($(this).val() == 1) {
+                $('#crf_companytype2 , #crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
+            }
+            if ($(this).val() == 2) {
+                $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
+            }
+            if ($(this).val() == 3) {
+                $('#crf_companytype2').val('');
+            }
+        });
 
 
 
-// Control Approve Section
-var checkStatus = $('#checkStatusView').val();
-var checkUserDeptView = $('#checkUserDeptView').val();
-var checkCusType = $('#checkCusType').val();
-var checkCusPosi = $('#checkCusPosi').val();
-
-if(checkStatus == 'Open' && checkUserDeptView == 1006 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1010 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1004 && checkCusPosi == 75 || checkStatus == 'Open' && checkUserDeptView == 1012 && checkCusPosi == 75){
-    $('.managerSection').css('display' , '');
-    $('#ex_mgrSubmit').prop('disabled' , true);
-    $('input:radio[name="ex_mgrApprove"]').click(function(){
-        if($(this).val() != '')
-        {
-            $('#ex_mgrSubmit').prop('disabled' , false);
-        }else{
-            $('#ex_mgrSubmit').prop('disabled' , true);
+        // Check ประเภทของธุรกิจ
+        if ($('#check_busitype').val() == "ผู้ผลิต") {
+            $('.crf_typeofbussi1').prop('checked', true);
+        } else if ($('#check_busitype').val() == "ผู้ค้า") {
+            $('.crf_typeofbussi2').prop('checked', true);
         }
-    });
-}else if(checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
-    $('.managerSection').css('display' , 'none');
-    $('.managerSection1').css('display' , '');
-
-    $('#ex_mgrApprove1 , #ex_mgrApprove2').attr('onclick' , 'return false');
-    if($('#show_crfex_mgrapp_status').val() == "Approve"){
-        $('#ex_mgrApprove1').prop('checked' , true);
-    }else{
-        $('#ex_mgrApprove2').prop('checked' , true);
-    }
-}
-
-if(checkStatus == 'Manager approved' && checkUserDeptView == 1010){
-    if(checkCusType == 2){
-        $('.csAddBrDection').remove();
-    }else{
-        $('.csAddBrDection').css('display' , '');
-    }
-}else if(checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
-    if(checkCusType == 2){
-        $('.csAddBrDection1').remove();
-    }else{
-        $('.csAddBrDection1').css('display' , '');
-    }
-}
 
 
-if(checkStatus == 'CS Added BR CODE' && checkUserDeptView == 1003 && checkCusPosi > 55){
-    $('.accManagerApprove').css('display' , '');
-}else if(checkStatus == 'Manager approved' && checkUserDeptView == 1003 && checkCusPosi > 55){
-    $('.accManagerApprove').css('display' , '');
-    $('#ex_accManagerSubmit').prop('disabled' , true);
-    $('input:radio[name="ex_accMgrApprove"]').click(function(){
-        if($(this).val() != ''){
-            $('#ex_accManagerSubmit').prop('disabled' , false);
-        }else{
-            $('#ex_accManagerSubmit').prop('disabled' , true);
+        // Check เงื่อนไขการวางบิล
+        if ($('#check_conditionbill').val() == "ส่งของพร้อมวางบิล") {
+            $('.crf_condition_billv1').prop('checked', true);
+        } else if ($('#check_conditionbill').val() == "วางบิลตามตาราง") {
+            $('.crf_condition_billv2').prop('checked', true);
+            $('.crf_condition_bill2edit').css('display', '');
+        } else if ($('#check_conditionbill').val() == "วางบิลทุกวันที่") {
+            $('.crf_condition_billv3').prop('checked', true);
+            $('.crf_condition_bill3').css('display', '');
         }
-    });
-}
-else if(checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Complated'){
-    $('.accManagerApprove1').css('display' , '');
-}
+        $('input:radio[name="crf_condition_bill"]').click(function () {
+            if ($(this).val() == 'ส่งของพร้อมวางบิล') {
+
+            }
+
+            if ($(this).val() == 'วางบิลตามตาราง') {
+                $('.crf_condition_bill2edit').css('display', '');
+            } else {
+                $('.crf_condition_bill2edit').css('display', 'none');
+            }
+
+            if ($(this).val() == 'วางบิลทุกวันที่') {
+                $('.crf_condition_bill3').css('display', '');
+            } else {
+                $('.crf_condition_bill3').css('display', 'none');
+            }
+
+        });
 
 
-// Control account manager approve section
-$('#ex_accMgrApprove1 , #ex_accMgrApprove2').attr('onclick' , 'return false');
-if($('#check_ex_accMgrApprove').val() == 'Approve'){
-    $('#ex_accMgrApprove1').prop('checked' , true);
-}else if ($('#check_ex_accMgrApprove').val() == 'Not approve'){
-    $('#ex_accMgrApprove2').prop('checked' , true);
-}
-
-
-// Control director approve section
-if(checkStatus == 'Account Manager Approved' && checkCusPosi > 75){
-    $('.directorApprove').css('display' , '');
-    $('#ex_directorSubmit').prop('disabled' , true);
-    $('input:radio[name="ex_directorApprove"]').click(function (){
-        if($(this).val() != ''){
-            $('#ex_directorSubmit').prop('disabled' , false);
-        }else{
-            $('#ex_directorSubmit').prop('disabled' , true);
+        // Check เงื่อนไขการรับชำระเงิน
+        if ($('#check_conditionmoney').val() == "โอนเงิน") {
+            $('.crf_condition_moneyv1').prop('checked', true);
+        } else if ($('#check_conditionmoney').val() == "รับเช็ค") {
+            $('.crf_condition_moneyv2').prop('checked', true);
+            $('.recive_cheuqe').css('display', '');
         }
-    });
-}else if(checkStatus == 'Director Approved' || checkStatus == 'Complated'){
-    $('.directorApprove1').css('display' , '');
-}
-
-if($('#check_director_status').val() == 'Approve'){
-    $('#ex_directorApprove1').prop('checked' , true);
-}else if($('#check_director_status').val() == 'Not approve'){
-    $('#ex_directorApprove2').prop('checked' , true);
-}
+        $('input:radio[name="edit_condition_money"]').click(function () {
+            if ($(this).val() == 'รับเช็ค') {
+                $('.recive_cheuqe').css('display', '');
+            } else {
+                $('.recive_cheuqe').css('display', 'none');
+            }
+        });
 
 
-// Control account staff when add new customer
-if(checkStatus == 'Director Approved' && checkUserDeptView == 1003){
-    $('.accAddCustomerCode').css('display' , '');
-}else if(checkStatus == 'Complated'){
-    if(checkCusType == 2){
-        $('.accAddCustomerCode1').remove();
-    }else{
-        $('.accAddCustomerCode1').css('display' , '');
+        // Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
+        if ($('#check_editfinance').val() == "ขอวงเงิน") {
+            $('.crf_financev1').prop('checked', true);
+            $('input:radio[name="crf_finance"]').prop('disabled', true);
+        } else if ($('#check_editfinance').val() == "ปรับวงเงิน") {
+            $('.crf_financev2').prop('checked', true);
+        }
+
+
+        // For view file
+
+
+        // Zone Edit page when current customer
+    } else if ($('#check_editcustype').val() == 2) {
+        $('#edit_custype2').prop('checked', true);
+        $('.suboldcustomer').css('display', '');
+        $('input:radio[name="crf_type"]').prop('disabled', true);
+
+        // Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
+        if ($('#check_addtype').val() == "ตาม ภ.พ.20") {
+            $('#edit_addresstype1').prop('checked', true);
+        } else if ($('#check_addtype').val() == "อื่นๆ") {
+            $('#edit_addresstype2').prop('checked', true);
+        }
+
+
+        // Check ประเภทบริษัท
+        if ($('#check_comtype').val() == 1) {
+            $('.crf_companytype1').prop('checked', true);
+        } else if ($('#check_comtype').val() == 2) {
+            $('.crf_companytype2').prop('checked', true);
+        } else if ($('#check_comtype').val() == 3) {
+            $('.crf_companytype3').prop('checked', true);
+        }
+
+
+
+        // Check ประเภทของธุรกิจ
+        if ($('#check_busitype').val() == "ผู้ผลิต") {
+            $('.crf_typeofbussi1').prop('checked', true);
+        } else if ($('#check_busitype').val() == "ผู้ค้า") {
+            $('.crf_typeofbussi2').prop('checked', true);
+        }
+
+
+        // Check เงื่อนไขการวางบิล
+        if ($('#check_conditionbill').val() == "ส่งของพร้อมวางบิล") {
+            $('.crf_condition_billv1').prop('checked', true);
+        } else if ($('#check_conditionbill').val() == "วางบิลตามตาราง") {
+            $('.crf_condition_billv2').prop('checked', true);
+            $('.crf_condition_bill2edit').css('display', '');
+        } else if ($('#check_conditionbill').val() == "วางบิลทุกวันที่") {
+            $('.crf_condition_billv3').prop('checked', true);
+            $('.crf_condition_bill3').css('display', '');
+        }
+
+
+        // Check เงื่อนไขการรับชำระเงิน
+        if ($('#check_conditionmoney').val() == "โอนเงิน") {
+            $('.crf_condition_moneyv1').prop('checked', true);
+        } else if ($('#check_conditionmoney').val() == "รับเช็ค") {
+            $('.crf_condition_moneyv2').prop('checked', true);
+            $('.recive_cheuqe').css('display', '');
+        }
+
+
+        // Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
+        if ($('#check_editfinance').val() == "ขอวงเงิน") {
+            $('.crf_financev1').prop('checked', true);
+        } else if ($('#check_editfinance').val() == "ปรับวงเงิน") {
+            $('.crf_financev2').prop('checked', true);
+        }
+
+
+        $('.edit_salesrepsCur').remove();
+        $('#edit_customername , #edit_cuscompanycreate , #edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact , #edit_regiscost , #crf_primanage_dept , #crf_primanage_name , #crf_primanage_posi , #crf_primanage_email , #edit_forecast , #crf_recive_cheuqedetail , #crf_finance_req_number , #edit_salesreps').prop('readonly', true);
+        $('#crf_file1 , #crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6 , #crf_file7 , #crf_file8 , #crf_file9 , #crf_recive_cheuqetable').css('display', 'none');
+        $('#add_more_primanage').css('display', 'none');
+        $('input:radio').attr('onclick', 'return false');
+        $('input:checkbox[id="crf_process"]').attr('onclick', 'return false');
+        $('#crf_creditterm').hide();
+        $('#showCreditname').css('display', '');
+
+        // กรณีที่เป็นลูกค้าเก่า
+        // Control subold customer method
+        if ($('#check_changearea').val() == 1) {
+            $('input[name="crf_sub_oldcus_changearea"]').prop('checked', true);
+            $('#edit_salesreps').prop('readonly', false);
+        } else {
+            $('#edit_salesreps').prop('readonly', true);
+        }
+
+        if ($('#check_changeaddress').val() == 2) {
+            $('input[name="crf_sub_oldcus_changeaddress"]').prop('checked', true);
+            $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly', false);
+            $('#crf_file1').css('display', '');
+            $('input:radio[name="edit_addresstype"]').attr('onclick', '');
+        } else {
+            $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly', true);
+            $('#crf_file1').css('display', 'none');
+            $('input:radio[name="edit_addresstype"]').attr('onclick', 'return false');
+        }
+
+        if ($('#check_changecredit').val() == 3) {
+            $('input[name="crf_sub_oldcus_changecredit"]').prop('checked', true);
+            $('.change_credit , .change_credit_detail').css('display', '');
+            $('#crf_change_creditterm').prop('checked', true);
+        } else {
+            $('.change_credit , .change_credit_detail').css('display', 'none');
+            $('#crf_change_creditterm').prop('checked', false);
+        }
+
+        if ($('#check_changefinance').val() == 4) {
+            $('input[name="crf_sub_oldcus_changefinance"]').prop('checked', true);
+            $('.finance_change_detail').css('display', '');
+        } else {
+            $('.finance_change_detail').css('display', 'none');
+        }
+
+
+
+        $('input:checkbox[name="crf_sub_oldcus_changearea"]').click(function () {
+            if ($(this).prop('checked') == true) {
+                $('#edit_salesreps').prop('readonly', false);
+            } else {
+                $('#edit_salesreps').prop('readonly', true);
+            }
+        });
+
+        $('input:checkbox[name="crf_sub_oldcus_changeaddress"]').click(function () {
+            if ($(this).prop('checked') == true) {
+                $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly', false);
+                $('#crf_file1').css('display', '');
+                $('input:radio[name="edit_addresstype"]').attr('onclick', '');
+            } else {
+                $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly', true);
+                $('#crf_file1').css('display', 'none');
+                $('input:radio[name="edit_addresstype"]').attr('onclick', 'return false');
+            }
+        });
+
+        $('input:checkbox[name="crf_sub_oldcus_changecredit"]').click(function () {
+            if ($(this).prop('checked') == true) {
+                $('.change_credit , .change_credit_detail').css('display', '');
+                $('#crf_change_creditterm').prop('checked', true);
+            } else {
+                $('.change_credit').css('display', 'none');
+                $('.change_credit , .change_credit_detail').css('display', 'none');
+            }
+        });
+
+        $('input:checkbox[name="crf_sub_oldcus_changefinance"]').click(function () {
+            if ($(this).prop('checked') == true) {
+                $('.finance_change_detail , #crf_finance_req_number').css('display', '');
+                $('input:radio[name="crf_finance"]').attr('onclick', '');
+                $('.crf_financev2').prop('checked', true);
+            } else {
+                $('.finance_change_detail , #crf_finance_req_number').css('display', 'none');
+                $('.crf_financev2').prop('checked', false);
+            }
+        });
+
+
+        $('#crf_finance_change_number').keyup(function () {
+            var oldmoney = parseInt($('#crf_finance_req_number_calc').val());
+            var newmoney = parseInt($(this).val())
+            if ($('#crf_finance_change_status').val() == 'เพิ่ม') {
+                $('#crf_finance_change_total').val(oldmoney + newmoney);
+            } else if ($('#crf_finance_change_status').val() == 'ลด') {
+                $('#crf_finance_change_total').val(oldmoney - newmoney);
+            }
+
+            $('#crf_finance_change_total').val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+            if ($(this).val() != '') {
+                $('#user_submit').prop('disabled', false);
+            } else {
+                $('#user_submit').prop('disabled', true);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
     }
-    
-}
-
-if(checkStatus != "Open" && checkUserDeptView != 1006 || checkStatus != "Open" && checkUserDeptView != 1010 || checkStatus != "Open" && checkUserDeptView != 1004 || checkStatus != "Open" && checkUserDeptView != 1012){
-    $('#btnEditZoneEx').css('display' , 'none');
-}else{
-    $('#btnEditZoneEx').css('display' , '');
-}
-
-
-}
-// End check page
-
-
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Edit Internal Zone
-
-// Edit sales reps
-// Get data
-$('.edit_salesreps').click(function(){
-    var data_edit_cusid = $(this).attr('data_edit_cusid');
-    var data_edit_salesreps = $(this).attr('data_edit_salesreps');
-
-    $('#edit_salesrepV').val(data_edit_salesreps);
-    $('#edit_cusid').val(data_edit_cusid);
-
-});
-
-// Update data
-$('#btnEditSaleRep').click(function (){
-    var editview_cusid = $('#edit_cusid').val();
-    var editview_salesrepV = $('#edit_salesrepV').val();
-    // var cusId = "test";
-
-    //call ajax function
-    edit_salesreps(editview_cusid , editview_salesrepV);
-
-});
-
-
-// Edit page
-// Check edit บริษัท
-if($('#check_editcom').val() == 'sln'){
-    $('#edit_company_sln').prop('checked' , true);
-}else if($('#check_editcom').val() == 'poly'){
-    $('#edit_company_poly').prop('checked' , true);
-}else if($('#check_editcom').val() == 'ca'){
-    $('#edit_company_ca').prop('checked' , true);
-}
-
-// Check edit ลูกค้าเก่า , ลูกค้าใหม่
-if($('#check_editcustype').val() == 1){
-    $('#edit_custype1').prop('checked' ,true);
-    $('input:radio[name="crf_type"]').prop('disabled' , true);
-// Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
-if($('#check_addtype').val() == "ตาม ภ.พ.20"){
-    $('#edit_addresstype1').prop('checked' , true);
-}else if($('#check_addtype').val() == "อื่นๆ"){
-    $('#edit_addresstype2').prop('checked' , true);
-}
-
-
-// Check ประเภทบริษัท
-if($('#check_comtype').val() == 1){
-    $('.crf_companytype1').prop('checked' , true);
-}else if($('#check_comtype').val() == 2){
-    $('.crf_companytype2').prop('checked' , true);
-    $('#companytype2').css('display' , '');
-}else if($('#check_comtype').val() == 3){
-    $('.crf_companytype3').prop('checked' , true);
-    $('#companytype3').css('display' , '');
-}
-
-$('input:radio[name="crf_companytype"]').click(function(){
-    if($(this).val() == 1){
-        $('#crf_companytype2 , #crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
-    }
-    if($(this).val() == 2){
-        $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
-    }
-    if($(this).val() == 3){
-        $('#crf_companytype2').val('');
-    }
-});
-
-
-
-// Check ประเภทของธุรกิจ
-if($('#check_busitype').val() == "ผู้ผลิต"){
-    $('.crf_typeofbussi1').prop('checked' , true);
-}else if($('#check_busitype').val() == "ผู้ค้า"){
-    $('.crf_typeofbussi2').prop('checked' , true);
-}
-
-
-// Check เงื่อนไขการวางบิล
-if($('#check_conditionbill').val() == "ส่งของพร้อมวางบิล"){
-    $('.crf_condition_billv1').prop('checked' , true);
-}else if($('#check_conditionbill').val() == "วางบิลตามตาราง"){
-    $('.crf_condition_billv2').prop('checked' , true);
-    $('.crf_condition_bill2edit').css('display' , '');
-}else if($('#check_conditionbill').val() == "วางบิลทุกวันที่"){
-    $('.crf_condition_billv3').prop('checked' , true);
-    $('.crf_condition_bill3').css('display' , '');
-}
-$('input:radio[name="crf_condition_bill"]').click(function(){
-    if($(this).val() == 'ส่งของพร้อมวางบิล'){
-
-    }
-
-    if($(this).val() == 'วางบิลตามตาราง'){
-        $('.crf_condition_bill2edit').css('display' , '');
-    }else{
-        $('.crf_condition_bill2edit').css('display' , 'none');
-    }
-
-    if($(this).val() == 'วางบิลทุกวันที่'){
-        $('.crf_condition_bill3').css('display' , '');
-    }else{
-        $('.crf_condition_bill3').css('display' , 'none');
-    }
-
-});
-
-
-// Check เงื่อนไขการรับชำระเงิน
-if($('#check_conditionmoney').val() == "โอนเงิน"){
-    $('.crf_condition_moneyv1').prop('checked' , true);
-}else if($('#check_conditionmoney').val() == "รับเช็ค"){
-    $('.crf_condition_moneyv2').prop('checked' , true);
-    $('.recive_cheuqe').css('display' , '');
-}
-$('input:radio[name="edit_condition_money"]').click(function(){
-    if($(this).val() == 'รับเช็ค'){
-        $('.recive_cheuqe').css('display' , '');
-    }else{
-        $('.recive_cheuqe').css('display' , 'none');
-    }
-});
-
-
-// Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
-if($('#check_editfinance').val() == "ขอวงเงิน"){
-    $('.crf_financev1').prop('checked' , true);
-    $('input:radio[name="crf_finance"]').prop('disabled' , true);
-}else if($('#check_editfinance').val() == "ปรับวงเงิน"){
-    $('.crf_financev2').prop('checked' , true);
-}
-
-
-// For view file
-
-
-// Zone Edit page when current customer
-}else if($('#check_editcustype').val() == 2){
-    $('#edit_custype2').prop('checked' ,true);
-    $('.suboldcustomer').css('display' , '');
-    $('input:radio[name="crf_type"]').prop('disabled' , true);
-
-    // Check ที่อยู่สำหรับการเปิดใบกำกับภาษี
-if($('#check_addtype').val() == "ตาม ภ.พ.20"){
-    $('#edit_addresstype1').prop('checked' , true);
-}else if($('#check_addtype').val() == "อื่นๆ"){
-    $('#edit_addresstype2').prop('checked' , true);
-}
-
-
-// Check ประเภทบริษัท
-if($('#check_comtype').val() == 1){
-    $('.crf_companytype1').prop('checked' , true);
-}else if($('#check_comtype').val() == 2){
-    $('.crf_companytype2').prop('checked' , true);
-}else if($('#check_comtype').val() == 3){
-    $('.crf_companytype3').prop('checked' , true);
-}
-
-
-
-// Check ประเภทของธุรกิจ
-if($('#check_busitype').val() == "ผู้ผลิต"){
-    $('.crf_typeofbussi1').prop('checked' , true);
-}else if($('#check_busitype').val() == "ผู้ค้า"){
-    $('.crf_typeofbussi2').prop('checked' , true);
-}
-
-
-// Check เงื่อนไขการวางบิล
-if($('#check_conditionbill').val() == "ส่งของพร้อมวางบิล"){
-    $('.crf_condition_billv1').prop('checked' , true);
-}else if($('#check_conditionbill').val() == "วางบิลตามตาราง"){
-    $('.crf_condition_billv2').prop('checked' , true);
-    $('.crf_condition_bill2edit').css('display' , '');
-}else if($('#check_conditionbill').val() == "วางบิลทุกวันที่"){
-    $('.crf_condition_billv3').prop('checked' , true);
-    $('.crf_condition_bill3').css('display' , '');
-}
-
-
-// Check เงื่อนไขการรับชำระเงิน
-if($('#check_conditionmoney').val() == "โอนเงิน"){
-    $('.crf_condition_moneyv1').prop('checked' , true);
-}else if($('#check_conditionmoney').val() == "รับเช็ค"){
-    $('.crf_condition_moneyv2').prop('checked' , true);
-    $('.recive_cheuqe').css('display' , '');
-}
-
-
-// Check วงเงินการค้าและเงื่อนไขที่ขอเสนอ
-if($('#check_editfinance').val() == "ขอวงเงิน"){
-    $('.crf_financev1').prop('checked' , true);
-}else if($('#check_editfinance').val() == "ปรับวงเงิน"){
-    $('.crf_financev2').prop('checked' , true);
-}
-
-
-$('.edit_salesrepsCur').remove();
-    $('#edit_customername , #edit_cuscompanycreate , #edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact , #edit_regiscost , #crf_primanage_dept , #crf_primanage_name , #crf_primanage_posi , #crf_primanage_email , #edit_forecast , #crf_recive_cheuqedetail , #crf_finance_req_number , #edit_salesreps').prop('readonly' , true);
-    $('#crf_file1 , #crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6 , #crf_file7 , #crf_file8 , #crf_file9 , #crf_recive_cheuqetable').css('display' , 'none');
-    $('#add_more_primanage').css('display' , 'none');
-    $('input:radio').attr('onclick' , 'return false');
-    $('input:checkbox[id="crf_process"]').attr('onclick' , 'return false');
-    $('#crf_creditterm').hide();
-    $('#showCreditname').css('display' , '');
-
-// กรณีที่เป็นลูกค้าเก่า
-// Control subold customer method
-if($('#check_changearea').val() == 1){
-    $('input[name="crf_sub_oldcus_changearea"]').prop('checked' , true);
-    $('#edit_salesreps').prop('readonly' , false);
-}else{
-    $('#edit_salesreps').prop('readonly' , true);
-}
-
-if($('#check_changeaddress').val() == 2){
-    $('input[name="crf_sub_oldcus_changeaddress"]').prop('checked' , true);
-    $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly' , false);
-    $('#crf_file1').css('display' , '');
-    $('input:radio[name="edit_addresstype"]').attr('onclick','');
-}else{
-    $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly' , true);
-    $('#crf_file1').css('display' , 'none');
-    $('input:radio[name="edit_addresstype"]').attr('onclick','return false');
-}
-
-if($('#check_changecredit').val() == 3){
-    $('input[name="crf_sub_oldcus_changecredit"]').prop('checked' , true);
-    $('.change_credit , .change_credit_detail').css('display' , '');
-    $('#crf_change_creditterm').prop('checked' , true);
-}else{
-    $('.change_credit , .change_credit_detail').css('display' , 'none');
-    $('#crf_change_creditterm').prop('checked' , false);
-}
-
-if($('#check_changefinance').val() == 4){
-    $('input[name="crf_sub_oldcus_changefinance"]').prop('checked' , true);
-    $('.finance_change_detail').css('display' , '');
-}else{
-    $('.finance_change_detail').css('display' , 'none');
-}
-
-
-
-$('input:checkbox[name="crf_sub_oldcus_changearea"]').click(function(){
-    if($(this).prop('checked') == true){
-        $('#edit_salesreps').prop('readonly' , false);
-    }else{
-        $('#edit_salesreps').prop('readonly' , true);
-    }
-});
-
-$('input:checkbox[name="crf_sub_oldcus_changeaddress"]').click(function(){
-    if($(this).prop('checked') == true){
-        $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly' , false);
-        $('#crf_file1').css('display' , '');
-        $('input:radio[name="edit_addresstype"]').attr('onclick','');
-    }else{
-        $('#edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact').prop('readonly' , true);
-        $('#crf_file1').css('display' , 'none');
-        $('input:radio[name="edit_addresstype"]').attr('onclick','return false');
-    }
-});
-
-$('input:checkbox[name="crf_sub_oldcus_changecredit"]').click(function(){
-    if($(this).prop('checked') == true){
-        $('.change_credit , .change_credit_detail').css('display' , '');
-        $('#crf_change_creditterm').prop('checked' , true);
-    }else{
-        $('.change_credit').css('display' , 'none');
-        $('.change_credit , .change_credit_detail').css('display' , 'none');
-    }
-});
-
-$('input:checkbox[name="crf_sub_oldcus_changefinance"]').click(function(){
-    if($(this).prop('checked') == true){
-        $('.finance_change_detail , #crf_finance_req_number').css('display' , '');
-        $('input:radio[name="crf_finance"]').attr('onclick' , '');
-        $('.crf_financev2').prop('checked' , true);
-    }else{
-        $('.finance_change_detail , #crf_finance_req_number').css('display' , 'none');
-        $('.crf_financev2').prop('checked' , false);
-    }
-});
-
-
-$('#crf_finance_change_number').keyup(function(){
-    var oldmoney = parseInt($('#crf_finance_req_number_calc').val());
-    var newmoney = parseInt($(this).val())
-    if($('#crf_finance_change_status').val() == 'เพิ่ม'){
-        $('#crf_finance_change_total').val(oldmoney+newmoney);
-    }else if($('#crf_finance_change_status').val() == 'ลด'){
-        $('#crf_finance_change_total').val(oldmoney-newmoney);
-    }
-   
-    $('#crf_finance_change_total').val(function (index, value) {
-        return value
-            .replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            ;
-    });
-    if($(this).val() != ''){
-        $('#user_submit').prop('disabled' , false);
-    }else{
-        $('#user_submit').prop('disabled' , true);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-}
-// End check
+    // End check
 
 
 

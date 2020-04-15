@@ -202,24 +202,37 @@ getModal();
                                     หน้าหลัก
                                 </a>
                             </li>
+                            <li class="app-sidebar__heading">ในประเทศ</li>
                             <li>
                                 <a href="<?=base_url('main/list')?>" class="">
                                     <i class="metismenu-icon fas fa-list-alt"></i><b>TH</b>
                                     แสดงรายการ ในประเทศ
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?=base_url('main/listex')?>" class="">
-                                    <i class="metismenu-icon fas fa-list-alt"></i><b>EN</b>
-                                    แสดงรายการ ต่างประเทศ
-                                </a>
-                            </li>
+
                             <li>
                                 <a href="<?=base_url('main/addTH')?>" class="">
                                     <i class="metismenu-icon fas fa-plus-square"></i><b>TH</b>
                                     เพิ่มรายการ ในประเทศ
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="" class="">
+                                    <i class="metismenu-icon fas fa-print"></i>
+                                    รายงาน
+                                </a>
+                            </li>
+                            
+
+                            <li class="app-sidebar__heading">ต่างประเทศ</li>
+                            <li>
+                                <a href="<?=base_url('main/listex')?>" class="">
+                                    <i class="metismenu-icon fas fa-list-alt"></i><b>EN</b>
+                                    แสดงรายการ ต่างประเทศ
+                                </a>
+                            </li>
+
                             <li>
                                 <a href="<?=base_url('main/addEx')?>" class="">
                                 <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>

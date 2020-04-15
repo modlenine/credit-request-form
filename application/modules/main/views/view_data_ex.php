@@ -24,7 +24,7 @@
         <hr>
         <div id="btnEditZoneEx" class="row" style="display:none;">
             <div class="col-md-12">
-                <a href="<?= base_url('main/editdataEx/')?>"><button class="btn btn-warning mt-2">Edit Form</button></a>
+                <a href="{crfex_editdata}"><button class="btn btn-warning mt-2">Edit Form</button></a>
                 <a href="{crfex_cancelForm}"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">Cancel Form</button></a>
             </div>
         </div>
@@ -42,7 +42,7 @@
             </div>
 
 
-            <input style="display:none;" type="text" name="checkPage" id="checkPage" value="{checkpage}">
+            <input hidden type="text" name="checkPage" id="checkPage" value="{checkpage}">
             <input style="display:none;" type="text" name="check_crf_company" id="check_crf_company" value="{company}">
             <div class="row form-group mt-3 p-2">
                 <div class="col-md-4 form-group">
@@ -73,13 +73,13 @@
             <div class="row form-group mt-3 p-2">
                 <div class="col-md-4 form-group">
                     <div class="form-check">
-                        <input id="crfex_custype1" class="form-check-input" type="radio" name="crfex_custype1" value="newcustomer">
+                        <input id="crfex_custype1v" class="form-check-input" type="radio" name="crfex_custype1" value="newcustomer">
                         <label for="my-input" class="form-check-label">New customer.</label>
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <div class="form-check">
-                        <input id="crfex_custype2" class="form-check-input" type="radio" name="crfex_custype2" value="currentcustomer">
+                        <input id="crfex_custype2v" class="form-check-input" type="radio" name="crfex_custype2" value="currentcustomer">
                         <label for="my-input" class="form-check-label">Current customer.</label>
                     </div>
                 </div>
@@ -158,6 +158,14 @@
                     <input readonly type="text" name="crfex_email" id="crfex_email" class="form-control form-control-sm" value="{email}">
                 </div>
             </div>
+
+
+            <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="">File upload</label><br>
+                        <a id="fileExView" href="javascript:return void(0)" data-toggle="modal" data-target="#show_viewEx" data_file="{fileAddress}"><span id="crfex_fileShow">{file}</span></a>
+                    </div>
+                </div>
 
 
             <hr>
@@ -390,7 +398,8 @@
                 <hr>
                 <h6><b><u>FOR CS ADD BR CODE</u></b></h6>
                 <!-- Check formno -->
-                <input type="text" name="csFromno" id="csFromno" value="{crfex_formno}">
+                <input hidden type="text" name="csFromno" id="csFromno" value="{crfex_formno}">
+
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
                         <label for="">BR CODE</label>
@@ -500,15 +509,15 @@
 
             <!-- Director apparove zone -->
             <form action="{exDirectorApprove}" method="POST" name="" class="directorApprove" style="display:none;">
-            <input type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
-            <input type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
+            <input hidden type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
+            <input hidden type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
 
-            <input type="text" name="checkDirecFormNo" id="checkDirecFormNo" value="{crfex_formno}">
+            <input hidden type="text" name="checkDirecFormNo" id="checkDirecFormNo" value="{crfex_formno}">
 
-            <input type="text" name="checkDireccurcustopic1" id="checkDireccurcustopic1" value="{crfex_curcustopic1}">
-            <input type="text" name="checkDireccurcustopic2" id="checkDireccurcustopic2" value="{crfex_curcustopic2}">
+            <input hidden type="text" name="checkDireccurcustopic1" id="checkDireccurcustopic1" value="{crfex_curcustopic1}">
+            <input hidden type="text" name="checkDireccurcustopic2" id="checkDireccurcustopic2" value="{crfex_curcustopic2}">
 
-            <input type="text" name="checkDirecCusid" id="checkDirecCusid" value="{crfexcus_id}">
+            <input hidden type="text" name="checkDirecCusid" id="checkDirecCusid" value="{crfexcus_id}">
 
                 <hr>
                 <h6><b><u>FOR DIRECTOR</u></b></h6>
@@ -583,10 +592,10 @@
                         <input readonly type="text" name="ex_accDateTime" id="ex_accDateTime" class="form-control form-control-sm mt-1" value="{datenow}">
                     </div>
                 </div>
-                <input type="text" name="crfex_userecodemodify" id="crfex_userecodemodify" value="{ecode}">
-                <input type="text" name="crfex_userdeptcodemodify" id="crfex_userdeptcodemodify" value="{deptcode}">
-                <input type="text" name="accCusCode_getCusid" id="accCusCode_getCusid" value="{crfex_customerid}">
-                <input type="text" name="accFormno" id="accFormno" value="{crfex_formno}">
+                <input hidden type="text" name="crfex_userecodemodify" id="crfex_userecodemodify" value="{ecode}">
+                <input hidden type="text" name="crfex_userdeptcodemodify" id="crfex_userdeptcodemodify" value="{deptcode}">
+                <input hidden type="text" name="accCusCode_getCusid" id="accCusCode_getCusid" value="{crfex_customerid}">
+                <input hidden type="text" name="accFormno" id="accFormno" value="{crfex_formno}">
                 <div class="row form-group ">
                     <div class="col-md-4"></div>
                     <div class="col-md-4"></div>

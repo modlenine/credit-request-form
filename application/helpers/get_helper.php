@@ -500,6 +500,7 @@ function viewdataEX($crfexid)
     crfex_customers_temp.crfexcus_userdeptcodemodify,
     crfex_customers_temp.crfexcus_datetimemodify,
     crfex_customers_temp.crfexcus_id,
+    crfex_customers_temp.crfexcus_payment,
     crf_alltype.crf_alltype_subnameEN
     FROM
     crfex_maindata

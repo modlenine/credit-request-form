@@ -1620,9 +1620,9 @@ class Main_model extends CI_Model
             }
             $updataToTemp = 1;
 
-            if($updataToTemp == 1){
+            if ($updataToTemp == 1) {
 
-                if ($this->input->post("crfex_curcustopic1") != '') {
+                if ($this->input->post("crfex_curcustopic1_add") != '') {
 
                     if ($_FILES["crfex_file"]["name"] != "") {
                         $file = "crfex_file";
@@ -1633,8 +1633,8 @@ class Main_model extends CI_Model
                         $resultFile = "";
                         echo "Not found document !<br>";
                     }
-    
-    
+
+
                     $arUpdateCustomerTemp = array(
                         "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
                         "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
@@ -1654,57 +1654,56 @@ class Main_model extends CI_Model
                         "crfexcus_his_month3" => $this->input->post("crfex_his_month3"),
                         "crfexcus_his_tvolume3" => $this->input->post("crfex_his_tvolume3"),
                         "crfexcus_histsales3" => $this->input->post("crfex_histsales3"),
-    
+
                         "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
                     );
                     $this->db->where("crfexcus_formno", $getFormNo);
                     $this->db->update("crfex_customers_temp", $arUpdateCustomerTemp);
 
-    
-                        $armaindata = array(
-                            "crfex_formno" => $getFormNo,
-                            "crfex_customerid" => $getCustomerNumber,
-                            "crfex_company" => $this->input->post("crfex_company"),
-                            "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
-                            "crfex_custype" => $this->input->post("crfex_custype"),
-                            "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
-                            "crfex_cterm" => $this->input->post("crfex_term2"),
-                            "crfex_cdiscount" => $this->input->post("crfex_discount2"),
-                            "crfex_userpost" => $this->input->post("crfex_usercreate"),
-                            "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
-                            "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
-                            "crfex_status" => "Open",
-                            "crfex_report_date" => $report_date,
-                            "crfex_report_month" => $report_month,
-                            "crfex_report_year" => $report_year,
-                            "crfex_topic" => "Current customer",
-                            "crfex_curcustopic1" => "Change customer information."
-                        );
-    
-                        if (getFormBeforeSaveEx($getFormNo) > 0) {
-                            $this->db->where("crfex_formno", $getFormNo);
-                            $this->db->update("crfex_maindata", $armaindata);
-                        } else {
-                            $this->db->insert("crfex_maindata", $armaindata);
-                        }
 
+                    $armaindata = array(
+                        "crfex_formno" => $getFormNo,
+                        "crfex_customerid" => $getCustomerNumber,
+                        "crfex_company" => $this->input->post("crfex_company"),
+                        "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
+                        "crfex_custype" => $this->input->post("crfex_custype"),
+                        "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
+                        "crfex_cterm" => $this->input->post("crfex_term2"),
+                        "crfex_cdiscount" => $this->input->post("crfex_discount2"),
+                        "crfex_userpost" => $this->input->post("crfex_usercreate"),
+                        "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
+                        "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
+                        "crfex_status" => "Open",
+                        "crfex_report_date" => $report_date,
+                        "crfex_report_month" => $report_month,
+                        "crfex_report_year" => $report_year,
+                        "crfex_topic" => "Current customer",
+                        "crfex_curcustopic1" => "Change customer information."
+                    );
+
+                    if (getFormBeforeSaveEx($getFormNo) > 0) {
+                        $this->db->where("crfex_formno", $getFormNo);
+                        $this->db->update("crfex_maindata", $armaindata);
+                    } else {
+                        $this->db->insert("crfex_maindata", $armaindata);
+                    }
                 }
 
 
 
 
 
-                if($this->input->post("crfex_curcustopic2") != ''){
-                    
+                if ($this->input->post("crfex_curcustopic2_add") != '') {
+
                     $arUpdateCustomerTemp = array(
                         "crfexcus_creditlimit2" => $this->input->post("crfex_creditlimit"),
                         "crfexcus_term2" => $this->input->post("crfex_term"),
                         "crfexcus_discount2" => $this->input->post("crfex_discount"),
-    
+
                         "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
                     );
                     $this->db->where("crfexcus_formno", $getFormNo);
-                    if($this->db->update("crfex_customers_temp", $arUpdateCustomerTemp)){
+                    if ($this->db->update("crfex_customers_temp", $arUpdateCustomerTemp)) {
                         $armaindata = array(
                             "crfex_formno" => $getFormNo,
                             "crfex_customerid" => $getCustomerNumber,
@@ -1727,7 +1726,7 @@ class Main_model extends CI_Model
                             "crfex_topic" => "Current customer",
                             "crfex_curcustopic2" => "Change credit & term."
                         );
-    
+
                         if (getFormBeforeSaveEx($getFormNo) > 0) {
                             $this->db->where("crfex_formno", $getFormNo);
                             $this->db->update("crfex_maindata", $armaindata);
@@ -1735,23 +1734,12 @@ class Main_model extends CI_Model
                             $this->db->insert("crfex_maindata", $armaindata);
                         }
                     }
-
                 }
-
-
-
-
-
-
-
-
-
-
             }
 
 
 
-            
+
 
 
 
@@ -1842,11 +1830,11 @@ class Main_model extends CI_Model
 
             $topic = $row->crfex_topic;
 
-            if($row->crfex_curcustopic1 != ''){
-                $topic .= " / ".$row->crfex_curcustopic1;
+            if ($row->crfex_curcustopic1 != '') {
+                $topic .= " / " . $row->crfex_curcustopic1;
             }
-            if($row->crfex_curcustopic2 != ''){
-                $topic .= " / ".$row->crfex_curcustopic2;
+            if ($row->crfex_curcustopic2 != '') {
+                $topic .= " / " . $row->crfex_curcustopic2;
             }
 
 
@@ -1872,7 +1860,7 @@ class Main_model extends CI_Model
       <div class="card-body">
         <div class="row">
             <div class="col-md-3">
-            <p><label><b>Topic. :</b></label>&nbsp;' . $topic.'</p>
+            <p><label><b>Topic. :</b></label>&nbsp;' . $topic . '</p>
             <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfexcus_nameEN . '</p>
             </div>
 
@@ -1908,7 +1896,7 @@ class Main_model extends CI_Model
     public function fetch_detailsByDateex($limit, $start, $dateStart, $dateEnd)
     {
         $output = '';
-        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN ,crfex_curcustopic1 , crfex_curcustopic2");
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfexcus_address , crfexcus_salesreps , crfexcus_nameEN ,crfex_curcustopic1 , crfex_curcustopic2");
         $this->db->from("crfex_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
         $this->db->join('crfex_customers_temp', 'crfex_customers_temp.crfexcus_formno = crfex_maindata.crfex_formno');
@@ -1939,11 +1927,11 @@ class Main_model extends CI_Model
 
             $topic = $row->crfex_topic;
 
-            if($row->crfex_curcustopic1 != ''){
-                $topic .= " / ".$row->crfex_curcustopic1;
+            if ($row->crfex_curcustopic1 != '') {
+                $topic .= " / " . $row->crfex_curcustopic1;
             }
-            if($row->crfex_curcustopic2 != ''){
-                $topic .= " / ".$row->crfex_curcustopic2;
+            if ($row->crfex_curcustopic2 != '') {
+                $topic .= " / " . $row->crfex_curcustopic2;
             }
 
 
@@ -1968,7 +1956,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic.'</p>
+                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic . '</p>
                   <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfexcus_nameEN . '</p>
                   </div>
       
@@ -2005,7 +1993,7 @@ class Main_model extends CI_Model
     public function fetch_detailsByFormNoex($limit, $start, $formNo)
     {
         $output = '';
-        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN ,crfex_curcustopic1 , crfex_curcustopic2");
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfexcus_address , crfexcus_salesreps , crfexcus_nameEN ,crfex_curcustopic1 , crfex_curcustopic2");
         $this->db->from("crfex_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
         $this->db->join('crfex_customers_temp', 'crfex_customers_temp.crfexcus_formno = crfex_maindata.crfex_formno');
@@ -2035,11 +2023,11 @@ class Main_model extends CI_Model
 
             $topic = $row->crfex_topic;
 
-            if($row->crfex_curcustopic1 != ''){
-                $topic .= " / ".$row->crfex_curcustopic1;
+            if ($row->crfex_curcustopic1 != '') {
+                $topic .= " / " . $row->crfex_curcustopic1;
             }
-            if($row->crfex_curcustopic2 != ''){
-                $topic .= " / ".$row->crfex_curcustopic2;
+            if ($row->crfex_curcustopic2 != '') {
+                $topic .= " / " . $row->crfex_curcustopic2;
             }
 
 
@@ -2064,7 +2052,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic.'</p>
+                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic . '</p>
                   <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfexcus_nameEN . '</p>
                   </div>
       
@@ -2092,10 +2080,10 @@ class Main_model extends CI_Model
 
     public function count_all_Companyex($companyname)
     {
-        $this->db->select("crfex_cusnameEN");
+        $this->db->select("crfexcus_nameEN");
         $this->db->from("crfex_maindata");
         $this->db->join('crfex_customers_temp', 'crfex_customers_temp.crfexcus_formno = crfex_maindata.crfex_formno');
-        $this->db->like("crfex_cusnameEN", $companyname);
+        $this->db->like("crfexcus_nameEN", $companyname);
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -2103,11 +2091,11 @@ class Main_model extends CI_Model
     public function fetch_detailsByCompanyex($limit, $start, $companyname)
     {
         $output = '';
-        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfex_address , crfex_salesreps , crfex_cusnameEN ,crfex_curcustopic1 , crfex_curcustopic2");
+        $this->db->select("crfex_formno , crfex_id , crfex_status , crfex_customerid , crfex_maindata.crfex_datecreate , crf_alltype_subnameEN , crfex_topic , crfexcus_address , crfexcus_salesreps , crfexcus_nameEN ,crfex_curcustopic1 , crfex_curcustopic2");
         $this->db->from("crfex_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crfex_maindata.crfex_custype');
         $this->db->join('crfex_customers_temp', 'crfex_customers_temp.crfexcus_formno = crfex_maindata.crfex_formno');
-        $this->db->like("crfex_cusnameEN", $companyname);
+        $this->db->like("crfexcus_nameEN", $companyname);
         $this->db->order_by("crfex_formno", "DESC");
         $this->db->limit($limit, $start);
         $query = $this->db->get();
@@ -2133,11 +2121,11 @@ class Main_model extends CI_Model
 
             $topic = $row->crfex_topic;
 
-            if($row->crfex_curcustopic1 != ''){
-                $topic .= " / ".$row->crfex_curcustopic1;
+            if ($row->crfex_curcustopic1 != '') {
+                $topic .= " / " . $row->crfex_curcustopic1;
             }
-            if($row->crfex_curcustopic2 != ''){
-                $topic .= " / ".$row->crfex_curcustopic2;
+            if ($row->crfex_curcustopic2 != '') {
+                $topic .= " / " . $row->crfex_curcustopic2;
             }
 
 
@@ -2162,7 +2150,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic.'</p>
+                  <p><label><b>Topic. :</b></label>&nbsp;' . $topic . '</p>
                   <p><label><b>Company name. : </b></label>&nbsp;' . $row->crfexcus_nameEN . '</p>
                   </div>
       
@@ -2630,7 +2618,7 @@ class Main_model extends CI_Model
         header("refresh:0; url=" . base_url('main/list'));
     }
 
-    public function canceldataEx($crfid , $crfformno)
+    public function canceldataEx($crfid, $crfformno)
     {
         $arCancel = array(
             "crfex_status" => "Cancel"
@@ -2647,6 +2635,83 @@ class Main_model extends CI_Model
 
         header("refresh:0; url=" . base_url('main/list'));
     }
+
+
+
+
+    public function saveEditdataEx()
+    {
+        if (isset($_POST['usercrfex_edit'])) {
+            // Update data to temp table
+
+
+            // Check file Change or not
+            if ($_FILES["crfex_file"]["name"] != "") {
+                $file = "crfex_file";
+                $fileType = "Customer file";
+                $this->uploadFiles($file, $fileType);
+                $resultFile = $this->uploadFiles($file, $fileType);
+            } else {
+                $resultFile = $this->input->post("crfex_fileShowOld");
+            }
+
+
+
+            $arUpdateToTemp = array(
+                "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
+                "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
+                "crfexcus_nameTH" => $this->input->post("crfex_cusnameTH"),
+                "crfexcus_address" => $this->input->post("crfex_address"),
+                "crfexcus_file" => $resultFile,
+                "crfexcus_tel" => $this->input->post("crfex_tel"),
+                "crfexcus_fax" => $this->input->post("crfex_fax"),
+                "crfexcus_email" => $this->input->post("crfex_email"),
+                "crfexcus_payment" => $this->input->post("crfex_payment"),
+                // "crfexcus_creditlimit" => $this->input->post(),
+                // "crfexcus_term" => $this->input->post(),
+                // "crfexcus_discount" => $this->input->post(),
+                "crfexcus_bg" => $this->input->post("crfex_combg"),
+                "crfexcus_his_month1" => $this->input->post("crfex_his_month1"),
+                "crfexcus_his_tvolume1" => $this->input->post("crfex_his_tvolume1"),
+                "crfexcus_histsales1" => $this->input->post("crfex_histsales1"),
+                "crfexcus_his_month2" => $this->input->post("crfex_his_month2"),
+                "crfexcus_his_tvolume2" => $this->input->post("crfex_his_tvolume2"),
+                "crfexcus_histsales2" => $this->input->post("crfex_histsales2"),
+                "crfexcus_his_month3" => $this->input->post("crfex_his_month3"),
+                "crfexcus_his_tvolume3" => $this->input->post("crfex_his_tvolume3"),
+                "crfexcus_histsales3" => $this->input->post("crfex_histsales3"),
+
+                "crfexcus_usermodify" => $this->input->post("crfex_usercreate"),
+                "crfexcus_userecodemodify" => $this->input->post("crfex_userecode"),
+                "crfexcus_userdeptcodemodify" => $this->input->post("crfex_userdeptcode"),
+                "crfexcus_datetimemodify" => date("Y-m-d H:i:s"),
+                "crfexcus_tempstatus" => "Processing",
+                "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
+            );
+            $this->db->where("crfexcus_formno", $this->input->post("checkEditFormNo"));
+            if ($this->db->update("crfex_customers_temp", $arUpdateToTemp)) {
+                // Update data to crfex_maindata
+                $arUpdateMaindata = array(
+                    "crfex_company" => $this->input->post("crfex_company"),
+                    "crfex_curcustopic1" => $this->input->post("crfex_curcustopic1"),
+                    "crfex_curcustopic2" => $this->input->post("crfex_curcustopic2"),
+                    "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                    "crfex_pterm" => $this->input->post("crfex_term"),
+                    "crfex_pdiscount" => $this->input->post("crfex_discount"),
+                    "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
+                    "crfex_cterm" => $this->input->post("crfex_term2"),
+                    "crfex_cdiscount" => $this->input->post("crfex_discount2"),
+                    "crfex_status" => "Edit",
+                    "crfex_usermodify" => $this->input->post("crfex_usercreate"),
+                    "crfex_datetimemodify" => date("Y-m-d H:i:s")
+                );
+                $this->db->where("crfex_id", $this->input->post("checkEditFormId"));
+                $this->db->update("crfex_maindata", $arUpdateMaindata);
+            }
+            header("refresh:0; url=".base_url('main/listex'));
+        }
+    }
+
 
 
 }
