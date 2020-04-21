@@ -34,6 +34,8 @@
                     </div>
                 </div>
 
+<!-- Check area add page internal -->
+<input hidden type="text" name="addThArea" id="addThArea">
 
                 <!-- Chose Company -->
                 <div id="alert_company"></div>
@@ -337,7 +339,7 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
                         <label for="">ภพ.20</label><br>
-                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf" required>
+                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file1"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file2">
@@ -400,6 +402,7 @@
                             <option value="เพิ่ม">เพิ่ม</option>
                             <option value="ลด">ลด</option>
                         </select>
+                        <div id="alert_crf_condition_credit"></div>
                     </div>
 
                     <div class="col-md-4 form-group change_credit_detail" style="display:none">
@@ -408,6 +411,7 @@
                         <select name="showcredit2" id="showcredit2" class="form-control showcredit2">
                             <option value="">กรุณาเลือกรายการ</option>
                         </select>
+                        <div id="alert_showcredit2"></div>
                     </div>
                 </div>
                 <div id="alert_creditterm"></div>
@@ -526,7 +530,8 @@
                     <h6><b><u>วงเงินการค้าและเงื่อนไขที่ขอเสนอ</u></b></h6>
                 </label>
                 <div class="row form-group">
-                    <input hidden type="text" name="value_crf_finance" id="value_crf_finance">
+                    <input type="text" name="value_crf_finance" id="value_crf_finance">
+
                     <div class="col-md-4 from-group">
                         <input type="radio" name="crf_finance" id="crf_finance" value="ขอวงเงิน" class="crf_financev1">
                         <label for="">ขอวงเงิน</label>
@@ -557,6 +562,7 @@
                             <option value="วงเงินชั่วคราว">วงเงินชั่วคราว</option>
                             <option value="วงเงินถาวร">วงเงินถาวร</option>
                         </select>
+                        <div id="alert_crf_finance_status"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">สถานะการขอ</label>
@@ -566,6 +572,7 @@
                             <option value="ลด">ลด</option>
                         </select>
                         <input hidden type="text" name="showChangeStatus" id="showChangeStatus">
+                        <div id="alert_crf_finance_change_status"></div>
                     </div>
                     <!-- <div class="col-md-4 form-group">
                         <label for="">วงเงินเดิม</label>
@@ -575,10 +582,11 @@
                     <div class="col-md-6 form-group">
                         <label for="">จำนวนที่ขอเพิ่ม / ลด</label>
                         <input type="number" name="crf_finance_change_number" id="crf_finance_change_number" class="form-control form-control-sm">
+                        <div id="alert_crf_finance_change_number"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">รวมทั้งสิ้น</label>
-                        <input type="text" name="crf_finance_change_total" id="crf_finance_change_total" class="form-control form-control-sm">
+                        <input readonly type="text" name="crf_finance_change_total" id="crf_finance_change_total" class="form-control form-control-sm">
                     </div>
                     <div class="col-md-12 form-group">
                         <label for="">เหตุผลในการขอปรับวงเงิน</label>

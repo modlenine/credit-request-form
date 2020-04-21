@@ -275,6 +275,7 @@ class Main_model extends CI_Model
                 $this->db->select("*");
                 $this->db->from("crf_customers");
                 $this->db->where("crfcus_id", $this->input->post("crf_cusid"));
+                $this->db->where("crfcus_area" , $this->input->post("addThArea"));
                 $query = $this->db->get();
 
 
@@ -1319,6 +1320,8 @@ class Main_model extends CI_Model
             data_crf_creditterm2 = '$rs->crfcus_creditterm2'
             data_crf_creditterm2name = '$rs->crfcus_creditterm2'
             data_crf_moneylimit = '$rs->crfcus_moneylimit'
+            data_crf_area = '$rs->crfcus_area'
+            data_crf_file1 = '$rs->crfcus_file1'
             
             ><li class='list-group-item'>" . $rs->crfcus_code ." (".$rs->crfcus_area.")". "</li></a>";
             $output .= "</ul>";
@@ -1648,6 +1651,7 @@ class Main_model extends CI_Model
             $this->db->select("*");
             $this->db->from("crfex_customers");
             $this->db->where("crfexcus_code", $this->input->post("crfex_customercode"));
+            $this->db->where("crfexcus_area" , $this->input->post("checkAreaAddEn"));
             $query = $this->db->get();
 
             foreach ($query->result() as $result) {
@@ -2733,7 +2737,7 @@ class Main_model extends CI_Model
         $this->db->where("crfexcus_formno", $crfformno);
         $this->db->update("crfex_customers_temp", $arCustomerTemp);
 
-        header("refresh:0; url=" . base_url('main/list'));
+        header("refresh:0; url=" . base_url('main/listex'));
     }
 
 
@@ -2767,9 +2771,6 @@ class Main_model extends CI_Model
                 "crfexcus_fax" => $this->input->post("crfex_fax"),
                 "crfexcus_email" => $this->input->post("crfex_email"),
                 "crfexcus_payment" => $this->input->post("crfex_payment"),
-                "crfexcus_creditlimit" => $this->input->post("crfex_creditlimit"),
-                "crfexcus_term" => $this->input->post("crfex_term"),
-                "crfexcus_discount" => $this->input->post("crfex_discount"),
                 "crfexcus_bg" => $this->input->post("crfex_combg"),
                 "crfexcus_his_month1" => $this->input->post("crfex_his_month1"),
                 "crfexcus_his_tvolume1" => $this->input->post("crfex_his_tvolume1"),

@@ -233,8 +233,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-3">
-                            <input name="crfex_term2" id="crfex_term2" type="number" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2">
-                            <div class="input-group-append" value="{edit-crfex_term2}">
+                            <input name="crfex_term2" id="crfex_term2" type="number" class="form-control" placeholder="Term" aria-label="Term" aria-describedby="basic-addon2" value="{edit-crfex_term2}">
+                            <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">days</span>
                             </div>
                         </div>

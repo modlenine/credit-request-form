@@ -600,7 +600,7 @@ class Main extends MX_Controller
             $tel = viewdataEX($crfexid)->crfexcus_tel;
             $fax = viewdataEX($crfexid)->crfexcus_fax;
             $email = viewdataEX($crfexid)->crfexcus_email;
-            $creditlimit = "";
+            $creditlimit = viewdataEX($crfexid)->crfex_ccreditlimit;
             $cterm = viewdataEX($crfexid)->crfex_cterm;
             $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
             $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
@@ -616,7 +616,7 @@ class Main extends MX_Controller
                 $tel = viewdataEX($crfexid)->crfexcus_tel;
                 $fax = viewdataEX($crfexid)->crfexcus_fax;
                 $email = viewdataEX($crfexid)->crfexcus_email;
-                $creditlimit = viewdataEX($crfexid)->crfexcus_creditlimit;
+                $creditlimit = viewdataEX($crfexid)->crfex_ccreditlimit;
                 $cterm = viewdataEX($crfexid)->crfex_cterm;
                 $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
                 $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
@@ -631,7 +631,7 @@ class Main extends MX_Controller
                 $tel = viewdataEX($crfexid)->crfexcus_tel;
                 $fax = viewdataEX($crfexid)->crfexcus_fax;
                 $email = viewdataEX($crfexid)->crfexcus_email;
-                $creditlimit = viewdataEX($crfexid)->crfexcus_creditlimit;
+                $creditlimit = viewdataEX($crfexid)->crfex_ccreditlimit;
                 $cterm = viewdataEX($crfexid)->crfex_cterm;
                 $cdiscount = viewdataEX($crfexid)->crfex_cdiscount;
                 $crfex_bg = viewdataEX($crfexid)->crfexcus_bg;
@@ -709,6 +709,7 @@ class Main extends MX_Controller
             'file' => viewdataEX($crfexid)->crfexcus_file,
             'fileAddress' => base_url('upload/').viewdataEX($crfexid)->crfexcus_file,
             'get_area' => viewdataEX($crfexid)->crfex_company,
+            'get_payment' => viewdataEX($crfexid)->crfexcus_payment,
 
             'get_crfex_month1' => viewdataEX($crfexid)->crfexcus_his_month1,
             'get_crfex_totalvolume1' => viewdataEX($crfexid)->crfexcus_his_tvolume1,

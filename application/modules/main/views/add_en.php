@@ -178,7 +178,8 @@
                         <input type="text" name="crfex_payment" id="crfex_payment" class="form-control" required>
                     </div>
                 </div>
-                <div class="row form-group mt-3">
+                <label>Propose</label>
+                <div class="row form-group">
                     <div class="col-md-6">
                         <div class="input-group mb-3">
                             <input name="crfex_creditlimit" id="crfex_creditlimit" type="number" class="form-control" placeholder="Propose credit limit." aria-label="Propose credit limit." aria-describedby="basic-addon2">
@@ -209,10 +210,9 @@
                 </div>
 
 
-
+                <label>Current</label>
                 <div class="row form-group">
                     <div class="col-md-6">
-
                         <div class="input-group mb-3">
                             <input name="crfex_creditlimit2" id="crfex_creditlimit2" type="number" class="form-control" placeholder="Current credit limit." aria-label="Current credit limit." aria-describedby="basic-addon2">
                             <div class="input-group-append">

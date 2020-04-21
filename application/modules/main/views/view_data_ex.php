@@ -170,7 +170,16 @@
 
             <hr>
             <h5 align="left"><u>PROPOSE FOR CREDIT LIMIT , CREDIT TERM AND CONDITION.</u></h5>
+
             <div class="row form-group mt-3">
+                    <div class="col-md-6">
+                        <label for="">Payment</label>
+                        <input readonly type="text" name="crfex_payment" id="crfex_payment" class="form-control" value="{get_payment}">
+                    </div>
+                </div>
+
+                <label for="">Propose</label>
+            <div class="row form-group">
                 <div class="col-md-6">
 
                     <div class="input-group mb-3">
@@ -201,6 +210,7 @@
 
 
 
+            <label for="">Current</label>
             <div class="row form-group">
                 <div class="col-md-6">
 
