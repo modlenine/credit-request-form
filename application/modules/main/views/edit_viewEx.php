@@ -136,6 +136,7 @@
                     <div class="col-md-6 form-group">
                         <label for="">Customer name (in Thai)</label>
                         <input type="text" name="crfex_cusnameTH" id="crfex_cusnameTH" class="form-control form-control-sm" value="{edit-crfex_cusnameTH}">
+                        <div id="alert_crfex_cusnameTH"></div>
                     </div>
                 </div>
 
@@ -172,8 +173,8 @@
                     </div>
                     <div class="col-md-6 crfex_oldfile">
                         <label for="">File upload</label><br>
-                        <a href="{edit-crfex_fileAdd}" target="_blank"><span id="crfex_fileShow">{edit-crfex_file}</span></a>
-                        <input type="text" name="crfex_fileShowOld" id="crfex_fileShowOld" value="{edit-crfex_file}">
+                        <a id="linkFileEx" href="{edit-crfex_fileAdd}" target="_blank"><span id="crfex_fileShow">{edit-crfex_file}</span></a>
+                        <input hidden type="text" name="crfex_fileShowOld" id="crfex_fileShowOld" value="{edit-crfex_file}">
                     </div>
                 </div>
 

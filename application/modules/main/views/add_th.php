@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>  
-<!-- <script type="text/javascript">
+    <title>Document</title>
+    <!-- <script type="text/javascript">
             function noBack(){
                 window.history.forward()
             }
@@ -22,7 +22,7 @@
 
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
-            <form action="<?=base_url('main/savedata')?>" method="POST" id="form1" enctype="multipart/form-data">
+            <form action="<?= base_url('main/savedata') ?>" method="POST" id="form1" enctype="multipart/form-data">
 
                 <!-- Document Head -->
                 <div class="row form-group">
@@ -199,7 +199,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">ทุนจดทะเบียน</label>
-                        <input type="number" name="crf_regiscost" id="crf_regiscost" class="form-control form-control-sm">
+                        <input type="text" name="crf_regiscost" id="crf_regiscost" class="form-control form-control-sm">
                         <div id="alert_regiscost"></div>
                     </div>
                 </div><br>
@@ -305,10 +305,10 @@
                 <div id="showoldprocesscus" class="row form-group oldprocesscus"></div>
                 <div class="row form-group newprocesscus">
                     {getCusProcess}
-                        <div class="col-md-3 ">
-                            <input type="checkbox" name="crf_process[]" id="crf_process" value="{cuspro_id}">
-                            <label for="">{cuspro_name}</label>
-                        </div>
+                    <div class="col-md-3 ">
+                        <input type="checkbox" name="crf_process[]" id="crf_process" value="{cuspro_id}">
+                        <label for="">{cuspro_name}</label>
+                    </div>
                     {/getCusProcess}
                 </div>
                 <div id="alert_process"></div>
@@ -337,32 +337,32 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
                         <label for="">ภพ.20</label><br>
-                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf" required>
                         <div id="alert_file1"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file2">
                         <label for="">หนังสือรับรอง</label><br>
-                        <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file2"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file3">
                         <label for="">ข้อมูลทั่วไป</label><br>
-                        <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file3"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file4">
                         <label for="">งบแสดงฐานะทางการเงิน</label><br>
-                        <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file4"></div>
                     </div>
                     <div class="col-md-4 crf_file5">
                         <label for="">งบกำไรขาดทุน</label><br>
-                        <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file5"></div>
                     </div>
                     <div class="col-md-4 crf_file6">
                         <label for="">อัตราส่วนสภาพคล่อง</label>
-                        <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
+                        <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file6"></div>
                     </div>
                 </div>
@@ -382,13 +382,13 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group">
 
-                    <!-- For Change CreditTerm method -->
+                        <!-- For Change CreditTerm method -->
                         <input type="text" name="oldCreditTerm" id="oldCreditTerm" style="display:none;">
                         <label for="">โปรดเลือกรายการ</label>
                         <select name="crf_creditterm" id="crf_creditterm" class="form-control">
                             <option value=""></option>
                             {getCreditTerm}
-                                <option value="{credit_id}">{credit_name}</option>
+                            <option value="{credit_id}">{credit_name}</option>
                             {/getCreditTerm}
                         </select>
                     </div>
@@ -593,13 +593,13 @@
 
                     <div class="col-md-4 form-group">
                         <label for="">ผู้บันทึกข้อมูล</label>
-                        <input readonly type="text" name="crf_userpost" id="crf_userpost" class="form-control form-control-sm" value="<?=getUser()->Fname."&nbsp;".getUser()->Lname?>">
+                        <input readonly type="text" name="crf_userpost" id="crf_userpost" class="form-control form-control-sm" value="<?= getUser()->Fname . "&nbsp;" . getUser()->Lname ?>">
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">แผนก</label>
-                        <input readonly type="text" name="crf_userdeptpost" id="crf_userdeptpost" class="form-control form-control-sm" value="<?=getUser()->Dept?>">
-                        <input hidden type="text" name="crf_userdeptcodepost" id="crf_userdeptcodepost" value="<?=getUser()->DeptCode?>">
-                        <input hidden type="text" name="crf_userecodepost" id="crf_userecodepost" value="<?=getUser()->ecode?>">
+                        <input readonly type="text" name="crf_userdeptpost" id="crf_userdeptpost" class="form-control form-control-sm" value="<?= getUser()->Dept ?>">
+                        <input hidden type="text" name="crf_userdeptcodepost" id="crf_userdeptcodepost" value="<?= getUser()->DeptCode ?>">
+                        <input hidden type="text" name="crf_userecodepost" id="crf_userecodepost" value="<?= getUser()->ecode ?>">
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">วันที่บันทึกข้อมูล</label>
@@ -643,133 +643,6 @@
                 <hr class="author_manager">
             </form>
             <!-- Section สำหรับ CS , Sales Manager -->
-
-
-
-
-            <!-- Section สำหรับ CS -->
-            <!-- <form action="">
-                <h6 class="cs_br"><b><u>สำหรับ CS</u></b></h6>
-                <div class="row form-group cs_br">
-                    <div class="col-md-8 form-group">
-                        <label for="">เลขที่ BR</label>
-                        <input type="text" name="crf_brcode" id="crf_brcode" class="form-control form-control-sm">
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้บันทึก</label>
-                        <input type="text" name="crf_brcode_userpost" id="crf_brcode_userpost" class="form-control form-control-sm">
-                        <input type="text" name="crf_becode_datetime" id="crf_becode_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                    </div>
-                </div>
-                <div class="row form-group cs_br">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-info btn-block" id="br_submit" name="br_submit">Submit</button></div>
-                </div>
-                <hr class="cs_br">
-            </form> -->
-            <!-- Section สำหรับ CS -->
-
-
-
-
-            <!-- Section สำหรับ Account Manager -->
-            <!-- <form action="">
-                <h6 class="acc_manager"><b><u>ความเห็นประกอบการพิจารณาจากฝ่ายบัญชีและการเงิน</u></b></h6>
-                <div class="row form-group acc_manager">
-                    <div class="col-md-12">
-                        <input type="radio" name="mgracc_appro" id="mgracc_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="mgracc_appro" id="mgracc_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นอื่นๆ</label>
-                        <textarea name="crf_accmgr_detail" id="crf_accmgr_detail" cols="30" rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input type="text" name="crf_accmgr_name" id="crf_accmgr_name" class="form-control form-control-sm">
-                        <input type="text" name="crf_accmgr_datatime" id="crf_accmgr_datatime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                    </div>
-                </div>
-                <div class="row form-group acc_manager">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-info btn-block" id="accmgr_submit" name="accmgr_submit">Submit</button></div>
-                </div>
-                <hr class="acc_manager">
-            </form> -->
-            <!-- Section สำหรับ Account Manager -->
-
-
-
-
-            <!-- Section สำหรับ Directorคนที่1 -->
-            <!-- <form action="">
-                <h6 class="director1"><b><u>สำหรับฝ่ายบริหาร1</u></b></h6>
-                <div class="row form-group director1">
-                    <div class="col-md-12">
-                        <input type="radio" name="director1_appro" id="director1_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="director1_appro" id="director1_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นของฝ่ายบริหาร</label>
-                        <textarea name="crf_director_detail1" id="crf_director_detail1" cols="30" rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input type="text" name="crf_director_name1" id="crf_director_name1" class="form-control form-control-sm">
-                        <input type="text" name="crf_director_datatime1" id="crf_director_datatime1" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                    </div>
-                </div>
-                <div class="row form-group director1">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-info btn-block" id="director_submit1" name="director_submit1">Submit</button></div>
-                </div>
-                <hr class="director1">
-            </form> -->
-            <!-- Section สำหรับ Directorคนที่1 -->
-
-
-
-
-            <!-- Section สำหรับ Directorคนที่2 -->
-            <!-- <form action="">
-                <h6 class="director2"><b><u>สำหรับฝ่ายบริหาร2</u></b></h6>
-                <div class="row form-group director2">
-                    <div class="col-md-12">
-                        <input type="radio" name="director2_appro" id="director2_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="director2_appro" id="director2_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นของฝ่ายบริหาร</label>
-                        <textarea name="crf_director_detail2" id="crf_director_detail2" cols="30" rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input type="text" name="crf_director_name2" id="crf_director_name2" class="form-control form-control-sm">
-                        <input type="text" name="crf_director_datatime2" id="crf_director_datatime2" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                    </div>
-                </div>
-                <div class="row form-group director2">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-info btn-block" id="director_submit2" name="director_submit2">Submit</button></div>
-                </div>
-                <hr>
-            </form> -->
-            <!-- Section สำหรับ Directorคนที่2 -->
-
-
-
-            <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
-            <!-- <h6 class="acc_staff"><b><u>สำหรับเจ้าหน้าที่บัญชี</u></b></h6>
-            <div class="row form-group acc_staff">
-                <div class="col-md-6">
-                    <button type="button" name="goto_cuscode_form" id="goto_cuscode_form" class="btn btn-info" data-toggle="modal" data-target="#customer_code_modal">บันทึก Customer code</button>
-                </div>
-            </div> -->
-            <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
 
 
         </div>

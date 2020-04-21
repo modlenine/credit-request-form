@@ -218,7 +218,7 @@ getModal();
                             </li>
 
                             <li>
-                                <a href="" class="">
+                                <a href="<?=base_url('main/report/reportTH')?>" class="">
                                     <i class="metismenu-icon fas fa-print"></i>
                                     รายงาน
                                 </a>
@@ -240,7 +240,7 @@ getModal();
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="">
+                                <a href="<?=base_url('main/report/reportEX')?>" class="">
                                     <i class="metismenu-icon fas fa-print"></i>
                                     รายงาน
                                 </a>

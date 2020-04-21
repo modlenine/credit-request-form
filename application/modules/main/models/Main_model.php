@@ -155,6 +155,7 @@ class Main_model extends CI_Model
             $arcustomer = array(
                 "crfcus_id" => $getCustomerNumber,
                 "crfcus_formno" => $getFormNo,
+                "crfcus_area" => $this->input->post("crf_company"),
                 "crfcus_salesreps" => $this->input->post("crf_salesreps"),
                 "crfcus_name" => $this->input->post("crf_customername"),
                 "crfcus_comdatecreate" => $this->input->post("crf_cuscompanycreate"),
@@ -164,7 +165,7 @@ class Main_model extends CI_Model
                 "crfcus_phone" => $this->input->post("crf_telcontact"),
                 "crfcus_fax" => $this->input->post("crf_faxcontact"),
                 "crfcus_email" => $this->input->post("crf_emailcontact"),
-                "crfcus_regiscapital" => $this->input->post("crf_regiscost"),
+                "crfcus_regiscapital" => conPrice($this->input->post("crf_regiscost")),
                 "crfcus_companytype" => $this->input->post("crf_companytype"),
                 "crfcus_comtype2" => $this->input->post("crf_companytype2"),
                 "crfcus_comtype31" => $this->input->post("crf_companytype3_1_1"),
@@ -284,6 +285,7 @@ class Main_model extends CI_Model
                         "crfcus_brcode" => $result->crfcus_brcode,
                         "crfcus_salesreps" => $result->crfcus_salesreps,
                         "crfcus_name" => $result->crfcus_name,
+                        "crfcus_area" => $result->crfcus_area,
                         "crfcus_comdatecreate" => $result->crfcus_comdatecreate,
                         "crfcus_addresstype" => $result->crfcus_addresstype,
                         "crfcus_address" => $result->crfcus_address,
@@ -364,7 +366,8 @@ class Main_model extends CI_Model
                         "crf_userpostdatetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime")),
                         "crf_sub_oldcus_changearea" => $this->input->post("crf_sub_oldcus_changearea"),
                         "crf_status" => "Open",
-                        "crf_topic" => "เปลี่ยนเขตการขาย",
+                        "crf_topic" => "ลูกค้าเดิม",
+                        "crf_topic1" => "เปลี่ยนเขตการขาย",
                         "crfw_salesreps" => $this->input->post("crf_salesreps"),
                         "crf_report_date" => $report_date,
                         "crf_report_month" => $report_month,
@@ -446,6 +449,7 @@ class Main_model extends CI_Model
                     "crf_sub_oldcus_changeaddress" => $this->input->post("crf_sub_oldcus_changeaddress"),
                     "crf_status" => "Open",
 
+                    "crf_topic" => "ลูกค้าเดิม",
                     "crf_topic2" => "เปลี่ยนที่อยู่",
 
                     "crfw_salesreps" => $this->input->post("crf_salesreps"),
@@ -473,7 +477,7 @@ class Main_model extends CI_Model
                     "crfcus_phone" => $this->input->post("crf_telcontact"),
                     "crfcus_fax" => $this->input->post("crf_faxcontact"),
                     "crfcus_email" => $this->input->post("crf_emailcontact"),
-                    "crfcus_regiscapital" => $this->input->post("crf_regiscost"),
+                    "crfcus_regiscapital" => conPrice($this->input->post("crf_regiscost")),
                     "crfcus_file1" => $resultFile1
                 );
                 $this->db->where("crfcus_formno", $getFormNo);
@@ -516,7 +520,8 @@ class Main_model extends CI_Model
                     "crf_sub_oldcus_changecredit" => $this->input->post("crf_sub_oldcus_changecredit"),
                     "crf_status" => "Open",
 
-                    "crf_topic3" => "ปรับ Credit term. เพิ่ม / ลด",
+                    "crf_topic" => "ลูกค้าเดิม",
+                    "crf_topic3" => "ปรับ Credit term. เพิ่ม - ลด",
                     "crf_report_date" => $report_date,
                     "crf_report_month" => $report_month,
                     "crf_report_year" => $report_year
@@ -539,7 +544,7 @@ class Main_model extends CI_Model
 
                 $aruserlog = array(
                     "crfuserlog_datetime" => date("Y-m-d H:i:s"),
-                    "crfuserlog_activity" => "ปรับ Credit term. เพิ่ม / ลด",
+                    "crfuserlog_activity" => "ปรับ Credit term. เพิ่ม - ลด",
                     "crfuserlog_username" => $this->input->post("crf_userpost"),
                     "crfuserlog_deptcode" => $this->input->post("crf_userdeptcodepost"),
                     "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
@@ -579,7 +584,8 @@ class Main_model extends CI_Model
                     "crf_sub_oldcus_changefinance" => $this->input->post("crf_sub_oldcus_changefinance"),
                     "crf_status" => "Open",
 
-                    "crf_topic4" => "ปรับวงเงิน เพิ่ม / ลด",
+                    "crf_topic" => "ลูกค้าเดิม",
+                    "crf_topic4" => "ปรับวงเงิน เพิ่ม - ลด",
                     "crf_report_date" => $report_date,
                     "crf_report_month" => $report_month,
                     "crf_report_year" => $report_year
@@ -602,7 +608,7 @@ class Main_model extends CI_Model
 
                 $aruserlog = array(
                     "crfuserlog_datetime" => date("Y-m-d H:i:s"),
-                    "crfuserlog_activity" => "ปรับวงเงิน เพิ่ม / ลด",
+                    "crfuserlog_activity" => "ปรับวงเงิน เพิ่ม - ลด",
                     "crfuserlog_username" => $this->input->post("crf_userpost"),
                     "crfuserlog_deptcode" => $this->input->post("crf_userdeptcodepost"),
                     "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
@@ -628,7 +634,7 @@ class Main_model extends CI_Model
     public function fetch_details($limit, $start)
     {
         $output = '';
-        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
         $this->db->from("crf_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
         $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
@@ -646,7 +652,7 @@ class Main_model extends CI_Model
             if ($row->crf_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crf_status == "Complated") {
+            } else if ($row->crf_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
@@ -657,16 +663,31 @@ class Main_model extends CI_Model
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
             }
 
-            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
                 $salesreps = $row->crfw_salesreps;
             } else {
                 $salesreps = $row->crfcus_salesreps;
             }
 
-            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
                 $address = $row->crfcus_address;
             } else {
                 $address = $row->crfcus_address;
+            }
+
+            $topicTH = $row->crf_topic;
+
+            if($row->crf_topic1 != ''){
+                $topicTH .= " / ".$row->crf_topic1;
+            }
+            if($row->crf_topic2 != ''){
+                $topicTH .= " / ".$row->crf_topic2;
+            }
+            if($row->crf_topic3 != ''){
+                $topicTH .= " / ".$row->crf_topic3;
+            }
+            if($row->crf_topic4 != ''){
+                $topicTH .= " / ".$row->crf_topic4;
             }
 
             $output .= '
@@ -689,7 +710,7 @@ class Main_model extends CI_Model
       <div class="card-body">
         <div class="row">
             <div class="col-md-3">
-            <p><label><b>หัวข้อ :</b></label>&nbsp;' . $row->crf_topic . '&nbsp;' . $row->crf_topic2 . '&nbsp;' . $row->crf_topic3 . '&nbsp;' . $row->crf_topic4 . '</p>
+            <p><label><b>หัวข้อ :</b></label>&nbsp;' . $topicTH . '</p>
             <p><label><b>ชื่อบริษัท : </b></label>&nbsp;' . $row->crfcus_name . '</p>
             </div>
 
@@ -725,7 +746,7 @@ class Main_model extends CI_Model
     public function fetch_detailsByDate($limit, $start, $dateStart, $dateEnd)
     {
         $output = '';
-        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
         $this->db->from("crf_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
         $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
@@ -744,7 +765,7 @@ class Main_model extends CI_Model
             if ($row->crf_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crf_status == "Complated") {
+            } else if ($row->crf_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
@@ -755,16 +776,31 @@ class Main_model extends CI_Model
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
             }
 
-            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
                 $salesreps = $row->crfw_salesreps;
             } else {
                 $salesreps = $row->crfcus_salesreps;
             }
 
-            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
                 $address = $row->crfcus_address;
             } else {
                 $address = $row->crfcus_address;
+            }
+
+            $topicTH = $row->crf_topic;
+
+            if($row->crf_topic1 != ''){
+                $topicTH .= " / ".$row->crf_topic1;
+            }
+            if($row->crf_topic2 != ''){
+                $topicTH .= " / ".$row->crf_topic2;
+            }
+            if($row->crf_topic3 != ''){
+                $topicTH .= " / ".$row->crf_topic3;
+            }
+            if($row->crf_topic4 != ''){
+                $topicTH .= " / ".$row->crf_topic4;
             }
 
             $output .= '
@@ -787,7 +823,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $row->crf_topic . '&nbsp;' . $row->crf_topic2 . '&nbsp;' . $row->crf_topic3 . '&nbsp;' . $row->crf_topic4 . '</p>
+                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $topicTH . '</p>
                   <p><label><b>ชื่อบริษัท : </b></label>&nbsp;' . $row->crfcus_name . '</p>
                   </div>
       
@@ -824,7 +860,7 @@ class Main_model extends CI_Model
     public function fetch_detailsByFormNo($limit, $start, $formNo)
     {
         $output = '';
-        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
         $this->db->from("crf_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
         $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
@@ -842,7 +878,7 @@ class Main_model extends CI_Model
             if ($row->crf_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crf_status == "Complated") {
+            } else if ($row->crf_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
@@ -853,16 +889,31 @@ class Main_model extends CI_Model
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
             }
 
-            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
                 $salesreps = $row->crfw_salesreps;
             } else {
                 $salesreps = $row->crfcus_salesreps;
             }
 
-            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
                 $address = $row->crfcus_address;
             } else {
                 $address = $row->crfcus_address;
+            }
+
+            $topicTH = $row->crf_topic;
+
+            if($row->crf_topic1 != ''){
+                $topicTH .= " / ".$row->crf_topic1;
+            }
+            if($row->crf_topic2 != ''){
+                $topicTH .= " / ".$row->crf_topic2;
+            }
+            if($row->crf_topic3 != ''){
+                $topicTH .= " / ".$row->crf_topic3;
+            }
+            if($row->crf_topic4 != ''){
+                $topicTH .= " / ".$row->crf_topic4;
             }
 
             $output .= '
@@ -885,7 +936,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $row->crf_topic . '&nbsp;' . $row->crf_topic2 . '&nbsp;' . $row->crf_topic3 . '&nbsp;' . $row->crf_topic4 . '</p>
+                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $topicTH . '</p>
                   <p><label><b>ชื่อบริษัท : </b></label>&nbsp;' . $row->crfcus_name . '</p>
                   </div>
       
@@ -924,7 +975,7 @@ class Main_model extends CI_Model
     public function fetch_detailsByCompany($limit, $start, $companyname)
     {
         $output = '';
-        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
         $this->db->from("crf_maindata");
         $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
         $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
@@ -942,7 +993,7 @@ class Main_model extends CI_Model
             if ($row->crf_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crf_status == "Complated") {
+            } else if ($row->crf_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
@@ -953,16 +1004,31 @@ class Main_model extends CI_Model
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
             }
 
-            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
                 $salesreps = $row->crfw_salesreps;
             } else {
                 $salesreps = $row->crfcus_salesreps;
             }
 
-            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Complated") {
+            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
                 $address = $row->crfcus_address;
             } else {
                 $address = $row->crfcus_address;
+            }
+
+            $topicTH = $row->crf_topic;
+
+            if($row->crf_topic1 != ''){
+                $topicTH .= " / ".$row->crf_topic1;
+            }
+            if($row->crf_topic2 != ''){
+                $topicTH .= " / ".$row->crf_topic2;
+            }
+            if($row->crf_topic3 != ''){
+                $topicTH .= " / ".$row->crf_topic3;
+            }
+            if($row->crf_topic4 != ''){
+                $topicTH .= " / ".$row->crf_topic4;
             }
 
             $output .= '
@@ -985,7 +1051,7 @@ class Main_model extends CI_Model
             <div class="card-body">
               <div class="row">
                   <div class="col-md-3">
-                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $row->crf_topic . '&nbsp;' . $row->crf_topic2 . '&nbsp;' . $row->crf_topic3 . '&nbsp;' . $row->crf_topic4 . '</p>
+                  <p><label><b>หัวข้อ :</b></label>&nbsp;' . $topicTH . '</p>
                   <p><label><b>ชื่อบริษัท : </b></label>&nbsp;' . $row->crfcus_name . '</p>
                   </div>
       
@@ -1068,10 +1134,12 @@ class Main_model extends CI_Model
     public function csbr($crfid)
     {
         $brcode = $this->input->post("crf_brcode");
+        $area = $this->input->post("forcheckcrf_area");
 
         $this->db->select("crfcus_brcode");
         $this->db->from("crf_customers");
         $this->db->where("crfcus_brcode", $brcode);
+        $this->db->where("crfcus_area",$area);
         $result = $this->db->get();
 
         echo $result->num_rows();
@@ -1128,10 +1196,12 @@ class Main_model extends CI_Model
     {
 
         $customercode = $this->input->post("cusCode");
+        $accArea = $this->input->post("accCheckAreacode");
 
         $this->db->select("crfcus_code");
         $this->db->from("crf_customers_temp");
         $this->db->where("crfcus_code", $customercode);
+        $this->db->where("crfcus_area" , $accArea);
         $result = $this->db->get();
 
         echo $result->num_rows();
@@ -1201,13 +1271,14 @@ class Main_model extends CI_Model
         crf_customers.crfcus_usercreate_deptcode,
         crf_customers.crfcus_datemodify,
         crf_maindata.crf_id,
-        crf_customers.crfcus_creditterm2
+        crf_customers.crfcus_creditterm2,
+        crf_customers.crfcus_area
         FROM
         crf_customers
         INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
         INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
         INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
-        WHERE crfcus_code LIKE '$cusCode%' GROUP BY crf_customers.crfcus_code ORDER BY crf_maindata.crf_id DESC
+        WHERE crfcus_code LIKE '$cusCode%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_maindata.crf_id DESC
         ");
         $output = "";
         foreach ($query->result() as $rs) {
@@ -1249,7 +1320,7 @@ class Main_model extends CI_Model
             data_crf_creditterm2name = '$rs->crfcus_creditterm2'
             data_crf_moneylimit = '$rs->crfcus_moneylimit'
             
-            ><li class='list-group-item'>" . $rs->crfcus_code . "</li></a>";
+            ><li class='list-group-item'>" . $rs->crfcus_code ." (".$rs->crfcus_area.")". "</li></a>";
             $output .= "</ul>";
         }
 
@@ -1295,7 +1366,8 @@ class Main_model extends CI_Model
         crfex_customers.crfexcus_userecodemodify,
         crfex_customers.crfexcus_userdeptcodemodify,
         crfex_customers.crfexcus_datetimemodify,
-        crfex_customers.crfexcus_payment
+        crfex_customers.crfexcus_payment,
+        crfex_customers.crfexcus_area
         FROM
         crfex_customers
         WHERE crfexcus_code LIKE '$cusCode%' ORDER BY crfexcus_code DESC
@@ -1321,8 +1393,9 @@ class Main_model extends CI_Model
             data_crfex_cuscode = '$rs->crfexcus_code'
             data_crfex_cusid = '$rs->crfexcus_id'
             data_crfex_cuspayment = '$rs->crfexcus_payment'
+            data_crfexcus_area = '$rs->crfexcus_area'
 
-            ><li class='list-group-item'>" . $rs->crfexcus_code . "</li></a>";
+            ><li class='list-group-item'>" . $rs->crfexcus_code ." (".$rs->crfexcus_area.")". "</li></a>";
             $output .= "</ul>";
         }
 
@@ -1516,6 +1589,7 @@ class Main_model extends CI_Model
 
             $arcustomer = array(
                 "crfexcus_formno" => $getFormNo,
+                "crfexcus_area" => $this->input->post("crfex_company"),
                 "crfexcus_id" => $getCustomerNumber,
                 "crfexcus_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                 "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
@@ -1817,7 +1891,7 @@ class Main_model extends CI_Model
             if ($row->crfex_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crfex_status == "Complated") {
+            } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
@@ -1914,7 +1988,7 @@ class Main_model extends CI_Model
             if ($row->crfex_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crfex_status == "Complated") {
+            } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
@@ -2010,7 +2084,7 @@ class Main_model extends CI_Model
             if ($row->crfex_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crfex_status == "Complated") {
+            } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
@@ -2108,7 +2182,7 @@ class Main_model extends CI_Model
             if ($row->crfex_status == "Open") {
                 $statusColor = "color:#0066FF;";
                 $lineStatusColor = "background-color:#0066FF;height:3px;";
-            } else if ($row->crfex_status == "Complated") {
+            } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
             } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
@@ -2182,10 +2256,12 @@ class Main_model extends CI_Model
     public function exCsAddBr($crfexid)
     {
         $exBrCode = $this->input->post("ex_csBrCode");
+        $csArea = $this->input->post("csArea");
 
         $this->db->select("crfexcus_brcode");
         $this->db->from("crfex_customers");
         $this->db->where("crfexcus_brcode", $exBrCode);
+        $this->db->where("crfexcus_area" , $csArea);
         $result = $this->db->get();
         echo $result->num_rows();
         if ($result->num_rows() > 0) {
@@ -2220,10 +2296,32 @@ class Main_model extends CI_Model
     public function checkDuplicateNameCustomer()
     {
         $cusName = "";
+        $comName = "";
         $cusName = $this->input->post("cusName");
+        $comName = $this->input->post("comName");
         $rs = "";
 
-        $query = $this->db->query("SELECT crfcus_name FROM crf_customers WHERE crfcus_name like '%$cusName%' ");
+        $query = $this->db->query("SELECT crfcus_name FROM crf_customers WHERE crfcus_name like '%$cusName%' AND crfcus_area = '$comName' ");
+        $result = $query->num_rows();
+
+        if ($result > 1) {
+            $rs = 00;
+        } else if ($result == 1) {
+            $rs = 11;
+        }
+
+        return $rs;
+    }
+    // Check duplicate customer name
+    public function checkDuplicateNameCustomerEx()
+    {
+        $cusName = "";
+        $comName = "";
+        $cusName = $this->input->post("cusName");
+        $comName = $this->input->post("comName");
+        $rs = "";
+
+        $query = $this->db->query("SELECT crfexcus_nameEN FROM crfex_customers WHERE crfexcus_nameEN like '%$cusName%' AND crfexcus_area = '$comName' ");
         $result = $query->num_rows();
 
         if ($result > 1) {
@@ -2340,6 +2438,7 @@ class Main_model extends CI_Model
 
             if ($this->input->post("check_editcustype") == 1) {
                 $arcustomer = array(
+                    "crfcus_area" => $this->input->post("check_editcom"),
                     "crfcus_salesreps" => $this->input->post("edit_salesreps"),
                     "crfcus_name" => $this->input->post("edit_customername"),
                     "crfcus_comdatecreate" => conDateToDb($this->input->post("edit_cuscompanycreate")),
@@ -2349,7 +2448,7 @@ class Main_model extends CI_Model
                     "crfcus_phone" => $this->input->post("edit_telcontact"),
                     "crfcus_fax" => $this->input->post("edit_faxcontact"),
                     "crfcus_email" => $this->input->post("edit_emailcontact"),
-                    "crfcus_regiscapital" => $this->input->post("edit_regiscost"),
+                    "crfcus_regiscapital" => conPrice($this->input->post("edit_regiscost")),
                     "crfcus_companytype" => $this->input->post("crf_companytype"),
                     "crfcus_comtype2" => $this->input->post("crf_companytype2"),
                     "crfcus_comtype31" => $this->input->post("crf_companytype3_1_1"),
@@ -2394,7 +2493,7 @@ class Main_model extends CI_Model
                     "crf_report_date" => $report_date,
                     "crf_report_month" => $report_month,
                     "crf_report_year" => $report_year,
-                    "crf_status" => "Edit"
+                    "crf_status" => "Edited"
                 );
                 $this->db->where("crf_id", $this->input->post("getCrfid_edit"));
                 $this->db->update("crf_maindata", $arcrfmain);
@@ -2463,7 +2562,7 @@ class Main_model extends CI_Model
                         $arUpdateMaindata = array(
                             "crf_sub_oldcus_changearea" => $this->input->post("crf_sub_oldcus_changearea"),
                             "crf_topic" => "เปลี่ยนเขตการขาย",
-                            "crf_status" => "Edit",
+                            "crf_status" => "Edited",
                             "crf_usermodify" => $this->input->post("crf_userpost"),
                             "crf_ecodemodify" => $this->input->post("crf_userecodepost"),
                             "crf_deptcodemodify" => $this->input->post("crf_userdeptcodepost"),
@@ -2487,6 +2586,7 @@ class Main_model extends CI_Model
                         "crfcus_fax" => $this->input->post("edit_faxcontact"),
                         "crfcus_email" => $this->input->post("edit_emailcontact"),
                         "crfcus_file1" =>  $resultFile1,
+                        "crfcus_regiscapital" => conPrice($this->input->post("edit_regiscost")),
                         "crfcus_usermodify" => $this->input->post("crf_userpost"),
                         "crfcus_usermodify_ecode" => $this->input->post("crf_userecodepost"),
                         "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),
@@ -2497,7 +2597,7 @@ class Main_model extends CI_Model
                         $arUpdateMaindata = array(
                             "crf_sub_oldcus_changeaddress" => $this->input->post("crf_sub_oldcus_changeaddress"),
                             "crf_topic2" => "เปลี่ยนที่อยู่",
-                            "crf_status" => "Edit",
+                            "crf_status" => "Edited",
                             "crf_usermodify" => $this->input->post("crf_userpost"),
                             "crf_ecodemodify" => $this->input->post("crf_userecodepost"),
                             "crf_deptcodemodify" => $this->input->post("crf_userdeptcodepost"),
@@ -2530,7 +2630,7 @@ class Main_model extends CI_Model
                         $arUpdateMaindata = array(
                             "crf_sub_oldcus_changecredit" => $this->input->post("crf_sub_oldcus_changecredit"),
                             "crf_topic3" => "ปรับ Credit term. เพิ่ม / ลด",
-                            "crf_status" => "Edit",
+                            "crf_status" => "Edited",
                             "crf_creditterm" => $this->input->post("oldCreditTerm"),
                             "crf_change_creditterm" => $this->input->post("crf_change_creditterm"),
                             "crf_condition_credit" => $this->input->post("crf_condition_credit"),
@@ -2567,11 +2667,11 @@ class Main_model extends CI_Model
                             "crf_finance_req_number" => $this->input->post("crf_finance_req_number_calc"),
                             "crf_finance_status" => $this->input->post("crf_finance_status"),
                             "crf_finance_change_status" => $this->input->post("crf_finance_change_status"),
-                            "crf_finance_change_number" => $this->input->post("crf_finance_change_number"),
+                            "crf_finance_change_number" => conPrice($this->input->post("crf_finance_change_number")),
                             "crf_finance_change_total" => conPrice($this->input->post("crf_finance_change_total")),
                             "crf_finance_change_detail" => $this->input->post("crf_finance_change_detail"),
                             "crf_topic3" => "ปรับวงเงิน เพิ่ม / ลด",
-                            "crf_status" => "Edit",
+                            "crf_status" => "Edited",
                             "crf_usermodify" => $this->input->post("crf_userpost"),
                             "crf_ecodemodify" => $this->input->post("crf_userecodepost"),
                             "crf_deptcodemodify" => $this->input->post("crf_userdeptcodepost"),
@@ -2667,9 +2767,9 @@ class Main_model extends CI_Model
                 "crfexcus_fax" => $this->input->post("crfex_fax"),
                 "crfexcus_email" => $this->input->post("crfex_email"),
                 "crfexcus_payment" => $this->input->post("crfex_payment"),
-                // "crfexcus_creditlimit" => $this->input->post(),
-                // "crfexcus_term" => $this->input->post(),
-                // "crfexcus_discount" => $this->input->post(),
+                "crfexcus_creditlimit" => $this->input->post("crfex_creditlimit"),
+                "crfexcus_term" => $this->input->post("crfex_term"),
+                "crfexcus_discount" => $this->input->post("crfex_discount"),
                 "crfexcus_bg" => $this->input->post("crfex_combg"),
                 "crfexcus_his_month1" => $this->input->post("crfex_his_month1"),
                 "crfexcus_his_tvolume1" => $this->input->post("crfex_his_tvolume1"),
@@ -2701,7 +2801,7 @@ class Main_model extends CI_Model
                     "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
                     "crfex_cterm" => $this->input->post("crfex_term2"),
                     "crfex_cdiscount" => $this->input->post("crfex_discount2"),
-                    "crfex_status" => "Edit",
+                    "crfex_status" => "Edited",
                     "crfex_usermodify" => $this->input->post("crfex_usercreate"),
                     "crfex_datetimemodify" => date("Y-m-d H:i:s")
                 );

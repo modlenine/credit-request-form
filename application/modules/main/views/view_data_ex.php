@@ -243,7 +243,7 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_month1" id="crfex_month1" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_month1" id="crfex_month1" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2" value="{get_crfex_month1}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2"></span>
                         </div>
@@ -251,7 +251,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalvolume1" id="crfex_totalvolume1" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalvolume1" id="crfex_totalvolume1" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2" value="{get_crfex_totalvolume1}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">kg.</span>
                         </div>
@@ -259,7 +259,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalsales1" id="crfex_totalsales1" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalsales1" id="crfex_totalsales1" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2" value="{get_crfex_totalsales1}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">THB</span>
                         </div>
@@ -269,7 +269,7 @@
 
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_month2" id="crfex_month2" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_month2" id="crfex_month2" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2" value="{get_crfex_month2}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2"></span>
                         </div>
@@ -277,7 +277,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalvolume2" id="crfex_totalvolume2" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalvolume2" id="crfex_totalvolume2" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2" value="{get_crfex_totalvolume2}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">kg.</span>
                         </div>
@@ -285,7 +285,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalsales2" id="crfex_totalsales2" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalsales2" id="crfex_totalsales2" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2" value="{get_crfex_totalsales2}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">THB</span>
                         </div>
@@ -294,7 +294,7 @@
 
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_month3" id="crfex_month3" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_month3" id="crfex_month3" type="text" class="form-control" placeholder="Month" aria-label="Month" aria-describedby="basic-addon2" value="{get_crfex_month3}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2"></span>
                         </div>
@@ -302,7 +302,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalvolume3" id="crfex_totalvolume3" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalvolume3" id="crfex_totalvolume3" type="text" class="form-control" placeholder="Total volume" aria-label="Total volume" aria-describedby="basic-addon2" value="{get_crfex_totalvolume3}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">kg.</span>
                         </div>
@@ -310,7 +310,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input readonly name="crfex_totalsales3" id="crfex_totalsales3" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2">
+                        <input readonly name="crfex_totalsales3" id="crfex_totalsales3" type="text" class="form-control" placeholder="Total sales" aria-label="Total sales" aria-describedby="basic-addon2" value="{get_crfex_totalsales3}">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">THB</span>
                         </div>
@@ -399,6 +399,7 @@
                 <h6><b><u>FOR CS ADD BR CODE</u></b></h6>
                 <!-- Check formno -->
                 <input hidden type="text" name="csFromno" id="csFromno" value="{crfex_formno}">
+                <input hidden type="text" name="csArea" id="csArea" value="{get_area}">
 
                 <div class="row form-group">
                     <div class="col-md-8 form-group">

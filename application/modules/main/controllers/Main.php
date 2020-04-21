@@ -708,6 +708,19 @@ class Main extends MX_Controller
             'crfex_editdata' => base_url('main/editdataEx/').viewdataEX($crfexid)->crfex_id,
             'file' => viewdataEX($crfexid)->crfexcus_file,
             'fileAddress' => base_url('upload/').viewdataEX($crfexid)->crfexcus_file,
+            'get_area' => viewdataEX($crfexid)->crfex_company,
+
+            'get_crfex_month1' => viewdataEX($crfexid)->crfexcus_his_month1,
+            'get_crfex_totalvolume1' => viewdataEX($crfexid)->crfexcus_his_tvolume1,
+            'get_crfex_totalsales1' => viewdataEX($crfexid)->crfexcus_histsales1,
+
+            'get_crfex_month2' => viewdataEX($crfexid)->crfexcus_his_month2,
+            'get_crfex_totalvolume2' => viewdataEX($crfexid)->crfexcus_his_tvolume2,
+            'get_crfex_totalsales2' => viewdataEX($crfexid)->crfexcus_histsales2,
+
+            'get_crfex_month3' => viewdataEX($crfexid)->crfexcus_his_month3,
+            'get_crfex_totalvolume3' => viewdataEX($crfexid)->crfexcus_his_tvolume3,
+            'get_crfex_totalsales3' => viewdataEX($crfexid)->crfexcus_histsales3,
 
 
         );
@@ -770,6 +783,12 @@ public function checkDuplicateNameCustomer()
     echo $this->main->checkDuplicateNameCustomer();
 }
 
+// Check Duplicate customer name
+public function checkDuplicateNameCustomerEx()
+{
+    echo $this->main->checkDuplicateNameCustomerEx();
+}
+
 
 
 
@@ -796,19 +815,20 @@ public function editdata($crf_id)
 {
     $crfcus_id = getViewData($crf_id)->crfcus_id;
 
-    if(getViewData($crf_id)->crfcus_creditterm2 != ''){
-        $creditterm = getViewData($crf_id)->crfcus_creditterm2;
-        $creditname = conCreditTerm($creditterm);
+    if(getViewData($crf_id)->crfcus_creditterm2 == ''){
+        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+        $creditname1 = conCreditTerm($creditterm1);
+
+        $creditterm2 = "";
+        $creditname2 = "";
+    }else{
+        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+        $creditname1 = conCreditTerm($creditterm1);
+
         $creditterm2 = getViewData($crf_id)->crfcus_creditterm2;
         $creditname2 = conCreditTerm($creditterm2);
-        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
-        $creditname1 = conCreditTerm($creditterm1);
-    }else{
-        $creditterm = getViewData($crf_id)->crfcus_creditterm;
-        $creditname = conCreditTerm($creditterm);
-        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
-        $creditname1 = conCreditTerm($creditterm1);
     }
+
 
 
     $data = array(
@@ -865,6 +885,15 @@ public function editdata($crf_id)
         "get_comtype32" => getViewData($crf_id)->crfcus_comtype32,
         "get_comtype33" => getViewData($crf_id)->crfcus_comtype33,
         "get_comtype34" => getViewData($crf_id)->crfcus_comtype34,
+        "get_condition_credit" => getViewData($crf_id)->crf_condition_credit,
+        "get_creditterm2code" => $creditterm2,
+        "get_creditterm2name" => $creditname2,
+
+        "edit_crf_finance_status" => getViewData($crf_id)->crf_finance_status,
+        "edit_crf_finance_change_status" => getViewData($crf_id)->crf_finance_change_status,
+        "edit_crf_finance_change_number" => getViewData($crf_id)->crf_finance_change_number,
+        "edit_crf_finance_change_total" => getViewData($crf_id)->crf_finance_change_total,
+        "edit_crf_finance_change_detail" => getViewData($crf_id)->crf_finance_change_detail,
 
     );
 

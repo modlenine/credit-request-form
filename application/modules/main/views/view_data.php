@@ -714,6 +714,8 @@ if ($result->crf_status == "Open") {
 
                 <!-- BRCODE CHECK -->
                 <input hidden type="text" name="forcheckcrf_brcode" id="forcheckcrf_brcode" value="<?= $result->crf_brcode ?>">
+                <input type="text" name="forcheckcrf_area" id="forcheckcrf_area" value="<?=$result->crf_company?>">
+
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
                         <label for="">เลขที่ BR</label>
@@ -883,7 +885,10 @@ if ($result->crf_status == "Open") {
             <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
             <form action="<?= base_url('main/saveCustomersCode/') . $result->crf_id . "/" . $result->crfcus_id ?>" method="post" class="account_staff" style="display:none;">
                 <h6 class=""><b><u>สำหรับเจ้าหน้าที่บัญชี</u></b></h6>
+
                 <input hidden type="text" name="checkCustomercode" id="checkCustomercode" value="<?= $result->crf_savecustomercode ?>">
+                <input hidden type="text" name="accCheckAreacode" id="accCheckAreacode" value="<?=$result->crf_company?>">
+
                 <div class="row form-group">
                     <div class="col-md-8">
                         <label for="">รหัสลูกค้า</label>

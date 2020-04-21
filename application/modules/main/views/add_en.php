@@ -26,6 +26,7 @@
                 </div>
 
                 <input hidden type="text" name="checkAddPage" id="checkAddPage" value="{addExPage}">
+                <input hidden type="text" name="checkAreaAddEn" id="checkAreaAddEn">
 
 
                 <div id="alert_crfex_company"></div>
@@ -126,6 +127,7 @@
                     <div class="col-md-6 form-group">
                         <label for="">Customer name (in Thai)</label>
                         <input type="text" name="crfex_cusnameTH" id="crfex_cusnameTH" class="form-control form-control-sm">
+                        <div id="alert_crfex_cusnameTH"></div>
                     </div>
                 </div>
 

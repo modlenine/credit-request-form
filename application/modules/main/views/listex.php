@@ -31,7 +31,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-2 form-group">
-				<a href="<?= base_url('main/addEX') ?>"><button class="btn btn-info">New CRF Form</button></a>
+				<a href="<?=base_url('main/addEx')?>"><button class="btn btn-info">New CRF Form</button></a>
 			</div>
 			<div class="col-md-4 form-group form-inline">
 				<label>Search&nbsp;</label>

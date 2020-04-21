@@ -556,3 +556,11 @@ function getCustomerCode($crfid)
 
 
 
+function checkCusnameEng($cusnameEng)
+{
+    return preg_match('/([ก-เa-zA-Z0-9_])/',$cusnameEng);
+}
+
+
+
+

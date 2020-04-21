@@ -36,7 +36,7 @@
 
 
                 <!-- Chose Company -->
-                <input type="text" name="check_editcom" id="check_editcom" value="{edit_company}" style="display:none;">
+                <input hidden type="text" name="check_editcom" id="check_editcom" value="{edit_company}">
                 <input hidden type="text" name="check_EditFormNo" id="check_EditFormNo" value="{get_formno}">
 
                 <div id="alert_company"></div>
@@ -213,7 +213,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">ทุนจดทะเบียน</label>
-                        <input type="number" name="edit_regiscost" id="edit_regiscost" class="form-control form-control-sm" value="{edit_regiscapital}">
+                        <input type="text" name="edit_regiscost" id="edit_regiscost" class="form-control form-control-sm" value="{edit_regiscapital}">
                         <div id="alert_regiscost"></div>
                     </div>
                 </div><br>
@@ -441,7 +441,7 @@
                     <div class="col-md-4 form-group change_credit_detail" style="display:none">
                         <label for="">เงื่อนไข</label>
                         <select name="crf_condition_credit" id="crf_condition_credit" class="form-control">
-                            <option value="">กรุณาเลือกรายการ</option>
+                            <option value="{get_condition_credit}">{get_condition_credit}</option>
                             <option value="เพิ่ม">เพิ่ม</option>
                             <option value="ลด">ลด</option>
                         </select>
@@ -451,7 +451,7 @@
                         <label for="">โปรดเลือกรายการ</label>
                         <div id="showNewCredit"></div>
                         <select name="showcredit2" id="showcredit2" class="form-control showcredit2">
-                            <option value="">กรุณาเลือกรายการ</option>
+                            <option value="{get_creditterm2code}">{get_creditterm2name}</option>
                         </select>
                     </div>
                 </div>
@@ -615,7 +615,7 @@
                     <div class="col-md-6 form-group">
                         <label for="">สถานะวงเงิน</label>
                         <select name="crf_finance_status" id="crf_finance_status" class="form-control form-control-sm">
-                            <option value=""></option>
+                            <option value="{edit_crf_finance_status}">{edit_crf_finance_status}</option>
                             <option value="วงเงินชั่วคราว">วงเงินชั่วคราว</option>
                             <option value="วงเงินถาวร">วงเงินถาวร</option>
                         </select>
@@ -623,7 +623,7 @@
                     <div class="col-md-6 form-group">
                         <label for="">สถานะการขอ</label>
                         <select name="crf_finance_change_status" id="crf_finance_change_status" class="form-control form-control-sm">
-                            <option value=""></option>
+                            <option value="{edit_crf_finance_change_status}">{edit_crf_finance_change_status}</option>
                             <option value="เพิ่ม">เพิ่ม</option>
                             <option value="ลด">ลด</option>
                         </select>
@@ -636,15 +636,15 @@
 
                     <div class="col-md-6 form-group">
                         <label for="">จำนวนที่ขอเพิ่ม / ลด</label>
-                        <input type="number" name="crf_finance_change_number" id="crf_finance_change_number" class="form-control form-control-sm">
+                        <input type="text" name="crf_finance_change_number" id="crf_finance_change_number" class="form-control form-control-sm" value="{edit_crf_finance_change_number}">
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">รวมทั้งสิ้น</label>
-                        <input type="text" name="crf_finance_change_total" id="crf_finance_change_total" class="form-control form-control-sm">
+                        <input type="text" name="crf_finance_change_total" id="crf_finance_change_total" class="form-control form-control-sm" value="{edit_crf_finance_change_total}">
                     </div>
                     <div class="col-md-12 form-group">
                         <label for="">เหตุผลในการขอปรับวงเงิน</label>
-                        <textarea name="crf_finance_change_detail" id="crf_finance_change_detail" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea name="crf_finance_change_detail" id="crf_finance_change_detail" cols="30" rows="3" class="form-control">{edit_crf_finance_change_detail}</textarea>
                     </div>
                 </div>
                 <hr>

@@ -98,18 +98,42 @@ function filterCreditTerm(oldCredit, creditMethod) {
 }
 
 
-function checkDuplicateNameCustomer(cusName) {
+function checkDuplicateNameCustomer(cusName , comName) {
     $.ajax({
         url: 'main/checkDuplicateNameCustomer',
         method: 'POST',
         data: {
-            cusName: cusName
+            cusName: cusName,
+            comName: comName
         },
         success: function (data) {
             if (data == 11) {
-                var conF = confirm("พบข้อมูลที่คล้ายกันในระบบ คุณยืนยันที่จะดำเนินการต่อหรือไม่");
+                var conF = confirm("พบชื่อลูกค้าที่คล้ายกันในระบบ คุณยืนยันที่จะดำเนินการต่อหรือไม่");
                 if (conF == false) {
                     $('#crf_customername').val('');
+                }
+            }else{
+
+            }
+
+        }
+    });
+}
+
+function checkDuplicateNameCustomerEx(cusName , comName) {
+    $.ajax({
+        url: 'main/checkDuplicateNameCustomerEx',
+        method: 'POST',
+        data: {
+            cusName: cusName,
+            comName: comName
+        },
+        success: function (data) {
+            if (data == 11) {
+                var conF = confirm("Found the customer name in system, Are you sure go to next step.");
+                if (conF == false) {
+                    $('#crfex_cusnameEN').val('');
+                    $('#alert_crfex_cusnameEN').html('');
                 }
             }else{
 
@@ -153,6 +177,36 @@ function checkDupliBR(query)
         }
     });
 
+}
+
+
+
+// Check Customer name for export
+function checkCustomersNameEn(cusname)
+{
+    var checkCusname = /[^ก-เ]{4,100}$/.test(cusname);
+
+    if(checkCusname == true){
+        $('#alert_crfex_cusnameEN').html('<div class="alert alert-success" role="alert"><i class="fas fa-check-circle"></i>&nbsp;Customer name correct pattern</div>');
+        $('#usercrfex_edit').prop('disabled' , false);
+    }else{
+        $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please use Customer name on english language only.</div>');
+        $('#usercrfex_edit').prop('disabled' , true);
+    }
+}
+
+// Check Customer name for export
+function checkCustomersNameTH(cusname)
+{
+    var checkCusname = /[^A-Za-z0-9]{4,100}$/.test(cusname);
+
+    if(checkCusname == true){
+        $('#alert_crfex_cusnameTH').html('<div class="alert alert-success" role="alert"><i class="fas fa-check-circle"></i>&nbsp;Customer name correct pattern</div>');
+        $('#usercrfex_edit').prop('disabled' , false);
+    }else{
+        $('#alert_crfex_cusnameTH').html('<div class="alert alert-danger" role="alert">Please use Customer name on Thai language only.</div>');
+        $('#usercrfex_edit').prop('disabled' , true);
+    }
 }
 
 
