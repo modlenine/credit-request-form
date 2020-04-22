@@ -1027,12 +1027,38 @@ public function saveEditdataEx()
 
 
 
+public function qr()
+{
+    $link = "https://bit.ly/2wXjX52";
+    $this->create_qrcode($link);
+}
 
 
+// Get qrcode By link
+public function create_qrcode($link){
+    createQrcode($link);
+}
 
 
+public function getqrcode()
+{
+    $linkQrcode = "www.saleecolour.com/";
+    $data = '
+    <table style="border:1px solid #ccc;">
+    <tr>
+        <td>'.createQrcode($linkQrcode).'</td>
+        <td><img src="'.base_url("main/qrcode/").'" alt="Smiley face" height="100" width="100"></td>
+    </tr>
+    </table>
+    ';
+    echo $data;
+}
 
 
+public function shorturl()
+{
+    $this->load->view('test');  
+}
 
 
 

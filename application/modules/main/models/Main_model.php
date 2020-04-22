@@ -8,6 +8,7 @@ class Main_model extends CI_Model
         parent::__construct();
         //Do your magic here
         date_default_timezone_set("Asia/Bangkok");
+        $this->load->model('email_model');
     }
 
     private function uploadFiles($fileinput = '', $filenameType = '')
@@ -266,6 +267,9 @@ class Main_model extends CI_Model
                 "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
             );
             $this->db->insert("crf_userlog", $aruserlog);
+
+            $this->email_model->sendemail_savedatath($getFormNo);
+
             return 1;
         } else {
 
@@ -2565,7 +2569,7 @@ class Main_model extends CI_Model
                     if ($this->db->update("crf_customers_temp", $arUpdateSalesReps)) {
                         $arUpdateMaindata = array(
                             "crf_sub_oldcus_changearea" => $this->input->post("crf_sub_oldcus_changearea"),
-                            "crf_topic" => "เปลี่ยนเขตการขาย",
+                            "crf_topic1" => "เปลี่ยนเขตการขาย",
                             "crf_status" => "Edited",
                             "crf_usermodify" => $this->input->post("crf_userpost"),
                             "crf_ecodemodify" => $this->input->post("crf_userecodepost"),
@@ -2633,7 +2637,7 @@ class Main_model extends CI_Model
                     if ($this->db->update("crf_customers_temp", $arUpdateChangeCredit)) {
                         $arUpdateMaindata = array(
                             "crf_sub_oldcus_changecredit" => $this->input->post("crf_sub_oldcus_changecredit"),
-                            "crf_topic3" => "ปรับ Credit term. เพิ่ม / ลด",
+                            "crf_topic3" => "ปรับ Credit term. เพิ่ม - ลด",
                             "crf_status" => "Edited",
                             "crf_creditterm" => $this->input->post("oldCreditTerm"),
                             "crf_change_creditterm" => $this->input->post("crf_change_creditterm"),
@@ -2674,7 +2678,7 @@ class Main_model extends CI_Model
                             "crf_finance_change_number" => conPrice($this->input->post("crf_finance_change_number")),
                             "crf_finance_change_total" => conPrice($this->input->post("crf_finance_change_total")),
                             "crf_finance_change_detail" => $this->input->post("crf_finance_change_detail"),
-                            "crf_topic3" => "ปรับวงเงิน เพิ่ม / ลด",
+                            "crf_topic3" => "ปรับวงเงิน เพิ่ม - ลด",
                             "crf_status" => "Edited",
                             "crf_usermodify" => $this->input->post("crf_userpost"),
                             "crf_ecodemodify" => $this->input->post("crf_userecodepost"),
