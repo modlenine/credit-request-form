@@ -45,7 +45,7 @@ class Main extends MX_Controller
         if (isset($_POST["user_submit"])) {
             if ($this->main->savedata() == 1) {
                 echo "Insert Data Success<br>";
-                header("refresh:0; url=" . base_url('main/list'));
+                // header("refresh:0; url=" . base_url('main/list'));
                 die();
             } else {
                 echo "Insert Data Not Success";
@@ -1027,41 +1027,24 @@ public function saveEditdataEx()
 
 
 
-public function qr()
+
+
+
+public function testcode()
 {
-    $link = "https://bit.ly/2wXjX52";
-    $this->create_qrcode($link);
+    $deptcodeTo = 1006;
+    $posiTo = 75;
+$to = array();
+    foreach(getuserEmailTo($deptcodeTo , $posiTo)->result_array() as $rs){
+        $to[] = $rs['memberemail'];
+    }
+
+    print_r($to);
+    
+
+
+
 }
-
-
-// Get qrcode By link
-public function create_qrcode($link){
-    createQrcode($link);
-}
-
-
-public function getqrcode()
-{
-    $linkQrcode = "www.saleecolour.com/";
-    $data = '
-    <table style="border:1px solid #ccc;">
-    <tr>
-        <td>'.createQrcode($linkQrcode).'</td>
-        <td><img src="'.base_url("main/qrcode/").'" alt="Smiley face" height="100" width="100"></td>
-    </tr>
-    </table>
-    ';
-    echo $data;
-}
-
-
-public function shorturl()
-{
-    $this->load->view('test');  
-}
-
-
-
 
 
 

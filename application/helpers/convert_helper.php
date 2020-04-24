@@ -45,3 +45,5 @@ function conPrice($priceinput)
     $oriprice = str_replace("," , "" , $priceinput);
     return $oriprice;
 }
+
+

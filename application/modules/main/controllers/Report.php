@@ -19,9 +19,15 @@ class Report extends MX_Controller
 
     public function reportTH()
     {
-        $data['title'] = "รายงาน ข้อมูลในประเทศ";
+
+        $data = array(
+            "report_title" => "Report Credit Request Form",
+            "getDataToreport" => getdataToReport(),
+        );
+
+
         getHead();
-        $this->load->view('report/reportTH', $data);
+        getContentData('report/reportTH2', $data);
         getFooter();
     }
 
@@ -30,24 +36,24 @@ class Report extends MX_Controller
     {
         $this->load->model("report_model");
         $fetch_data = $this->report_model->make_datatables();
-        
-        
+
+
         $data = array();
         foreach ($fetch_data as $row) {
 
             $topic = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topic .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topic .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topic .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topic .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topic .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topic .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topic .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topic .= " / " . $row->crf_topic4;
             }
 
 
@@ -76,24 +82,24 @@ class Report extends MX_Controller
     {
         $this->load->model("report_model");
         $fetch_data = $this->report_model->make_datatables_formSearch();
-        
-        
+
+
         $data = array();
         foreach ($fetch_data as $row) {
 
             $topic = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topic .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topic .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topic .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topic .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topic .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topic .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topic .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topic .= " / " . $row->crf_topic4;
             }
 
 
@@ -141,11 +147,11 @@ class Report extends MX_Controller
 
             $topic = $row->crfex_topic;
 
-            if($row->crfex_curcustopic1 != ''){
-                $topic .= " / ".$row->crfex_curcustopic1;
+            if ($row->crfex_curcustopic1 != '') {
+                $topic .= " / " . $row->crfex_curcustopic1;
             }
-            if($row->crfex_curcustopic2 != ''){
-                $topic .= " / ".$row->crfex_curcustopic2;
+            if ($row->crfex_curcustopic2 != '') {
+                $topic .= " / " . $row->crfex_curcustopic2;
             }
 
 
@@ -170,5 +176,53 @@ class Report extends MX_Controller
 
 
 
+    function report2()
+    {
+        getHead();
+        $this->load->view("report/reportTH2");
+        getFooter();
+    }
 
+    function server()
+    {
+
+        // DB table to use
+        $table = 'report_th';
+
+        // Table's primary key
+        $primaryKey = 'crf_id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array('db' => 'crf_formno', 'dt' => 0),
+            array('db' => 'crfcus_name',  'dt' => 1),
+            array('db' => 'crf_alltype_subname',   'dt' => 2),
+            array('db' => 'crf_topic', 'dt' => 3,),
+            array('db' => 'crfcus_salesreps', 'dt' => 4,),
+            array('db' => 'crf_datecreate', 'dt' => 5,),
+            array('db' => 'crf_status', 'dt' => 6,)
+        );
+
+        // SQL server connection information
+        $sql_details = array(
+            'user' => 'chainarong',
+            'pass' => 'Admin1234',
+            'db'   => 'crf',
+            'host' => 'localhost'
+        );
+
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * If you just want to use the basic configuration for DataTables with PHP
+ * server-side, there is no need to edit below this line.
+*/
+
+        require('server-side/scripts/ssp.class.php');
+
+        echo json_encode(
+            SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns)
+        );
+    }
 }//End Report class

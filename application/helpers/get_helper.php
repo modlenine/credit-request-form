@@ -564,3 +564,13 @@ function checkCusnameEng($cusnameEng)
 
 
 
+// Report Getdata
+function getdataToReport()
+{
+    $obj = new getfn();
+    $obj->gci()->db->select('*');
+    $obj->gci()->db->from('report_th');
+    $obj->gci()->db->order_by('crf_formno' , 'desc');
+    $result = $obj->gci()->db->get();
+    return $result->result();
+}

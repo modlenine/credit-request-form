@@ -670,6 +670,7 @@ if ($result->crf_status == "Open") {
                     <!-- Check data -->
                     <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
                     <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?=$result->crf_cuscode?>">
+                    <input hidden type="text" name="saleMgrFormno" id="saleMgrFormno" value="<?=$result->crf_formno?>">
 
                     <div class="col-md-12" id="mgr_appro">
                         <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;

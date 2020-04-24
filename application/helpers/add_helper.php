@@ -19,6 +19,7 @@ class addfn
 function saveApprove($crfid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
 
     if ($obj->gci()->input->post("mgr_appro") == "อนุมัติ") {
         $status = "Sales Manager Approved";
@@ -42,6 +43,7 @@ function saveApprove($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $mgrArray);
+    $obj->gci()->email->sendemail_toCs($obj->gci()->input->post("saleMgrFormno"));
 }
 
 

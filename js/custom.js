@@ -3628,6 +3628,18 @@ $(document).ready(function () {
 
 
 
+    // Report page
+    $('table#report_list').each(function(){
+        if($('td:contains(Open)').text()){
+            $('.statuscolor').css('color','#0066FF');
+        }
+    });
+
+
+
+
+
+
 
 
 
