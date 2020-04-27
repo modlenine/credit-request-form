@@ -43,13 +43,19 @@ function saveApprove($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $mgrArray);
-    $obj->gci()->email->sendemail_toCs($obj->gci()->input->post("saleMgrFormno"));
+    if($obj->gci()->input->post("cusTypeForEmail") == 1){
+        $obj->gci()->email->sendemail_toCs($obj->gci()->input->post("saleMgrFormno"));
+    }else if($obj->gci()->input->post("cusTypeForEmail") == 2){
+        $obj->gci()->email->sendemail_toAccMgr2($obj->gci()->input->post("saleMgrFormno"));
+    }
+    
 }
 
 
 function saveCsBr($crfid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     $arbr = array(
         "crf_brcode" => $obj->gci()->input->post("crf_brcode"),
         "crf_brcode_userpost" => $obj->gci()->input->post("crf_brcode_userpost"),
@@ -68,12 +74,14 @@ function saveCsBr($crfid)
 
     $obj->gci()->db->where("crfcus_id", getCustomerCode($crfid)->crf_cuscode);
     $obj->gci()->db->update("crf_customers_temp", $arCustomer);
+    $obj->gci()->email->sendemail_toAccMgr($obj->gci()->input->post("CsFormno"));
 }
 
 
 function saveAccMgr($crfid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
         $status = "Account Manager Approved";
     } else {
@@ -97,12 +105,20 @@ function saveAccMgr($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $arAccMgr);
+
+    if($obj->gci()->input->post("accMgr_cusTypeForEmail") == 1){
+        $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
+    }else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2){
+        $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+    }
+    
 }
 
 
 function saveDerector1($crfid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     if ($obj->gci()->input->post("director1_appro") == "อนุมัติ") {
         $status = "Director Sales Approved";
     } else {
@@ -125,12 +141,20 @@ function saveDerector1($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $arDirector);
+
+    if($obj->gci()->input->post("direc1_cusTypeForEmail") == 1){
+        $obj->gci()->email->sendemail_toDerector2($obj->gci()->input->post("director1Formno"));
+    }else if($obj->gci()->input->post("direc1_cusTypeForEmail") == 2){
+        $obj->gci()->email->sendemail_toDerector2type2($obj->gci()->input->post("director1Formno"));
+    }
+    
 }
 
 
 function saveDerector2($crfid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
 
     if ($obj->gci()->input->post("director2_appro") == "อนุมัติ") {
         $status = "Director Account Approved";
@@ -154,6 +178,7 @@ function saveDerector2($crfid)
 
     $obj->gci()->db->where("crf_id", $crfid);
     $obj->gci()->db->update("crf_maindata", $arDirector);
+    $obj->gci()->email->sendemail_toAccStaff($obj->gci()->input->post("direc2FormNo"));
 }
 
 
@@ -162,6 +187,7 @@ function saveDerector2($crfid)
 function saveDirector2ChangSales($crfid)
 {
     $obj = new addfn();
+
 
     if ($obj->gci()->input->post("director2_appro") == "อนุมัติ") {
         $arDirector = array(
@@ -223,6 +249,7 @@ function saveDirector2ChangSales($crfid)
 function saveDirector2ChangeAddress($crfid)
 {
     $obj = new addfn();
+
 
     if ($obj->gci()->input->post("director2_appro") == "อนุมัติ") {
         $arDirector = array(
@@ -291,6 +318,7 @@ function saveDirector2ChangeAddress($crfid)
 function saveDirector2ChangeCredit($crfid)
 {
     $obj = new addfn();
+
     if ($obj->gci()->input->post("director2_appro") == "อนุมัติ") {
 
         $arDirector = array(
@@ -415,6 +443,7 @@ function saveDirector2ChangeMoney($crfid)
 function saveCustomersCode($crfid, $crfcusid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     $arAccStaff = array(
         "crf_savecustomercode" => $obj->gci()->input->post("cusCode"),
         "crf_usersave_customercode" => $obj->gci()->input->post("cusCode_userPost"),
@@ -497,7 +526,11 @@ function saveCustomersCode($crfid, $crfcusid)
             $obj->gci()->db->insert("crf_customers", $arCopyToCustomerTable);
         }
     }
+    $obj->gci()->email->sendemail_toOwner($obj->gci()->input->post("accStaffFormNo"));
 }
+
+
+
 
 
 

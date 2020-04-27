@@ -671,6 +671,7 @@ if ($result->crf_status == "Open") {
                     <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
                     <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?=$result->crf_cuscode?>">
                     <input hidden type="text" name="saleMgrFormno" id="saleMgrFormno" value="<?=$result->crf_formno?>">
+                    <input type="text" name="cusTypeForEmail" id="cusTypeForEmail" value="<?=$result->crf_type?>">
 
                     <div class="col-md-12" id="mgr_appro">
                         <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
@@ -715,7 +716,8 @@ if ($result->crf_status == "Open") {
 
                 <!-- BRCODE CHECK -->
                 <input hidden type="text" name="forcheckcrf_brcode" id="forcheckcrf_brcode" value="<?= $result->crf_brcode ?>">
-                <input type="text" name="forcheckcrf_area" id="forcheckcrf_area" value="<?=$result->crf_company?>">
+                <input hidden type="text" name="forcheckcrf_area" id="forcheckcrf_area" value="<?=$result->crf_company?>">
+                <input hidden type="text" name="CsFormno" id="CsFormno" value="<?=$result->crf_formno?>">
 
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
@@ -752,6 +754,8 @@ if ($result->crf_status == "Open") {
                 <!-- Check data Zone -->
                 <input hidden type="text" name="formgraccappro" id="formgraccappro" value="<?= $result->crf_accmgrapprove_status ?>">
                 <input hidden type="text" name="accMgrCuscode" id="accMgrCuscode" value="<?=$result->crf_cuscode?>">
+                <input hidden type="text" name="accMgrFormno" id="accMgrFormno" value="<?=$result->crf_formno?>">
+                <input type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?=$result->crf_type?>">
 
                 <div class="row form-group">
                     <div class="col-md-12 mgr_appro">
@@ -799,6 +803,8 @@ if ($result->crf_status == "Open") {
                 <!-- Check Data -->
                 <input hidden type="text" name="checkfordirector1_appro" id="checkfordirector1_appro" value="<?= $result->crf_directorapprove_status1 ?>">
                 <input hidden type="text" name="Director1Cuscode" id="Director1Cuscode" value="<?=$result->crf_cuscode?>">
+                <input hidden type="text" name="director1Formno" id="director1Formno" value="<?=$result->crf_formno?>">
+                <input hidden type="text" name="direc1_cusTypeForEmail" id="direc1_cusTypeForEmail" value="<?=$result->crf_type?>">
 
                 <div class="row form-group ">
                     <div class="col-md-12 director1_appro">
@@ -846,6 +852,7 @@ if ($result->crf_status == "Open") {
                 <input style="display:none" type="text" name="deptcodeD2" id="deptcodeD2" value="<?= $result->crf_userdeptcodepost ?>">
                 <input hidden type="text" name="Director2Cuscode" id="Director2Cuscode" value="<?=$result->crf_cuscode?>">
                 <input hidden type="text" name="direc2FormNo" id="direc2FormNo" value="<?=$result->crfcus_formno?>">
+                <input hidden type="text" name="direc2_cusTypeForEmail" id="direc2_cusTypeForEmail" value="<?=$result->crf_type?>">
 
                 <h6 class=""><b><u>สำหรับฝ่ายบริหาร2</u></b></h6>
                 <input hidden type="text" name="checkfordirector2_appro" id="checkfordirector2_appro" value="<?= $result->crf_directorapprove_status2 ?>">
@@ -889,6 +896,7 @@ if ($result->crf_status == "Open") {
 
                 <input hidden type="text" name="checkCustomercode" id="checkCustomercode" value="<?= $result->crf_savecustomercode ?>">
                 <input hidden type="text" name="accCheckAreacode" id="accCheckAreacode" value="<?=$result->crf_company?>">
+                <input hidden type="text" name="accStaffFormNo" id="accStaffFormNo" value="<?=$result->crfcus_formno?>">
 
                 <div class="row form-group">
                     <div class="col-md-8">

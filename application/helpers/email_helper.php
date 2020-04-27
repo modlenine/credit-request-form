@@ -43,7 +43,27 @@ function getDataEmail($formno)
     a.crf_mgrapprove_name,
     a.crf_mgrapprove_detail,
     a.crf_mgrapprove_datetime,
-    a.crf_mgrapprove_status
+    a.crf_mgrapprove_status,
+    a.crf_brcode,
+    a.crf_brcode_userpost,
+    a.crf_brcode_datetime,
+    a.crf_accmgr_name,
+    a.crf_accmgr_detail,
+    a.crf_accmgr_datetime,
+    a.crf_accmgrapprove_status,
+    a.crf_director_name1,
+    a.crf_director_datetime1,
+    a.crf_directorapprove_status1,
+    a.crf_director_detail1,
+    a.crf_director_name2,
+    a.crf_director_datetime2,
+    a.crf_directorapprove_status2,
+    a.crf_director_detail2,
+    a.crf_userecodepost,
+    a.crf_userdeptcodepost,
+    a.crf_savecustomercode,
+    a.crf_usersave_customercode,
+    a.crf_datetimesave_customercode
 
     FROM
     crf_maindata AS a
@@ -133,7 +153,7 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
     $mail->SMTPAuth = true;     // turn on SMTP authentication
     $mail->Username = "crf_system@saleecolour.com";  // SMTP username
 
-    $mail->Password = "Crf*System999"; // SMTP password
+    $mail->Password = "Slc123456#"; // SMTP password
 
     $mail->From = "crf_system@saleecolour.com";
     $mail->FromName = "ทดสอบส่ง Email";
@@ -148,7 +168,7 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
     }
 
     // $mail->AddAddress($to);
-    // $mail->AddCC($cc);
+    $mail->AddCC("chainarong_k@saleecolour.com");
 
     $mail->WordWrap = 50;                                 // set word wrap to 50 characters
     $mail->IsHTML(true);                                  // set email format to HTML
@@ -178,9 +198,24 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
           tr:nth-child(even) {
             background-color: #F5F5F5;
           }
+
+          .bghead{
+              text-align:center;
+              background-color:#D3D3D3;
+          }
         </style>
     '.$body;
     $mail->send();
+}
+
+
+function getuserEmailToDirector($posi)
+{
+    $obj = new emailfn();
+    $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
+
+    $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE posi in ($posi) AND resigned = 0");
+    return $query;
 }
 
 
@@ -190,6 +225,16 @@ function getuserEmailTo($deptcode , $posi){
     $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
 
     $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE DeptCode = '$deptcode' AND posi in ($posi) AND resigned = 0");
+    return $query;
+}
+
+
+function getuserEmailToCs($ecode)
+{
+    $obj = new emailfn();
+    $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
+
+    $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE ecode in ($ecode) AND resigned = 0");
     return $query;
 }
 
@@ -209,5 +254,23 @@ function getuserEmailCc($ecode)
     $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
 
     $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE ecode = '$ecode' AND resigned = 0");
+    return $query;
+}
+
+function getuserEmailToOwner($ecode)
+{
+    $obj = new emailfn();
+    $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
+
+    $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE ecode = '$ecode' AND resigned = 0");
+    return $query;
+}
+
+function getuserEmailccOwner($deptcode)
+{
+    $obj = new emailfn();
+    $obj->gci()->db2 = $obj->gci()->load->database('saleecolour',TRUE);
+
+    $query = $obj->gci()->db2->query("SELECT memberemail FROM member WHERE DeptCode = '$deptcode' AND resigned = 0");
     return $query;
 }

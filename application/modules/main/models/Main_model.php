@@ -620,7 +620,9 @@ class Main_model extends CI_Model
                 );
                 $this->db->insert("crf_userlog", $aruserlog);
             }
+            $this->email_model->sendemail_savedatath($getFormNo);
             return 1;
+            
         }
 
         return 2;
@@ -1152,10 +1154,10 @@ class Main_model extends CI_Model
             echo "<script>";
             echo "alert('พบข้อมูลซ้ำในระบบ')";
             echo "</script>";
-            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
+            header("refresh:5; url=" . base_url('main/viewdata/') . $crfid);
         } else if ($result->num_rows() == 0) {
             saveCsBr($crfid);
-            header("refresh:0; url=" . base_url('main/list'));
+            header("refresh:5; url=" . base_url('main/list'));
         }
     }
     // Check Duplicate Br code
@@ -1176,25 +1178,31 @@ class Main_model extends CI_Model
 
     public function director2($crfid)
     {
-        if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
-            saveDirector2ChangSales($crfid);
+        if($this->input->post("direc2_cusTypeForEmail") == 2){
+            if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
+                saveDirector2ChangSales($crfid);
+            }
+    
+            if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
+                saveDirector2ChangeAddress($crfid);
+            }
+    
+            if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
+                saveDirector2ChangeCredit($crfid);
+            }
+    
+            if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
+                saveDirector2ChangeMoney($crfid);
+            }
+            $this->email_model->sendemail_toOwnerType2($this->input->post("direc2FormNo"));
+        }else if($this->input->post("direc2_cusTypeForEmail") == 1){
+            if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
+                saveDerector2($crfid);
+            }
         }
+        
 
-        if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
-            saveDirector2ChangeAddress($crfid);
-        }
-
-        if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
-            saveDirector2ChangeCredit($crfid);
-        }
-
-        if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
-            saveDirector2ChangeMoney($crfid);
-        }
-
-        if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
-            saveDerector2($crfid);
-        }
+        
     }
 
     public function saveCustomersCode($crfid, $crfcusid)
@@ -1214,10 +1222,10 @@ class Main_model extends CI_Model
             echo "<script>
             alert('พบข้อมูลซ้ำในระบบ');
             </script>";
-            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
+            header("refresh:5; url=" . base_url('main/viewdata/') . $crfid);
         } else if ($result->num_rows() == 0) {
             saveCustomersCode($crfid, $crfcusid);
-            header("refresh:0; url=" . base_url('main/list'));
+            header("refresh:5; url=" . base_url('main/list'));
         }
     }
 
