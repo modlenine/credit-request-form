@@ -21,6 +21,7 @@
 				width: 20% !important;
 			}
 		}
+		
 	</style>
 </head>
 
@@ -30,8 +31,8 @@
 
 		<hr>
 		<div class="row">
-			<div class="col-md-2 form-group">
-				<a href="<?= base_url('main/addTH') ?>"><button class="btn btn-info">เพิ่มรายการในประเทศ</button></a>
+			<div class="col-md-3 form-group">
+				<a href="<?= base_url('main/addTH') ?>"><button class="btn btn-info btn-block"><i class="fas fa-plus-circle"></i>&nbsp;เพิ่มรายการในประเทศ</button></a>
 			</div>
 			<div class="col-md-4 form-group form-inline">
 				<label>ค้นหาข้อมูล&nbsp;</label>
@@ -41,7 +42,7 @@
 					<option value="จากเลขที่คำขอ">จากเลขที่คำขอ</option>
 					<option value="จากชื่อบริษัท">จากชื่อบริษัท</option>
 				</select>&nbsp;
-				<a href="javascript:void(0)" id="clearSearch"><i class="fas fa-trash-restore" style="font-size:24px;color:#FF6600"></i></a>
+				<a href="javascript:void(0)" id="clearSearch"><i class="fas fa-trash-restore m-2" style="font-size:24px;color:#FF6600"></i></a>
 			</div>
 
 			<!-- ค้นหาจากวันที่ -->

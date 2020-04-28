@@ -671,7 +671,7 @@ if ($result->crf_status == "Open") {
                     <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
                     <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?=$result->crf_cuscode?>">
                     <input hidden type="text" name="saleMgrFormno" id="saleMgrFormno" value="<?=$result->crf_formno?>">
-                    <input type="text" name="cusTypeForEmail" id="cusTypeForEmail" value="<?=$result->crf_type?>">
+                    <input hidden type="text" name="cusTypeForEmail" id="cusTypeForEmail" value="<?=$result->crf_type?>">
 
                     <div class="col-md-12" id="mgr_appro">
                         <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
@@ -755,7 +755,7 @@ if ($result->crf_status == "Open") {
                 <input hidden type="text" name="formgraccappro" id="formgraccappro" value="<?= $result->crf_accmgrapprove_status ?>">
                 <input hidden type="text" name="accMgrCuscode" id="accMgrCuscode" value="<?=$result->crf_cuscode?>">
                 <input hidden type="text" name="accMgrFormno" id="accMgrFormno" value="<?=$result->crf_formno?>">
-                <input type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?=$result->crf_type?>">
+                <input hidden type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?=$result->crf_type?>">
 
                 <div class="row form-group">
                     <div class="col-md-12 mgr_appro">

@@ -66,6 +66,10 @@
     color:rgb(165, 66, 0);
 }
 
+a:hover{
+    text-decoration: unset;
+}
+
 
 
 

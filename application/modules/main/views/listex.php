@@ -30,8 +30,8 @@
 
 		<hr>
 		<div class="row">
-			<div class="col-md-2 form-group">
-				<a href="<?=base_url('main/addEx')?>"><button class="btn btn-info">New CRF Form</button></a>
+			<div class="col-md-3 form-group">
+				<a href="<?=base_url('main/addEx')?>"><button class="btn btn-info btn-block"><i class="fas fa-plus-circle"></i>&nbsp;New CRF Form</button></a>
 			</div>
 			<div class="col-md-4 form-group form-inline">
 				<label>Search&nbsp;</label>

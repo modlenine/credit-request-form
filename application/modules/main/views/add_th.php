@@ -335,6 +335,7 @@
 
                 <label for="">
                     <h6><b><u>เอกสารที่จำเป็นในการขอเปิดวงเงินการค้า</u></b></h6>
+                    <span style="color:red;">ไฟล์ต้องมีขนาดไม่เกิน 10MB.</span>
                 </label>
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">

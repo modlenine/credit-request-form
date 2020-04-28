@@ -1153,10 +1153,10 @@ class Main_model extends CI_Model
             echo "<script>";
             echo "alert('พบข้อมูลซ้ำในระบบ')";
             echo "</script>";
-            header("refresh:5; url=" . base_url('main/viewdata/') . $crfid);
+            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
         } else if ($result->num_rows() == 0) {
             saveCsBr($crfid);
-            header("refresh:5; url=" . base_url('main/list'));
+            header("refresh:0; url=" . base_url('main/list'));
         }
     }
     // Check Duplicate Br code
@@ -1218,10 +1218,10 @@ class Main_model extends CI_Model
             echo "<script>
             alert('พบข้อมูลซ้ำในระบบ');
             </script>";
-            header("refresh:5; url=" . base_url('main/viewdata/') . $crfid);
+            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
         } else if ($result->num_rows() == 0) {
             saveCustomersCode($crfid, $crfcusid);
-            header("refresh:5; url=" . base_url('main/list'));
+            header("refresh:0; url=" . base_url('main/list'));
         }
     }
 

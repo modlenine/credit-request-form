@@ -1436,7 +1436,204 @@ class Email_model extends CI_Model
    }
 
 
+   function sendemail_toOwner($formno)
+   {
 
+      $topicTH = getDataEmail($formno)->crf_topic;
+      if (getDataEmail($formno)->crf_topic1 != '') {
+         $topicTH .= " / " . getDataEmail($formno)->crf_topic1;
+      }
+      if (getDataEmail($formno)->crf_topic2 != '') {
+         $topicTH .= " / " . getDataEmail($formno)->crf_topic2;
+      }
+      if (getDataEmail($formno)->crf_topic3 != '') {
+         $topicTH .= " / " . getDataEmail($formno)->crf_topic3;
+      }
+      if (getDataEmail($formno)->crf_topic4 != '') {
+         $topicTH .= " / " . getDataEmail($formno)->crf_topic4;
+      }
+
+      $longurl = base_url('qrcode/') . getDataEmail($formno)->crf_id;
+      $short_url = shorturl($longurl);
+
+
+      $subject = "[crf]รายการ Credit request form ที่ร้องขอ ผ่านการอนุมัติเรียบร้อยแล้ว";
+
+      $body = '
+        <h2>รายการ Credit request form ที่ร้องขอ ผ่านการอนุมัติเรียบร้อยแล้ว</h2>
+        <table>
+         <tr>
+            <td><strong>เลขที่คำขอ</strong></td>
+            <td>' . getDataEmail($formno)->crfcus_formno . '</td>
+            <td><strong>วันที่สร้างรายการ</strong></td>
+            <td>' . conDateFromDb(getDataEmail($formno)->crf_datecreate) . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ประเภทลูกค้า</strong></td>
+            <td>' . getDataEmail($formno)->crf_alltype_subname . '</td>
+            <td><strong>สถานะ</strong></td>
+            <td>' . getDataEmail($formno)->crf_status . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>หัวข้อ</strong></td>
+            <td colspan="3">' . $topicTH . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ชื่อลูกค้า</strong></td>
+            <td>' . getDataEmail($formno)->crfcus_name . '</td>
+            <td><strong>เซลล์ผู้ดูแล</strong></td>
+            <td>' . getDataEmail($formno)->crfcus_salesreps . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้บันทึกข้อมูล</strong></td>
+            <td>' . getDataEmail($formno)->crf_userpost . '</td>
+            <td><strong>แผนก</strong></td>
+            <td>' . getDataEmail($formno)->crf_userdeptpost . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>รหัสพนักงาน</strong></td>
+            <td>' . getDataEmail($formno)->crf_userecodepost . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_userpostdatetime) . '</td>
+         </tr>
+
+         <tr>
+            <td colspan="4" class="bghead"><b>ผลการอนุมัติของ Manager</b></td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้อนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_mgrapprove_name . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_mgrapprove_datetime) . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผลการอนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_mgrapprove_status . '</td>
+            <td><strong>เหตุผล</strong></td>
+            <td>' . getDataEmail($formno)->crf_mgrapprove_detail . '</td>
+         </tr>
+
+         <tr>
+            <td colspan="4" class="bghead"><b>ผลการดำเนินงานของ CS</b></td>
+         </tr>
+
+         
+         <tr>
+            <td><strong>BR CODE</strong></td>
+            <td colspan="3">' . getDataEmail($formno)->crf_brcode . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้บันทึก</strong></td>
+            <td>' . getDataEmail($formno)->crf_brcode_userpost . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_brcode_datetime) . '</td>
+         </tr>
+
+
+         <tr>
+            <td colspan="4" class="bghead"><b>ผลการอนุมัติของ Account Manager</b></td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้อนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_accmgr_name . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_accmgr_datetime) . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผลการอนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_accmgrapprove_status . '</td>
+            <td><strong>เหตุผล</strong></td>
+            <td>' . getDataEmail($formno)->crf_accmgr_detail . '</td>
+         </tr>
+
+         <tr>
+            <td colspan="4" class="bghead"><b>ผลการอนุมัติของ Deputy Managing Director Sales</b></td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้อนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_director_name1 . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_director_datetime1) . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผลการอนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_directorapprove_status1 . '</td>
+            <td><strong>เหตุผล</strong></td>
+            <td>' . getDataEmail($formno)->crf_director_detail1 . '</td>
+         </tr>
+
+         <tr>
+            <td colspan="4" class="bghead"><b>ผลการอนุมัติของ Deputy Managing Director Account</b></td>
+         </tr>
+
+         <tr>
+            <td><strong>ผู้อนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_director_name2 . '</td>
+            <td><strong>วันที่</strong></td>
+            <td>' . conDateTimeFromDb(getDataEmail($formno)->crf_director_datetime2) . '</td>
+         </tr>
+
+         <tr>
+            <td><strong>ผลการอนุมัติ</strong></td>
+            <td>' . getDataEmail($formno)->crf_directorapprove_status2 . '</td>
+            <td><strong>เหตุผล</strong></td>
+            <td>' . getDataEmail($formno)->crf_director_detail2 . '</td>
+         </tr>
+
+
+         <tr>
+            <td><strong>ตรวจสอบรายการ</strong></td>
+            <td colspan="3"><a href="' . base_url('main/viewdata/') . getDataEmail($formno)->crf_id . '">' . getDataEmail($formno)->crfcus_formno . '</a></td>
+         </tr>
+
+         <tr>
+            <td><strong>Scan QrCode</strong></td>
+            <td colspan="3"><img src="' . base_url('upload/qrcode/') . $this->createQrcode($short_url) . '"></td>
+         </tr>
+
+         </table>
+         ';
+
+
+
+      //  Email Zone
+
+      $ecode = getDataEmail($formno)->crf_userecodepost;
+      $option = getuserEmailToOwner($ecode);
+
+
+      $to = array();
+      foreach ($option->result_array() as $result) {
+         $to[] = $result['memberemail'];
+      }
+
+      //  $to = array(
+      //      "chainarong_k@saleecolour.com",
+      //  );
+
+      $deptcode = getDataEmail($formno)->crf_userdeptcodepost;
+      $option_cc = getuserEmailccOwner($deptcode);
+      $cc = array();
+      foreach ($option_cc->result_array() as $result_cc) {
+         $cc[] = $result_cc['memberemail'];
+      }
+
+      emailSaveDataTH($subject, $body, $to, $cc);
+      //  Email Zone
+
+   }
 
 
    function sendemail_toOwnerType2($formno)

@@ -225,4 +225,13 @@ class Report extends MX_Controller
             SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns)
         );
     }
+
+
+    public function blankForm()
+    {
+        $this->load->view("report/blankForm");
+    }
+
+
+
 }//End Report class

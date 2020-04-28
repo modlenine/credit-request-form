@@ -1804,7 +1804,7 @@ $(document).ready(function () {
 
     //Check File Format And Size //Check File Format And Size
     //Check File Format And Size //Check File Format And Size
-    $('input[type=file][name=crf_file1],[name=crf_file2],[name=crf_file3]').change(function () {
+    $('input[type=file][name=crf_file1],[name=crf_file2],[name=crf_file3],[name=crf_file4],[name=crf_file5],[name=crf_file6]').change(function () {
         var ext = $(this).val().split('.').pop().toLowerCase();
         //Allowed file types
         if ($.inArray(ext, ['pdf', 'jpg', 'png']) == -1) {
