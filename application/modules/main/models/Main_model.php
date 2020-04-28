@@ -279,7 +279,7 @@ class Main_model extends CI_Model
                 $this->db->select("*");
                 $this->db->from("crf_customers");
                 $this->db->where("crfcus_id", $this->input->post("crf_cusid"));
-                $this->db->where("crfcus_area" , $this->input->post("addThArea"));
+                $this->db->where("crfcus_area", $this->input->post("addThArea"));
                 $query = $this->db->get();
 
 
@@ -622,7 +622,6 @@ class Main_model extends CI_Model
             }
             $this->email_model->sendemail_savedatath($getFormNo);
             return 1;
-            
         }
 
         return 2;
@@ -684,17 +683,17 @@ class Main_model extends CI_Model
 
             $topicTH = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topicTH .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topicTH .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topicTH .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topicTH .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topicTH .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topicTH .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topicTH .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topicTH .= " / " . $row->crf_topic4;
             }
 
             $output .= '
@@ -797,17 +796,17 @@ class Main_model extends CI_Model
 
             $topicTH = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topicTH .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topicTH .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topicTH .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topicTH .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topicTH .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topicTH .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topicTH .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topicTH .= " / " . $row->crf_topic4;
             }
 
             $output .= '
@@ -910,17 +909,17 @@ class Main_model extends CI_Model
 
             $topicTH = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topicTH .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topicTH .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topicTH .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topicTH .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topicTH .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topicTH .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topicTH .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topicTH .= " / " . $row->crf_topic4;
             }
 
             $output .= '
@@ -1025,17 +1024,17 @@ class Main_model extends CI_Model
 
             $topicTH = $row->crf_topic;
 
-            if($row->crf_topic1 != ''){
-                $topicTH .= " / ".$row->crf_topic1;
+            if ($row->crf_topic1 != '') {
+                $topicTH .= " / " . $row->crf_topic1;
             }
-            if($row->crf_topic2 != ''){
-                $topicTH .= " / ".$row->crf_topic2;
+            if ($row->crf_topic2 != '') {
+                $topicTH .= " / " . $row->crf_topic2;
             }
-            if($row->crf_topic3 != ''){
-                $topicTH .= " / ".$row->crf_topic3;
+            if ($row->crf_topic3 != '') {
+                $topicTH .= " / " . $row->crf_topic3;
             }
-            if($row->crf_topic4 != ''){
-                $topicTH .= " / ".$row->crf_topic4;
+            if ($row->crf_topic4 != '') {
+                $topicTH .= " / " . $row->crf_topic4;
             }
 
             $output .= '
@@ -1146,7 +1145,7 @@ class Main_model extends CI_Model
         $this->db->select("crfcus_brcode");
         $this->db->from("crf_customers");
         $this->db->where("crfcus_brcode", $brcode);
-        $this->db->where("crfcus_area",$area);
+        $this->db->where("crfcus_area", $area);
         $result = $this->db->get();
 
         echo $result->num_rows();
@@ -1178,31 +1177,28 @@ class Main_model extends CI_Model
 
     public function director2($crfid)
     {
-        if($this->input->post("direc2_cusTypeForEmail") == 2){
+        if ($this->input->post("direc2_cusTypeForEmail") == 2) {
             if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
                 saveDirector2ChangSales($crfid);
             }
-    
+
             if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
                 saveDirector2ChangeAddress($crfid);
             }
-    
+
             if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
                 saveDirector2ChangeCredit($crfid);
             }
-    
+
             if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
                 saveDirector2ChangeMoney($crfid);
             }
             $this->email_model->sendemail_toOwnerType2($this->input->post("direc2FormNo"));
-        }else if($this->input->post("direc2_cusTypeForEmail") == 1){
+        } else if ($this->input->post("direc2_cusTypeForEmail") == 1) {
             if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
                 saveDerector2($crfid);
             }
         }
-        
-
-        
     }
 
     public function saveCustomersCode($crfid, $crfcusid)
@@ -1214,7 +1210,7 @@ class Main_model extends CI_Model
         $this->db->select("crfcus_code");
         $this->db->from("crf_customers_temp");
         $this->db->where("crfcus_code", $customercode);
-        $this->db->where("crfcus_area" , $accArea);
+        $this->db->where("crfcus_area", $accArea);
         $result = $this->db->get();
 
         echo $result->num_rows();
@@ -1335,7 +1331,7 @@ class Main_model extends CI_Model
             data_crf_area = '$rs->crfcus_area'
             data_crf_file1 = '$rs->crfcus_file1'
             
-            ><li class='list-group-item'>" . $rs->crfcus_code ." (".$rs->crfcus_area.")". "</li></a>";
+            ><li class='list-group-item'>" . $rs->crfcus_code . " (" . $rs->crfcus_area . ")" . "</li></a>";
             $output .= "</ul>";
         }
 
@@ -1410,7 +1406,7 @@ class Main_model extends CI_Model
             data_crfex_cuspayment = '$rs->crfexcus_payment'
             data_crfexcus_area = '$rs->crfexcus_area'
 
-            ><li class='list-group-item'>" . $rs->crfexcus_code ." (".$rs->crfexcus_area.")". "</li></a>";
+            ><li class='list-group-item'>" . $rs->crfexcus_code . " (" . $rs->crfexcus_area . ")" . "</li></a>";
             $output .= "</ul>";
         }
 
@@ -1663,7 +1659,7 @@ class Main_model extends CI_Model
             $this->db->select("*");
             $this->db->from("crfex_customers");
             $this->db->where("crfexcus_code", $this->input->post("crfex_customercode"));
-            $this->db->where("crfexcus_area" , $this->input->post("checkAreaAddEn"));
+            $this->db->where("crfexcus_area", $this->input->post("checkAreaAddEn"));
             $query = $this->db->get();
 
             foreach ($query->result() as $result) {
@@ -2278,7 +2274,7 @@ class Main_model extends CI_Model
         $this->db->select("crfexcus_brcode");
         $this->db->from("crfex_customers");
         $this->db->where("crfexcus_brcode", $exBrCode);
-        $this->db->where("crfexcus_area" , $csArea);
+        $this->db->where("crfexcus_area", $csArea);
         $result = $this->db->get();
         echo $result->num_rows();
         if ($result->num_rows() > 0) {
@@ -2822,8 +2818,69 @@ class Main_model extends CI_Model
                 $this->db->where("crfex_id", $this->input->post("checkEditFormId"));
                 $this->db->update("crfex_maindata", $arUpdateMaindata);
             }
-            header("refresh:0; url=".base_url('main/listex'));
+            header("refresh:0; url=" . base_url('main/listex'));
         }
+    }
+
+
+
+
+    // Report Zone
+    private function querydata_date($datestart , $dateend)
+    {
+        $query = $this->db->query("SELECT * FROM report_ex WHERE crfex_datecreate BETWEEN '$datestart' AND '$dateend' ");
+        return $query->result();
+    }
+    private function querydata()
+    {
+        $query = $this->db->query("SELECT * FROM report_ex");
+        return $query->result();
+    }
+
+
+    public function reportExportdate()
+    {
+        $datestart = "";
+        $dateend = "";
+        $datestart = $this->input->post("datestart");
+        $dateend = $this->input->post("dateend");
+
+        $data["rss"] = $this->querydata_date($datestart , $dateend);
+        $this->load->view("report/resultReportEx" , $data);
+    }
+
+    public function reportExport()
+    {
+        $data["rss"] = $this->querydata();
+        $this->load->view("report/resultReportEx" , $data);
+    }
+
+
+    private function queryTh()
+    {
+        $query = $this->db->query("SELECT * FROM report_th");
+        return $query->result();
+    }
+    public function reportTh()
+    {
+        $data["rss"] = $this->queryTh();
+        $this->load->view("report/resultReportTh" , $data);
+    }
+
+    private function queryThdate($datestart , $dateend)
+    {
+        $query = $this->db->query("SELECT * FROM report_th WHERE crf_datecreate BETWEEN '$datestart' AND '$dateend' ");
+        return $query->result();
+    }
+    public function reportThdate()
+    {
+        $datestart = "";
+        $dateend = "";
+        $datestart = $this->input->post("datestart");
+        $dateend = $this->input->post("dateend");
+
+        $data["rss"] = $this->queryThdate($datestart,$dateend);
+        $this->load->view("report/resultReportTh" , $data);
     }
 
 

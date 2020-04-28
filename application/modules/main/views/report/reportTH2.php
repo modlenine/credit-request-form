@@ -16,43 +16,42 @@
 
     <script>
         $(document).ready(function() {
-            $('#report_list thead th').each(function() {
-                var title = $(this).text();
-                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
-            });
+            // $('#report_list thead th').each(function() {
+            //     var title = $(this).text();
+            //     $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            // });
 
-            var table = $('#report_list').DataTable({
-                "columnDefs": [{
-                    "searching": false,
-                    "orderable": false,
-                    "targets": "_all"
-                }],
-                dom: 'Bfrtip',
-                "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form'
-                    }
-                ],
-                "order": [
-                    [0, 'desc']
-                ],
-                responsive: true
-            });
+            // var table = $('#report_list').DataTable({
+            //     "columnDefs": [{
+            //         "searching": false,
+            //         "orderable": false,
+            //         "targets": "_all"
+            //     }],
+            //     dom: 'Bfrtip',
+            //     "buttons": [{
+            //             extend: 'copyHtml5',
+            //             title: 'Credit request form'
+            //         },
+            //         {
+            //             extend: 'excelHtml5',
+            //             autoFilter: true,
+            //             title: 'Credit request form'
+            //         }
+            //     ],
+            //     "order": [
+            //         [0, 'desc']
+            //     ]
+            // });
 
 
-            table.columns().every(function() {
-                var table = this;
-                $('input', this.header()).on('keyup change', function() {
-                    if (table.search() !== this.value) {
-                        table.search(this.value).draw();
-                    }
-                });
-            });
+            // table.columns().every(function() {
+            //     var table = this;
+            //     $('input', this.header()).on('keyup change', function() {
+            //         if (table.search() !== this.value) {
+            //             table.search(this.value).draw();
+            //         }
+            //     });
+            // });
 
 
 
@@ -63,46 +62,23 @@
 
 <body>
     <div class="container-fulid bg-white p-3">
-
-        <div class="datatable-container">
-            <h2>{report_title}</h2>
-            <table name="report_list" id="report_list" class="table table-striped table-bordered" width="100%">
-
-                <thead>
-                    <tr>
-                        <th>เลขที่คำขอ</th>
-                        <th>ชื่อลูกค้า</th>
-                        <th>ประเภทลูกค้า</th>
-                        <th>หัวข้อ</th>
-                        <th>ผู้ดูแล</th>
-                        <th>วันที่ออกเอกสาร</th>
-                        <th>สถานะ</th>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                   <?php foreach(getdataToReport() as $rs){
-
-                       
-                       
-                       
-                    ?>
-                    <tr>
-                        <td><?=$rs->crf_formno?></td>
-                        <td><?=$rs->crfcus_name?></td>
-                        <td><?=$rs->crf_alltype_subname?></td>
-                        <td><?=$rs->crf_topic?></td>
-                        <td><?=$rs->crfcus_salesreps?></td>
-                        <td><?=conDateFromDb($rs->crf_datecreate)?></td>
-                        <td class="statuscolor"><b><?=$rs->crf_status?></b></td>
-                    </tr>
-                   <?php }; ?>
-                </tbody>
-
-            </table>
+    <h2>Report Credit Request Form</h2>
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label for="">Date Start</label>
+            <input type="date" name="dateStart" id="dateStart" class="form-control form-control-sm">
         </div>
+        <div class="col-md-3">
+            <label for="">Date End</label>
+        <input type="date" name="dateEnd" id="dateEnd" class="form-control form-control-sm">
+        </div>
+        <div class="col-md-2">
+            <button id="btnSearchTH" name="btnSearchTH" class="btn btn-primary mt-4">Search</button>
+        </div>
+    </div>
+    <div id="showTableTH"></div>
 
+    
     </div>
 </body>
 

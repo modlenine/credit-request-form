@@ -4,76 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report EN</title>
+    <title>Document</title>
 
-    <link rel="stylesheet" href="<?=base_url('css/buttons.dataTables.min.css')?>">
+    <script src="<?= base_url('js/datatable/dataTables.buttons.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/buttons.flash.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/buttons.html5.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/buttons.print.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/jszip.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/pdfmake.min.js') ?>"></script>
+    <script src="<?= base_url('js/datatable/vfs_fonts.js') ?>"></script>
+
+    <script>
+        $(document).ready(function() {
+            // $('#report_listEx thead th').each(function() {
+            //     var title = $(this).text();
+            //     $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            // });
+
+            // var table = $('#report_listEx').DataTable({
+            //     "columnDefs": [{
+            //         "searching": false,
+            //         "orderable": false,
+            //         "targets": "_all"
+            //     }],
+            //     dom: 'Bfrtip',
+            //     "buttons": [{
+            //             extend: 'copyHtml5',
+            //             title: 'Credit request form export.'
+            //         },
+            //         {
+            //             extend: 'excelHtml5',
+            //             autoFilter: true,
+            //             title: 'Credit request form export.'
+            //         }
+            //     ],
+            //     "order": [
+            //         [0, 'desc']
+            //     ]
+            // });
 
 
-<script src="<?= base_url('js/datatable/dataTables.buttons.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/buttons.flash.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/buttons.html5.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/buttons.print.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/jszip.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/pdfmake.min.js') ?>"></script>
-<script src="<?= base_url('js/datatable/vfs_fonts.js') ?>"></script>
+            // table.columns().every(function() {
+            //     var table = this;
+            //     $('input', this.header()).on('keyup change', function() {
+            //         if (table.search() !== this.value) {
+            //             table.search(this.value).draw();
+            //         }
+            //     });
+            // });
 
 
+
+
+        });
+    </script>
 </head>
 
 <body>
     <div class="container-fulid bg-white p-3">
-        <h3><?=$title?></h3>
-        <div class="table-responsive">
-            <br>
-            <table id="user_dataex" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Form No.</th>
-                        <th>Customer Name</th>
-                        <th>Customer Type</th>
-                        <th>Topic</th>
-                        <th>Sales Reps</th>
-                        <th>Date Creste</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-            </table>
-
+    <h2>Report Credit Request Form Export</h2>
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label for="">Date Start</label>
+            <input type="date" name="dateStart" id="dateStart" class="form-control form-control-sm">
+        </div>
+        <div class="col-md-3">
+            <label for="">Date End</label>
+        <input type="date" name="dateEnd" id="dateEnd" class="form-control form-control-sm">
+        </div>
+        <div class="col-md-2">
+            <button id="btnSearch" name="btnSearch" class="btn btn-primary mt-4">Search</button>
         </div>
     </div>
+    <div id="showTable"></div>
 
+    </div>
 </body>
 
 </html>
-
-<script type="text/javascript" language="javascript" >  
- $(document).ready(function(){  
-      var dataTable = $('#user_dataex').DataTable({  
-           "processing":true,
-           "serverSide":true,
-           "order":[],  
-           "ajax":{  
-                url:"<?php echo base_url() . 'main/report/fetch_userex'; ?>",  
-                type:"POST"  
-           },  
-           "columnDefs":[  
-                {  
-                     "targets":[0,1],  
-                     "orderable":false,  
-                },  
-           ],
-           dom: 'Bfrtip',
-                "buttons": [
-                    {
-                        extend: 'copyHtml5',
-                        title: 'Report Credit request form Export '
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Report Credit request form Export '
-                    }
-                ]
-      });  
- });  
- </script> 

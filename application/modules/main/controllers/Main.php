@@ -1049,6 +1049,30 @@ $to = array();
 
 
 
+// Report Zone
+public function reportExport()
+{
+    $this->main->reportExport();
+}
+
+
+public function reportExportdate()
+{
+    $this->main->reportExportdate();
+}
+
+public function reportTh()
+{
+    $this->main->reportTh();
+}
+public function reportThdate()
+{
+    $this->main->reportThdate();
+}
+
+
+
+
 
 
 

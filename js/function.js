@@ -211,6 +211,219 @@ function checkCustomersNameTH(cusname)
 
 
 
+// Report Zone
+
+function loadreportEx()
+{
+    $.ajax({
+        url:"/crf/main/reportExport",
+        method:"POST",
+        data:{
+
+        },
+        success:function(data){
+            $('#showTable').html(data);
+
+            $('#report_listEx thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#report_listEx').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form export.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form export.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
+
+
+
+function loadreportExdate(datestart , dateend)
+{
+    $.ajax({
+        url:"/crf/main/reportExportdate",
+        method:"POST",
+        data:{
+            datestart: datestart,
+            dateend: dateend
+        },
+        success:function(data){
+            $('#showTable').html(data);
+
+            $('#report_listEx thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#report_listEx').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form export.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form export.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
+
+function loadreport()
+{
+    $.ajax({
+        url:"/crf/main/reportTh",
+        method:"POST",
+        data:{
+
+        },
+        success:function(data){
+            $('#showTableTH').html(data);
+
+            $('#report_list thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#report_list').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
+
+function loadreportdate(datestart,dateend)
+{
+    $.ajax({
+        url:"/crf/main/reportThdate",
+        method:"POST",
+        data:{
+            datestart: datestart,
+            dateend: dateend
+        },
+        success:function(data){
+            $('#showTableTH').html(data);
+
+            $('#report_list thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#report_list').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
 
 
 

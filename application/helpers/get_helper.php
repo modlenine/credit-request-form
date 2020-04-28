@@ -574,3 +574,14 @@ function getdataToReport()
     $result = $obj->gci()->db->get();
     return $result->result();
 }
+
+
+function getdataToReportEx()
+{
+    $obj = new getfn();
+    $obj->gci()->db->select('*');
+    $obj->gci()->db->from('report_ex');
+    $obj->gci()->db->order_by('crfex_formno' , 'desc');
+    $result = $obj->gci()->db->get();
+    return $result->result();
+}

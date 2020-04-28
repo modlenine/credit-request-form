@@ -3629,10 +3629,39 @@ $(document).ready(function () {
 
 
     // Report page
+
+    // Control color status
     $('table#report_list').each(function(){
         if($('td:contains(Open)').text()){
             $('.statuscolor').css('color','#0066FF');
         }
+    });
+    // Control color status
+
+    // Control show table export
+    loadreportEx();
+    $('#btnSearch').click(function(){
+        var datestart = $('#dateStart').val();
+        var dateend = $('#dateEnd').val();
+        if(datestart != '' || dateend != ''){
+            loadreportExdate(datestart , dateend);
+        }else{
+            loadreportEx();
+        }
+        
+    });
+
+
+    loadreport();
+    $('#btnSearchTH').click(function(){
+        var datestart = $('#dateStart').val();
+        var dateend = $('#dateEnd').val();
+        if(datestart != '' || dateend != ''){
+            loadreportdate(datestart , dateend);
+        }else{
+            loadreport();
+        }
+        
     });
 
 
