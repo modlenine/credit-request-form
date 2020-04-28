@@ -537,6 +537,7 @@ function saveCustomersCode($crfid, $crfcusid)
 function exManagerApprove($crfexid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     $arManager = array(
         "crfex_mgrapp_status" => $obj->gci()->input->post("ex_mgrApprove"),
         "crfex_mgrapp_detail" => $obj->gci()->input->post("ex_mgrApproveDetail"),
@@ -546,6 +547,13 @@ function exManagerApprove($crfexid)
     );
     $obj->gci()->db->where("crfex_id", $crfexid);
     $obj->gci()->db->update("crfex_maindata", $arManager);
+
+    if($obj->gci()->input->post("mgr_cusType") == 1){
+        $obj->gci()->email->sendemail_toCsEx($obj->gci()->input->post("mgr_FormnoEx"));
+    }else if ($obj->gci()->input->post("mgr_cusType") == 2){
+        $obj->gci()->email->sendemail_toAccMgrEx2($obj->gci()->input->post("mgr_FormnoEx"));
+    }
+    
 }
 
 
@@ -553,7 +561,7 @@ function exManagerApprove($crfexid)
 function exCsAddBr($crfexid)
 {
     $obj = new addfn();
-
+    $obj->gci()->load->model('main/email_model' , 'email');
 
 
     $arCsToCustomerTemp = array(
@@ -563,13 +571,15 @@ function exCsAddBr($crfexid)
     if ($obj->gci()->db->update("crfex_customers_temp", $arCsToCustomerTemp)) {
         $arCs = array(
             "crfex_brcode" => $obj->gci()->input->post("ex_csBrCode"),
-            "crfex_csmemo" => $obj->gci()->input->post("ex_csBrMemo"),
+            // "crfex_csmemo" => $obj->gci()->input->post("ex_csBrMemo"),
             "crfex_csuserpost" => $obj->gci()->input->post("ex_csBrName"),
             "crfex_csdatetime" => conDateTimeToDb($obj->gci()->input->post("excsBrDateTime")),
             "crfex_status" => "CS Added BR CODE"
         );
         $obj->gci()->db->where("crfex_id", $crfexid);
         $obj->gci()->db->update("crfex_maindata", $arCs);
+
+        $obj->gci()->email->sendemail_toAccMgrEx($obj->gci()->input->post("csFromno"));
     }
 }
 
@@ -577,6 +587,7 @@ function exCsAddBr($crfexid)
 function exAccMgrApprove($crfexid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
     $arAccMgr = array(
         "crfex_accmgr_status" => $obj->gci()->input->post("ex_accMgrApprove"),
         "crfex_accmgr_username" => $obj->gci()->input->post("ex_accMgrApproveName"),
@@ -586,6 +597,13 @@ function exAccMgrApprove($crfexid)
     );
     $obj->gci()->db->where("crfex_id", $crfexid);
     $obj->gci()->db->update("crfex_maindata", $arAccMgr);
+
+    if($obj->gci()->input->post("accMgr_cusType") == 1){
+        $obj->gci()->email->sendemail_toDirectorEx($obj->gci()->input->post("accMgrFromno"));
+    }else if($obj->gci()->input->post("accMgr_cusType") == 2){
+        $obj->gci()->email->sendemail_toDirectorEx2($obj->gci()->input->post("accMgrFromno"));
+    }
+    
 }
 
 
@@ -593,7 +611,7 @@ function exAccMgrApprove($crfexid)
 function exDirectorApprove($crfexid)
 {
     $obj = new addfn();
-
+    $obj->gci()->load->model('main/email_model' , 'email');
 
     if ($obj->gci()->input->post("check_custype_direc") == 1) {
         // Maindata table
@@ -606,6 +624,8 @@ function exDirectorApprove($crfexid)
         );
         $obj->gci()->db->where("crfex_id", $crfexid);
         $obj->gci()->db->update("crfex_maindata", $arDirector);
+        $obj->gci()->email->sendemail_toAccStaffEx($obj->gci()->input->post("checkDirecFormNo"));
+        
     } else if ($obj->gci()->input->post("check_custype_direc") == 2) {
 
 
@@ -753,7 +773,7 @@ function exDirectorApprove($crfexid)
 
         }
 
-
+        $obj->gci()->email->sendemail_toOwnerEx2($obj->gci()->input->post("checkDirecFormNo"));
 
 
         // Customer table
@@ -766,6 +786,7 @@ function exDirectorApprove($crfexid)
 function exAccountAddCusCode($crfexid)
 {
     $obj = new addfn();
+    $obj->gci()->load->model('main/email_model' , 'email');
 
     $arCustomerTemp = array(
         "crfexcus_code" => $obj->gci()->input->post("ex_accCostomerCode"),
@@ -780,7 +801,7 @@ function exAccountAddCusCode($crfexid)
             "crfex_acccuscode" => $obj->gci()->input->post("ex_accCostomerCode"),
             "crfex_accuserpost" => $obj->gci()->input->post("ex_accName"),
             "crfex_accdatetime" => conDateTimeToDb($obj->gci()->input->post("ex_accDateTime")),
-            "crfex_accmemo" => $obj->gci()->input->post("ex_accMemo"),
+            // "crfex_accmemo" => $obj->gci()->input->post("ex_accMemo"),
             "crfex_status" => "Completed"
         );
         $obj->gci()->db->where("crfex_id", $crfexid);
@@ -832,5 +853,6 @@ function exAccountAddCusCode($crfexid)
                 $obj->gci()->db->insert("crfex_customers", $arUpdateTocustomers);
             }
         }
+        $obj->gci()->email->sendemail_toOwnerEx($obj->gci()->input->post("accFormno"));
     }
 }

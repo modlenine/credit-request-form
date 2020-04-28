@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['qrcode/(:any)'] = 'main/viewdata/$1';
+$route['qrcodeex/(:any)'] = 'main/viewdataEx/$1';

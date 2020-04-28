@@ -395,7 +395,7 @@ class Main extends MX_Controller
                 die();
             } else {
                 echo "Insert Data Not Success";
-                header("refresh:1; url=" . base_url());
+                header("refresh:0; url=" . base_url());
             }
         }
     }

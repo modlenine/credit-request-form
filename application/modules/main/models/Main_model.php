@@ -1641,7 +1641,7 @@ class Main_model extends CI_Model
                 "crfex_pterm" => $this->input->post("crfex_term"),
                 "crfex_pdiscount" => $this->input->post("crfex_discount"),
                 "crfex_userpost" => $this->input->post("crfex_usercreate"),
-                "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
+                "crfex_userdept" => $this->input->post("crfex_userdeptcodepost"),
                 "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
                 "crfex_status" => "Open",
                 "crfex_report_date" => $report_date,
@@ -1653,7 +1653,7 @@ class Main_model extends CI_Model
             $this->db->insert("crfex_customers_temp", $arcustomer);
             $this->db->insert("crfex_maindata", $armaindata);
 
-
+            $this->email_model->sendemail_savedataEx($getFormNo);
             return 1;
         } else if ($this->input->post("crfex_custype") == 2) {
 
@@ -1727,6 +1727,7 @@ class Main_model extends CI_Model
 
                     $arUpdateCustomerTemp = array(
                         "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
+                        "crfexcus_area" => $this->input->post("crfex_company"),
                         "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
                         "crfexcus_nameTH" => $this->input->post("crfex_cusnameTH"),
                         "crfexcus_address" => $this->input->post("crfex_address"),
@@ -1872,7 +1873,7 @@ class Main_model extends CI_Model
             //     );
             //     $this->db->insert("crfex_maindata", $armaindata);
             // }
-
+            $this->email_model->sendemail_savedataEx($getFormNo);
             return 1;
         } else {
             return 2;

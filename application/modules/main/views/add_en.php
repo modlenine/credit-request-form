@@ -338,7 +338,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="">Dept.</label>
-                        <input readonly type="text" name="" id="" class="form-control form-control-sm" value="{deptname}">
+                        <input readonly type="text" name="crfex_userdeptcodepost" id="crfex_userdeptcodepost" class="form-control form-control-sm" value="{deptname}">
                         <input hidden type="text" name="crfex_userdeptcode" id="crfex_userdeptcode" value="{deptcode}">
                     </div>
                     <div class="col-md-4">

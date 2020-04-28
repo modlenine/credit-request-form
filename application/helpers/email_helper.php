@@ -77,6 +77,57 @@ function getDataEmail($formno)
 }
 
 
+function getDataEmailEx($formno)
+{
+    $obj = new emailfn();
+    $sql = $obj->gci()->db->query("SELECT
+    a.crfex_id,
+    a.crfex_company,
+    a.crfex_datecreate,
+    b.crf_alltype_subnameEN,
+    a.crfex_status,
+    a.crfex_topic,
+    a.crfex_curcustopic1,
+    a.crfex_curcustopic2,
+    c.crfexcus_nameEN,
+    c.crfexcus_salesreps,
+    c.crfexcus_formno,
+    a.crfex_userpost,
+    a.crfex_userdept,
+    c.crfexcus_userecode,
+    c.crfexcus_userdeptcode,
+    a.crfex_userdatetime,
+    a.crfex_mgrapp_status,
+    a.crfex_mgrapp_username,
+    a.crfex_mgrapp_datetime,
+    a.crfex_mgrapp_detail,
+    a.crfex_brcode,
+    a.crfex_csuserpost,
+    a.crfex_csdatetime,
+    a.crfex_accmgr_username,
+    a.crfex_accmgr_datetime,
+    a.crfex_accmgr_status,
+    a.crfex_accmgr_detail,
+    a.crfex_directorapp_username,
+    a.crfex_directorapp_datetime,
+    a.crfex_directorapp_status,
+    a.crfex_directorapp_detail,
+    a.crfex_acccuscode,
+    a.crfex_accuserpost,
+    a.crfex_accdatetime
+
+    FROM
+    crfex_maindata AS a
+    INNER JOIN crf_alltype AS b ON a.crfex_custype = b.crf_alltype_subcode
+    INNER JOIN crfex_customers_temp AS c ON a.crfex_formno = c.crfexcus_formno
+    WHERE crfex_formno = '$formno'
+    ");
+
+    return $sql->row();
+
+}
+
+
 function shorturl($long_url)
 {
     // $long_url = 'https://www.saleecolour.com/';

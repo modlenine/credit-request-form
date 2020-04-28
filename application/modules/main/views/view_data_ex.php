@@ -352,6 +352,11 @@
             <form action="{exManagerApprove}" method="POST" name="" class="managerSection" style="display:none;">
                 <hr>
                 <h6><b><u>FOR SALES OR CS MANAGER APPROVE</u></b></h6>
+                <!-- Check Zone -->
+                <input hidden type="text" name="mgr_FormnoEx" id="mgr_FormnoEx" value="{crfex_formno}">
+                <input hidden type="text" name="mgr_cusType" id="mgr_cusType" value="{customertype}">
+
+
                 <div class="row form-group">
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_mgrApprove" id="ex_mgrApprove" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
@@ -416,10 +421,10 @@
                         <label for="">BR CODE</label>
                         <input type="text" name="ex_csBrCode" id="ex_csBrCode" class="form-control form-control-sm">
                     </div>
-                    <div class="col-md-8 form-group">
+                    <!-- <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea name="ex_csBrMemo" id="ex_csBrMemo" cols="30" rows="3" class="form-control form-control-sm"></textarea>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 form-group">
                         <label for="">CS Sign.</label>
                         <input readonly type="text" name="ex_csBrName" id="ex_csBrName" class="form-control form-control-sm" value="{username}">
@@ -442,10 +447,10 @@
                         <label for="">BR CODE</label>
                         <input readonly type="text" name="ex_csBrCode" id="ex_csBrCode" class="form-control form-control-sm" value="{brcode}">
                     </div>
-                    <div class="col-md-8 form-group">
+                    <!-- <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea readonly name="ex_csBrMemo" id="ex_csBrMemo" cols="30" rows="3" class="form-control form-control-sm">{crfex_csmemo}</textarea>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 form-group">
                         <label for="">CS Sign.</label>
                         <input readonly type="text" name="ex_csBrName" id="ex_csBrName" class="form-control form-control-sm" value="{crfex_csuserpost}">
@@ -465,6 +470,10 @@
             <form action="{exAccMgrApprove}" method="POST" name="" class="accManagerApprove" style="display:none;">
                 <hr>
                 <h6><b><u>FOR ACCOUNT MANAGER</u></b></h6>
+            <!-- Check Zone -->
+            <input hidden type="text" name="accMgrFromno" id="accMgrFromno" value="{crfex_formno}">
+            <input hidden type="text" name="accMgr_cusType" id="accMgr_cusType" value="{customertype}">
+
                 <div class="row form-group">
 
                     <div class="col-md-12 form-group">
@@ -593,10 +602,10 @@
                         <label for="">CUSTOMER CODE</label>
                         <input type="text" name="ex_accCostomerCode" id="ex_accCostomerCode" class="form-control form-control-sm">
                     </div>
-                    <div class="col-md-8 form-group">
+                    <!-- <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea name="ex_accMemo" id="ex_accMemo" cols="30" rows="3" class="form-control form-control-sm"></textarea>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 form-group">
                         <label for="">ACCOUNT Sign.</label>
                         <input readonly type="text" name="ex_accName" id="ex_accName" class="form-control form-control-sm" value="{username}">
@@ -623,10 +632,10 @@
                         <label for="">CUSTOMER CODE</label>
                         <input readonly type="text" name="ex_accCostomerCode" id="ex_accCostomerCode" class="form-control form-control-sm" value="{customercode}">
                     </div>
-                    <div class="col-md-8 form-group">
+                    <!-- <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea readonly name="ex_accMemo" id="ex_accMemo" cols="30" rows="3" class="form-control form-control-sm">{crfex_accmemo}</textarea>
-                    </div>
+                    </div> -->
                     <div class="col-md-4 form-group">
                         <label for="">ACCOUNT Sign.</label>
                         <input readonly type="text" name="ex_accName" id="ex_accName" class="form-control form-control-sm" value="{crfex_accuserpost}">
