@@ -415,6 +415,15 @@ function getFormBeforeSaveEx($formno)
 }
 
 
+// Check Director approve
+function check_directorapprove($crfid)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT crf_directorapprove_status1 , crf_directorapprove_status2 FROM crf_maindata WHERE crf_id = '$crfid' ");
+    return $query->row();
+}
+
+
 
 
 

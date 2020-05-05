@@ -1073,6 +1073,24 @@ public function reportThdate()
 
 
 
+// Config zone
+public function configemail()
+{
+    $data = array(
+        "title" => "test"
+    );
+
+    getHead();
+    getContent("configemail" , $data);
+    getFooter();
+}
+public function saveSettingEmail()
+{
+    $this->load->model("email_model");
+    $this->email_model->saveSettingEmail();
+}
+
+
 
 
 

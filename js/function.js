@@ -427,3 +427,24 @@ function loadreportdate(datestart,dateend)
 
 
 
+
+
+// Setting page function
+function insertEmailSystem(email_account , email_password)
+{
+    $.ajax({
+        url: "main/saveSettingEmail",
+        method: "POST",
+        data:{
+            email_account: email_account,
+            email_password: email_password
+        },
+        success:function(data){
+            alert("Add Email Success");
+        }
+    });
+} 
+
+
+
+

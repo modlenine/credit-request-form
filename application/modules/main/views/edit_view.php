@@ -367,7 +367,7 @@
                 </label>
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
-                        <label for="">ภพ.20</label><br>
+                        <label for="">ภพ.20 / ภธ.09</label><br>
                         <input hidden type="text" name="get_crf_file1" id="get_crf_file1" value="{get_file1}">
                         <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
                         <a id="datafile1" href="#" data-toggle="modal" data-target="#show_file1" data_file1="{get_file1}"><label for=""><b>{get_file1}</b></label></a>

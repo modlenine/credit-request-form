@@ -6,6 +6,7 @@
                 <thead>
                     <tr>
                         <th>Form no.</th>
+                        <th>Customer code.</th>
                         <th>Customer name.</th>
                         <th>Customer type.</th>
                         <th>Topic.</th>
@@ -31,6 +32,7 @@
                     ?>
                         <tr>
                             <td><?= $rs->crfex_formno ?></td>
+                            <td><?= $rs->crfexcus_code ?></td>
                             <td><?= $rs->crfexcus_nameEN ?></td>
                             <td><?= $rs->crf_alltype_subnameEN ?></td>
                             <td><?= $topicRs ?></td>

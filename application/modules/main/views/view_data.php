@@ -23,7 +23,7 @@ if ($result->crf_status == "Open") {
         <div id="btnEditZone" class="row" style="display:none;">
             <div class="col-md-12">
                 <a href="<?= base_url('main/editdata/') . $result->crf_id ?>"><button class="btn btn-warning mt-2">แก้ไขข้อมูล</button></a>
-                <a href="<?= base_url('main/canceldata/') . $result->crf_id ."/".$result->crf_formno?>"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">ยกเลิกเอกสาร</button></a>
+                <a href="<?= base_url('main/canceldata/') . $result->crf_id . "/" . $result->crf_formno ?>"><button class="btn btn-danger mt-2" onclick="return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่')">ยกเลิกเอกสาร</button></a>
             </div>
         </div>
 
@@ -365,7 +365,7 @@ if ($result->crf_status == "Open") {
             </label>
             <div class="row form-group">
                 <div class="col-md-4 form-group crf_file1">
-                    <label for="">ภพ.20</label><br>
+                    <label for="">ภพ.20 / ภธ.09</label><br>
                     <span><a id="datafile1" href="#" data-toggle="modal" data-target="#show_file1" data_file1="<?= $file1 ?>"><b><?= $file1 ?></b></a></span>
 
                 </div>
@@ -431,7 +431,7 @@ if ($result->crf_status == "Open") {
                 if ($result->crf_creditterm2 != 0) {
                     $creditterm2 = conCreditTerm($result->crf_creditterm2);
                     $oldcreditterm = conCreditTerm($result->crf_creditterm);
-                } else if($result->crf_creditterm2 == 0){
+                } else if ($result->crf_creditterm2 == 0) {
                     $creditterm2 = "";
                     $oldcreditterm = conCreditTerm($result->crfcus_creditterm);
                 }
@@ -660,266 +660,277 @@ if ($result->crf_status == "Open") {
 
 
 
-<!-- For Control when cancel -->
+            <!-- For Control when cancel -->
             <div id="cancel">
-            <!-- Section สำหรับ CS , Sales Manager -->
-            <form action="<?= base_url('main/managerApprove/') . $result->crf_id ?>" method="post" id="mgrAppr" class="author_manager" style="display:none;">
-                <div id="alertMgrApprove"></div>
-                <h6 class=""><b><u>สำหรับผู้จัดการ</u></b></h6>
-                <div class="row form-group">
+                <!-- Section สำหรับ CS , Sales Manager -->
+                <form action="<?= base_url('main/managerApprove/') . $result->crf_id ?>" method="post" id="mgrAppr" class="author_manager" style="display:none;">
+                    <div id="alertMgrApprove"></div>
+                    <h6 class=""><b><u>สำหรับผู้จัดการ</u></b></h6>
+                    <div class="row form-group">
+                        <!-- Check data -->
+                        <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
+                        <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?= $result->crf_cuscode ?>">
+                        <input hidden type="text" name="saleMgrFormno" id="saleMgrFormno" value="<?= $result->crf_formno ?>">
+                        <input hidden type="text" name="cusTypeForEmail" id="cusTypeForEmail" value="<?= $result->crf_type ?>">
+
+                        <div class="col-md-12" id="mgr_appro">
+                            <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input type="radio" name="mgr_appro" id="mgr_appro0" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+                        <div class="col-md-12" id="formgr_appro">
+                            <input onclick="return false" type="radio" name="formgr_appro" id="formgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input onclick="return false" type="radio" name="formgr_appro" id="formgr_appro0" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+
+
+                        <div class="col-md-8 form-group">
+                            <label>เหตุผลการอนุมัติ</label>
+                            <textarea name="crf_mgrapprove_detail" id="crf_mgrapprovedetail" cols="30" rows="2" class="form-control"></textarea>
+                            <textarea readonly name="forcrf_mgrapprove_detail" id="forcrf_mgrapprove_detail" cols="30" rows="2" class="form-control"><?= $result->crf_mgrapprove_detail ?></textarea>
+                        </div>
+
+                        <!-- Check data -->
+                        <div class="col-md-4 form-group">
+                            <label for="">ผู้อนุมัติ</label>
+                            <input readonly type="text" name="crf_mgrapprove_name" id="crf_mgrapprove_name" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcrf_mgrapprove_name" id="forcrf_mgrapprove_name" class="form-control form-control-sm" value="<?= $result->crf_mgrapprove_name ?>">
+                            <input readonly type="text" name="crf_mgrapprove_datetime" id="crf_mgrapprove_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s"); ?>">
+                            <input readonly type="text" name="forcrf_mgrapprove_datetime" id="forcrf_mgrapprove_datetime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_mgrapprove_datetime) ?>">
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="mgr_submit" name="mgr_submit">Submit</button></div>
+                    </div>
+                </form>
+                <!-- Section สำหรับ CS , Sales Manager -->
+
+
+
+
+                <!-- Section สำหรับ CS -->
+                <form action="<?= base_url('main/csBr/') . $result->crf_id ?>" method="post" style="display:none;" class="cs_br">
+                    <h6 class=""><b><u>สำหรับ CS</u></b></h6>
+
+                    <!-- BRCODE CHECK -->
+                    <input hidden type="text" name="forcheckcrf_brcode" id="forcheckcrf_brcode" value="<?= $result->crf_brcode ?>">
+                    <input hidden type="text" name="forcheckcrf_area" id="forcheckcrf_area" value="<?= $result->crf_company ?>">
+                    <input hidden type="text" name="CsFormno" id="CsFormno" value="<?= $result->crf_formno ?>">
+
+                    <div class="row form-group">
+                        <div class="col-md-8 form-group">
+                            <label for="">เลขที่ BR</label>
+                            <input readonly type="text" name="forcrf_brcode" id="forcrf_brcode" class="form-control form-control-sm" value="<?= $result->crf_brcode ?>">
+                            <input type="text" name="crf_brcode" id="crf_brcode" class="form-control form-control-sm">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="">ผู้บันทึก</label>
+                            <input readonly type="text" name="forcrf_brcode_userpost" id="forcrf_brcode_userpost" class="form-control form-control-sm" value="<?= $result->crf_brcode_userpost ?>">
+                            <input readonly type="text" name="crf_brcode_userpost" id="crf_brcode_userpost" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcrf_becode_datetime" id="forcrf_becode_datetime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_brcode_datetime) ?>">
+                            <input readonly type="text" name="crf_becode_datetime" id="crf_becode_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="br_submit" name="br_submit">Submit</button></div>
+                    </div>
+                    <hr class="">
+                </form>
+                <!-- Section สำหรับ CS -->
+
+
+
+
+
+
+
+                <!-- Section สำหรับ Account Manager -->
+                <form action="<?= base_url('main/accMgr/') . $result->crf_id ?>" method="post" class="acc_manager" style="display:none;">
+                    <h6 class=""><b><u>ความเห็นประกอบการพิจารณาจากฝ่ายบัญชีและการเงิน</u></b></h6>
+                    <!-- Check data Zone -->
+                    <input hidden type="text" name="formgraccappro" id="formgraccappro" value="<?= $result->crf_accmgrapprove_status ?>">
+                    <input hidden type="text" name="accMgrCuscode" id="accMgrCuscode" value="<?= $result->crf_cuscode ?>">
+                    <input hidden type="text" name="accMgrFormno" id="accMgrFormno" value="<?= $result->crf_formno ?>">
+                    <input hidden type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?= $result->crf_type ?>">
+
+                    <div class="row form-group">
+                        <div class="col-md-12 mgr_appro">
+                            <input type="radio" name="mgracc_appro" id="mgracc_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input type="radio" name="mgracc_appro" id="mgracc_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+
+                        <!-- When Have Data on Database -->
+                        <div class="col-md-12 formgr_appro">
+                            <input onclick="return false;" type="radio" name="formgracc_appro1" id="formgracc_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input onclick="return false;" type="radio" name="formgracc_appro2" id="formgracc_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="">ความเห็นอื่นๆ</label>
+                            <textarea name="crf_accmgr_detail" id="crf_accmgr_detail" cols="30" rows="2" class="form-control"></textarea>
+                            <textarea readonly name="forcrf_accmgr_detail" id="forcrf_accmgr_detail" cols="30" rows="2" class="form-control"><?= $result->crf_accmgr_detail ?></textarea>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="">ผู้อนุมัติ</label>
+                            <input readonly type="text" name="crf_accmgr_name" id="crf_accmgr_name" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcrf_accmgr_name" id="forcrf_accmgr_name" class="form-control form-control-sm" value="<?= $result->crf_accmgr_name ?>">
+                            <input readonly type="text" name="crf_accmgr_datatime" id="crf_accmgr_datatime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
+                            <input readonly type="text" name="forcrf_accmgr_datatime" id="forcrf_accmgr_datatime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_accmgr_datetime) ?>">
+                        </div>
+                    </div>
+                    <div class="row form-group ">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="accmgr_submit" name="accmgr_submit">Submit</button></div>
+                    </div>
+                    <hr class="">
+                </form>
+                <!-- Section สำหรับ Account Manager -->
+
+
+
+
+
+
+
+                <!-- Section สำหรับ Directorคนที่1 -->
+                <form action="<?= base_url('main/director1/') . $result->crf_id ?>" method="post" class="director1" style="display:none;">
+                    <h6 class=""><b><u>สำหรับฝ่ายบริหาร1</u></b></h6>
+
+                    <!-- Check Data -->
+                    <input hidden type="text" name="checkfordirector1_appro" id="checkfordirector1_appro" value="<?= $result->crf_directorapprove_status1 ?>">
+                    <input hidden type="text" name="Director1Cuscode" id="Director1Cuscode" value="<?= $result->crf_cuscode ?>">
+                    <input hidden type="text" name="director1Formno" id="director1Formno" value="<?= $result->crf_formno ?>">
+                    <input hidden type="text" name="direc1_cusTypeForEmail" id="direc1_cusTypeForEmail" value="<?= $result->crf_type ?>">
+                    <input hidden type="text" name="Director2Cuscode" id="Director2Cuscode" value="<?= $result->crf_cuscode ?>">
+                    <input hidden type="text" name="direc2FormNo" id="direc2FormNo" value="<?= $result->crfcus_formno ?>">
+
+                    <div class="row form-group ">
+                        <div class="col-md-12 director1_appro">
+                            <input type="radio" name="director1_appro" id="director1_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input type="radio" name="director1_appro" id="director1_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+
+                        <div class="col-md-12 fordirector1_appro">
+                            <input onclick="return false;" type="radio" name="fordirector1_appro1" id="fordirector1_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input onclick="return false;" type="radio" name="fordirector1_appro2" id="fordirector1_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="">ความเห็นของฝ่ายบริหาร</label>
+                            <textarea name="crf_director_detail1" id="crf_director_detail1" cols="30" rows="2" class="form-control"></textarea>
+                            <textarea readonly name="forcrf_director_detail1" id="forcrf_director_detail1" cols="30" rows="2" class="form-control"><?= $result->crf_director_detail1 ?></textarea>
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label for="">ผู้อนุมัติ</label>
+                            <input readonly type="text" name="crf_director_name1" id="crf_director_name1" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcrf_director_name1" id="forcrf_director_name1" class="form-control form-control-sm" value="<?= $result->crf_director_name1 ?>">
+                            <input readonly type="text" name="crf_director_datatime1" id="crf_director_datatime1" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
+                            <input readonly type="text" name="forcrf_director_datatime1" id="forcrf_director_datatime1" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_director_datetime1) ?>">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="director_submit1" name="director_submit1">Submit</button></div>
+                    </div>
+                    <hr class="">
+                </form>
+                <!-- Section สำหรับ Directorคนที่1 -->
+
+
+
+
+
+
+
+                <!-- Section สำหรับ Directorคนที่2 -->
+                <form action="<?= base_url('main/director2/') . $result->crf_id ?>" method="post" class="director2" style="display:none">
+
                     <!-- Check data -->
-                    <input hidden type="text" name="formgr_appro" id="formgr_appro" value="<?= $result->crf_mgrapprove_status ?>">
-                    <input hidden type="text" name="saleMgrCusid" id="saleMgrCusid" value="<?=$result->crf_cuscode?>">
-                    <input hidden type="text" name="saleMgrFormno" id="saleMgrFormno" value="<?=$result->crf_formno?>">
-                    <input hidden type="text" name="cusTypeForEmail" id="cusTypeForEmail" value="<?=$result->crf_type?>">
+                    <input style="display:none" type="text" name="userpostD2" id="userpostD2" value="<?= $result->crf_userpost ?>">
+                    <input style="display:none" type="text" name="ecodepostD2" id="ecodepostD2" value="<?= $result->crf_userecodepost ?>">
+                    <input style="display:none" type="text" name="deptcodeD2" id="deptcodeD2" value="<?= $result->crf_userdeptcodepost ?>">
+                    <input hidden type="text" name="Director2Cuscode" id="Director2Cuscode" value="<?= $result->crf_cuscode ?>">
+                    <input hidden type="text" name="direc2FormNo" id="direc2FormNo" value="<?= $result->crfcus_formno ?>">
+                    <input hidden type="text" name="direc2_cusTypeForEmail" id="direc2_cusTypeForEmail" value="<?= $result->crf_type ?>">
 
-                    <div class="col-md-12" id="mgr_appro">
-                        <input type="radio" name="mgr_appro" id="mgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="mgr_appro" id="mgr_appro0" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                    <h6 class=""><b><u>สำหรับฝ่ายบริหาร2</u></b></h6>
+                    <input hidden type="text" name="checkfordirector2_appro" id="checkfordirector2_appro" value="<?= $result->crf_directorapprove_status2 ?>">
+                    <div class="row form-group">
+                        <div class="col-md-12 director2_appro">
+                            <input type="radio" name="director2_appro" id="director2_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input type="radio" name="director2_appro" id="director2_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+
+                        <div class="col-md-12 fordirector2_appro">
+                            <input onclick="return false;" type="radio" name="fordirector2_appro1" id="fordirector2_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
+                            <input onclick="return false;" type="radio" name="fordirector2_appro2" id="fordirector2_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="">ความเห็นของฝ่ายบริหาร</label>
+                            <textarea name="crf_director_detail2" id="crf_director_detail2" cols="30" rows="2" class="form-control"></textarea>
+                            <textarea readonly name="forcrf_director_detail2" id="forcrf_director_detail2" cols="30" rows="2" class="form-control"><?= $result->crf_director_detail2 ?></textarea>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="">ผู้อนุมัติ</label>
+                            <input readonly type="text" name="crf_director_name2" id="crf_director_name2" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcrf_director_name2" id="forcrf_director_name2" class="form-control form-control-sm" value="<?= $result->crf_director_name2 ?>">
+                            <input readonly type="text" name="crf_director_datatime2" id="crf_director_datatime2" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
+                            <input readonly type="text" name="forcrf_director_datatime2" id="forcrf_director_datatime2" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_director_datetime2) ?>">
+                        </div>
                     </div>
-                    <div class="col-md-12" id="formgr_appro">
-                        <input onclick="return false" type="radio" name="formgr_appro" id="formgr_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input onclick="return false" type="radio" name="formgr_appro" id="formgr_appro0" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
+                    <div class="row form-group">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="director_submit2" name="director_submit2">Submit</button></div>
                     </div>
+                    <hr>
+                </form>
+                <!-- Section สำหรับ Directorคนที่2 -->
 
 
-                    <div class="col-md-8 form-group">
-                        <label>เหตุผลการอนุมัติ</label>
-                        <textarea name="crf_mgrapprove_detail" id="crf_mgrapprovedetail" cols="30" rows="2" class="form-control"></textarea>
-                        <textarea readonly name="forcrf_mgrapprove_detail" id="forcrf_mgrapprove_detail" cols="30" rows="2" class="form-control"><?= $result->crf_mgrapprove_detail ?></textarea>
+
+                <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
+                <form action="<?= base_url('main/saveCustomersCode/') . $result->crf_id . "/" . $result->crfcus_id ?>" method="post" class="account_staff" style="display:none;">
+                    <h6 class=""><b><u>สำหรับเจ้าหน้าที่บัญชี</u></b></h6>
+
+                    <input hidden type="text" name="checkCustomercode" id="checkCustomercode" value="<?= $result->crf_savecustomercode ?>">
+                    <input hidden type="text" name="accCheckAreacode" id="accCheckAreacode" value="<?= $result->crf_company ?>">
+                    <input hidden type="text" name="accStaffFormNo" id="accStaffFormNo" value="<?= $result->crfcus_formno ?>">
+                    <input hidden type="text" name="accStaffCustype" id="accStaffCustype" value="<?= $result->crf_type ?>">
+
+                    <div class="row form-group">
+                        <div class="col-md-8 accForcus1">
+                            <label for="">รหัสลูกค้า</label>
+                            <input type="text" name="cusCode" id="cusCode" class="form-control form-control-sm">
+                            <input readonly type="text" name="forcusCode" id="forcusCode" class="form-control form-control-sm" value="<?= $result->crf_savecustomercode ?>">
+                        </div>
+
+                        <div class="col-md-8 accForcus2">
+                            <label for="">ผลการดำเนินงาน</label>
+                            <textarea id="accStaffMemo" name="accStaffMemo" class="form-control" col="3" rows="2"></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="">ผู้บันทึก</label>
+                            <input readonly type="text" name="cusCode_userPost" id="cusCode_userPost" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
+                            <input readonly type="text" name="forcusCode_userPost" id="forcusCode_userPost" class="form-control form-control-sm" value="<?= $result->crf_usersave_customercode ?>">
+                            <input readonly type="text" name="cusCode_datetimePost" id="cusCode_datetimePost" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
+                            <input readonly type="text" name="fcusCode_datetimePost" id="fcusCode_datetimePost" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_datetimesave_customercode) ?>">
+                        </div>
                     </div>
-
-                    <!-- Check data -->
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input readonly type="text" name="crf_mgrapprove_name" id="crf_mgrapprove_name" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcrf_mgrapprove_name" id="forcrf_mgrapprove_name" class="form-control form-control-sm" value="<?= $result->crf_mgrapprove_name ?>">
-                        <input readonly type="text" name="crf_mgrapprove_datetime" id="crf_mgrapprove_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s"); ?>">
-                        <input readonly type="text" name="forcrf_mgrapprove_datetime" id="forcrf_mgrapprove_datetime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_mgrapprove_datetime) ?>">
-
+                    <div class="row form-group">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="acc_staff" name="acc_staff">Submit</button></div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="mgr_submit" name="mgr_submit">Submit</button></div>
-                </div>
-            </form>
-            <!-- Section สำหรับ CS , Sales Manager -->
+                </form>
 
-
-
-
-            <!-- Section สำหรับ CS -->
-            <form action="<?= base_url('main/csBr/') . $result->crf_id ?>" method="post" style="display:none;" class="cs_br">
-                <h6 class=""><b><u>สำหรับ CS</u></b></h6>
-
-                <!-- BRCODE CHECK -->
-                <input hidden type="text" name="forcheckcrf_brcode" id="forcheckcrf_brcode" value="<?= $result->crf_brcode ?>">
-                <input hidden type="text" name="forcheckcrf_area" id="forcheckcrf_area" value="<?=$result->crf_company?>">
-                <input hidden type="text" name="CsFormno" id="CsFormno" value="<?=$result->crf_formno?>">
-
-                <div class="row form-group">
-                    <div class="col-md-8 form-group">
-                        <label for="">เลขที่ BR</label>
-                        <input readonly type="text" name="forcrf_brcode" id="forcrf_brcode" class="form-control form-control-sm" value="<?= $result->crf_brcode ?>">
-                        <input type="text" name="crf_brcode" id="crf_brcode" class="form-control form-control-sm">
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้บันทึก</label>
-                        <input readonly type="text" name="forcrf_brcode_userpost" id="forcrf_brcode_userpost" class="form-control form-control-sm" value="<?= $result->crf_brcode_userpost ?>">
-                        <input readonly type="text" name="crf_brcode_userpost" id="crf_brcode_userpost" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcrf_becode_datetime" id="forcrf_becode_datetime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_brcode_datetime) ?>">
-                        <input readonly type="text" name="crf_becode_datetime" id="crf_becode_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="br_submit" name="br_submit">Submit</button></div>
-                </div>
-                <hr class="">
-            </form>
-            <!-- Section สำหรับ CS -->
-
-
-
-
-
-
-
-            <!-- Section สำหรับ Account Manager -->
-            <form action="<?= base_url('main/accMgr/') . $result->crf_id ?>" method="post" class="acc_manager" style="display:none;">
-                <h6 class=""><b><u>ความเห็นประกอบการพิจารณาจากฝ่ายบัญชีและการเงิน</u></b></h6>
-                <!-- Check data Zone -->
-                <input hidden type="text" name="formgraccappro" id="formgraccappro" value="<?= $result->crf_accmgrapprove_status ?>">
-                <input hidden type="text" name="accMgrCuscode" id="accMgrCuscode" value="<?=$result->crf_cuscode?>">
-                <input hidden type="text" name="accMgrFormno" id="accMgrFormno" value="<?=$result->crf_formno?>">
-                <input hidden type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?=$result->crf_type?>">
-
-                <div class="row form-group">
-                    <div class="col-md-12 mgr_appro">
-                        <input type="radio" name="mgracc_appro" id="mgracc_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="mgracc_appro" id="mgracc_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-
-                    <!-- When Have Data on Database -->
-                    <div class="col-md-12 formgr_appro">
-                        <input onclick="return false;" type="radio" name="formgracc_appro1" id="formgracc_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input onclick="return false;" type="radio" name="formgracc_appro2" id="formgracc_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นอื่นๆ</label>
-                        <textarea name="crf_accmgr_detail" id="crf_accmgr_detail" cols="30" rows="2" class="form-control"></textarea>
-                        <textarea readonly name="forcrf_accmgr_detail" id="forcrf_accmgr_detail" cols="30" rows="2" class="form-control"><?= $result->crf_accmgr_detail ?></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input readonly type="text" name="crf_accmgr_name" id="crf_accmgr_name" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcrf_accmgr_name" id="forcrf_accmgr_name" class="form-control form-control-sm" value="<?= $result->crf_accmgr_name ?>">
-                        <input readonly type="text" name="crf_accmgr_datatime" id="crf_accmgr_datatime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                        <input readonly type="text" name="forcrf_accmgr_datatime" id="forcrf_accmgr_datatime" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_accmgr_datetime) ?>">
-                    </div>
-                </div>
-                <div class="row form-group ">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="accmgr_submit" name="accmgr_submit">Submit</button></div>
-                </div>
-                <hr class="">
-            </form>
-            <!-- Section สำหรับ Account Manager -->
-
-
-
-
-
-
-
-            <!-- Section สำหรับ Directorคนที่1 -->
-            <form action="<?= base_url('main/director1/') . $result->crf_id ?>" method="post" class="director1" style="display:none;">
-                <h6 class=""><b><u>สำหรับฝ่ายบริหาร1</u></b></h6>
-
-                <!-- Check Data -->
-                <input hidden type="text" name="checkfordirector1_appro" id="checkfordirector1_appro" value="<?= $result->crf_directorapprove_status1 ?>">
-                <input hidden type="text" name="Director1Cuscode" id="Director1Cuscode" value="<?=$result->crf_cuscode?>">
-                <input hidden type="text" name="director1Formno" id="director1Formno" value="<?=$result->crf_formno?>">
-                <input hidden type="text" name="direc1_cusTypeForEmail" id="direc1_cusTypeForEmail" value="<?=$result->crf_type?>">
-
-                <div class="row form-group ">
-                    <div class="col-md-12 director1_appro">
-                        <input type="radio" name="director1_appro" id="director1_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="director1_appro" id="director1_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-
-                    <div class="col-md-12 fordirector1_appro">
-                        <input onclick="return false;" type="radio" name="fordirector1_appro1" id="fordirector1_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input onclick="return false;" type="radio" name="fordirector1_appro2" id="fordirector1_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นของฝ่ายบริหาร</label>
-                        <textarea name="crf_director_detail1" id="crf_director_detail1" cols="30" rows="2" class="form-control"></textarea>
-                        <textarea readonly name="forcrf_director_detail1" id="forcrf_director_detail1" cols="30" rows="2" class="form-control"><?= $result->crf_director_detail1 ?></textarea>
-                    </div>
-
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input readonly type="text" name="crf_director_name1" id="crf_director_name1" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcrf_director_name1" id="forcrf_director_name1" class="form-control form-control-sm" value="<?= $result->crf_director_name1 ?>">
-                        <input readonly type="text" name="crf_director_datatime1" id="crf_director_datatime1" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                        <input readonly type="text" name="forcrf_director_datatime1" id="forcrf_director_datatime1" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_director_datetime1) ?>">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="director_submit1" name="director_submit1">Submit</button></div>
-                </div>
-                <hr class="">
-            </form>
-            <!-- Section สำหรับ Directorคนที่1 -->
-
-
-
-
-
-            <!-- Section สำหรับ Directorคนที่2 -->
-            <form action="<?= base_url('main/director2/') . $result->crf_id ?>" method="post" class="director2" style="display:none">
-
-            <!-- Check data -->
-                <input style="display:none" type="text" name="userpostD2" id="userpostD2" value="<?= $result->crf_userpost ?>">
-                <input style="display:none" type="text" name="ecodepostD2" id="ecodepostD2" value="<?= $result->crf_userecodepost ?>">
-                <input style="display:none" type="text" name="deptcodeD2" id="deptcodeD2" value="<?= $result->crf_userdeptcodepost ?>">
-                <input hidden type="text" name="Director2Cuscode" id="Director2Cuscode" value="<?=$result->crf_cuscode?>">
-                <input hidden type="text" name="direc2FormNo" id="direc2FormNo" value="<?=$result->crfcus_formno?>">
-                <input hidden type="text" name="direc2_cusTypeForEmail" id="direc2_cusTypeForEmail" value="<?=$result->crf_type?>">
-
-                <h6 class=""><b><u>สำหรับฝ่ายบริหาร2</u></b></h6>
-                <input hidden type="text" name="checkfordirector2_appro" id="checkfordirector2_appro" value="<?= $result->crf_directorapprove_status2 ?>">
-                <div class="row form-group">
-                    <div class="col-md-12 director2_appro">
-                        <input type="radio" name="director2_appro" id="director2_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="director2_appro" id="director2_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-
-                    <div class="col-md-12 fordirector2_appro">
-                        <input onclick="return false;" type="radio" name="fordirector2_appro1" id="fordirector2_appro1" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input onclick="return false;" type="radio" name="fordirector2_appro2" id="fordirector2_appro2" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label for="">ความเห็นของฝ่ายบริหาร</label>
-                        <textarea name="crf_director_detail2" id="crf_director_detail2" cols="30" rows="2" class="form-control"></textarea>
-                        <textarea readonly name="forcrf_director_detail2" id="forcrf_director_detail2" cols="30" rows="2" class="form-control"><?= $result->crf_director_detail2 ?></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input readonly type="text" name="crf_director_name2" id="crf_director_name2" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcrf_director_name2" id="forcrf_director_name2" class="form-control form-control-sm" value="<?= $result->crf_director_name2 ?>">
-                        <input readonly type="text" name="crf_director_datatime2" id="crf_director_datatime2" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                        <input readonly type="text" name="forcrf_director_datatime2" id="forcrf_director_datatime2" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_director_datetime2) ?>">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="director_submit2" name="director_submit2">Submit</button></div>
-                </div>
-                <hr>
-            </form>
-            <!-- Section สำหรับ Directorคนที่2 -->
-
-
-
-            <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
-            <form action="<?= base_url('main/saveCustomersCode/') . $result->crf_id . "/" . $result->crfcus_id ?>" method="post" class="account_staff" style="display:none;">
-                <h6 class=""><b><u>สำหรับเจ้าหน้าที่บัญชี</u></b></h6>
-
-                <input hidden type="text" name="checkCustomercode" id="checkCustomercode" value="<?= $result->crf_savecustomercode ?>">
-                <input hidden type="text" name="accCheckAreacode" id="accCheckAreacode" value="<?=$result->crf_company?>">
-                <input hidden type="text" name="accStaffFormNo" id="accStaffFormNo" value="<?=$result->crfcus_formno?>">
-
-                <div class="row form-group">
-                    <div class="col-md-8">
-                        <label for="">รหัสลูกค้า</label>
-                        <input type="text" name="cusCode" id="cusCode" class="form-control form-control-sm">
-                        <input readonly type="text" name="forcusCode" id="forcusCode" class="form-control form-control-sm" value="<?= $result->crf_savecustomercode ?>">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="">ผู้บันทึก</label>
-                        <input readonly type="text" name="cusCode_userPost" id="cusCode_userPost" class="form-control form-control-sm" value="<?= getUser()->Fname . " " . getUser()->Lname ?>">
-                        <input readonly type="text" name="forcusCode_userPost" id="forcusCode_userPost" class="form-control form-control-sm" value="<?= $result->crf_usersave_customercode ?>">
-                        <input readonly type="text" name="cusCode_datetimePost" id="cusCode_datetimePost" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s") ?>">
-                        <input readonly type="text" name="fcusCode_datetimePost" id="fcusCode_datetimePost" class="form-control form-control-sm mt-1" value="<?= conDateTimeFromDb($result->crf_datetimesave_customercode) ?>">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="acc_staff" name="acc_staff">Submit</button></div>
-                </div>
-            </form>
-
-            <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
+                <!-- Section สำหรับเจ้าหน้าที่บัญชี -->
             </div>
 
 

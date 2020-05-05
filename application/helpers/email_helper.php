@@ -17,6 +17,15 @@ class emailfn
 
 
 
+function getEmailUser()
+{
+    $obj = new emailfn();
+    $query = $obj->gci()->db->query("SELECT * FROM email_information");
+    return $query->row();
+}
+
+
+
 
 function getDataEmail($formno)
 {
@@ -63,7 +72,8 @@ function getDataEmail($formno)
     a.crf_userdeptcodepost,
     a.crf_savecustomercode,
     a.crf_usersave_customercode,
-    a.crf_datetimesave_customercode
+    a.crf_datetimesave_customercode,
+    a.crf_memo_customercode
 
     FROM
     crf_maindata AS a
@@ -114,7 +124,8 @@ function getDataEmailEx($formno)
     a.crfex_directorapp_detail,
     a.crfex_acccuscode,
     a.crfex_accuserpost,
-    a.crfex_accdatetime
+    a.crfex_accdatetime,
+    a.crfex_accmemo
 
     FROM
     crfex_maindata AS a
@@ -202,20 +213,20 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
     $mail->Port = 587; // พอร์ท
 
     $mail->SMTPAuth = true;     // turn on SMTP authentication
-    $mail->Username = "crf_system@saleecolour.com";  // SMTP username
+    $mail->Username = getEmailUser()->email_user;  // SMTP username
 
-    $mail->Password = "Slc123456#"; // SMTP password
+    $mail->Password = getEmailUser()->email_password; // SMTP password
 
-    $mail->From = "crf_system@saleecolour.com";
+    $mail->From = getEmailUser()->email_user;
     $mail->FromName = "ทดสอบส่ง Email";
 
 
     foreach($to as $email){
-        $mail->AddAddress($email);
+        $mail->AddAddress("");
     }
 
     foreach($cc as $email){
-        $mail->AddCC($email);
+        $mail->AddCC("");
     }
 
     // $mail->AddAddress($to);

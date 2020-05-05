@@ -247,7 +247,35 @@ getModal();
                             </li>
 
 
+                            <?php
+$emailShow = "";
+if(getUser()->ecode != "M1809"){
+    $emailShow = ' style="display:none;" ';
+}else{
+    $emailShow = '';
+}
+
+?>
+
+
                             <li class="app-sidebar__heading">User Profile</li>
+
+                            <li <?=$emailShow?>>
+                                <a href="javascript:voide(0)">
+                                    <i class="metismenu-icon fas fa-cog"></i>
+                                    ตั้งค่า
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                <li>
+                                <a href="<?=base_url('main/configemail')?>" class="">
+                                    <i class="metismenu-icon fas fa-print"></i>
+                                    ตั้งค่า Email
+                                </a>
+                            </li>
+                                </ul>
+                            </li>
+
                             <li>
                                 <a>
                                     <i class="metismenu-icon fas fa-user"></i>

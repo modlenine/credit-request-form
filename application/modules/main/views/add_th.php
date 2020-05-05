@@ -339,7 +339,7 @@
                 </label>
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
-                        <label for="">ภพ.20</label><br>
+                        <label for="">ภพ.20 / ภธ.09</label><br>
                         <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf">
                         <div id="alert_file1"></div>
                     </div>

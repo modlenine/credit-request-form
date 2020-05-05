@@ -596,16 +596,17 @@
             <!-- account staff zone -->
             <form action="{exAccountAddCusCode}" method="POST" name="" class="accAddCustomerCode" style="display:none;">
                 <hr>
-                <h6><b><u>FOR ACCOUNT ADD CUSTOMER CODE</u></b></h6>
+                <h6><b><u>FOR ACCOUNT</u></b></h6>
+                <input type="text" name="check_custype_accstaff" id="check_custype_accstaff" value="{customertype}">
                 <div class="row form-group">
-                    <div class="col-md-8 form-group">
+                    <div class="col-md-8 form-group filcuscode">
                         <label for="">CUSTOMER CODE</label>
                         <input type="text" name="ex_accCostomerCode" id="ex_accCostomerCode" class="form-control form-control-sm">
                     </div>
-                    <!-- <div class="col-md-8 form-group">
+                    <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea name="ex_accMemo" id="ex_accMemo" cols="30" rows="3" class="form-control form-control-sm"></textarea>
-                    </div> -->
+                    </div>
                     <div class="col-md-4 form-group">
                         <label for="">ACCOUNT Sign.</label>
                         <input readonly type="text" name="ex_accName" id="ex_accName" class="form-control form-control-sm" value="{username}">
@@ -626,16 +627,16 @@
 
             <form method="POST" name="" class="accAddCustomerCode1" style="display:none;">
                 <hr>
-                <h6><b><u>FOR ACCOUNT ADD CUSTOMER CODE</u></b></h6>
+                <h6><b><u>FOR ACCOUNT</u></b></h6>
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
                         <label for="">CUSTOMER CODE</label>
                         <input readonly type="text" name="ex_accCostomerCode" id="ex_accCostomerCode" class="form-control form-control-sm" value="{customercode}">
                     </div>
-                    <!-- <div class="col-md-8 form-group">
+                    <div class="col-md-8 form-group">
                         <label for="">Memo.</label>
                         <textarea readonly name="ex_accMemo" id="ex_accMemo" cols="30" rows="3" class="form-control form-control-sm">{crfex_accmemo}</textarea>
-                    </div> -->
+                    </div>
                     <div class="col-md-4 form-group">
                         <label for="">ACCOUNT Sign.</label>
                         <input readonly type="text" name="ex_accName" id="ex_accName" class="form-control form-control-sm" value="{crfex_accuserpost}">

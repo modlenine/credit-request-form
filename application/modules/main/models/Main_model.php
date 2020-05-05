@@ -1172,55 +1172,93 @@ class Main_model extends CI_Model
 
     public function director1($crfid)
     {
-        saveDerector1($crfid);
+
+        if (check_directorapprove($crfid)->crf_directorapprove_status2 == "อนุมัติ") {
+            if ($this->input->post("direc1_cusTypeForEmail") == 2) {
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
+                    saveDirector2ChangSales($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
+                    saveDirector2ChangeAddress($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
+                    saveDirector2ChangeCredit($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
+                    saveDirector2ChangeMoney($crfid);
+                }
+                $this->email_model->sendemail_toAccStaff2($this->input->post("director1Formno"));
+            } else if ($this->input->post("direc1_cusTypeForEmail") == 1) {
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
+                    saveDerector1($crfid);
+                }
+                $this->email_model->sendemail_toAccStaff($this->input->post("director1Formno"));
+            }
+        } else {
+            saveDerector1($crfid);
+        }
     }
+
+
+
+
 
     public function director2($crfid)
     {
-        if ($this->input->post("direc2_cusTypeForEmail") == 2) {
-            if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
-                saveDirector2ChangSales($crfid);
-            }
 
-            if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
-                saveDirector2ChangeAddress($crfid);
+        if (check_directorapprove($crfid)->crf_directorapprove_status1 == "อนุมัติ") {
+            if ($this->input->post("direc2_cusTypeForEmail") == 2) {
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 1) {
+                    saveDirector2ChangSales($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 2) {
+                    saveDirector2ChangeAddress($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
+                    saveDirector2ChangeCredit($crfid);
+                }
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
+                    saveDirector2ChangeMoney($crfid);
+                }
+                $this->email_model->sendemail_toAccStaff2($this->input->post("direc2FormNo"));
+            } else if ($this->input->post("direc2_cusTypeForEmail") == 1) {
+                if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
+                    saveDerector2($crfid);
+                }
+                $this->email_model->sendemail_toAccStaff($this->input->post("direc2FormNo"));
             }
-
-            if (getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 3) {
-                saveDirector2ChangeCredit($crfid);
-            }
-
-            if (getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 4) {
-                saveDirector2ChangeMoney($crfid);
-            }
-            $this->email_model->sendemail_toOwnerType2($this->input->post("direc2FormNo"));
-        } else if ($this->input->post("direc2_cusTypeForEmail") == 1) {
-            if (getSuboldCus($crfid)->crf_sub_oldcus_changearea == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changeaddress == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changecredit == 0 && getSuboldCus($crfid)->crf_sub_oldcus_changefinance == 0) {
-                saveDerector2($crfid);
-            }
+        } else {
+            saveDerector2($crfid);
         }
     }
+
+
 
     public function saveCustomersCode($crfid, $crfcusid)
     {
 
-        $customercode = $this->input->post("cusCode");
-        $accArea = $this->input->post("accCheckAreacode");
+        if ($this->input->post("accStaffCustype") == 1) {
+            $customercode = $this->input->post("cusCode");
+            $accArea = $this->input->post("accCheckAreacode");
 
-        $this->db->select("crfcus_code");
-        $this->db->from("crf_customers_temp");
-        $this->db->where("crfcus_code", $customercode);
-        $this->db->where("crfcus_area", $accArea);
-        $result = $this->db->get();
+            $this->db->select("crfcus_code");
+            $this->db->from("crf_customers_temp");
+            $this->db->where("crfcus_code", $customercode);
+            $this->db->where("crfcus_area", $accArea);
+            $result = $this->db->get();
 
-        echo $result->num_rows();
-        if ($result->num_rows() > 0) {
-            echo "<script>
+            echo $result->num_rows();
+            if ($result->num_rows() > 0) {
+                echo "<script>
             alert('พบข้อมูลซ้ำในระบบ');
             </script>";
-            header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
-        } else if ($result->num_rows() == 0) {
-            saveCustomersCode($crfid, $crfcusid);
+                header("refresh:0; url=" . base_url('main/viewdata/') . $crfid);
+            } else if ($result->num_rows() == 0) {
+                saveCustomersCode($crfid, $crfcusid);
+                header("refresh:0; url=" . base_url('main/list'));
+            }
+        }else if($this->input->post("accStaffCustype") == 2){
+            accProcess($crfid);
             header("refresh:0; url=" . base_url('main/list'));
         }
     }
@@ -2826,7 +2864,7 @@ class Main_model extends CI_Model
 
 
     // Report Zone
-    private function querydata_date($datestart , $dateend)
+    private function querydata_date($datestart, $dateend)
     {
         $query = $this->db->query("SELECT * FROM report_ex WHERE crfex_datecreate BETWEEN '$datestart' AND '$dateend' ");
         return $query->result();
@@ -2845,14 +2883,14 @@ class Main_model extends CI_Model
         $datestart = $this->input->post("datestart");
         $dateend = $this->input->post("dateend");
 
-        $data["rss"] = $this->querydata_date($datestart , $dateend);
-        $this->load->view("report/resultReportEx" , $data);
+        $data["rss"] = $this->querydata_date($datestart, $dateend);
+        $this->load->view("report/resultReportEx", $data);
     }
 
     public function reportExport()
     {
         $data["rss"] = $this->querydata();
-        $this->load->view("report/resultReportEx" , $data);
+        $this->load->view("report/resultReportEx", $data);
     }
 
 
@@ -2864,10 +2902,10 @@ class Main_model extends CI_Model
     public function reportTh()
     {
         $data["rss"] = $this->queryTh();
-        $this->load->view("report/resultReportTh" , $data);
+        $this->load->view("report/resultReportTh", $data);
     }
 
-    private function queryThdate($datestart , $dateend)
+    private function queryThdate($datestart, $dateend)
     {
         $query = $this->db->query("SELECT * FROM report_th WHERE crf_datecreate BETWEEN '$datestart' AND '$dateend' ");
         return $query->result();
@@ -2879,11 +2917,8 @@ class Main_model extends CI_Model
         $datestart = $this->input->post("datestart");
         $dateend = $this->input->post("dateend");
 
-        $data["rss"] = $this->queryThdate($datestart,$dateend);
-        $this->load->view("report/resultReportTh" , $data);
+        $data["rss"] = $this->queryThdate($datestart, $dateend);
+        $this->load->view("report/resultReportTh", $data);
     }
-
-
-
 }
 // Main Model

@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th>เลขที่คำขอ</th>
+                <th>รหัสลูกค้า</th>
                 <th>ชื่อลูกค้า</th>
                 <th>ประเภทลูกค้า</th>
                 <th>หัวข้อ</th>
@@ -20,6 +21,7 @@
             ?>
                 <tr>
                     <td><?= $rs->crf_formno ?></td>
+                    <td><?= $rs->crfcus_code ?></td>
                     <td><?= $rs->crfcus_name ?></td>
                     <td><?= $rs->crf_alltype_subname ?></td>
                     <td><?= $rs->crf_topic ?></td>

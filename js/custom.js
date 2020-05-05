@@ -1854,10 +1854,12 @@ $(document).ready(function () {
     // Customer Section Select
     if ($('#forcrf_type_view').val() == 1) {
         $('input:radio[id="crf_type1_view"]').prop('checked', true);
+        $('.accForcus2').css('display','none');
     } else if ($('#forcrf_type_view').val() == 2) {
         $('input:radio[id="crf_type2_view"]').prop('checked', true);
         $('.cs_br').remove();
-        $('.account_staff').remove();
+        // $('.account_staff').remove();
+        $('.accForcus1').css('display','none');
     }
 
     // Customer Old Select Section
@@ -2049,7 +2051,7 @@ $(document).ready(function () {
 
     if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 55) {
         $('.author_manager').css('display', '');
-    } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Completed") {
+    } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed") {
         $('.author_manager').css('display', '');
     } else {
         $('.author_manager').css('display', 'none');
@@ -2087,7 +2089,7 @@ $(document).ready(function () {
     if (checkDeptCodeL == 1010 && $('#formgr_appro').val() == "อนุมัติ" && changeSales != 1 && changeAddress != 2 && changeCreditTerm != 3 && changeFinance != 4) {
         $('.cs_br').css('display', '');
 
-    } else if (checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Completed") {
+    } else if (checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed") {
         $('.cs_br').css('display', '');
     } else {
         $('.cs_br').css('display', 'none');
@@ -2140,7 +2142,7 @@ $(document).ready(function () {
         }
     }
 
-    if (checkStatus == "Account Manager Approved" || checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Completed") {
+    if (checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed") {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
@@ -2171,12 +2173,14 @@ $(document).ready(function () {
 
 
     // Control Director1 Approve Section
-    if (checkStatus == "Account Manager Approved" && checkUserPosi > 75) {
+    if (checkStatus == "Account Manager Approved" && checkUserPosi > 75 || checkStatus == "Waiting for second director approve" && checkUserPosi > 75) {
         $('.director1').css('display', '');
         if ($('#checkfordirector1_appro').val() == "") {
             $('.fordirector1_appro , #forcrf_director_detail1 ,#forcrf_director_name1 , #forcrf_director_datatime1').css('display', 'none');
+        }else{
+            $('.director1_appro , #crf_director_detail1 ,#crf_director_name1 , #crf_director_datatime1 , #director_submit1').css('display', 'none');
         }
-    } else if (checkStatus == "Director Sales Approved" || checkStatus == "Director Account Approved" || checkStatus == "Completed") {
+    } else if (checkStatus == "Waiting for second director approve" || checkStatus == "Second director approved" || checkStatus == "Directors approved") {
         $('.director1').css('display', '');
         $('.director1_appro , #crf_director_detail1 ,#crf_director_name1 , #crf_director_datatime1 , #director_submit1').css('display', 'none');
     }
@@ -2202,12 +2206,14 @@ $(document).ready(function () {
 
 
     // Control Director2 Approve Section
-    if (checkStatus == "Director Sales Approved" && checkUserPosi > 75) {
+    if (checkStatus == "Account Manager Approved" && checkUserPosi > 75 || checkStatus == "Waiting for second director approve" && checkUserPosi > 75) {
         $('.director2').css('display', '');
         if ($('#checkfordirector2_appro').val() == "") {
             $('.fordirector2_appro , #forcrf_director_detail2 ,#forcrf_director_name2 , #forcrf_director_datatime2').css('display', 'none');
+        }else{
+            $('.director2_appro , #crf_director_detail2 ,#crf_director_name2 , #crf_director_datatime2 , #director_submit2').css('display', 'none');
         }
-    } else if (checkStatus == "Director Account Approved" || checkStatus == "Completed") {
+    } else if (checkStatus == "Second director approved" || checkStatus == "Directors approved") {
         $('.director2').css('display', '');
         $('.director2_appro , #crf_director_detail2 ,#crf_director_name2 , #crf_director_datatime2 , #director_submit2').css('display', 'none');
     }
@@ -2235,7 +2241,7 @@ $(document).ready(function () {
 
 
     // Control Account Staff Section
-    if (checkStatus == "Director Account Approved" && checkDeptCodeL == 1003) {
+    if (checkStatus == "Directors approved" && checkDeptCodeL == 1003) {
         $('.account_staff').css('display', '');
         if ($('#checkCustomercode').val() == "") {
             $('#forcusCode ,#forcusCode_userPost , #fcusCode_datetimePost').css('display', 'none');
@@ -2260,7 +2266,21 @@ $(document).ready(function () {
             $('#acc_staff').prop('disabled', true);
         }
     });
+    $('#accStaffMemo').click(function () {
+        if ($(this).val() != '') {
+            $('#acc_staff').prop('disabled', false);
+        } else {
+            $('#acc_staff').prop('disabled', true);
+        }
+    });
     $('#cusCode').keyup(function () {
+        if ($(this).val() != '') {
+            $('#acc_staff').prop('disabled', false);
+        } else {
+            $('#acc_staff').prop('disabled', true);
+        }
+    });
+    $('#accStaffMemo').keyup(function () {
         if ($(this).val() != '') {
             $('#acc_staff').prop('disabled', false);
         } else {
@@ -2999,7 +3019,7 @@ $(document).ready(function () {
             }
         }
 
-        if (checkStatus == 'Manager approved' && checkUserDeptView == 1010) {
+        if (checkStatus == 'Manager approved' && checkUserDeptView == 1010 || checkStatus == 'Manager approved' && checkUserDeptView == 1012) {
             if (checkCusType == 2) {
                 $('.csAddBrDection').remove();
             } else {
@@ -3075,6 +3095,18 @@ $(document).ready(function () {
         // Control account staff when add new customer
         if (checkStatus == 'Director Approved' && checkUserDeptView == 1003) {
             $('.accAddCustomerCode').css('display', '');
+            if(checkCusType == 2){
+                $('.filcuscode').css('display' , 'none');
+                $('#ex_accSubmit').prop('disabled' , true);
+                $('#ex_accMemo').keyup(function(){
+                    if($(this).val() != ''){
+                        $('#ex_accSubmit').prop('disabled' , false);
+                    }else{
+                        $('#ex_accSubmit').prop('disabled' , true);
+                    }
+                });
+            }else if(checkCusType == 1){
+            $('.filcuscode').css('display' , '');
             $('#ex_accSubmit').prop('disabled' , true);
 
             $('#ex_accCostomerCode').keyup(function(){
@@ -3091,6 +3123,11 @@ $(document).ready(function () {
                     $('#ex_accSubmit').prop('disabled' , true);
                 }
             });
+            }
+
+
+
+            
 
         } else if (checkStatus == 'Completed') {
             if (checkCusType == 2) {
@@ -3198,6 +3235,7 @@ $(document).ready(function () {
             $('.cusHistory').prop('readonly' , true);
             $('input:checkbox').attr('onclick','return false');
             $('#crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+            
         } else {
             $('#crfex_custype1').prop('checked', false);
             $('.cusHistory').prop('readonly' , false);
@@ -3206,16 +3244,8 @@ $(document).ready(function () {
 
         if ($('#checkEdit_crfex_custype').val() == 2) {
             $('#crfex_custype2').prop('checked', true);
-        } else {
-            $('#crfex_custype2').prop('checked', false);
-        }
-        $('.custype1e , .custype2e').attr('onclick', 'return false');
-        // Check ประเภทลูกค้า
 
-
-
-
-        // Check Current customer method
+            // Check Current customer method
 
         if ($('#checkEdit_crfex_curcustopic1').val() != '') {
             $('#crfex_curcustopic1').prop('checked', true);
@@ -3237,6 +3267,17 @@ $(document).ready(function () {
             $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
             // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
         }
+
+        } else {
+            $('#crfex_custype2').prop('checked', false);
+        }
+        $('.custype1e , .custype2e').attr('onclick', 'return false');
+        // Check ประเภทลูกค้า
+
+
+
+
+        
 
 
         $('#crfex_curcustopic1').click(function(){
@@ -3662,6 +3703,22 @@ $(document).ready(function () {
             loadreport();
         }
         
+    });
+
+
+
+
+
+    // Setting page
+    $('#btnSysEmail').click(function(){
+        var email_account = $('#email_account').val();
+        var email_password = $('#email_password').val();
+
+        if($(this).text() == "Submit"){
+            insertEmailSystem(email_account , email_password);
+        }else{
+            alert("That false.");
+        }
     });
 
 
