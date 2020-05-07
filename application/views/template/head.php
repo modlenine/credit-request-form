@@ -279,7 +279,7 @@ if(getUser()->ecode != "M1809"){
                             <li>
                                 <a>
                                     <i class="metismenu-icon fas fa-user"></i>
-                                    สวัสดี คุณ &nbsp;<?=getUser()->Fname."&nbsp;".getUser()->Lname?>
+                                    สวัสดีคุณ &nbsp;<?=getUser()->Fname."&nbsp;".getUser()->Lname?>
                                 </a>
                             </li>
                             <li>

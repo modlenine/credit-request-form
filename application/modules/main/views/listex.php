@@ -33,8 +33,9 @@
 			<div class="col-md-3 form-group">
 				<a href="<?=base_url('main/addEx')?>"><button class="btn btn-info btn-block"><i class="fas fa-plus-circle"></i>&nbsp;New CRF Form</button></a>
 			</div>
-			<div class="col-md-4 form-group form-inline">
+			<div class="col-md-6 form-group form-inline">
 				<label>Search&nbsp;</label>
+				<input hidden type="text" name="checkSearchChooseEx" id="checkSearchChooseEx">
 				<select name="searchdataex" id="searchdataex" class="form-control form-control-sm">
 					<option value="">Please select item</option>
 					<option value="bydatecreate">Search by date created.</option>
@@ -89,10 +90,22 @@
 		$(document).on("click", ".pagination li a", function(event) {
 			event.preventDefault();
 			var page = $(this).data("ci-pagination-page");
-			load_data_allex(page);
+			if($('#checkSearchChooseEx').val() == ""){
+				load_data_allex(page);
+			}
 		});
 
-		$('#btnSearchDateCreateex').on('click', function() {
+
+if(!$('#searchdataex').val()){
+	$('#searchdataex').change(function(){
+		var searchdataex = $('#searchdataex').val();
+		$('#checkSearchChooseEx').val(searchdataex);
+
+
+
+
+		if($('#checkSearchChooseEx').val() == "bydatecreate"){
+			$('#btnSearchDateCreateex').on('click', function() {
 			var dateStart = $('#startdateex').val();
 			var dateEnd = $('#enddateex').val();
 			load_data_byDateex(1, dateStart, dateEnd);
@@ -100,31 +113,48 @@
 			$(document).on("click", ".pagination li a", function(event) {
 				event.preventDefault();
 				var page = $(this).data("ci-pagination-page");
-				load_data_byDateex(page, dateStart, dateEnd);
+				if($('#checkSearchChooseEx').val() == "bydatecreate"){
+					load_data_byDateex(page, dateStart, dateEnd);
+				}
 			});
 		});
-
-		$('#btnSearchFormnoex').on('click', function() {
+		}else if($('#checkSearchChooseEx').val() == "byformno"){
+			$('#btnSearchFormnoex').on('click', function() {
 			var formno = $('#searchFormnoex').val();
 			load_data_byFormNoex(1, formno);
 
 			$(document).on("click", ".pagination li a", function(event) {
 				event.preventDefault();
 				var page = $(this).data("ci-pagination-page");
-				load_data_byFormNoex(page, formno);
+				if($('#checkSearchChooseEx').val() == "byformno"){
+					load_data_byFormNoex(page, formno);
+				}
 			});
 		});
-
-		$('#btnSearchCompanyex').on('click', function() {
+		}else if($('#checkSearchChooseEx').val() == "bycompanyname"){
+			$('#btnSearchCompanyex').on('click', function() {
 			var companyName = $('#searchCompanyex').val();
 			load_data_byCompanyex(1, companyName)
 
 			$(document).on("click", ".pagination li a", function(event) {
 				event.preventDefault();
 				var page = $(this).data("ci-pagination-page");
-				load_data_byCompanyex(page, companyName);
+				if($('#checkSearchChooseEx').val() == "bycompanyname"){
+					load_data_byCompanyex(page, companyName);
+				}
 			});
 		});
+		}
+	});
+}
+
+
+
+		
+
+
+
+
 
 		$('#clearSearch').on('click', function() {
 			location.reload();

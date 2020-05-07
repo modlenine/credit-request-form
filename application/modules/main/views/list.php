@@ -21,7 +21,6 @@
 				width: 20% !important;
 			}
 		}
-		
 	</style>
 </head>
 
@@ -34,7 +33,10 @@
 			<div class="col-md-3 form-group">
 				<a href="<?= base_url('main/addTH') ?>"><button class="btn btn-info btn-block"><i class="fas fa-plus-circle"></i>&nbsp;เพิ่มรายการในประเทศ</button></a>
 			</div>
-			<div class="col-md-4 form-group form-inline">
+
+
+			<div class="col-md-6 form-group form-inline">
+				<input hidden type="text" name="checkSearchChoose" id="checkSearchChoose" class="form-control">
 				<label>ค้นหาข้อมูล&nbsp;</label>
 				<select name="searchdata" id="searchdata" class="form-control form-control-sm">
 					<option value="">กรุณาเลือกการค้นหา</option>
@@ -85,47 +87,70 @@
 
 <script>
 	$(document).ready(function() {
+
 		load_data_all(1);
 
 		$(document).on("click", ".pagination li a", function(event) {
 			event.preventDefault();
 			var page = $(this).data("ci-pagination-page");
-			load_data_all(page);
+			if($('#checkSearchChoose').val() == ""){
+				load_data_all(page);
+			}
 		});
 
-		$('#btnSearchDateCreate').on('click', function() {
-			var dateStart = $('#startdate').val();
-			var dateEnd = $('#enddate').val();
-			load_data_byDate(1, dateStart, dateEnd);
+		if (!$('#searchdata').val()) {
 
-			$(document).on("click", ".pagination li a", function(event) {
-				event.preventDefault();
-				var page = $(this).data("ci-pagination-page");
-				load_data_byDate(page, dateStart, dateEnd);
+			$('#searchdata').change(function() {
+				var searchdata = $('#searchdata').val();
+				$('#checkSearchChoose').val(searchdata);
+
+
+				if ($('#checkSearchChoose').val() == "จากวันที่สร้างรายการ") {
+					$('#btnSearchDateCreate').click(function() {
+						var dateStart = $('#startdate').val();
+						var dateEnd = $('#enddate').val();
+						load_data_byDate(1, dateStart, dateEnd);
+
+						$(document).on("click", ".pagination li a", function(event) {
+							event.preventDefault();
+							var pagedate = $(this).data("ci-pagination-page");
+							if ($('#checkSearchChoose').val() == "จากวันที่สร้างรายการ") {
+								load_data_byDate(pagedate, dateStart, dateEnd);
+							}
+						});
+					});
+
+				} else if ($('#checkSearchChoose').val() == "จากเลขที่คำขอ") {
+					$('#btnSearchFormno').click(function() {
+						var formno = $('#searchFormno').val();
+						load_data_byFormNo(1, formno);
+
+						$(document).on("click", ".pagination li a", function(event) {
+							event.preventDefault();
+							var pageForm = $(this).data("ci-pagination-page");
+							if ($('#checkSearchChoose').val() == "จากเลขที่คำขอ") {
+								load_data_byFormNo(pageForm, formno);
+							}
+						});
+					});
+				} else if ($('#checkSearchChoose').val() == "จากชื่อบริษัท") {
+					$('#btnSearchCompany').click(function() {
+						var companyName = $('#searchCompany').val();
+						load_data_byCompany(1, companyName)
+
+						$(document).on("click", ".pagination li a", function(event) {
+							event.preventDefault();
+							var page = $(this).data("ci-pagination-page");
+							if($('#checkSearchChoose').val() == "จากชื่อบริษัท"){
+								load_data_byCompany(page, companyName);
+							}
+						});
+					});
+				}
+
 			});
-		});
+		}
 
-		$('#btnSearchFormno').on('click', function() {
-			var formno = $('#searchFormno').val();
-			load_data_byFormNo(1, formno);
-
-			$(document).on("click", ".pagination li a", function(event) {
-				event.preventDefault();
-				var page = $(this).data("ci-pagination-page");
-				load_data_byFormNo(page, formno);
-			});
-		});
-
-		$('#btnSearchCompany').on('click', function() {
-			var companyName = $('#searchCompany').val();
-			load_data_byCompany(1, companyName)
-
-			$(document).on("click", ".pagination li a", function(event) {
-				event.preventDefault();
-				var page = $(this).data("ci-pagination-page");
-				load_data_byCompany(page, companyName);
-			});
-		});
 
 		$('#clearSearch').on('click', function() {
 			location.reload();
@@ -175,9 +200,11 @@
 
 	function load_data_byCompany(page, companyName) {
 		$.ajax({
-			url: "<?php echo base_url(); ?>main/paginationByCompany/" + page ,
+			url: "<?php echo base_url(); ?>main/paginationByCompany/" + page,
 			method: "POST",
-			data:{companyName:companyName},
+			data: {
+				companyName: companyName
+			},
 			dataType: "json",
 			success: function(data) {
 				$('#country_table').html(data.country_table);
@@ -186,6 +213,8 @@
 			}
 		});
 	}
+
+
 </script>
 
 </html>

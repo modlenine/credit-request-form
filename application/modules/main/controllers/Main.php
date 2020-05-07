@@ -1093,6 +1093,145 @@ public function saveSettingEmail()
 
 
 
+public function loaddata_all()
+{
+    $limit = "5";
+    $page = $this->uri->segment(3);
+    $start = ($page - 1) * $limit;
+    $output = '';
+    $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+    $this->db->from("crf_maindata");
+    $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
+    $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
+    $this->db->join('crf_suboldcus', 'crf_suboldcus.crfsubold_id = crf_maindata.crf_sub_oldcus_changearea');
+
+    $this->db->order_by("crf_formno", "DESC");
+    $this->db->limit($limit, $start);
+    $query = $this->db->get();
+
+    foreach ($query->result() as $row) {
+
+        $bgcolor = "background-color:#E8E8E8;";
+        $fontcolor = "color:#000000;";
+
+        if ($row->crf_status == "Open") {
+            $statusColor = "color:#0066FF;";
+            $lineStatusColor = "background-color:#0066FF;height:3px;";
+        } else if ($row->crf_status == "Completed") {
+            $statusColor = "color:#009900;";
+            $lineStatusColor = "background-color:#009900;height:3px;";
+        } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
+            $statusColor = "color:#CC0000;";
+            $lineStatusColor = "background-color:#CC0000;height:3px;";
+        } else {
+            $statusColor = "color:#0066FF;";
+            $lineStatusColor = "background-color:#0066FF;height:3px;";
+        }
+
+        if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
+            $salesreps = $row->crfw_salesreps;
+        } else {
+            $salesreps = $row->crfcus_salesreps;
+        }
+
+        if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
+            $address = $row->crfcus_address;
+        } else {
+            $address = $row->crfcus_address;
+        }
+
+        $topicTH = $row->crf_topic;
+
+        if ($row->crf_topic1 != '') {
+            $topicTH .= " / " . $row->crf_topic1;
+        }
+        if ($row->crf_topic2 != '') {
+            $topicTH .= " / " . $row->crf_topic2;
+        }
+        if ($row->crf_topic3 != '') {
+            $topicTH .= " / " . $row->crf_topic3;
+        }
+        if ($row->crf_topic4 != '') {
+            $topicTH .= " / " . $row->crf_topic4;
+        }
+
+        $output .= '
+  <div class="card mt-3">
+  <div class="card-header" style="' . $bgcolor . $fontcolor . '">
+        <div class="col-md-3 col-sm-12">
+            เลขที่คำขอ &nbsp;<a href="' . base_url('main/viewdata/') . $row->crf_id . '">' . $row->crf_formno . '</a>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            วันที่สร้างรายการ : &nbsp;<span style="">' . conDateFromDb($row->crf_datecreate) . '</span>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            ประเภทลูกค้า : &nbsp;<span style="">' . $row->crf_alltype_subname . '</span>
+        </div>
+        <div class="col-md-3 statustext">
+            สถานะ : &nbsp;<span style="' . $statusColor . '">' . $row->crf_status . '</span>
+        </div>
+  </div>
+  <div style="' . $lineStatusColor . '"></div>
+  <div class="card-body">
+    <div class="row">
+        <div class="col-md-3">
+        <p><label><b>หัวข้อ :</b></label>&nbsp;' . $topicTH . '</p>
+        <p><label><b>ชื่อบริษัท : </b></label>&nbsp;' . $row->crfcus_name . '</p>
+        </div>
+
+        <div class="col-md-6">
+        <label><b>ที่อยู่ : </b></label>&nbsp;' . $address . '
+        </div>
+
+        <div class="col-md-3">
+        <label><b>Sales Reps : </b></label>&nbsp;' . $salesreps . '
+        </div>
+    </div>
+
+  </div>
+</div>
+  ';
+    }
+    $output .= '</table>';
+
+
+    $queryCount = $this->db->get("crf_maindata");
+    $numrowCount = $queryCount->num_rows();
+
+    $numofpage = ceil($numrowCount/$limit);
+    // display the links to the pages
+    $output .= '
+    <div class="row">
+        <div class="col-md-12">
+        <nav aria-label="Page navigation example">
+        <ul class="pagination">
+    ';
+for ($page=1;$page<=$numofpage;$page++) {
+    // echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
+    $output .= '
+
+
+    <li class="page-item"><a class="page-link" id="pagination_link" href="#">'.$page.'</a></li>
+
+
+    
+    ';
+
+  }
+  $output .= '
+  </ul>
+  </nav>
+  <div align="center" class="mt-2">
+					<span>รวมทั้งสิ้น</span>&nbsp;'.$numrowCount.'&nbsp;<span>รายการ</span>
+				</div>
+  </div>
+  </div>
+  ';
+
+
+    echo $output;
+}
+
 
 
 
