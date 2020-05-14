@@ -151,6 +151,17 @@ class Main_model extends CI_Model
                 echo "ไม่พบการแนบไฟล์ในการอัพโหลดไฟล์ ตารางวางบิลรับเช็ค<br>";
             }
 
+            // แนบไฟล์แผนที่ลูกค้า
+            $customermapfile = "";
+            if ($_FILES["crf_mapfile"]["name"] != "") {
+                $crf_mapfile = "crf_mapfile";
+                $crf_mapfilename = "แผนที่ตั้งของลูกค้า";
+                $this->uploadFiles($crf_mapfile, $crf_mapfilename);
+                $customermapfile = $this->uploadFiles($crf_mapfile, $crf_mapfilename);
+            } else {
+                echo "ไม่พบการแนบไฟล์ในการอัพโหลดไฟล์ แผนที่ตั้งของลูกค้า<br>";
+            }
+
 
 
             $arcustomer = array(
@@ -195,7 +206,12 @@ class Main_model extends CI_Model
                 "crfcus_usercreate_ecode" => $this->input->post("crf_userecodepost"),
                 "crfcus_usercreate_deptcode" => $this->input->post("crf_userdeptcodepost"),
                 "crfcus_datemodify" => date("Y-m-d H:i:s"),
-                "crfcus_tempstatus" => "Processing"
+                "crfcus_tempstatus" => "Processing",
+                "crfcus_taxid" => $this->input->post("crf_customertaxid"), //update 12-05-2020
+                "crfcus_branch" => $this->input->post("crf_customerbranch"), //update 12-05-2020
+                "crfcus_mapurl" => $this->input->post("crf_mapurl"), //update 12-05-2020
+                "crfcus_mapfile" => $customermapfile, //update 12-05-2020
+                "crfcus_products" => $this->input->post("crf_customer_product") //update 12-05-2020
             );
 
 
@@ -238,9 +254,10 @@ class Main_model extends CI_Model
                         "crf_primanage_dept" => $rs,
                         "crf_primanage_name" => $this->input->post("crf_primanage_name")[$key],
                         "crf_primanage_posi" => $this->input->post("crf_primanage_posi")[$key],
-                        "crf_primanage_email" => $this->input->post("crf_primanage_email")[$key]
+                        "crf_primanage_email" => $this->input->post("crf_primanage_email")[$key],
+                        "crf_pricus_formno" => $getFormNo
                     );
-                    $this->db->insert("crf_pri_manage", $arsavePri);
+                    $this->db->insert("crf_pri_manage_temp", $arsavePri);
                 }
             }
 
@@ -292,6 +309,8 @@ class Main_model extends CI_Model
                         "crfcus_name" => $result->crfcus_name,
                         "crfcus_area" => $result->crfcus_area,
                         "crfcus_comdatecreate" => $result->crfcus_comdatecreate,
+                        "crfcus_taxid" => $result->crfcus_taxid,
+                        "crfcus_branch" => $result->crfcus_branch,
                         "crfcus_addresstype" => $result->crfcus_addresstype,
                         "crfcus_address" => $result->crfcus_address,
                         "crfcus_contactname" => $result->crfcus_contactname,
@@ -299,6 +318,9 @@ class Main_model extends CI_Model
                         "crfcus_fax" => $result->crfcus_fax,
                         "crfcus_email" => $result->crfcus_email,
                         "crfcus_regiscapital" => $result->crfcus_regiscapital,
+                        "crfcus_mapurl" => $result->crfcus_mapurl,
+                        "crfcus_mapfile" => $result->crfcus_mapfile,
+                        "crfcus_products" => $result->crfcus_products,
                         "crfcus_companytype" => $result->crfcus_companytype,
                         "crfcus_comtype2" => $result->crfcus_comtype2,
                         "crfcus_comtype31" => $result->crfcus_comtype31,
@@ -499,6 +521,105 @@ class Main_model extends CI_Model
                 );
                 $this->db->insert("crf_userlog", $aruserlog);
             }
+
+
+
+
+
+            // กรณีเลือกแก้ไขข้อมูลลูกค้า
+            if ($this->input->post("crf_sub_oldcus_editcustomer") == 5) {
+                if ($_FILES["crf_mapfile"]["name"] != "") {
+                    $crf_mapfile = "crf_mapfile";
+                    $crf_mapfilename = "แผนที่ตั้งของลูกค้า";
+                    $this->uploadFiles($crf_mapfile, $crf_mapfilename);
+                    $customermapfile = $this->uploadFiles($crf_mapfile, $crf_mapfilename);
+                }else{
+                    $customermapfile = $this->input->post("getmapfile_addpage");
+                }
+
+                if($this->input->post("crf_mapurl") != ""){
+                    $mapurl = $this->input->post("crf_mapurl");
+                }else{
+                    $mapurl = $this->input->post("getmapurl_addpage");
+                }
+
+                if($this->input->post("checkprimanagenull") != ""){
+                    $crfprimanagedept = $this->input->post("crf_primanage_dept");
+
+                    foreach($crfprimanagedept as $key => $pridept){
+                        $arprimanage_temp = array(
+                            "crf_primanage_dept" => $pridept,
+                            "crf_primanage_name" => $this->input->post("crf_primanage_name")[$key],
+                            "crf_primanage_posi" => $this->input->post("crf_primanage_posi")[$key],
+                            "crf_primanage_email" => $this->input->post("crf_primanage_email")[$key],
+                            "crf_pricusid" => $this->input->post("crf_cusid"),
+                            "crf_pricus_formno" => $getFormNo
+                        );
+
+                        $this->db->insert("crf_pri_manage_temp" , $arprimanage_temp);
+                    }
+                }
+
+
+                $arsavedata = array(
+                    "crf_formno" => $getFormNo,
+                    "crf_cuscode" => $this->input->post("crf_cusid"),
+                    "crf_company" => $this->input->post("crf_company"),
+                    "crf_datecreate" => conDateToDb($this->input->post("crf_datecreate")),
+                    "crf_type" => $this->input->post("crf_type"),
+                    "crf_change_creditterm" => $this->input->post("crf_change_creditterm"),
+                    "crf_condition_credit" => $this->input->post("crf_condition_credit"),
+                    "crf_creditterm2" => $this->input->post("crf_creditterm2"),
+                    "crf_finance" => $this->input->post("value_crf_finance"),
+                    "crf_userpost" => $this->input->post("crf_userpost"),
+                    "crf_userecodepost" => $this->input->post("crf_userecodepost"),
+                    "crf_userdeptcodepost" => $this->input->post("crf_userdeptcodepost"),
+                    "crf_userdeptpost" => $this->input->post("crf_userdeptpost"),
+                    "crf_userpostdatetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime")),
+                    "crf_sub_oldcus_editcustomer" => $this->input->post("crf_sub_oldcus_editcustomer"),
+                    "crf_status" => "Open",
+                    "crf_topic" => "ลูกค้าเดิม",
+                    "crf_topic5" => "แก้ไขข้อมูลลูกค้า",
+                    "crfw_salesreps" => $this->input->post("crf_salesreps"),
+                    "crf_report_date" => $report_date,
+                    "crf_report_month" => $report_month,
+                    "crf_report_year" => $report_year
+                );
+
+                if (getFormBeforeSave($getFormNo) > 0) {
+                    $this->db->where("crf_formno", $getFormNo);
+                    $this->db->update("crf_maindata", $arsavedata);
+                } else {
+                    $this->db->insert("crf_maindata", $arsavedata);
+                }
+
+
+                $arUpdateTemp = array(
+                    "crfcus_contactname" => $this->input->post("crf_namecontact"),
+                    "crfcus_phone" => $this->input->post("crf_telcontact"),
+                    "crfcus_fax" => $this->input->post("crf_faxcontact"),
+                    "crfcus_email" => $this->input->post("crf_emailcontact"),
+                    "crfcus_regiscapital" => $this->input->post("crf_regiscost"),
+                    "crfcus_mapurl" => $mapurl,
+                    "crfcus_mapfile" => $customermapfile
+                );
+
+                $this->db->where("crfcus_formno", $getFormNo);
+                $this->db->update("crf_customers_temp", $arUpdateTemp);
+
+
+
+                $aruserlog = array(
+                    "crfuserlog_datetime" => date("Y-m-d H:i:s"),
+                    "crfuserlog_activity" => "แก้ไขข้อมูลลูกค้า",
+                    "crfuserlog_username" => $this->input->post("crf_userpost"),
+                    "crfuserlog_deptcode" => $this->input->post("crf_userdeptcodepost"),
+                    "crfuserlog_ecode" => $this->input->post("crf_userecodepost")
+                );
+                $this->db->insert("crf_userlog", $aruserlog);
+
+
+            } // กรณีเลือกแก้ไขข้อมูลลูกค้า
 
 
 
@@ -1257,7 +1378,7 @@ class Main_model extends CI_Model
                 saveCustomersCode($crfid, $crfcusid);
                 header("refresh:0; url=" . base_url('main/list'));
             }
-        }else if($this->input->post("accStaffCustype") == 2){
+        } else if ($this->input->post("accStaffCustype") == 2) {
             accProcess($crfid);
             header("refresh:0; url=" . base_url('main/list'));
         }
@@ -1319,7 +1440,12 @@ class Main_model extends CI_Model
         crf_customers.crfcus_datemodify,
         crf_maindata.crf_id,
         crf_customers.crfcus_creditterm2,
-        crf_customers.crfcus_area
+        crf_customers.crfcus_area,
+        crf_customers.crfcus_taxid,
+        crf_customers.crfcus_branch,
+        crf_customers.crfcus_mapurl,
+        crf_customers.crfcus_mapfile,
+        crf_customers.crfcus_products
         FROM
         crf_customers
         INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
@@ -1368,8 +1494,134 @@ class Main_model extends CI_Model
             data_crf_moneylimit = '$rs->crfcus_moneylimit'
             data_crf_area = '$rs->crfcus_area'
             data_crf_file1 = '$rs->crfcus_file1'
+            data_crf_taxid = '$rs->crfcus_taxid'
+            data_crf_branch = '$rs->crfcus_branch'
+            data_crf_mapurl = '$rs->crfcus_mapurl'
+            data_crf_mapfile = '$rs->crfcus_mapfile'
+            data_crfcus_products = '$rs->crfcus_products'
             
             ><li class='list-group-item'>" . $rs->crfcus_code . " (" . $rs->crfcus_area . ")" . "</li></a>";
+            $output .= "</ul>";
+        }
+
+        echo $output;
+    }
+
+
+
+    // Process Use Section
+    public function searchCustomerDetailName()
+    {
+        $cusname = "";
+        $cusname = $this->input->post("cusName");
+        $query = $this->db->query("SELECT
+            crf_customers.crfcus_id,
+            crf_customers.crfcus_code,
+            crf_customers.crfcus_salesreps,
+            crf_customers.crfcus_name,
+            crf_customers.crfcus_comdatecreate,
+            crf_customers.crfcus_addresstype,
+            crf_customers.crfcus_address,
+            crf_customers.crfcus_contactname,
+            crf_customers.crfcus_phone,
+            crf_customers.crfcus_fax,
+            crf_customers.crfcus_email,
+            crf_customers.crfcus_regiscapital,
+            crf_customers.crfcus_companytype,
+            crf_company_type.crf_comname,
+            crf_customers.crfcus_comtype2,
+            crf_customers.crfcus_comtype31,
+            crf_customers.crfcus_comtype32,
+            crf_customers.crfcus_comtype33,
+            crf_customers.crfcus_comtype34,
+            crf_customers.crfcus_typebussi,
+            crf_customers.crfcus_forecast,
+            crf_customers.crfcus_file1,
+            crf_customers.crfcus_file2,
+            crf_customers.crfcus_file3,
+            crf_customers.crfcus_file4,
+            crf_customers.crfcus_file5,
+            crf_customers.crfcus_file6,
+            crf_customers.crfcus_creditterm,
+            credit_term_category.credit_id,
+            credit_term_category.credit_name,
+            crf_customers.crfcus_conditionbill,
+            crf_customers.crfcus_tablebill,
+            crf_customers.crfcus_mapbill,
+            crf_customers.crfcus_datebill,
+            crf_customers.crfcus_mapbill2,
+            crf_customers.crfcus_conditionmoney,
+            crf_customers.crfcus_cheuqetable,
+            crf_customers.crfcus_cheuqedetail,
+            crf_customers.crfcus_moneylimit,
+            crf_maindata.crf_finance,
+            crf_customers.crfcus_usercreate,
+            crf_customers.crfcus_usercreate_ecode,
+            crf_customers.crfcus_usercreate_deptcode,
+            crf_customers.crfcus_datemodify,
+            crf_maindata.crf_id,
+            crf_customers.crfcus_creditterm2,
+            crf_customers.crfcus_area,
+            crf_customers.crfcus_taxid,
+            crf_customers.crfcus_branch,
+            crf_customers.crfcus_mapurl,
+            crf_customers.crfcus_mapfile,
+            crf_customers.crfcus_products
+            FROM
+            crf_customers
+            INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
+            INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
+            INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
+            WHERE crfcus_name LIKE '%$cusname%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_maindata.crf_id DESC
+            ");
+        $output = "";
+        foreach ($query->result() as $rs) {
+            $output .= "<ul class='list-group'>";
+            $output .= "<a href='javascript:void(0)' class='selectCusName' 
+                data_crf_cusid = '$rs->crfcus_id'
+                data_crf_customercode = '$rs->crfcus_code'
+                data_crf_salesreps = '$rs->crfcus_salesreps' 
+                data_crf_customername = '$rs->crfcus_name'
+                data_crf_cuscompanycreate = '$rs->crfcus_comdatecreate'
+                data_crf_addressname = '$rs->crfcus_address'
+                data_crf_namecontact = '$rs->crfcus_contactname'
+                data_crf_telcontact = '$rs->crfcus_phone'
+                data_crf_faxcontact = '$rs->crfcus_fax'
+                data_crf_emailcontact = '$rs->crfcus_email'
+                data_crf_regiscost = '$rs->crfcus_regiscapital'
+                data_oldcfr_addresstype = '$rs->crfcus_addresstype'
+                data_crf_companytype = '$rs->crfcus_companytype'
+                data_crf_companytype3_1_1 = '$rs->crfcus_comtype31'
+                data_crf_companytype3_1_2 = '$rs->crfcus_comtype32'
+                data_crf_companytype3_2_1 = '$rs->crfcus_comtype33'
+                data_crf_companytype3_2_2 = '$rs->crfcus_comtype34'
+                data_crf_companytype2 = '$rs->crfcus_comtype2'
+                data_crf_typeofbussi = '$rs->crfcus_typebussi'
+                data_crf_forecast = '$rs->crfcus_forecast'
+                data_credit_name = '$rs->credit_name'
+                data_credit_id = '$rs->credit_id'
+                data_crf_condition_bill = '$rs->crfcus_conditionbill'
+                data_crf_condition_money = '$rs->crfcus_conditionmoney'
+                data_crf_recive_cheuqetable = '$rs->crfcus_cheuqetable'
+                data_crf_recive_cheuqedetail = '$rs->crfcus_cheuqedetail'
+                data_crf_tablebill = '$rs->crfcus_tablebill'
+                data_crf_mapbill = '$rs->crfcus_mapbill'
+                data_crf_datebill = '$rs->crfcus_datebill'
+                data_crf_mapbill2 = '$rs->crfcus_mapbill2'
+                data_crf_finance = '$rs->crf_finance'
+                data_crf_finance_req_number = '$rs->crfcus_moneylimit'
+                data_crf_creditterm2 = '$rs->crfcus_creditterm2'
+                data_crf_creditterm2name = '$rs->crfcus_creditterm2'
+                data_crf_moneylimit = '$rs->crfcus_moneylimit'
+                data_crf_area = '$rs->crfcus_area'
+                data_crf_file1 = '$rs->crfcus_file1'
+                data_crf_taxid = '$rs->crfcus_taxid'
+                data_crf_branch = '$rs->crfcus_branch'
+                data_crf_mapurl = '$rs->crfcus_mapurl'
+                data_crf_mapfile = '$rs->crfcus_mapfile'
+                data_crfcus_products = '$rs->crfcus_products'
+                
+                ><li class='list-group-item'>" . $rs->crfcus_name . "&nbsp;" . $rs->crfcus_code . " (" . $rs->crfcus_area . ")" . "</li></a>";
             $output .= "</ul>";
         }
 
@@ -1531,19 +1783,19 @@ class Main_model extends CI_Model
             <div id="priManage" class="row form-group">
             <div class="col-md-3 form-group">
                 <label for="">หน่วยงาน</label>
-                <input readonly type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control form-control-sm" value="' . $rss->crf_primanage_dept . '">
+                <input readonly type="text" name="crf_primanage_dept2[]" id="crf_primanage_dept2" class="form-control form-control-sm" value="' . $rss->crf_primanage_dept . '">
             </div>
             <div class="col-md-3 form-group">
                 <label for="">ชื่อ-สกุล</label>
-                <input readonly type="text" name="crf_primanage_name[]" id="crf_primanage_name" class="form-control form-control-sm" value="' . $rss->crf_primanage_name . '">
+                <input readonly type="text" name="crf_primanage_name2[]" id="crf_primanage_name2" class="form-control form-control-sm" value="' . $rss->crf_primanage_name . '">
             </div>
             <div class="col-md-3 form-group">
                 <label for="">ตำแหน่ง</label>
-                <input readonly type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control form-control-sm" value="' . $rss->crf_primanage_posi . '">
+                <input readonly type="text" name="crf_primanage_posi2[]" id="crf_primanage_posi2" class="form-control form-control-sm" value="' . $rss->crf_primanage_posi . '">
             </div>
             <div class="col-md-3 form-group">
                 <label for="">อีเมล</label>
-                <input readonly type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control form-control-sm" value="' . $rss->crf_primanage_email . '">
+                <input readonly type="text" name="crf_primanage_email2[]" id="crf_primanage_email2" class="form-control form-control-sm" value="' . $rss->crf_primanage_email . '">
             </div>
         </div>
                 ';
@@ -2484,6 +2736,22 @@ class Main_model extends CI_Model
         }
 
 
+        if ($_FILES["crf_mapfile_edit"]["name"] != "") {
+            $mapfile = "crf_mapfile_edit";
+            $mapfilename = "แผนที่ตั้งของลูกค้า";
+            $this->uploadFiles($mapfile, $mapfilename);
+            $resultMapFile = $this->uploadFiles($mapfile, $mapfilename);
+        } else {
+            $resultMapFile = $this->input->post("get_crf_mapfile_edit");
+        }
+
+        if ($this->input->post("crf_mapurl_edit") != "") {
+            $mapUrl = $this->input->post("crf_mapurl_edit");
+        } else {
+            $mapUrl = $this->input->post("get_crf_mapurl_edit");
+        }
+
+
 
         if (isset($_POST['user_edit'])) {
 
@@ -2525,7 +2793,10 @@ class Main_model extends CI_Model
                     "crfcus_usermodify" => $this->input->post("crf_userpost"),
                     "crfcus_usermodify_ecode" => $this->input->post("crf_userecodepost"),
                     "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),
-                    "crfcus_usermodify_datetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime"))
+                    "crfcus_usermodify_datetime" => conDateTimeToDb($this->input->post("crf_userpostdatetime")),
+                    "crfcus_mapurl" => $mapUrl,
+                    "crfcus_mapfile" => $resultMapFile,
+                    "crfcus_products" => $this->input->post("edit_crf_customer_products")
                 );
                 $this->db->where("crfcus_formno", $this->input->post("check_EditFormNo"));
                 $this->db->update("crf_customers_temp", $arcustomer);

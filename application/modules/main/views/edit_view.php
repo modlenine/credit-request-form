@@ -106,6 +106,12 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer" id="crf_sub_oldcus" value="4">
+                            <label for="my-input" class="form-check-label">แก้ไขข้อมูลลูกค้า</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
                             <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_changecredit" id="crf_sub_oldcus" value="3">
                             <label for="my-input" class="form-check-label">ปรับ Credit term. เพิ่ม / ลด</label>
                         </div>
@@ -152,6 +158,18 @@
                         <label for="">วันที่ก่อตั้ง</label>
                         <input type="date" name="edit_cuscompanycreate" id="edit_cuscompanycreate" class="form-control form-control-sm" value="{edit_comcreate}">
                         <div id="alert_cuscompanycreate"></div>
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <div class="col-md-6 form-group">
+                        <label for="">เลขที่ผู้เสียภาษี</label>
+                        <input type="text" name="crf_customertaxid_view" id="crf_customertaxid_view" class="form-control form-control-sm" value="{crfcus_taxid}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="">สาขา</label>
+                        <input type="text" name="crf_customerbranch_view" id="crf_customerbranch_view" class="form-control form-control-sm" value="{crfcus_branch}">
                     </div>
                 </div>
 
@@ -216,6 +234,43 @@
                         <input type="text" name="edit_regiscost" id="edit_regiscost" class="form-control form-control-sm" value="{edit_regiscapital}">
                         <div id="alert_regiscost"></div>
                     </div>
+
+
+                    <div class="col-md-6">
+                        <!-- Get map url -->
+                        <input hidden type="text" name="get_crf_mapurl_edit" id="get_crf_mapurl_edit" value="{crfcus_mapurl}">
+                        <!-- Get map url -->
+
+                        <div class="notEdit1">
+                            <a href="javascript:void(0)"><i id="editMapUrl" class="fas fa-edit" style="color:orange"></i></a>&nbsp;&nbsp;<label for="">แผนที่ (ลิ้งจาก Googlemap) :</label>
+                            <a href="{crfcus_mapurl}" target="_blank"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:green;"></i></span></a>
+                        </div>
+
+                        <div class="canEdit1" style="display:none;">
+                            <label for="">แผนที่ (ลิ้งจาก Googlemap)</label>
+                            <input type="text" name="crf_mapurl_edit" id="crf_mapurl_edit" class="form-control form-control-sm">
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Get map file -->
+                        <input hidden type="text" name="get_crf_mapfile_edit" id="get_crf_mapfile_edit" value="{crfcus_mapfile}">
+                        <!-- Get map file -->
+
+                        <div class="notEdit2">
+                            <a href="javascript:void(0)"><i id="editMapFile" class="fas fa-edit" style="color:orange"></i></a>&nbsp;&nbsp;<label for="">แนบไฟล์แผนที่ (jpg , png , pdf) :</label>
+                            <a id="mapfilelink" href="#" data-toggle="modal" data-target="#showmapfile" data_mapfile="{crfcus_mapfile}"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:#FF6600;"></i></span></a>
+                        </div>
+
+                        <div class="canEdit2" style="display:none;">
+                            <label for="">แนบไฟล์แผนที่ (jpg , png , pdf)</label>
+                            <input type="file" name="crf_mapfile_edit" id="crf_mapfile_edit" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
+                        </div>
+
+                    </div>
+
+
                 </div><br>
 
 
@@ -346,6 +401,14 @@
                 <br>
 
 
+            <label for="">
+                    <h6><b><u>ผลิตภัณฑ์ของลูกค้า</u></b></h6>
+                </label>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <textarea name="edit_crf_customer_products" id="edit_crf_customer_products" cols="30" rows="3" class="form-control">{crfcus_products}</textarea>
+                    </div>
+                </div>
 
 
                 <label for="">

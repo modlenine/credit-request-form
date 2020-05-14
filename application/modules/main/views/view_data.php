@@ -91,6 +91,7 @@ if ($result->crf_status == "Open") {
             <input style="display:none" type="text" name="forcrf_sub_oldcus_changeaddress_view" id="forcrf_sub_oldcus_changeaddress_view" value="<?= $result->crf_sub_oldcus_changeaddress ?>">
             <input style="display:none" type="text" name="forcrf_sub_oldcus_changecredit_view" id="forcrf_sub_oldcus_changecredit_view" value="<?= $result->crf_sub_oldcus_changecredit ?>">
             <input style="display:none" type="text" name="forcrf_sub_oldcus_changefinance_view" id="forcrf_sub_oldcus_changefinance_view" value="<?= $result->crf_sub_oldcus_changefinance ?>">
+            <input style="display:none" type="text" name="forcrf_sub_oldcus_editcustomer_view" id="forcrf_sub_oldcus_editcustomer_view" value="<?= $result->crf_sub_oldcus_editcustomer ?>">
 
             <div class="row form-group p-2">
                 <div class="col-md-3 form-group">
@@ -105,6 +106,12 @@ if ($result->crf_status == "Open") {
                         <label for="my-input" class="form-check-label">เปลี่ยนที่อยู่</label>
                     </div>
                 </div>
+                <div class="col-md-3 form-group">
+                        <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer_view" id="crf_sub_oldcus_editcustomer_view" value="1">
+                            <label for="my-input" class="form-check-label">แก้ไขข้อมูลลูกค้า</label>
+                        </div>
+                    </div>
                 <div class="col-md-3 form-group">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="crf_sub_oldcus_changecredit_view" id="crf_sub_oldcus_changecredit_view" value="1" onclick="return false;">
@@ -157,6 +164,18 @@ if ($result->crf_status == "Open") {
                 <div class="col-md-4 form-group">
                     <label for="">วันที่ก่อตั้ง</label>
                     <input readonly type="text" name="crf_cuscompanycreate_view" id="crf_cuscompanycreate_view" class="form-control form-control-sm" value="<?= conDateFromDb($result->crfcus_comdatecreate) ?>">
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-md-6 form-group">
+                    <label for="">เลขที่ผู้เสียภาษี</label>
+                    <input readonly type="text" name="crf_customertaxid_view" id="crf_customertaxid_view" class="form-control form-control-sm" value="<?=$result->crfcus_taxid?>">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="">สาขา</label>
+                    <input readonly type="text" name="crf_customerbranch_view" id="crf_customerbranch_view" class="form-control form-control-sm" value="<?=$result->crfcus_branch?>">
                 </div>
             </div>
 
@@ -224,6 +243,15 @@ if ($result->crf_status == "Open") {
                     <label for="">ทุนจดทะเบียน</label>
                     <input readonly type="text" name="crf_regiscost_view" id="crf_regiscost_view" class="form-control form-control-sm" value="<?= $result->crfcus_regiscapital ?>">
                 </div>
+
+                <div class="col-md-3">
+                        <label for="">แผนที่ (ลิ้งจาก Googlemap) :</label>
+                        <a href="<?=$result->crfcus_mapurl?>" target="_blank"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:green;"></i></span></a>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">แนบไฟล์แผนที่ (jpg , png , pdf) :</label>
+                        <a id="mapfilelink" href="#" data-toggle="modal" data-target="#showmapfile" data_mapfile = "<?=$result->crfcus_mapfile?>"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:orange;"></i></span></a>
+                    </div>
             </div><br>
 
 
@@ -343,6 +371,17 @@ if ($result->crf_status == "Open") {
                 <?php } ?>
             </div>
             <br>
+
+
+
+            <label for="">
+                    <h6><b><u>ผลิตภัณฑ์ของลูกค้า</u></b></h6>
+                </label>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <textarea readonly name="crf_customer_product" id="crf_customer_product" cols="30" rows="3" class="form-control"><?= $result->crfcus_products ?></textarea>
+                    </div>
+                </div>
 
 
 

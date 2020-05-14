@@ -319,6 +319,12 @@ class Main extends MX_Controller
     {
         $this->main->searchCustomerDetail();
     }
+    public function searchCustomerDetailName()
+    {
+        $this->main->searchCustomerDetailName();
+    }
+
+
     public function searchCustomerDetailEx()
     {
         $this->main->searchCustomerDetailEx();
@@ -895,6 +901,11 @@ public function editdata($crf_id)
         "edit_crf_finance_change_number" => getViewData($crf_id)->crf_finance_change_number,
         "edit_crf_finance_change_total" => getViewData($crf_id)->crf_finance_change_total,
         "edit_crf_finance_change_detail" => getViewData($crf_id)->crf_finance_change_detail,
+        "crfcus_mapurl" => getViewData($crf_id)->crfcus_mapurl,
+        "crfcus_mapfile" => getViewData($crf_id)->crfcus_mapfile,
+        "crfcus_taxid" => getViewData($crf_id)->crfcus_taxid,
+        "crfcus_branch" => getViewData($crf_id)->crfcus_branch,
+        "crfcus_products" => getViewData($crf_id)->crfcus_products
 
     );
 

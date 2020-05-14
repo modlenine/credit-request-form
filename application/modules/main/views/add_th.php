@@ -34,8 +34,8 @@
                     </div>
                 </div>
 
-<!-- Check area add page internal -->
-<input hidden type="text" name="addThArea" id="addThArea">
+                <!-- Check area add page internal -->
+                <input hidden type="text" name="addThArea" id="addThArea">
 
                 <!-- Chose Company -->
                 <div id="alert_company"></div>
@@ -96,6 +96,12 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <div class="form-check">
+                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer" id="crf_sub_oldcus" value="5">
+                            <label for="my-input" class="form-check-label">แก้ไขข้อมูลลูกค้า</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <div class="form-check">
                             <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_changecredit" id="crf_sub_oldcus" value="3">
                             <label for="my-input" class="form-check-label">ปรับ Credit term. เพิ่ม / ลด</label>
                         </div>
@@ -137,12 +143,24 @@
                     <div class="col-md-8 form-group">
                         <label for="">ชื่อลูกค้า : &nbsp;</label>
                         <input type="text" name="crf_customername" id="crf_customername" class="form-control form-control-sm">
+                        <div id="autoCusname"></div>
                         <div id="alert_customername"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">วันที่ก่อตั้ง</label>
                         <input type="date" name="crf_cuscompanycreate" id="crf_cuscompanycreate" class="form-control form-control-sm">
                         <div id="alert_cuscompanycreate"></div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 form-group">
+                        <label for="">เลขที่ผู้เสียภาษี</label>
+                        <input type="text" name="crf_customertaxid" id="crf_customertaxid" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="">สาขา</label>
+                        <input type="text" name="crf_customerbranch" id="crf_customerbranch" class="form-control form-control-sm">
                     </div>
                 </div>
 
@@ -204,6 +222,38 @@
                         <input type="text" name="crf_regiscost" id="crf_regiscost" class="form-control form-control-sm">
                         <div id="alert_regiscost"></div>
                     </div>
+
+                    <div class="col-md-6">
+                        <!-- For not change -->
+                        <input hidden type="text" name="getmapurl_addpage" id="getmapurl_addpage">
+                        <!-- For not change -->
+                        <div id="fromoldcus1" style="display:none;">
+                            <a href="javascript:void(0)"><i id="editMapUrl_addpage" class="fas fa-edit" style="color:orange;display:none;"></i></a>&nbsp;&nbsp;<label for="">แผนที่ (ลิ้งจาก Googlemap) :</label>
+                            <a id="getlinkgooglemap" target="_blank"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:green;"></i></span></a>
+                        </div>
+
+                        <div id="foredit1">
+                            <label for="">แผนที่ (ลิ้งจาก Googlemap)</label>
+                            <input type="text" name="crf_mapurl" id="crf_mapurl" class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- For not change -->
+                        <input hidden type="text" name="getmapfile_addpage" id="getmapfile_addpage">
+                        <!-- For not change -->
+                        <div id="fromoldcus2" style="display:none;">
+                            <a href="javascript:void(0)"><i id="editMapFile_addpage" class="fas fa-edit" style="color:orange;display:none;"></i></a>&nbsp;&nbsp;<label for="">แนบไฟล์แผนที่ (jpg , png , pdf) :</label>
+                            <a id="mapfilelink" href="#" data-toggle="modal" data-target="#showmapfile" data_mapfile=""><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:#FF6600;"></i></span></a>
+                        </div>
+
+                        <div id="foredit2">
+                            <label for="">แนบไฟล์แผนที่ (jpg , png , pdf)</label>
+                            <input type="file" name="crf_mapfile" id="crf_mapfile" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
+                        </div>
+
+                    </div>
+
                 </div><br>
 
 
@@ -255,24 +305,25 @@
 
 
                 <label for="">
-                    <h6><b><u>บุคคลในแต่ละระดับบริหารที่สำคัญ</u></b></h6>
+                    <h6><b><u>บุคคลในแต่ละระดับบริหารที่สำคัญ</u></b>&nbsp;&nbsp;<a href="javascript:void(0)"><i id="editPrimanage_addpage" class="fas fa-edit" style="color:orange;display:none;"></i></a></h6>
                 </label>
+                <input type="text" name="checkprimanagenull" id="checkprimanagenull">
                 <div id="priManage" class="row form-group newPrimanage">
                     <div class="col-md-3 form-group">
                         <label for="">หน่วยงาน</label>
-                        <input type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control form-control-sm" required>
+                        <input type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control form-control-sm">
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="">ชื่อ-สกุล</label>
-                        <input type="text" name="crf_primanage_name[]" id="crf_primanage_name" class="form-control form-control-sm" required>
+                        <input type="text" name="crf_primanage_name[]" id="crf_primanage_name" class="form-control form-control-sm">
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="">ตำแหน่ง</label>
-                        <input type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control form-control-sm" required>
+                        <input type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control form-control-sm">
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="">อีเมล</label>
-                        <input type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control form-control-sm" required>
+                        <input type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="row newPrimanage">
@@ -320,6 +371,18 @@
 
 
                 <label for="">
+                    <h6><b><u>ผลิตภัณฑ์ของลูกค้า</u></b></h6>
+                </label>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <textarea name="crf_customer_product" id="crf_customer_product" cols="30" rows="3" class="form-control"></textarea>
+                    </div>
+                </div>
+
+
+
+
+                <label for="">
                     <h6><b><u>คาดการณ์ปริมาณการขาย</u></b></h6>
                 </label>
                 <div class="row form-group">
@@ -335,37 +398,37 @@
 
                 <label for="">
                     <h6><b><u>เอกสารที่จำเป็นในการขอเปิดวงเงินการค้า</u></b></h6>
-                    <span style="color:red;">ไฟล์ต้องมีขนาดไม่เกิน 10MB.</span>
+                    <span style="color:red;">ไฟล์ต้องมีขนาดไม่เกิน 10MB และรองรับเฉพาะไฟล์ pdf , jpg , png เท่านั้น.</span>
                 </label>
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
                         <label for="">ภพ.20 / ภธ.09</label><br>
-                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file1"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file2">
                         <label for="">หนังสือรับรอง</label><br>
-                        <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file2"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file3">
                         <label for="">ข้อมูลทั่วไป</label><br>
-                        <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file3"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file4">
                         <label for="">งบแสดงฐานะทางการเงิน</label><br>
-                        <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file4"></div>
                     </div>
                     <div class="col-md-4 crf_file5">
                         <label for="">งบกำไรขาดทุน</label><br>
-                        <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file5"></div>
                     </div>
                     <div class="col-md-4 crf_file6">
                         <label for="">อัตราส่วนสภาพคล่อง</label>
-                        <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".pdf">
+                        <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file6"></div>
                     </div>
                 </div>

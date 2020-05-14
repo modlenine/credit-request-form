@@ -428,3 +428,37 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+<!-- Modal Show แผนที่ Google map -->
+<div class="modal fade" id="showmapfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">
+					ไฟล์แผนที่&nbsp;
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div id="show_file10" class="col-md-12">
+					<img id="showmapfile_output" src="" width="100%" height="500px" />
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

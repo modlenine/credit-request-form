@@ -631,7 +631,12 @@ function saveCustomersCode($crfid, $crfcusid)
                 "crfcus_usermodify_ecode" => $result->crfcus_usermodify_ecode,
                 "crfcus_usermodify_deptcode" => $result->crfcus_usermodify_deptcode,
                 "crfcus_usermodify_datetime" => date("Y-m-d H:i:s"),
-                "crfcus_area" => $result->crfcus_area
+                "crfcus_area" => $result->crfcus_area,
+                "crfcus_taxid" => $result->crfcus_taxid,
+                "crfcus_branch" => $result->crfcus_branch,
+                "crfcus_mapurl" => $result->crfcus_mapurl,
+                "crfcus_mapfile" => $result->crfcus_mapfile,
+                "crfcus_products" => $result->crfcus_products
 
             );
             $obj->gci()->db->insert("crf_customers", $arCopyToCustomerTable);

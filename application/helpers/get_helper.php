@@ -264,6 +264,7 @@ function getViewData($crf_id)
     crf_maindata.crf_sub_oldcus_changeaddress,
     crf_maindata.crf_sub_oldcus_changecredit,
     crf_maindata.crf_sub_oldcus_changefinance,
+    crf_maindata.crf_sub_oldcus_editcustomer,
     crf_maindata.crf_creditterm,
     crf_maindata.crf_change_creditterm,
     crf_maindata.crf_condition_credit,
@@ -307,7 +308,13 @@ function getViewData($crf_id)
     crf_maindata.crfw_cusaddresstype,
     crf_maindata.crfw_cusaddress,
     crf_maindata.crfw_cusfile1,
-    crf_customers_temp.crfcus_formno
+    crf_customers_temp.crfcus_formno,
+    crf_customers_temp.crfcus_taxid,
+    crf_customers_temp.crfcus_branch,
+    crf_customers_temp.crfcus_mapurl,
+    crf_customers_temp.crfcus_mapfile,
+    crf_customers_temp.crfcus_products
+
     
     FROM
     crf_maindata
@@ -327,7 +334,7 @@ function getPrimanage($crfcus_id)
     $obj = new getfn();
     $query = $obj->gci()->db->query("SELECT
     crf_primanage_id , crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email
-    FROM crf_pri_manage WHERE crf_pricusid = '$crfcus_id' ORDER BY crf_primanage_id DESC
+    FROM crf_pri_manage_temp WHERE crf_pricusid = '$crfcus_id' ORDER BY crf_primanage_id DESC
     ");
     return $query;
 }

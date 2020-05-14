@@ -52,6 +52,27 @@ $(document).ready(function () {
 
 
 
+    //เลขที่ผู้เสียภาษี
+    $('#crf_customertaxid').prop('readonly', true);
+
+    //สาขา
+    $('#crf_customerbranch').prop('readonly', true);
+
+    //แผนที่ลิ้ง
+    $('#crf_mapurl').prop('readonly', true);
+
+    //แผนที่ ไฟล์
+    $('#crf_mapfile').prop('readonly', true);
+
+    // วันที่ก่อตั้ง
+    $('#crf_cuscompanycreate').prop('readonly', true);
+
+    // ผลิตภัณฑ์ของลูกค้า
+    $('#crf_customer_product').prop('readonly', true);
+
+
+
+
     //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม
     //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม
 
@@ -88,7 +109,7 @@ $(document).ready(function () {
             $('#crf_salesreps').prop('readonly', true);
 
             // ชื่อลูกค้า :
-            $('#crf_customername').prop('readonly', true);
+            $('#crf_customername').prop('readonly', false);
 
             // ที่อยู่สำหรับการเปิดใบกำกับภาษี :
             $('#crf_addressname').prop('readonly', true);
@@ -129,8 +150,29 @@ $(document).ready(function () {
             $('#crf_creditterm').prop('disabled', true);
 
 
+            //เลขที่ผู้เสียภาษี
+            $('#crf_customertaxid').prop('readonly', true);
 
-            $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2 , #crf_companytype2').prop('readonly' , true);
+            //สาขา
+            $('#crf_customerbranch').prop('readonly', true);
+
+            //แผนที่ลิ้ง
+            $('#crf_mapurl').prop('readonly', true);
+
+            //แผนที่ ไฟล์
+            $('#crf_mapfile').prop('readonly', true);
+
+            // วันที่ก่อตั้ง
+            $('#crf_cuscompanycreate').prop('readonly', true);
+
+            // ผลิตภัณฑ์ของลูกค้า
+            $('#crf_customer_product').prop('readonly', true);
+
+
+            $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2 , #crf_companytype2').prop('readonly', true);
+
+            $('#fromoldcus1 , #fromoldcus2').css('display', '');
+            $('#foredit1 , #foredit2').css('display', 'none');
 
 
             // Control กรณีเลือก เปลี่ยนเขตการขาย
@@ -147,7 +189,7 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    $('#crf_salesreps').prop('readonly', false);
+                    $('#crf_salesreps').prop('readonly', true);
                     // $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
                 }
             });
@@ -157,7 +199,7 @@ $(document).ready(function () {
             $('input:checkbox[name="crf_sub_oldcus_changeaddress"]').click(function () {
 
                 if ($(this).prop("checked") == true) {
-                    $('#crf_addressname , #crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost').prop('readonly', false);
+                    $('#crf_addressname').prop('readonly', false);
                     $('.crf_file1').css('display', '');
                     $('input:radio[name="crf_addresstype"]').prop('disabled', false);
 
@@ -178,13 +220,95 @@ $(document).ready(function () {
                     });
 
                 } else {
-                    $('#crf_addressname').prop('readonly', false);
+                    $('#crf_addressname').prop('readonly', true);
                     // $('.crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
+                    $('#crf_addressname').prop('readonly', true);
                     $('input:radio[name="crf_addresstype"]').prop('disabled', true);
                     $('.crf_file1').css('display', 'none');
-                    $('#crf_addressname').prop('readonly', true);
                 }
             });
+
+
+
+            // Control กรณีแก้ไขข้อมูลลูกค้า
+            $('input:checkbox[name="crf_sub_oldcus_editcustomer"]').click(function () {
+                if ($(this).prop("checked") == true) {
+                    $('#crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile').prop('readonly', false);
+                    $('#editMapFile_addpage , #editMapUrl_addpage , #editPrimanage_addpage').css('display', '');
+                    $('#editMapUrl_addpage').click(function () {
+                        $('#foredit1').toggle('display', '');
+                    });
+                    $('#editMapFile_addpage').click(function () {
+                        $('#foredit2').toggle('display', '');
+                    });
+
+                    $('#editPrimanage_addpage').click(function(){
+                        $('.newPrimanage').show();
+                        $('#showPrimanage').html('');
+                        $('#checkprimanagenull').val('1');
+                    });
+
+                    var checkpointchange = 0;
+                    $('#crf_namecontact').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_telcontact').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_faxcontact').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_emailcontact').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_regiscost').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_mapurl').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+                    $('#crf_mapfile').change(function () {
+                        checkpointchange = 1;
+                        if (checkpointchange == 1) {
+                            $('#user_submit').prop('disabled', false);
+                        }
+                    });
+
+
+
+                } else {
+                    $('#crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile').prop('readonly', true);
+                    $('#editMapFile_addpage , #editMapUrl_addpage , #editPrimanage_addpage').css('display', 'none');
+
+                }
+            });
+            // Control กรณีแก้ไขข้อมูลลูกค้า
+
+
 
 
             // Control กรณีเลือกปรับ Credit term
@@ -196,6 +320,11 @@ $(document).ready(function () {
                     $('.change_credit_detail').css('display', '');
                     $('#crf_condition_credit').attr('required', '');
                     $('#crf_creditterm').prop('readonly', true);
+                    if ($('#crf_condition_credit').val() == '') {
+                        $('#user_submit').prop('disabled', true);
+                    } else {
+                        $('#user_submit').prop('disabled', false);
+                    }
                 } else {
                     $('.change_credit').css('display', 'none');
                     $('input[name=crf_change_creditterm]').prop('checked', false);
@@ -270,11 +399,29 @@ $(document).ready(function () {
                     $('#alert_crf_sub_oldcus').html('');
                 }
             });
+            $('#crf_customername').focus(function () {
+                var crf_sub_oldcus = $('input[type="checkbox"][id="crf_sub_oldcus"]:checked');
+                if (crf_sub_oldcus.length < 1) {
+                    $('#alert_crf_sub_oldcus').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทการดำเนินการด้วยค่ะ</div>');
+                    $('#crf_customername').val('');
+                } else {
+                    $('#alert_crf_sub_oldcus').html('');
+                }
+            });
             $('#crf_customercode').keyup(function () {
                 var crf_sub_oldcus = $('input[type="checkbox"][id="crf_sub_oldcus"]:checked');
                 if (crf_sub_oldcus.length < 1) {
                     $('#alert_crf_sub_oldcus').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทการดำเนินการด้วยค่ะ</div>');
                     $('#crf_customercode').val('');
+                } else {
+                    $('#alert_crf_sub_oldcus').html('');
+                }
+            });
+            $('#crf_customername').keyup(function () {
+                var crf_sub_oldcus = $('input[type="checkbox"][id="crf_sub_oldcus"]:checked');
+                if (crf_sub_oldcus.length < 1) {
+                    $('#alert_crf_sub_oldcus').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทการดำเนินการด้วยค่ะ</div>');
+                    $('#crf_customername').val('');
                 } else {
                     $('#alert_crf_sub_oldcus').html('');
                 }
@@ -293,28 +440,28 @@ $(document).ready(function () {
 
 
             // Check ข้อมูลช่อง Sale Rep ว่ามีการกรอกข้อมูลหรือไม่
-            $('#crf_salesreps').blur(function () {
-                if ($(this).val() == '') {
-                    $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
-                    $('#crf_customername').val('');
-                }
-            });
-            $('#crf_customername').focus(function () {
-                if ($('#crf_salesreps').val() == '') {
-                    $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
-                } else {
-                    $('#alert_salesreps').html('');
-                }
-            });
-            $('#crf_customername').keyup(function () {
-                if ($('#crf_salesreps').val() == '') {
-                    $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
-                    $('#crf_customername').val('');
-                } else {
-                    $('#alert_salesreps').html('');
-                    $('#alert_customername').html('');
-                }
-            });
+            // $('#crf_salesreps').blur(function () {
+            //     if ($(this).val() == '') {
+            //         $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+            //         $('#crf_customername').val('');
+            //     }
+            // });
+            // $('#crf_customername').focus(function () {
+            //     if ($('#crf_salesreps').val() == '') {
+            //         $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+            //     } else {
+            //         $('#alert_salesreps').html('');
+            //     }
+            // });
+            // $('#crf_customername').keyup(function () {
+            //     if ($('#crf_salesreps').val() == '') {
+            //         $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+            //         $('#crf_customername').val('');
+            //     } else {
+            //         $('#alert_salesreps').html('');
+            //         $('#alert_customername').html('');
+            //     }
+            // });
             // Check ข้อมูลช่อง Sale Rep ว่ามีการกรอกข้อมูลหรือไม่
 
 
@@ -327,13 +474,13 @@ $(document).ready(function () {
                     $('#alert_customername').html('');
                 }
             });
-            $('#crf_customername').blur(function () {
-                if ($(this).val() == '') {
-                    $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
-                } else {
-                    $('#alert_customername').html();
-                }
-            });
+            // $('#crf_customername').blur(function () {
+            //     if ($(this).val() == '') {
+            //         $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+            //     } else {
+            //         $('#alert_customername').html();
+            //     }
+            // });
             // Check ข้อมูลช่อง ชื่อลูกค้าว่ามีการกรอกข้อมูลหรือไม่
 
 
@@ -862,54 +1009,54 @@ $(document).ready(function () {
 
 
             // test check file 1
-            $('#user_submit').click(function(){
-                if($('input:checkbox[name="crf_sub_oldcus_changeaddress"]').prop('checked')){
-                    if($('#crf_file1').val() == ''){
+            $('#user_submit').click(function () {
+                if ($('input:checkbox[name="crf_sub_oldcus_changeaddress"]').prop('checked')) {
+                    if ($('#crf_file1').val() == '') {
                         alert('กรุณาอัพโหลดไฟล์ ภพ20 ด้วยค่ะ');
-                        $('#user_submit').prop('disabled' , true);
+                        $('#user_submit').prop('disabled', true);
                         $('#alert_file1').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ20 ด้วยค่ะ</div>');
                         exit;
-                    }else{
-                        $('#user_submit').prop('disabled' , false);
+                    } else {
+                        $('#user_submit').prop('disabled', false);
                         $('#alert_file1').html('');
                     }
                 }
 
-                if($('input:checkbox[name="crf_sub_oldcus_changecredit"]').prop('checked')){
-                    if($('#crf_condition_credit').val() == ''){
+                if ($('input:checkbox[name="crf_sub_oldcus_changecredit"]').prop('checked')) {
+                    if ($('#crf_condition_credit').val() == '') {
                         alert('กรุณาเลือกเงื่อนไขการขอปรับ Credit term ด้วย ค่ะ');
                         $('#alert_crf_condition_credit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการขอปรับ Credit term ด้วย ค่ะ</div>');
-                        $('#user_submit').prop('disabled' , true);
+                        $('#user_submit').prop('disabled', true);
                         exit;
-                    }else{
+                    } else {
                         $('#alert_crf_condition_credit').html('');
-                        $('#user_submit').prop('disabled' , false);
+                        $('#user_submit').prop('disabled', false);
                     }
 
-                    if($('#showcredit2').val() == ''){
+                    if ($('#showcredit2').val() == '') {
                         alert('กรุณาเลือก Credit term ที่ต้องการด้วย ค่ะ');
                         $('#alert_showcredit2').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit term ที่ต้องการด้วย ค่ะ</div>');
-                        $('#user_submit').prop('disabled' , true);
+                        $('#user_submit').prop('disabled', true);
                         exit;
-                    }else{
+                    } else {
                         $('#alert_showcredit2').html('');
-                        $('#user_submit').prop('disabled' , false);
+                        $('#user_submit').prop('disabled', false);
                     }
                 }
 
-                if($('input:checkbox[name="crf_sub_oldcus_changefinance"]').prop('checked')){
-                    if($('#crf_finance_change_total').val() == ''){
+                if ($('input:checkbox[name="crf_sub_oldcus_changefinance"]').prop('checked')) {
+                    if ($('#crf_finance_change_total').val() == '') {
                         alert('กรุณาระบุ รายละเอียดการขอเปลี่ยนแปลงแก้ไขวงเงิน ด้วยค่ะ');
                         $('#alert_crf_finance_status').html('<div class="alert alert-danger" role="alert">กรุณาเลือก สถานะวงเงิน ด้วยค่ะ</div>');
                         $('#alert_crf_finance_change_status').html('<div class="alert alert-danger" role="alert">กรุณาเลือก สถานะการขอวงเงิน ด้วยค่ะ</div>');
                         $('#alert_crf_finance_change_number').html('<div class="alert alert-danger" role="alert">กรุณาระบุ จำนวนเงิน ที่ต้องการด้วยค่ะ</div>');
-                        $('#user_submit').prop('disabled' , true);
+                        $('#user_submit').prop('disabled', true);
                         exit;
-                    }else{
+                    } else {
                         $('#alert_crf_finance_status').html('');
                         $('#alert_crf_finance_change_status').html('');
                         $('#alert_crf_finance_change_number').html('');
-                        $('#user_submit').prop('disabled' , false);
+                        $('#user_submit').prop('disabled', false);
                     }
                 }
 
@@ -966,12 +1113,30 @@ $(document).ready(function () {
 
 
             // Control Credit Term
-             $('#crf_creditterm').prop('disabled', false);
+            $('#crf_creditterm').prop('disabled', false);
 
 
 
             // Default upload file
             $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
+
+            //เลขที่ผู้เสียภาษี
+            $('#crf_customertaxid').prop('readonly', false);
+
+            //สาขา
+            $('#crf_customerbranch').prop('readonly', false);
+
+            //แผนที่ลิ้ง
+            $('#crf_mapurl').prop('readonly', false);
+
+            //แผนที่ ไฟล์
+            $('#crf_mapfile').prop('readonly', false);
+
+            // วันที่ก่อตั้ง
+            $('#crf_cuscompanycreate').prop('readonly', false);
+
+            // ผลิตภัณฑ์ของลูกค้า
+            $('#crf_customer_product').prop('readonly', false);
 
 
 
@@ -1031,12 +1196,12 @@ $(document).ready(function () {
             });
             $('#crf_customername').blur(function () {
                 var cusname = $('#crf_customername').val();
-                var comname = $('input:radio[name="crf_company"]').val();
+                var comname = $('input:radio[name="crf_company"]:checked').val();
                 if ($(this).val() == '') {
                     $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
                 } else {
                     $('#alert_customername').html('');
-                    checkDuplicateNameCustomer(cusname , comname);
+                    checkDuplicateNameCustomer(cusname, comname);
                 }
             });
             // Check ข้อมูลช่อง ชื่อลูกค้าว่ามีการกรอกข้อมูลหรือไม่
@@ -1562,7 +1727,7 @@ $(document).ready(function () {
             });
             // Check ช่องวงเงินที่ต้องการว่ามีการกรอกข้อมูลหรือไม่
 
-   
+
 
 
 
@@ -1694,6 +1859,8 @@ $(document).ready(function () {
         var buttonid = $(this).attr("id");
         $('#priManage' + buttonid + '').remove();
     });
+
+
 
 
 
@@ -1854,12 +2021,12 @@ $(document).ready(function () {
     // Customer Section Select
     if ($('#forcrf_type_view').val() == 1) {
         $('input:radio[id="crf_type1_view"]').prop('checked', true);
-        $('.accForcus2').css('display','none');
+        $('.accForcus2').css('display', 'none');
     } else if ($('#forcrf_type_view').val() == 2) {
         $('input:radio[id="crf_type2_view"]').prop('checked', true);
         $('.cs_br').remove();
         // $('.account_staff').remove();
-        $('.accForcus1').css('display','none');
+        $('.accForcus1').css('display', 'none');
     }
 
     // Customer Old Select Section
@@ -1878,6 +2045,10 @@ $(document).ready(function () {
     }
     if ($('#forcrf_sub_oldcus_changefinance_view').val() == 4) {
         $('input:checkbox[id="crf_sub_oldcus_changefinance_view"]').prop('checked', true);
+    }
+
+    if($('#forcrf_sub_oldcus_editcustomer_view').val() == 5){
+        $('input:checkbox[id="crf_sub_oldcus_editcustomer_view"]').prop('checked' , true);
     }
 
 
@@ -2177,7 +2348,7 @@ $(document).ready(function () {
         $('.director1').css('display', '');
         if ($('#checkfordirector1_appro').val() == "") {
             $('.fordirector1_appro , #forcrf_director_detail1 ,#forcrf_director_name1 , #forcrf_director_datatime1').css('display', 'none');
-        }else{
+        } else {
             $('.director1_appro , #crf_director_detail1 ,#crf_director_name1 , #crf_director_datatime1 , #director_submit1').css('display', 'none');
         }
     } else if (checkStatus == "Waiting for second director approve" || checkStatus == "Second director approved" || checkStatus == "Directors approved") {
@@ -2210,7 +2381,7 @@ $(document).ready(function () {
         $('.director2').css('display', '');
         if ($('#checkfordirector2_appro').val() == "") {
             $('.fordirector2_appro , #forcrf_director_detail2 ,#forcrf_director_name2 , #forcrf_director_datatime2').css('display', 'none');
-        }else{
+        } else {
             $('.director2_appro , #crf_director_detail2 ,#crf_director_name2 , #crf_director_datatime2 , #director_submit2').css('display', 'none');
         }
     } else if (checkStatus == "Second director approved" || checkStatus == "Directors approved") {
@@ -2349,8 +2520,15 @@ $(document).ready(function () {
         var data_crf_moneylimit = $(this).attr('data_crf_moneylimit');
         var data_crf_area = $(this).attr('data_crf_area');
         var data_crf_file1 = $(this).attr('data_crf_file1');
+        var data_crf_taxid = $(this).attr('data_crf_taxid');
+        var data_crf_branch = $(this).attr('data_crf_branch');
+        var data_crf_mapurl = $(this).attr('data_crf_mapurl');
+        var data_crf_mapfile = $(this).attr('data_crf_mapfile');
+        var data_crfcus_products = $(this).attr('data_crfcus_products');
 
-        $('#crf_customercode').val(data_crf_customercode).prop('readonly', true);
+
+
+        $('#crf_customercode').val(data_crf_customercode);
         $('#crf_salesreps').val(data_crf_salesreps);
         $('#crf_customername').val(data_crf_customername);
         $('#crf_cuscompanycreate').val(data_crf_cuscompanycreate);
@@ -2361,6 +2539,14 @@ $(document).ready(function () {
         $('#crf_emailcontact').val(data_crf_emailcontact);
         $('#crf_regiscost').val(data_crf_regiscost);
         $('#crf_forecast').val(data_crf_forecast);
+
+        $('#crf_customertaxid').val(data_crf_taxid);
+        $('#crf_customerbranch').val(data_crf_branch);
+        $('#getmapurl_addpage').val(data_crf_mapurl);
+        $('#getlinkgooglemap').attr('href', data_crf_mapurl);
+        $('#mapfilelink').attr('data_mapfile', data_crf_mapfile);
+        $('#getmapfile_addpage').val(data_crf_mapfile);
+        $('#crf_customer_product').val(data_crfcus_products);
 
         // $('#value_crf_finance').val(data_crf_finance);
 
@@ -2374,14 +2560,14 @@ $(document).ready(function () {
         $('#crf_finance_req_number , #crf_finance_req_number_calc').val(data_crf_moneylimit);
         $('#crf_cusid').val(data_crf_cusid);
 
-        if(data_crf_area == 'sln'){
-            $('#crf_company_sln').prop('checked' , true);
+        if (data_crf_area == 'sln') {
+            $('#crf_company_sln').prop('checked', true);
         }
-        if(data_crf_area == 'poly'){
-            $('#crf_company_poly').prop('checked' , true);
+        if (data_crf_area == 'poly') {
+            $('#crf_company_poly').prop('checked', true);
         }
-        if(data_crf_area == 'ca'){
-            $('#crf_company_ca').prop('checked' , true);
+        if (data_crf_area == 'ca') {
+            $('#crf_company_ca').prop('checked', true);
         }
 
         $('#addThArea').val(data_crf_area);
@@ -2478,6 +2664,197 @@ $(document).ready(function () {
 
 
 
+    // Auto search customer name
+    $('#crf_customername').on('keyup', function () {
+        var cusname = $(this).val();
+
+        if (cusname != '') {
+            autoSearchCustomerDetailName(cusname);
+        } else {
+            $('#autoCusname').html('')
+        }
+    });
+    $(document).on('click', '.selectCusName', function () {
+        var data_crf_salesreps = $(this).attr('data_crf_salesreps');
+        var data_crf_customername = $(this).attr('data_crf_customername');
+        var data_crf_cuscompanycreate = $(this).attr('data_crf_cuscompanycreate');
+        var data_crf_addressname = $(this).attr('data_crf_addressname');
+        var data_crf_namecontact = $(this).attr('data_crf_namecontact');
+        var data_crf_telcontact = $(this).attr('data_crf_telcontact');
+        var data_crf_faxcontact = $(this).attr('data_crf_faxcontact');
+        var data_crf_emailcontact = $(this).attr('data_crf_emailcontact');
+        var data_crf_regiscost = $(this).attr('data_crf_regiscost');
+        var data_crf_customercode = $(this).attr('data_crf_customercode');
+        var data_oldcfr_addresstype = $(this).attr('data_oldcfr_addresstype');
+        var data_crf_companytype = $(this).attr('data_crf_companytype');
+        var data_crf_companytype3_1_1 = $(this).attr('data_crf_companytype3_1_1');
+        var data_crf_companytype3_1_2 = $(this).attr('data_crf_companytype3_1_2');
+        var data_crf_companytype3_2_1 = $(this).attr('data_crf_companytype3_2_1');
+        var data_crf_companytype3_2_2 = $(this).attr('data_crf_companytype3_2_2');
+        var data_crf_companytype2 = $(this).attr('data_crf_companytype2');
+        var data_crf_typeofbussi = $(this).attr('data_crf_typeofbussi');
+        var data_crf_forecast = $(this).attr('data_crf_forecast');
+        var data_credit_name = $(this).attr('data_credit_name');
+        var data_credit_id = $(this).attr('data_credit_id');
+        var data_crf_condition_bill = $(this).attr('data_crf_condition_bill');
+        var data_crf_tablebill = $(this).attr('data_crf_tablebill');
+        var data_crf_mapbill = $(this).attr('data_crf_mapbill');
+        var data_crf_datebill = $(this).attr('data_crf_datebill');
+        var data_crf_mapbill2 = $(this).attr('data_crf_mapbill2');
+        var data_crf_condition_money = $(this).attr('data_crf_condition_money');
+        var data_crf_recive_cheuqetable = $(this).attr('data_crf_recive_cheuqetable');
+        var data_crf_recive_cheuqedetail = $(this).attr('data_crf_recive_cheuqedetail');
+        var data_crf_finance = $(this).attr('data_crf_finance');
+        var data_crf_finance_req_number = $(this).attr('data_crf_finance_req_number');
+        var data_crf_cusid = $(this).attr('data_crf_cusid');
+        var data_crf_creditterm2 = $(this).attr('data_crf_creditterm2');
+        var data_crf_creditterm2name = $(this).attr('data_crf_creditterm2name');
+        var data_crf_moneylimit = $(this).attr('data_crf_moneylimit');
+        var data_crf_area = $(this).attr('data_crf_area');
+        var data_crf_file1 = $(this).attr('data_crf_file1');
+        var data_crf_taxid = $(this).attr('data_crf_taxid');
+        var data_crf_branch = $(this).attr('data_crf_branch');
+        var data_crf_mapurl = $(this).attr('data_crf_mapurl');
+        var data_crf_mapfile = $(this).attr('data_crf_mapfile');
+        var data_crfcus_products = $(this).attr('data_crfcus_products');
+
+
+
+        $('#crf_customercode').val(data_crf_customercode);
+        $('#crf_salesreps').val(data_crf_salesreps);
+        $('#crf_customername').val(data_crf_customername);
+        $('#crf_cuscompanycreate').val(data_crf_cuscompanycreate);
+        $('#crf_addressname').val(data_crf_addressname);
+        $('#crf_namecontact').val(data_crf_namecontact);
+        $('#crf_telcontact').val(data_crf_telcontact);
+        $('#crf_faxcontact').val(data_crf_faxcontact);
+        $('#crf_emailcontact').val(data_crf_emailcontact);
+        $('#crf_regiscost').val(data_crf_regiscost);
+        $('#crf_forecast').val(data_crf_forecast);
+
+        $('#crf_customertaxid').val(data_crf_taxid);
+        $('#crf_customerbranch').val(data_crf_branch);
+        $('#getmapurl_addpage').val(data_crf_mapurl);
+        $('#getlinkgooglemap').attr('href', data_crf_mapurl);
+        $('#mapfilelink').attr('data_mapfile', data_crf_mapfile);
+        $('#getmapfile_addpage').val(data_crf_mapfile);
+        $('#crf_customer_product').val(data_crfcus_products);
+
+        // $('#value_crf_finance').val(data_crf_finance);
+
+        if (data_crf_creditterm2 != '') {
+            $('#crf_creditterm option:selected').val(data_crf_creditterm2).text(data_crf_creditterm2name);
+            $('#oldCreditTerm').val(data_crf_creditterm2);
+        } else {
+            $('#crf_creditterm option:selected').val(data_credit_id).text(data_credit_name);
+            $('#oldCreditTerm').val(data_credit_id);
+        }
+        $('#crf_finance_req_number , #crf_finance_req_number_calc').val(data_crf_moneylimit);
+        $('#crf_cusid').val(data_crf_cusid);
+
+        if (data_crf_area == 'sln') {
+            $('#crf_company_sln').prop('checked', true);
+        }
+        if (data_crf_area == 'poly') {
+            $('#crf_company_poly').prop('checked', true);
+        }
+        if (data_crf_area == 'ca') {
+            $('#crf_company_ca').prop('checked', true);
+        }
+
+        $('#addThArea').val(data_crf_area);
+
+
+
+        if (data_oldcfr_addresstype == "ตาม ภ.พ.20") {
+            $('input:radio[id="crf_addresstype1"]').prop('checked', true);
+        } else {
+            $('input:radio[id="crf_addresstype2"]').prop('checked', true);
+        }
+
+
+        if (data_crf_companytype == 1) {
+            $('input:radio[class="crf_companytype1"]').prop('checked', true);
+        } else if (data_crf_companytype == 2) {
+            $('input:radio[class="crf_companytype2"]').prop('checked', true);
+            $('#companytype2').css('display', '');
+            $('#crf_companytype2').val(data_crf_companytype2);
+        } else {
+            $('input:radio[class="crf_companytype3"]').prop('checked', true);
+            $('#companytype3').css('display', '');
+            $('#crf_companytype3_1_1').val(data_crf_companytype3_1_1);
+            $('#crf_companytype3_1_2').val(data_crf_companytype3_1_2);
+            $('#crf_companytype3_2_1').val(data_crf_companytype3_2_1);
+            $('#crf_companytype3_2_2').val(data_crf_companytype3_2_2);
+        }
+
+
+        if (data_crf_typeofbussi == 'ผู้ผลิต') {
+            $('input:radio[class="crf_typeofbussi1"]').prop('checked', true);
+        } else {
+            $('input:radio[class="crf_typeofbussi2"]').prop('checked', true);
+        }
+
+
+        queryProcessUse(data_crf_cusid);
+        queryPrimanageUse(data_crf_cusid);
+
+
+        if (data_crf_condition_bill == 'ส่งของพร้อมวางบิล') {
+            $('input:radio[class="crf_condition_billv1"]').prop('checked', true);
+        } else if (data_crf_condition_bill == 'วางบิลตามตาราง') {
+            $('input:radio[class="crf_condition_billv2"]').prop('checked', true);
+            $('.crf_condition_bill2').css('display', '');
+            $('.oldcustomer1').css('display', '').val(data_crf_tablebill);
+            $('.oldcustomer1').prop('readonly', true);
+            $('.oldcustomer2').css('display', '').val(data_crf_mapbill);
+            $('.oldcustomer2').prop('readonly', true);
+            $('.newcustomer1').remove();
+            $('.newcustomer2').remove();
+        } else if (data_crf_condition_bill == 'วางบิลทุกวันที่') {
+            $('input:radio[class="crf_condition_billv3"]').prop('checked', true);
+            $('.crf_condition_bill3').css('display', '');
+            $('#crf_datebill').val(data_crf_datebill);
+            $('.newcustomer3').remove();
+            $('.oldcustomer3').css('display', '').val(data_crf_mapbill2);
+        }
+
+        if (data_crf_condition_money == "โอนเงิน") {
+            $('input:radio[class="crf_condition_moneyv1"]').prop('checked', true);
+        } else if (data_crf_condition_money == "รับเช็ค") {
+            $('input:radio[class="crf_condition_moneyv2"]').prop('checked', true);
+            $('.recive_cheuqe').css('display', '');
+            $('.newcustomer4').remove();
+            $('.oldcustomer4').css('display', '').val(data_crf_recive_cheuqetable);
+            $('.oldcustomer4').prop('readonly', true);
+            $('#crf_recive_cheuqedetail').val(data_crf_recive_cheuqedetail);
+            $('#crf_recive_cheuqedetail').prop('readonly', true);
+        }
+
+
+        // if (data_crf_finance == "ขอวงเงิน") {
+        //     $('input:radio[class="crf_financev1"]').prop('checked', true);
+        //     $('.finance_request_detail').css('display', '');
+        //     $('#crf_finance_req_number').val(data_crf_finance_req_number);
+        // } else if (data_crf_finance == "ปรับวงเงิน") {
+        //     $('input:radio[class="crf_financev2"]').prop('checked', true);
+        // }
+
+        $('#crf_finance_req_number').val(function (index, value) {
+            return value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                ;
+        });
+
+
+
+        $('#autoCusname').html('')
+    });
+
+
+
+
 
     //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
     //////////// Search Zone Search Zone Search Zone Search Zone //////////////////
@@ -2538,7 +2915,7 @@ $(document).ready(function () {
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
- 
+
 
     $('#usercrfex_submit').prop('disabled', true);
 
@@ -2577,27 +2954,27 @@ $(document).ready(function () {
 
 
 
-        $('#crfex_cusnameEN').blur(function(){
+        $('#crfex_cusnameEN').blur(function () {
             var cusname = $(this).val();
-            var comName = $('input:radio[name="crfex_company"]').val();
-            if(cusname != ''){
-                checkDuplicateNameCustomerEx(cusname , comName);
+            var comName = $('input:radio[name="crfex_company"]:checked').val();
+            if (cusname != '') {
+                checkDuplicateNameCustomerEx(cusname, comName);
                 checkCustomersNameEn(cusname);
-            }else{
+            } else {
                 $('#alert_crfex_cusnameEN').html('');
             }
         });
 
-        $('#crfex_cusnameTH').blur(function(){
+        $('#crfex_cusnameTH').blur(function () {
             var cusname = $(this).val();
-            if(cusname != ''){
+            if (cusname != '') {
                 checkCustomersNameTH(cusname);
-            }else{
+            } else {
                 $('#alert_crfex_cusnameTH').html('');
             }
         });
 
-        
+
 
 
 
@@ -2894,14 +3271,14 @@ $(document).ready(function () {
                     $('#crfex_payment').val(data_crfex_cuspayment);
                     $('#checkAreaAddEn').val(data_crfexcus_area);
 
-                    if(data_crfexcus_area == 'sln'){
-                        $('#crf_company_sln').prop('checked' , true);
+                    if (data_crfexcus_area == 'sln') {
+                        $('#crf_company_sln').prop('checked', true);
                     }
-                    if(data_crfexcus_area == 'poly'){
-                        $('#crf_company_poly').prop('checked' , true);
+                    if (data_crfexcus_area == 'poly') {
+                        $('#crf_company_poly').prop('checked', true);
                     }
-                    if(data_crfexcus_area == 'ca'){
-                        $('#crf_company_ca').prop('checked' , true);
+                    if (data_crfexcus_area == 'ca') {
+                        $('#crf_company_ca').prop('checked', true);
                     }
 
 
@@ -2956,7 +3333,7 @@ $(document).ready(function () {
 
         if ($('#check_crfex_custype').val() == 1) {
             // Un check radio button
-        $('input:radio[id="crfex_custype2v"]').attr('onclick', 'return false');
+            $('input:radio[id="crfex_custype2v"]').attr('onclick', 'return false');
             $('#crfex_custype1v').prop('checked', true);
         } else if ($('#check_crfex_custype').val() == 2) {
             $('input:radio[id="crfex_custype2v"]').prop('checked', true);
@@ -2974,7 +3351,7 @@ $(document).ready(function () {
                 $('input:checkbox[name="crfex_curcustopic2"]').prop('checked', false);
             }
         }
-        
+
 
 
 
@@ -3054,7 +3431,7 @@ $(document).ready(function () {
                     $('#ex_accManagerSubmit').prop('disabled', true);
                 }
             });
-            
+
         }
         else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed') {
             $('.accManagerApprove1').css('display', '');
@@ -3095,39 +3472,39 @@ $(document).ready(function () {
         // Control account staff when add new customer
         if (checkStatus == 'Director Approved' && checkUserDeptView == 1003) {
             $('.accAddCustomerCode').css('display', '');
-            if(checkCusType == 2){
-                $('.filcuscode').css('display' , 'none');
-                $('#ex_accSubmit').prop('disabled' , true);
-                $('#ex_accMemo').keyup(function(){
-                    if($(this).val() != ''){
-                        $('#ex_accSubmit').prop('disabled' , false);
-                    }else{
-                        $('#ex_accSubmit').prop('disabled' , true);
+            if (checkCusType == 2) {
+                $('.filcuscode').css('display', 'none');
+                $('#ex_accSubmit').prop('disabled', true);
+                $('#ex_accMemo').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#ex_accSubmit').prop('disabled', false);
+                    } else {
+                        $('#ex_accSubmit').prop('disabled', true);
                     }
                 });
-            }else if(checkCusType == 1){
-            $('.filcuscode').css('display' , '');
-            $('#ex_accSubmit').prop('disabled' , true);
+            } else if (checkCusType == 1) {
+                $('.filcuscode').css('display', '');
+                $('#ex_accSubmit').prop('disabled', true);
 
-            $('#ex_accCostomerCode').keyup(function(){
-                if($(this).val() != ''){
-                    $('#ex_accSubmit').prop('disabled' , false);
-                }else{
-                    $('#ex_accSubmit').prop('disabled' , true);
-                }
-            });
-            $('#ex_accCostomerCode').blur(function(){
-                if($(this).val() != ''){
-                    $('#ex_accSubmit').prop('disabled' , false);
-                }else{
-                    $('#ex_accSubmit').prop('disabled' , true);
-                }
-            });
+                $('#ex_accCostomerCode').keyup(function () {
+                    if ($(this).val() != '') {
+                        $('#ex_accSubmit').prop('disabled', false);
+                    } else {
+                        $('#ex_accSubmit').prop('disabled', true);
+                    }
+                });
+                $('#ex_accCostomerCode').blur(function () {
+                    if ($(this).val() != '') {
+                        $('#ex_accSubmit').prop('disabled', false);
+                    } else {
+                        $('#ex_accSubmit').prop('disabled', true);
+                    }
+                });
             }
 
 
 
-            
+
 
         } else if (checkStatus == 'Completed') {
             if (checkCusType == 2) {
@@ -3195,27 +3572,27 @@ $(document).ready(function () {
         // Check Company name
 
 
-        $('#crfex_cusnameEN').blur(function(){
+        $('#crfex_cusnameEN').blur(function () {
             var cusname = $(this).val();
-            if(cusname != ''){
+            if (cusname != '') {
                 checkCustomersNameEn(cusname);
-            }else{
+            } else {
                 $('#alert_crfex_cusnameEN').html('');
             }
         });
 
-        $('#crfex_cusnameTH').blur(function(){
+        $('#crfex_cusnameTH').blur(function () {
             var cusname = $(this).val();
-            if(cusname != ''){
+            if (cusname != '') {
                 checkCustomersNameTH(cusname);
-            }else{
+            } else {
                 $('#alert_crfex_cusnameTH').html('');
             }
         });
 
-        if($('#crfex_fileShowOld').val() == "ไม่มีไฟล์อยู่ในระบบ"){
-            $('#linkFileEx').attr('href','javascript:void(0)');
-            $('#linkFileEx').attr('target','');
+        if ($('#crfex_fileShowOld').val() == "ไม่มีไฟล์อยู่ในระบบ") {
+            $('#linkFileEx').attr('href', 'javascript:void(0)');
+            $('#linkFileEx').attr('target', '');
         }
 
 
@@ -3232,13 +3609,13 @@ $(document).ready(function () {
         // Check ประเภทลูกค้า
         if ($('#checkEdit_crfex_custype').val() == 1) {
             $('#crfex_custype1').prop('checked', true);
-            $('.cusHistory').prop('readonly' , true);
-            $('input:checkbox').attr('onclick','return false');
-            $('#crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-            
+            $('.cusHistory').prop('readonly', true);
+            $('input:checkbox').attr('onclick', 'return false');
+            $('#crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
+
         } else {
             $('#crfex_custype1').prop('checked', false);
-            $('.cusHistory').prop('readonly' , false);
+            $('.cusHistory').prop('readonly', false);
         }
 
 
@@ -3247,26 +3624,26 @@ $(document).ready(function () {
 
             // Check Current customer method
 
-        if ($('#checkEdit_crfex_curcustopic1').val() != '') {
-            $('#crfex_curcustopic1').prop('checked', true);
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
-            // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-        } else {
-            $('#crfex_curcustopic1').prop('checked', false);
-            // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
-            $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , true);
-        }
+            if ($('#checkEdit_crfex_curcustopic1').val() != '') {
+                $('#crfex_curcustopic1').prop('checked', true);
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly', false);
+                // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+            } else {
+                $('#crfex_curcustopic1').prop('checked', false);
+                // $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly', true);
+            }
 
 
-        if ($('#checkEdit_crfex_curcustopic2').val() != '') {
-            $('#crfex_curcustopic2').prop('checked', true);
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , false);
-            // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , true);
-        } else {
-            $('#crfex_curcustopic2').prop('checked', false);
-            $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
-            // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
-        }
+            if ($('#checkEdit_crfex_curcustopic2').val() != '') {
+                $('#crfex_curcustopic2').prop('checked', true);
+                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', false);
+                // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , true);
+            } else {
+                $('#crfex_curcustopic2').prop('checked', false);
+                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
+                // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
+            }
 
         } else {
             $('#crfex_custype2').prop('checked', false);
@@ -3277,22 +3654,22 @@ $(document).ready(function () {
 
 
 
-        
 
 
-        $('#crfex_curcustopic1').click(function(){
-            if($(this).prop('checked') ){
-                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
-            }else{
-                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , true);
+
+        $('#crfex_curcustopic1').click(function () {
+            if ($(this).prop('checked')) {
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly', false);
+            } else {
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly', true);
             }
         });
 
-        $('#crfex_curcustopic2').click(function(){
-            if($(this).prop('checked') ){
-                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment').prop('readonly' , false);
-            }else{
-                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly' , true);
+        $('#crfex_curcustopic2').click(function () {
+            if ($(this).prop('checked')) {
+                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment').prop('readonly', false);
+            } else {
+                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
             }
         });
 
@@ -3672,37 +4049,37 @@ $(document).ready(function () {
     // Report page
 
     // Control color status
-    $('table#report_list').each(function(){
-        if($('td:contains(Open)').text()){
-            $('.statuscolor').css('color','#0066FF');
+    $('table#report_list').each(function () {
+        if ($('td:contains(Open)').text()) {
+            $('.statuscolor').css('color', '#0066FF');
         }
     });
     // Control color status
 
     // Control show table export
     loadreportEx();
-    $('#btnSearch').click(function(){
+    $('#btnSearch').click(function () {
         var datestart = $('#dateStart').val();
         var dateend = $('#dateEnd').val();
-        if(datestart != '' || dateend != ''){
-            loadreportExdate(datestart , dateend);
-        }else{
+        if (datestart != '' || dateend != '') {
+            loadreportExdate(datestart, dateend);
+        } else {
             loadreportEx();
         }
-        
+
     });
 
 
     loadreport();
-    $('#btnSearchTH').click(function(){
+    $('#btnSearchTH').click(function () {
         var datestart = $('#dateStart').val();
         var dateend = $('#dateEnd').val();
-        if(datestart != '' || dateend != ''){
-            loadreportdate(datestart , dateend);
-        }else{
+        if (datestart != '' || dateend != '') {
+            loadreportdate(datestart, dateend);
+        } else {
             loadreport();
         }
-        
+
     });
 
 
@@ -3710,16 +4087,49 @@ $(document).ready(function () {
 
 
     // Setting page
-    $('#btnSysEmail').click(function(){
+    $('#btnSysEmail').click(function () {
         var email_account = $('#email_account').val();
         var email_password = $('#email_password').val();
 
-        if($(this).text() == "Submit"){
-            insertEmailSystem(email_account , email_password);
-        }else{
+        if ($(this).text() == "Submit") {
+            insertEmailSystem(email_account, email_password);
+        } else {
             alert("That false.");
         }
     });
+
+
+
+
+
+    //Customer map to modal
+    $('#mapfilelink').on('click', function () {
+        var data_mapfile = $(this).attr('data_mapfile');
+        var url = 'http://192.190.10.27/crf/upload/';
+
+        $('#showmapfile_output').attr('src', url + data_mapfile);
+    });
+
+
+
+
+    // Button edit map url and map file
+    $('#editMapUrl , #editMapFile').mouseover(function () {
+        $(this).css('color', '#FF6600');
+    });
+    $('#editMapUrl , #editMapFile').mouseout(function () {
+        $(this).css('color', 'orange');
+    });
+    $('#editMapUrl').click(function () {
+        $('.notEdit1').css('display', 'none');
+        $('.canEdit1').css('display', '');
+    });
+
+    $('#editMapFile').click(function () {
+        $('.notEdit2').css('display', 'none');
+        $('.canEdit2').css('display', '');
+    });
+    // Button edit map url and map file
 
 
 

@@ -23,6 +23,19 @@ function autoSearchCustomerDetail(cusCode) {
     });
 }
 
+function autoSearchCustomerDetailName(cusName){
+    $.ajax({
+        url: 'main/searchCustomerDetailName',
+        method: 'POST',
+        data: {
+            cusName: cusName
+        },
+        success: function(data){
+            $('#autoCusname').html(data);
+        }
+    });
+}
+
 
 function autoSearchCustomerDetailEx(cusCode) {
     $.ajax({
@@ -78,7 +91,7 @@ function queryPrimanageUse(cusId) {
         },
         success: function (data) {
             $('#showPrimanage').html(data);
-            $('.newPrimanage').remove();
+            // $('.newPrimanage').remove();
         }
     });
 }

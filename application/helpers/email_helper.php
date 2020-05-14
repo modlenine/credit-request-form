@@ -267,7 +267,7 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
           }
         </style>
     '.$body;
-    $mail->send();
+    // $mail->send();
 }
 
 

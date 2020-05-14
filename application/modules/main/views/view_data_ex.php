@@ -597,7 +597,7 @@
             <form action="{exAccountAddCusCode}" method="POST" name="" class="accAddCustomerCode" style="display:none;">
                 <hr>
                 <h6><b><u>FOR ACCOUNT</u></b></h6>
-                <input type="text" name="check_custype_accstaff" id="check_custype_accstaff" value="{customertype}">
+                <input hidden type="text" name="check_custype_accstaff" id="check_custype_accstaff" value="{customertype}">
                 <div class="row form-group">
                     <div class="col-md-8 form-group filcuscode">
                         <label for="">CUSTOMER CODE</label>
