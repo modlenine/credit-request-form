@@ -89,6 +89,7 @@
                 <input hidden type="text" name="check_changeaddress" id="check_changeaddress" value="{get_changeaddress}">
                 <input hidden type="text" name="check_changecredit" id="check_changecredit" value="{get_changecredit}">
                 <input hidden type="text" name="check_changefinance" id="check_changefinance" value="{get_changefinance}">
+                <input hidden type="text" name="check_editcustomerdetail" id="check_editcustomerdetail" value="{crf_sub_oldcus_editcustomer}">
 
                 <div id="alert_crf_sub_oldcus"></div>
                 <div class="row form-group p-2 suboldcustomer">
@@ -106,7 +107,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <div class="form-check">
-                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer" id="crf_sub_oldcus" value="4">
+                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer" id="crf_sub_oldcus" value="5">
                             <label for="my-input" class="form-check-label">แก้ไขข้อมูลลูกค้า</label>
                         </div>
                     </div>
@@ -165,11 +166,11 @@
                 <div class="row form-group">
                     <div class="col-md-6 form-group">
                         <label for="">เลขที่ผู้เสียภาษี</label>
-                        <input type="text" name="crf_customertaxid_view" id="crf_customertaxid_view" class="form-control form-control-sm" value="{crfcus_taxid}">
+                        <input type="text" name="edit_customertaxid" id="edit_customertaxid" class="form-control form-control-sm" value="{crfcus_taxid}">
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">สาขา</label>
-                        <input type="text" name="crf_customerbranch_view" id="crf_customerbranch_view" class="form-control form-control-sm" value="{crfcus_branch}">
+                        <input type="text" name="edit_customerbranch" id="edit_customerbranch" class="form-control form-control-sm" value="{crfcus_branch}">
                     </div>
                 </div>
 
@@ -328,7 +329,7 @@
                     <h6><b><u>บุคคลในแต่ละระดับบริหารที่สำคัญ</u></b></h6>
                 </label>
                 {editprimanage}
-                <div id="priManage" class="row form-group newPrimanage">
+                <div id="priManage{crf_primanage_id}" class="row form-group newPrimanage mt-2 pt-2" style="background-color:#E8E8E8;" data-rowid = "{crf_primanage_id}">
                     <div class="col-md-3 form-group">
                         <label for="">หน่วยงาน</label>
                         <input type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control form-control-sm" required value="{crf_primanage_dept}">
@@ -341,9 +342,12 @@
                         <label for="">ตำแหน่ง</label>
                         <input type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control form-control-sm" required value="{crf_primanage_posi}">
                     </div>
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
                         <label for="">อีเมล</label>
                         <input type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control form-control-sm" required value="{crf_primanage_email}">
+                    </div>
+                    <div class="col-md-1 form-group mt-4">
+                        <button type="button" data-btnid = "{crf_primanage_id}" class="btn btn-danger" id="remove_pri"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
                 {/editprimanage}
@@ -401,7 +405,7 @@
                 <br>
 
 
-            <label for="">
+                <label for="">
                     <h6><b><u>ผลิตภัณฑ์ของลูกค้า</u></b></h6>
                 </label>
                 <div class="row form-group">

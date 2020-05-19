@@ -856,7 +856,7 @@ public function editdata($crf_id)
         "edit_contactemail" => getViewData($crf_id)->crfcus_email,
         "edit_regiscapital" => getViewData($crf_id)->crfcus_regiscapital,
         "edit_comtype" => getViewData($crf_id)->crfcus_companytype,
-        "editprimanage" => getPrimanageEdit($crfcus_id),
+        "editprimanage" => getPrimanageEdit(getViewData($crf_id)->crfcus_formno),
         "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
         "crfcus_id" => getViewData($crf_id)->crfcus_id,
         "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
@@ -905,7 +905,8 @@ public function editdata($crf_id)
         "crfcus_mapfile" => getViewData($crf_id)->crfcus_mapfile,
         "crfcus_taxid" => getViewData($crf_id)->crfcus_taxid,
         "crfcus_branch" => getViewData($crf_id)->crfcus_branch,
-        "crfcus_products" => getViewData($crf_id)->crfcus_products
+        "crfcus_products" => getViewData($crf_id)->crfcus_products,
+        "crf_sub_oldcus_editcustomer" => getViewData($crf_id)->crf_sub_oldcus_editcustomer
 
     );
 

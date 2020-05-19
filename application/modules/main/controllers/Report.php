@@ -234,4 +234,42 @@ class Report extends MX_Controller
 
 
 
+    public function uploadpage()
+    {
+        $this->load->view("uploadpage");
+    }
+
+    public function doupload()
+    {
+        if($this->input->post("btn-submit")){
+            $file_name = $_FILES["upload"]['name'];
+            $filenametype = substr($file_name , -4);
+            $editfilename = substr_replace($file_name , "CRF1234".$filenametype , 0);
+            $file_tmp = $_FILES["upload"]['tmp_name'];
+            move_uploaded_file($file_tmp, "upload/" . $editfilename);
+            header("refresh:1; url=".base_url('main/report/uploadpage'));
+        }
+    }
+
+
+    private function uploadFiles($fileinput = '', $filenameType = '')
+    {
+
+        $time = date("H-i-s"); //ดึงวันที่และเวลามาก่อน
+        $file_name = $_FILES[$fileinput]['name'];
+        $filenametype = substr($file_name , -4);
+        $file_name_date = substr_replace($file_name, getFormNo() . "-" . $filenameType . "-" . $time .$filenametype, 0);
+
+        $file_tmp = $_FILES[$fileinput]['tmp_name'];
+
+        move_uploaded_file($file_tmp, "upload/" . $file_name_date);
+        $filelocation = "upload";
+
+
+        // print_r($file_name_date);
+        // echo "<br>" . "Copy/Upload Complete" . "<br>";
+        return $file_name_date;
+    }
+
+
 }//End Report class

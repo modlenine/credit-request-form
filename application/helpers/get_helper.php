@@ -313,7 +313,8 @@ function getViewData($crf_id)
     crf_customers_temp.crfcus_branch,
     crf_customers_temp.crfcus_mapurl,
     crf_customers_temp.crfcus_mapfile,
-    crf_customers_temp.crfcus_products
+    crf_customers_temp.crfcus_products,
+    crf_maindata.crf_memo_customercode
 
     
     FROM
@@ -329,22 +330,22 @@ function getViewData($crf_id)
 
     return $query->row();
 }
-function getPrimanage($crfcus_id)
+function getPrimanage($crfcus_formno)
 {
     $obj = new getfn();
     $query = $obj->gci()->db->query("SELECT
     crf_primanage_id , crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email
-    FROM crf_pri_manage_temp WHERE crf_pricusid = '$crfcus_id' ORDER BY crf_primanage_id DESC
+    FROM crf_pri_manage_temp WHERE crf_pricus_formno = '$crfcus_formno' ORDER BY crf_primanage_id DESC
     ");
     return $query;
 }
 
-function getPrimanageEdit($crfcus_id)
+function getPrimanageEdit($crfcus_formno)
 {
     $obj = new getfn();
     $obj->gci()->db->select("crf_primanage_id , crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email");
-    $obj->gci()->db->from("crf_pri_manage");
-    $obj->gci()->db->where("crf_pricusid" , $crfcus_id);
+    $obj->gci()->db->from("crf_pri_manage_temp");
+    $obj->gci()->db->where("crf_pricus_formno" , $crfcus_formno);
     $obj->gci()->db->order_by("crf_primanage_id" , "DESC");
     $result = $obj->gci()->db->get();
     return $result->result_array();
@@ -374,7 +375,8 @@ function getSuboldCus($crfid)
     crf_sub_oldcus_changearea , 
     crf_sub_oldcus_changeaddress , 
     crf_sub_oldcus_changecredit , 
-    crf_sub_oldcus_changefinance
+    crf_sub_oldcus_changefinance,
+    crf_sub_oldcus_editcustomer
     FROM crf_maindata
     WHERE crf_id = '$crfid'
     ");
@@ -538,6 +540,25 @@ function getMethodCus($crfexid)
 
 // For Delete Primanage
 function deletePrimanage($cusid)
+{
+    $obj = new getfn();
+    $obj->gci()->db->where("crf_pricusid" , $cusid);
+    $query = $obj->gci()->db->delete("crf_pri_manage_temp");
+
+    return $query;
+}
+
+
+function deletePrimanage2($formno)
+{
+    $obj = new getfn();
+    $obj->gci()->db->where("crf_pricus_formno" , $formno);
+    $query = $obj->gci()->db->delete("crf_pri_manage_temp");
+
+    return $query;
+}
+
+function deletePrimanage3($cusid)
 {
     $obj = new getfn();
     $obj->gci()->db->where("crf_pricusid" , $cusid);

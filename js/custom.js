@@ -233,6 +233,8 @@ $(document).ready(function () {
             // Control กรณีแก้ไขข้อมูลลูกค้า
             $('input:checkbox[name="crf_sub_oldcus_editcustomer"]').click(function () {
                 if ($(this).prop("checked") == true) {
+
+
                     $('#crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile').prop('readonly', false);
                     $('#editMapFile_addpage , #editMapUrl_addpage , #editPrimanage_addpage').css('display', '');
                     $('#editMapUrl_addpage').click(function () {
@@ -242,7 +244,7 @@ $(document).ready(function () {
                         $('#foredit2').toggle('display', '');
                     });
 
-                    $('#editPrimanage_addpage').click(function(){
+                    $('#editPrimanage_addpage').click(function () {
                         $('.newPrimanage').show();
                         $('#showPrimanage').html('');
                         $('#checkprimanagenull').val('1');
@@ -1837,21 +1839,21 @@ $(document).ready(function () {
         $(this).before('<div id="priManage' + iPri + '" class="row form-group">' +
             '<div class="col-md-3">' +
             '<label for="">หน่วยงาน</label>' +
-            '<input type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control" required>' +
+            '<input type="text" name="crf_primanage_dept[]" id="crf_primanage_dept" class="form-control form-control-sm" required>' +
             '</div>' +
             '<div class="col-md-3">' +
             '<label for="">ชื่อ-สกุล</label>' +
-            '<input type="text" name="crf_primanage_name[]" id="crf_primanage_name" class="form-control" required>' +
+            '<input type="text" name="crf_primanage_name[]" id="crf_primanage_name" class="form-control form-control-sm" required>' +
             '</div>' +
             '<div class="col-md-3">' +
             '<label for="">ตำแหน่ง</label>' +
-            '<input type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control" required>' +
+            '<input type="text" name="crf_primanage_posi[]" id="crf_primanage_posi" class="form-control form-control-sm" required>' +
             '</div>' +
             '<div class="col-md-2">' +
             '<label for="">อีเมล</label>' +
-            '<input type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control" required>' +
+            '<input type="text" name="crf_primanage_email[]" id="crf_primanage_email" class="form-control form-control-sm" required>' +
             '</div>' +
-            '<div class="col-md-1"><a href="javascript:void(0)"><i name="remove_pri" id="' + iPri + '" class="fas fa-minus-circle remove_pri"></i></a></div>' +
+            '<div class="col-md-1 mt-4"><a href="javascript:void(0)"><button type="button" class="btn btn-danger"><i name="remove_pri" id="' + iPri + '" class="fas fa-trash-alt remove_pri"></i></button></a></div>' +
             '</div>');
     });
 
@@ -2047,8 +2049,8 @@ $(document).ready(function () {
         $('input:checkbox[id="crf_sub_oldcus_changefinance_view"]').prop('checked', true);
     }
 
-    if($('#forcrf_sub_oldcus_editcustomer_view').val() == 5){
-        $('input:checkbox[id="crf_sub_oldcus_editcustomer_view"]').prop('checked' , true);
+    if ($('#forcrf_sub_oldcus_editcustomer_view').val() == 5) {
+        $('input:checkbox[id="crf_sub_oldcus_editcustomer_view"]').prop('checked', true);
     }
 
 
@@ -2086,37 +2088,86 @@ $(document).ready(function () {
         var dataFile1 = $(this).attr('data_file1');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile1').attr('src', url + dataFile1);
+        // $('#embedshowfile1').attr('src', url + dataFile1);
+
+        var cutFileType1 = dataFile1.substr(-3, 4);
+        if (cutFileType1 == 'jpg' || cutFileType1 == 'JPG' || cutFileType1 == 'png' || cutFileType1 == 'PNG') {
+            $('#embedshowfile1Img').attr('src', url + dataFile1);
+            $('#embedshowfile1').hide();
+        } else {
+            $('#embedshowfile1').attr('src', url + dataFile1);
+            $('#embedshowfile1Img').hide();
+        }
     });
     $('#datafile2').click(function () {
         var dataFile2 = $(this).attr('data_file2');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile2').attr('src', url + dataFile2);
+        // $('#embedshowfile2').attr('src', url + dataFile2);
+        var cutFileType2 = dataFile2.substr(-3, 4);
+        if (cutFileType2 == 'jpg' || cutFileType2 == 'JPG' || cutFileType2 == 'png' || cutFileType2 == 'PNG') {
+            $('#embedshowfile2Img').attr('src', url + dataFile2);
+            $('#embedshowfile2').hide();
+        } else {
+            $('#embedshowfile2').attr('src', url + dataFile2);
+            $('#embedshowfile2Img').hide();
+        }
     });
     $('#datafile3').click(function () {
         var dataFile3 = $(this).attr('data_file3');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile3').attr('src', url + dataFile3);
+        // $('#embedshowfile3').attr('src', url + dataFile3);
+        var cutFileType3 = dataFile3.substr(-3, 4);
+        if (cutFileType3 == 'jpg' || cutFileType3 == 'JPG' || cutFileType3 == 'png' || cutFileType3 == 'PNG') {
+            $('#embedshowfile3Img').attr('src', url + dataFile3);
+            $('#embedshowfile3').hide();
+        } else {
+            $('#embedshowfile3').attr('src', url + dataFile3);
+            $('#embedshowfile3Img').hide();
+        }
     });
     $('#datafile4').click(function () {
         var dataFile4 = $(this).attr('data_file4');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile4').attr('src', url + dataFile4);
+        // $('#embedshowfile4').attr('src', url + dataFile4);
+        var cutFileType4 = dataFile4.substr(-3, 4);
+        if (cutFileType4 == 'jpg' || cutFileType4 == 'JPG' || cutFileType4 == 'png' || cutFileType4 == 'PNG') {
+            $('#embedshowfile4Img').attr('src', url + dataFile4);
+            $('#embedshowfile4').hide();
+        } else {
+            $('#embedshowfile4').attr('src', url + dataFile4);
+            $('#embedshowfile4Img').hide();
+        }
     });
     $('#datafile5').click(function () {
         var dataFile5 = $(this).attr('data_file5');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile5').attr('src', url + dataFile5);
+        // $('#embedshowfile5').attr('src', url + dataFile5);
+        var cutFileType5 = dataFile5.substr(-3, 4);
+        if (cutFileType5 == 'jpg' || cutFileType5 == 'JPG' || cutFileType5 == 'png' || cutFileType5 == 'PNG') {
+            $('#embedshowfile5Img').attr('src', url + dataFile5);
+            $('#embedshowfile5').hide();
+        } else {
+            $('#embedshowfile5').attr('src', url + dataFile5);
+            $('#embedshowfile5Img').hide();
+        }
     });
     $('#datafile6').click(function () {
         var dataFile6 = $(this).attr('data_file6');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile6').attr('src', url + dataFile6);
+        // $('#embedshowfile6').attr('src', url + dataFile6);
+        var cutFileType6 = dataFile6.substr(-3, 4);
+        if (cutFileType6 == 'jpg' || cutFileType6 == 'JPG' || cutFileType6 == 'png' || cutFileType6 == 'PNG') {
+            $('#embedshowfile6Img').attr('src', url + dataFile6);
+            $('#embedshowfile6').hide();
+        } else {
+            $('#embedshowfile6').attr('src', url + dataFile6);
+            $('#embedshowfile6Img').hide();
+        }
     });
 
 
@@ -2136,19 +2187,43 @@ $(document).ready(function () {
         var tablebill = $(this).attr('data_tablebill');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile7').attr('src', url + tablebill);
+        // $('#embedshowfile7').attr('src', url + tablebill);
+        var cutFileType7 = tablebill.substr(-3, 4);
+        if (cutFileType7 == 'jpg' || cutFileType7 == 'JPG' || cutFileType7 == 'png' || cutFileType7 == 'PNG') {
+            $('#embedshowfile7Img').attr('src', url + tablebill);
+            $('#embedshowfile7').hide();
+        } else {
+            $('#embedshowfile7').attr('src', url + tablebill);
+            $('#embedshowfile7Img').hide();
+        }
     });
     $('#mapbill').click(function () {
         var mapbill = $(this).attr('data_mapbill');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile8').attr('src', url + mapbill);
+        // $('#embedshowfile8').attr('src', url + mapbill);
+        var cutFileType8 = mapbill.substr(-3, 4);
+        if (cutFileType8 == 'jpg' || cutFileType8 == 'JPG' || cutFileType8 == 'png' || cutFileType8 == 'PNG') {
+            $('#embedshowfile8Img').attr('src', url + mapbill);
+            $('#embedshowfile8').hide();
+        } else {
+            $('#embedshowfile8').attr('src', url + mapbill);
+            $('#embedshowfile8Img').hide();
+        }
     });
     $('#mapbill2').click(function () {
         var mapbill2 = $(this).attr('data_mapbill2');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile9').attr('src', url + mapbill2);
+        // $('#embedshowfile9').attr('src', url + mapbill2);
+        var cutFileType9 = mapbill2.substr(-3, 4);
+        if (cutFileType9 == 'jpg' || cutFileType9 == 'JPG' || cutFileType9 == 'png' || cutFileType9 == 'PNG') {
+            $('#embedshowfile9Img').attr('src', url + mapbill2);
+            $('#embedshowfile9').hide();
+        } else {
+            $('#embedshowfile9').attr('src', url + mapbill2);
+            $('#embedshowfile9Img').hide();
+        }
     });
 
 
@@ -2164,7 +2239,15 @@ $(document).ready(function () {
         var recive_cheuqetable = $(this).attr('data_recive_cheuqetable');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#embedshowfile10').attr('src', url + recive_cheuqetable);
+        // $('#embedshowfile10').attr('src', url + recive_cheuqetable);
+        var cutFileType10 = recive_cheuqetable.substr(-3, 4);
+        if (cutFileType10 == 'jpg' || cutFileType10 == 'JPG' || cutFileType10 == 'png' || cutFileType10 == 'PNG') {
+            $('#embedshowfile10Img').attr('src', url + recive_cheuqetable);
+            $('#embedshowfile10').hide();
+        } else {
+            $('#embedshowfile10').attr('src', url + recive_cheuqetable);
+            $('#embedshowfile10Img').hide();
+        }
     });
 
 
@@ -2196,6 +2279,7 @@ $(document).ready(function () {
     var changeAddress = $('#forcrf_sub_oldcus_changeaddress_view').val();
     var changeCreditTerm = $('#forcrf_sub_oldcus_changecredit_view').val();
     var changeFinance = $('#forcrf_sub_oldcus_changefinance_view').val();
+    var editCustomer = $('#forcrf_sub_oldcus_editcustomer_view').val();
     // Master input Control Section
     // Master input Control Section
 
@@ -2220,9 +2304,9 @@ $(document).ready(function () {
 
     // Control CS , Sales Approve
 
-    if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 55) {
+    if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 15) {
         $('.author_manager').css('display', '');
-    } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed") {
+    } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process") {
         $('.author_manager').css('display', '');
     } else {
         $('.author_manager').css('display', 'none');
@@ -2301,19 +2385,19 @@ $(document).ready(function () {
 
 
     // Control Account Manager
-    if (checkStatus == "CS POST BR" && checkDeptCodeL == 1003 && checkUserPosi > 55) {
+    if (checkStatus == "CS POST BR" && checkDeptCodeL == 1003 && checkUserPosi > 15) {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
         }
-    } else if (checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeSales == 1 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeAddress == 2 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeCreditTerm == 3 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 55 && changeFinance == 4) {
+    } else if (checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeSales == 1 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeAddress == 2 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeCreditTerm == 3 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeFinance == 4 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && editCustomer == 5) {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
         }
     }
 
-    if (checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed") {
+    if (checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process") {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
@@ -2410,16 +2494,18 @@ $(document).ready(function () {
 
 
 
-
+    // Account staff process.
+    // Directors approved
+    // Completed
     // Control Account Staff Section
-    if (checkStatus == "Directors approved" && checkDeptCodeL == 1003) {
+    if (checkStatus == "Directors approved" && checkDeptCodeL == 1003 || checkStatus == "Account staff process" && checkDeptCodeL == 1003) {
         $('.account_staff').css('display', '');
         if ($('#checkCustomercode').val() == "") {
-            $('#forcusCode ,#forcusCode_userPost , #fcusCode_datetimePost').css('display', 'none');
+            $('#forcusCode ,#forcusCode_userPost , #fcusCode_datetimePost , #foraccStaffMemo').css('display', 'none');
         }
     } else if (checkStatus == "Completed") {
         $('.account_staff').css('display', '');
-        $('#cusCode ,#cusCode_userPost , #cusCode_datetimePost , #acc_staff').css('display', 'none');
+        $('#cusCode ,#cusCode_userPost , #cusCode_datetimePost , #acc_staff , #accStaffMemo').css('display', 'none');
     }
 
     $('#goto_cuscode_form').on('click', function () {
@@ -2795,6 +2881,7 @@ $(document).ready(function () {
             $('input:radio[class="crf_typeofbussi2"]').prop('checked', true);
         }
 
+        $('.newPrimanage').css('display', 'none');
 
         queryProcessUse(data_crf_cusid);
         queryPrimanageUse(data_crf_cusid);
@@ -3739,7 +3826,9 @@ $(document).ready(function () {
     });
 
 
-    // Edit page
+    // Edit page    // Edit page    // Edit page    // Edit page    // Edit page
+    // Edit page    // Edit page    // Edit page    // Edit page    // Edit page
+    // Edit page    // Edit page    // Edit page    // Edit page    // Edit page
     // Check edit บริษัท
     if ($('#check_editcom').val() == 'sln') {
         $('#edit_company_sln').prop('checked', true);
@@ -3748,6 +3837,14 @@ $(document).ready(function () {
     } else if ($('#check_editcom').val() == 'ca') {
         $('#edit_company_ca').prop('checked', true);
     }
+
+
+    $(document).on('click', '#remove_pri', function () {
+        var btnid = $(this).attr('data-btnid');
+        $('#priManage' + btnid).remove();
+    });
+
+
 
     // Check edit ลูกค้าเก่า , ลูกค้าใหม่
     if ($('#check_editcustype').val() == 1) {
@@ -3915,9 +4012,9 @@ $(document).ready(function () {
 
 
         $('.edit_salesrepsCur').remove();
-        $('#edit_customername , #edit_cuscompanycreate , #edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact , #crf_primanage_dept , #crf_primanage_name , #crf_primanage_posi , #crf_primanage_email , #edit_forecast , #crf_recive_cheuqedetail , #crf_finance_req_number , #edit_salesreps').prop('readonly', true);
+        $('#edit_customername , #edit_cuscompanycreate , #edit_addressname , #edit_namecontact , #edit_telcontact , #edit_faxcontact , #edit_emailcontact  ,  #edit_forecast , #crf_recive_cheuqedetail , #crf_finance_req_number , #edit_salesreps').prop('readonly', true);
         $('#crf_file1 , #crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6 , #crf_file7 , #crf_file8 , #crf_file9 , #crf_recive_cheuqetable').css('display', 'none');
-        $('#add_more_primanage').css('display', 'none');
+        // $('#add_more_primanage').css('display', 'none');
         $('input:radio').attr('onclick', 'return false');
         $('input:checkbox[id="crf_process"]').attr('onclick', 'return false');
         $('#crf_creditterm').hide();
@@ -3957,6 +4054,10 @@ $(document).ready(function () {
             $('.finance_change_detail').css('display', '');
         } else {
             $('.finance_change_detail').css('display', 'none');
+        }
+
+        if ($('#check_editcustomerdetail').val() == 5) {
+            $('input:checkbox[name="crf_sub_oldcus_editcustomer"]').prop('checked', true);
         }
 
 
@@ -4107,7 +4208,15 @@ $(document).ready(function () {
         var data_mapfile = $(this).attr('data_mapfile');
         var url = 'http://192.190.10.27/crf/upload/';
 
-        $('#showmapfile_output').attr('src', url + data_mapfile);
+        var cutFileType = data_mapfile.substr(-3, 4);
+        if (cutFileType == 'jpg' || cutFileType == 'JPG' || cutFileType == 'png' || cutFileType == 'PNG') {
+            $('#showmapfileImg_output').attr('src', url + data_mapfile);
+            $('#showmapfile_output').hide();
+        } else {
+            $('#showmapfile_output').attr('src', url + data_mapfile);
+            $('#showmapfileImg_output').hide();
+        }
+
     });
 
 

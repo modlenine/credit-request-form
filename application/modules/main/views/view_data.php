@@ -108,7 +108,7 @@ if ($result->crf_status == "Open") {
                 </div>
                 <div class="col-md-3 form-group">
                         <div class="form-check">
-                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer_view" id="crf_sub_oldcus_editcustomer_view" value="1">
+                            <input class="form-check-input " type="checkbox" name="crf_sub_oldcus_editcustomer_view" id="crf_sub_oldcus_editcustomer_view" value="1" onclick="return false;">
                             <label for="my-input" class="form-check-label">แก้ไขข้อมูลลูกค้า</label>
                         </div>
                     </div>
@@ -308,7 +308,7 @@ if ($result->crf_status == "Open") {
                 <h6><b><u>บุคคลในแต่ละระดับบริหารที่สำคัญ</u></b></h6>
             </label>
             <?php
-            foreach (getPrimanage($result->crfcus_id)->result() as $rs) {
+            foreach (getPrimanage($result->crfcus_formno)->result() as $rs) {
 
             ?>
                 <div id="priManage" class="row form-group">
@@ -796,6 +796,14 @@ if ($result->crf_status == "Open") {
                     <input hidden type="text" name="accMgrFormno" id="accMgrFormno" value="<?= $result->crf_formno ?>">
                     <input hidden type="text" name="accMgr_cusTypeForEmail" id="accMgr_cusTypeForEmail" value="<?= $result->crf_type ?>">
 
+                    <!-- Check method for redirect section -->
+                    <input hidden type="text" name="mgrCheckmethod1" id="mgrCheckmethod1" value="<?=$result->crf_sub_oldcus_changearea?>">
+                    <input hidden type="text" name="mgrCheckmethod2" id="mgrCheckmethod2" value="<?=$result->crf_sub_oldcus_changeaddress?>">
+                    <input hidden type="text" name="mgrCheckmethod3" id="mgrCheckmethod3" value="<?=$result->crf_sub_oldcus_changecredit?>">
+                    <input hidden type="text" name="mgrCheckmethod4" id="mgrCheckmethod4" value="<?=$result->crf_sub_oldcus_changefinance?>">
+                    <input hidden type="text" name="mgrCheckmethod5" id="mgrCheckmethod5" value="<?=$result->crf_sub_oldcus_editcustomer?>">
+                    <!-- Check method for redirect section -->
+
                     <div class="row form-group">
                         <div class="col-md-12 mgr_appro">
                             <input type="radio" name="mgracc_appro" id="mgracc_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
@@ -942,6 +950,10 @@ if ($result->crf_status == "Open") {
                     <input hidden type="text" name="accStaffFormNo" id="accStaffFormNo" value="<?= $result->crfcus_formno ?>">
                     <input hidden type="text" name="accStaffCustype" id="accStaffCustype" value="<?= $result->crf_type ?>">
 
+                    <!-- Check method -->
+                    <input hidden type="text" name="accCheckmethod3" id="accCheckmethod3" value="<?=$result->crf_sub_oldcus_changecredit?>">
+                    <input hidden type="text" name="accCheckmethod4" id="accCheckmethod4" value="<?=$result->crf_sub_oldcus_changefinance?>">
+
                     <div class="row form-group">
                         <div class="col-md-8 accForcus1">
                             <label for="">รหัสลูกค้า</label>
@@ -952,6 +964,7 @@ if ($result->crf_status == "Open") {
                         <div class="col-md-8 accForcus2">
                             <label for="">ผลการดำเนินงาน</label>
                             <textarea id="accStaffMemo" name="accStaffMemo" class="form-control" col="3" rows="2"></textarea>
+                            <textarea readonly id="foraccStaffMemo" name="foraccStaffMemo" class="form-control" col="3" rows="2"><?=$result->crf_memo_customercode?></textarea>
                         </div>
 
                         <div class="col-md-4">

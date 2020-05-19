@@ -1,6 +1,3 @@
-
-
-
 <!-- Modal Show ไฟล์แนบ1 -->
 <div class="modal fade" id="show_file1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -18,6 +15,7 @@
 			<div class="modal-body">
 
 				<div id="show_file1" class="col-md-12">
+					<img id="embedshowfile1Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile1" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -48,6 +46,7 @@
 			<div class="modal-body">
 
 				<div id="show_file2" class="col-md-12">
+					<img id="embedshowfile2Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile2" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -78,6 +77,7 @@
 			<div class="modal-body">
 
 				<div id="show_file3" class="col-md-12">
+					<img id="embedshowfile3Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile3" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -108,6 +108,7 @@
 			<div class="modal-body">
 
 				<div id="show_file4" class="col-md-12">
+					<img id="embedshowfile4Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile4" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -138,6 +139,7 @@
 			<div class="modal-body">
 
 				<div id="show_file5" class="col-md-12">
+					<img id="embedshowfile5Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile5" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -168,6 +170,7 @@
 			<div class="modal-body">
 
 				<div id="show_file6" class="col-md-12">
+					<img id="embedshowfile6Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile6" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -188,7 +191,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					ไฟล์เอกสาร&nbsp;
+					ไฟล์เอกสาร7&nbsp;
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -199,6 +202,7 @@
 			<div class="modal-body">
 
 				<div id="show_file7" class="col-md-12">
+					<img id="embedshowfile7Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile7" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -219,7 +223,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					ไฟล์เอกสาร&nbsp;
+					ไฟล์เอกสาร8&nbsp;
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -230,6 +234,7 @@
 			<div class="modal-body">
 
 				<div id="show_file8" class="col-md-12">
+					<img id="embedshowfile8Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile8" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -250,7 +255,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					ไฟล์เอกสาร&nbsp;
+					ไฟล์เอกสาร9&nbsp;
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -261,6 +266,7 @@
 			<div class="modal-body">
 
 				<div id="show_file9" class="col-md-12">
+					<img id="embedshowfile9Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile9" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -281,7 +287,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					ไฟล์เอกสาร&nbsp;
+					ไฟล์เอกสาร10&nbsp;
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -292,6 +298,7 @@
 			<div class="modal-body">
 
 				<div id="show_file10" class="col-md-12">
+					<img id="embedshowfile10Img" src="" width="100%" height="500px" />
 					<embed id="embedshowfile10" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -383,6 +390,7 @@
 			<div class="modal-body">
 
 				<div id="show_file1" class="col-md-12">
+					<img id="embedshow_editfile1Img" src="" width="100%" height="500px" />
 					<embed id="embedshow_editfile1" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -416,6 +424,7 @@
 			<div class="modal-body">
 
 				<div id="show_file1" class="col-md-12">
+					<img id="embedshow_viewExImg" src="" width="100%" height="500px" />
 					<embed id="embedshow_viewEx" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
@@ -450,7 +459,8 @@
 			<div class="modal-body">
 
 				<div id="show_file10" class="col-md-12">
-					<img id="showmapfile_output" src="" width="100%" height="500px" />
+					<img id="showmapfileImg_output" src="" width="100%" height="500px" />
+					<embed id="showmapfile_output" src="" type="application/pdf" width="100%" height="500px" />
 				</div>
 
 			</div>
