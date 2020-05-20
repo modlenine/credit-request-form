@@ -347,10 +347,10 @@ class Main extends MX_Controller
 
     public function filterCredit()
     {
-        if($this->input->post("oldCredit")){
+        if ($this->input->post("oldCredit")) {
             $oldCredit = $this->input->post("oldCredit");
             $creditMethod = $this->input->post("creditMethod");
-            echo $this->main->fetch_filterCredit($oldCredit,$creditMethod);
+            echo $this->main->fetch_filterCredit($oldCredit, $creditMethod);
         }
     }
 
@@ -697,10 +697,15 @@ class Main extends MX_Controller
             'crfex_accmgr_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_accmgr_datetime),
             'crfex_accmgr_detail' => viewdataEX($crfexid)->crfex_accmgr_detail,
             'exDirectorApprove' => base_url('main/exDirectorApprove/') . $crfexid,
+            'exDirectorApprove2' => base_url('main/exDirectorApprove2/') . $crfexid,
             'crfex_directorapp_status' => viewdataEX($crfexid)->crfex_directorapp_status,
             'crfex_directorapp_username' => viewdataEX($crfexid)->crfex_directorapp_username,
             'crfex_directorapp_datetime' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_directorapp_datetime),
             'crfex_directorapp_detail' => viewdataEX($crfexid)->crfex_directorapp_detail,
+            'crfex_directorapp_status2' => viewdataEX($crfexid)->crfex_directorapp_status2,
+            'crfex_directorapp_username2' => viewdataEX($crfexid)->crfex_directorapp_username2,
+            'crfex_directorapp_datetime2' => conDateTimeFromDb(viewdataEX($crfexid)->crfex_directorapp_datetime2),
+            'crfex_directorapp_detail2' => viewdataEX($crfexid)->crfex_directorapp_detail2,
             'crfex_customerid' => viewdataEX($crfexid)->crfex_customerid,
             'exAccountAddCusCode' => base_url('main/exAccountAddCusCode/') . $crfexid,
             'crfex_accmemo' => viewdataEX($crfexid)->crfex_accmemo,
@@ -710,10 +715,10 @@ class Main extends MX_Controller
             'crfex_curcustopic1' => viewdataEX($crfexid)->crfex_curcustopic1,
             'crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
             'crfexcus_id' => viewdataEX($crfexid)->crfexcus_id,
-            'crfex_cancelForm' => base_url('main/canceldataEx/').viewdataEX($crfexid)->crfex_id."/".viewdataEX($crfexid)->crfex_formno,
-            'crfex_editdata' => base_url('main/editdataEx/').viewdataEX($crfexid)->crfex_id,
+            'crfex_cancelForm' => base_url('main/canceldataEx/') . viewdataEX($crfexid)->crfex_id . "/" . viewdataEX($crfexid)->crfex_formno,
+            'crfex_editdata' => base_url('main/editdataEx/') . viewdataEX($crfexid)->crfex_id,
             'file' => viewdataEX($crfexid)->crfexcus_file,
-            'fileAddress' => base_url('upload/').viewdataEX($crfexid)->crfexcus_file,
+            'fileAddress' => base_url('upload/') . viewdataEX($crfexid)->crfexcus_file,
             'get_area' => viewdataEX($crfexid)->crfex_company,
             'get_payment' => viewdataEX($crfexid)->crfexcus_payment,
 
@@ -728,6 +733,16 @@ class Main extends MX_Controller
             'get_crfex_month3' => viewdataEX($crfexid)->crfexcus_his_month3,
             'get_crfex_totalvolume3' => viewdataEX($crfexid)->crfexcus_his_tvolume3,
             'get_crfex_totalsales3' => viewdataEX($crfexid)->crfexcus_histsales3,
+
+            'crfex_creditlimit_condition' => viewdataEx($crfexid)->crfex_creditlimit_condition,
+            'crfex_term_condition' => viewdataEx($crfexid)->crfex_term_condition,
+            'crfex_discount_condition' => viewdataEx($crfexid)->crfex_discount_condition,
+            'crfex_creditlimit_need' => viewdataEx($crfexid)->crfex_creditlimit_need,
+            'crfex_term_need' => viewdataEx($crfexid)->crfex_term_need,
+            'crfex_discount_need' => viewdataEx($crfexid)->crfex_discount_need,
+            'crfex_creditlimit_sum' => viewdataEx($crfexid)->crfex_creditlimit_sum,
+            'crfex_term_sum' => viewdataEx($crfexid)->crfex_term_sum,
+            'crfex_discount_sum' => viewdataEx($crfexid)->crfex_discount_sum,
 
 
         );
@@ -774,6 +789,14 @@ class Main extends MX_Controller
         }
     }
 
+    public function exDirectorApprove2($crfexid)
+    {
+        if (isset($_POST['ex_directorSubmit2'])) {
+            $this->main->exDirectorApprove2($crfexid);
+            header("refresh:0; url=" . base_url('main/listex'));
+        }
+    }
+
 
     public function exAccountAddCusCode($crfexid)
     {
@@ -784,390 +807,398 @@ class Main extends MX_Controller
     }
 
 
-// Check Duplicate customer name
-public function checkDuplicateNameCustomer()
-{
-    echo $this->main->checkDuplicateNameCustomer();
-}
+    // Check Duplicate customer name
+    public function checkDuplicateNameCustomer()
+    {
+        echo $this->main->checkDuplicateNameCustomer();
+    }
 
-// Check Duplicate customer name
-public function checkDuplicateNameCustomerEx()
-{
-    echo $this->main->checkDuplicateNameCustomerEx();
-}
-
-
-
-
-
-
-
-// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
-// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
-function editViewPage(){
-
-    $customerid = $this->input->post("editcusid");
-    $salesreps = $this->input->post("editsalesreps");
-
-    $arsalereps = array(
-        "crfcus_id" => $customerid,
-        "crfcus_salesreps" => $salesreps
-    );
-
-    $this->db->insert("crf_customers" , $arsalereps);
-}
-
-
-public function editdata($crf_id)
-{
-    $crfcus_id = getViewData($crf_id)->crfcus_id;
-
-    if(getViewData($crf_id)->crfcus_creditterm2 == ''){
-        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
-        $creditname1 = conCreditTerm($creditterm1);
-
-        $creditterm2 = "";
-        $creditname2 = "";
-    }else{
-        $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
-        $creditname1 = conCreditTerm($creditterm1);
-
-        $creditterm2 = getViewData($crf_id)->crfcus_creditterm2;
-        $creditname2 = conCreditTerm($creditterm2);
+    // Check Duplicate customer name
+    public function checkDuplicateNameCustomerEx()
+    {
+        echo $this->main->checkDuplicateNameCustomerEx();
     }
 
 
 
-    $data = array(
-        "getFormCode" => getFormCode(),
-        "getCusProcess" => getCusProcess(),
-        "getCreditTerm" => getCreditTerm(),
-        "edit_company" => getViewData($crf_id)->crf_company,
-        "edit_custype" => getViewData($crf_id)->crf_type,
-        "edit_datecreate" => conDateFromDb(getViewData($crf_id)->crf_datecreate),
-        "edit_salesreps" => getViewData($crf_id)->crfcus_salesreps,
-        "edit_cusname" => getViewData($crf_id)->crfcus_name,
-        "edit_comcreate" => getViewData($crf_id)->crfcus_comdatecreate,
-        "edit_ivoicetype" => getViewData($crf_id)->crfcus_addresstype,
-        "edit_address" => getViewData($crf_id)->crfcus_address,
-        "edit_contactname" => getViewData($crf_id)->crfcus_contactname,
-        "edit_contacttel" => getViewData($crf_id)->crfcus_phone,
-        "edit_contactfax" => getViewData($crf_id)->crfcus_fax,
-        "edit_contactemail" => getViewData($crf_id)->crfcus_email,
-        "edit_regiscapital" => getViewData($crf_id)->crfcus_regiscapital,
-        "edit_comtype" => getViewData($crf_id)->crfcus_companytype,
-        "editprimanage" => getPrimanageEdit(getViewData($crf_id)->crfcus_formno),
-        "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
-        "crfcus_id" => getViewData($crf_id)->crfcus_id,
-        "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
-        "edit_creditterm" =>  $creditterm1,
-        "edit_creditname" => $creditname1,
-        "edit_conditionbill" => getViewData($crf_id)->crfcus_conditionbill,
-        "edit_conditionmoney" => getViewData($crf_id)->crfcus_conditionmoney,
-        "edit_finance" => getViewData($crf_id)->crf_finance,
-        "datenow" => date("d-m-Y"),
-        "edit_moneylimit" => getViewData($crf_id)->crfcus_moneylimit,
-        "get_file1" => getViewData($crf_id)->crfcus_file1,
-        "get_file2" => getViewData($crf_id)->crfcus_file2,
-        "get_file3" => getViewData($crf_id)->crfcus_file3,
-        "get_file4" => getViewData($crf_id)->crfcus_file4,
-        "get_file5" => getViewData($crf_id)->crfcus_file5,
-        "get_file6" => getViewData($crf_id)->crfcus_file6,
-        "get_crfid" => getViewData($crf_id)->crf_id,
-        "get_changearea" => getViewData($crf_id)->crf_sub_oldcus_changearea,
-        "get_changeaddress" => getViewData($crf_id)->crf_sub_oldcus_changeaddress,
-        "get_changecredit" => getViewData($crf_id)->crf_sub_oldcus_changecredit,
-        "get_changefinance" => getViewData($crf_id)->crf_sub_oldcus_changefinance,
-        "get_cuscode" => getViewData($crf_id)->crfcus_code,
-        "get_file7" => getViewData($crf_id)->crfcus_tablebill,
-        "get_file8" => getViewData($crf_id)->crfcus_mapbill,
-        "get_datebill" => getViewData($crf_id)->crfcus_datebill,
-        "get_mapbill2" => getViewData($crf_id)->crfcus_mapbill2,
-        "get_cheuqetable" => getViewData($crf_id)->crfcus_cheuqetable,
-        "get_cheuqedetail" => getViewData($crf_id)->crfcus_cheuqedetail,
-        "geturl" => $this->uri->segment(2),
-        "get_comtype2" => getViewData($crf_id)->crfcus_comtype2,
-        "get_formno" => getViewData($crf_id)->crfcus_formno,
-        "get_comtype31" => getViewData($crf_id)->crfcus_comtype31,
-        "get_comtype32" => getViewData($crf_id)->crfcus_comtype32,
-        "get_comtype33" => getViewData($crf_id)->crfcus_comtype33,
-        "get_comtype34" => getViewData($crf_id)->crfcus_comtype34,
-        "get_condition_credit" => getViewData($crf_id)->crf_condition_credit,
-        "get_creditterm2code" => $creditterm2,
-        "get_creditterm2name" => $creditname2,
-
-        "edit_crf_finance_status" => getViewData($crf_id)->crf_finance_status,
-        "edit_crf_finance_change_status" => getViewData($crf_id)->crf_finance_change_status,
-        "edit_crf_finance_change_number" => getViewData($crf_id)->crf_finance_change_number,
-        "edit_crf_finance_change_total" => getViewData($crf_id)->crf_finance_change_total,
-        "edit_crf_finance_change_detail" => getViewData($crf_id)->crf_finance_change_detail,
-        "crfcus_mapurl" => getViewData($crf_id)->crfcus_mapurl,
-        "crfcus_mapfile" => getViewData($crf_id)->crfcus_mapfile,
-        "crfcus_taxid" => getViewData($crf_id)->crfcus_taxid,
-        "crfcus_branch" => getViewData($crf_id)->crfcus_branch,
-        "crfcus_products" => getViewData($crf_id)->crfcus_products,
-        "crf_sub_oldcus_editcustomer" => getViewData($crf_id)->crf_sub_oldcus_editcustomer
-
-    );
-
-
-
-    getHead();
-    getContentData("edit_view" , $data);
-    getFooter();
-}
-
-public function save_editdata(){
-    $this->main->save_editdata();  
-}
-
-
-public function canceldata($crfid,$crfformno)
-{
-    $this->main->canceldata($crfid,$crfformno);
-}
-public function canceldataEx($crfid,$crfformno)
-{
-    $this->main->canceldataEx($crfid,$crfformno);
-}
 
 
 
 
-// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
-// EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+    // EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+    // EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+    function editViewPage()
+    {
 
+        $customerid = $this->input->post("editcusid");
+        $salesreps = $this->input->post("editsalesreps");
 
+        $arsalereps = array(
+            "crfcus_id" => $customerid,
+            "crfcus_salesreps" => $salesreps
+        );
 
-
-
-
-
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-
-
-public function editdataEx($crfexid)
-{
-
-
-    if(viewdataEX($crfexid)->crfexcus_file == ""){
-        $file = 'ไม่มีไฟล์อยู่ในระบบ';
-    }else{
-        $file = viewdataEX($crfexid)->crfexcus_file;
+        $this->db->insert("crf_customers", $arsalereps);
     }
 
 
-    $data = array(
-        'username' => getUser()->Fname . " " . getUser()->Lname,
-        'deptcode' => getUser()->DeptCode,
-        'deptname' => getUser()->Dept,
-        'ecode' => getUser()->ecode,
-        'posi' => getUser()->posi,
-        'datenow' => date("d-m-Y H:i:s"),
-        'formcode' => getFormCodeEN(),
+    public function editdata($crf_id)
+    {
+        $crfcus_id = getViewData($crf_id)->crfcus_id;
 
-        'checkEdit-crfex_company' => viewdataEX($crfexid)->crfex_company,
-        'checkEdit-crfex_custype' => viewdataEX($crfexid)->crfex_custype,
-        'checkEdit-crfex_curcustopic1' => viewdataEX($crfexid)->crfex_curcustopic1,
-        'checkEdit-crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
-        'checkEdit-crfex_formno' => viewdataEX($crfexid)->crfex_formno,
-        'checkEdit-crfex_id' => viewdataEX($crfexid)->crfex_id,
-        'checkEditPage' => $this->uri->segment(2),
+        if (getViewData($crf_id)->crfcus_creditterm2 == '') {
+            $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+            $creditname1 = conCreditTerm($creditterm1);
 
+            $creditterm2 = "";
+            $creditname2 = "";
+        } else {
+            $creditterm1 = getViewData($crf_id)->crfcus_creditterm;
+            $creditname1 = conCreditTerm($creditterm1);
 
-        'edit-crfex_datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
-        'edit-crfex_customercode' => viewdataEX($crfexid)->crfexcus_code,
-        'edit-crfex_salesreps' => viewdataEX($crfexid)->crfexcus_salesreps,
-        'edit-crfex_cusnameEN' => viewdataEX($crfexid)->crfexcus_nameEN,
-        'edit-crfex_cusnameTH' => viewdataEX($crfexid)->crfexcus_nameTH,
-        'edit-crfex_address' => viewdataEX($crfexid)->crfexcus_address,
-        'edit-crfex_tel' => viewdataEX($crfexid)->crfexcus_tel,
-        'edit-crfex_fax' => viewdataEX($crfexid)->crfexcus_fax,
-        'edit-crfex_email' => viewdataEX($crfexid)->crfexcus_email,
-        'edit-crfex_file' => $file,
-        'edit-crfex_fileAdd' => base_url('upload/').$file,
-        'edit-crfex_payment' => viewdataEX($crfexid)->crfexcus_payment,
-        'edit-crfex_creditlimit' => viewdataEX($crfexid)->crfex_pcreditlimit,
-        'edit-crfex_term' => viewdataEX($crfexid)->crfex_pterm,
-        'edit-crfex_discount' => viewdataEX($crfexid)->crfex_pdiscount,
-        'edit-crfex_creditlimit2' => viewdataEX($crfexid)->crfex_ccreditlimit,
-        'edit-crfex_term2' => viewdataEX($crfexid)->crfex_cterm,
-        'edit-crfex_discount2' => viewdataEX($crfexid)->crfex_cdiscount,
-        'edit-crfex_combg' => viewdataEX($crfexid)->crfexcus_bg,
-
-        'edit-crfex_his_month1' => viewdataEX($crfexid)->crfexcus_his_month1,
-        'edit-crfex_his_tvolume1' => viewdataEX($crfexid)->crfexcus_his_tvolume1,
-        'edit-crfex_histsales1' => viewdataEX($crfexid)->crfexcus_histsales1,
-
-        'edit-crfex_his_month2' => viewdataEX($crfexid)->crfexcus_his_month2,
-        'edit-crfex_his_tvolume2' => viewdataEX($crfexid)->crfexcus_his_tvolume2,
-        'edit-crfex_histsales2' => viewdataEX($crfexid)->crfexcus_histsales2,
-
-        'edit-crfex_his_month3' => viewdataEX($crfexid)->crfexcus_his_month3,
-        'edit-crfex_his_tvolume3' => viewdataEX($crfexid)->crfexcus_his_tvolume3,
-        'edit-crfex_histsales3' => viewdataEX($crfexid)->crfexcus_histsales3,
-
-
-        
-    );
+            $creditterm2 = getViewData($crf_id)->crfcus_creditterm2;
+            $creditname2 = conCreditTerm($creditterm2);
+        }
 
 
 
+        $data = array(
+            "getFormCode" => getFormCode(),
+            "getCusProcess" => getCusProcess(),
+            "getCreditTerm" => getCreditTerm(),
+            "edit_company" => getViewData($crf_id)->crf_company,
+            "edit_custype" => getViewData($crf_id)->crf_type,
+            "edit_datecreate" => conDateFromDb(getViewData($crf_id)->crf_datecreate),
+            "edit_salesreps" => getViewData($crf_id)->crfcus_salesreps,
+            "edit_cusname" => getViewData($crf_id)->crfcus_name,
+            "edit_comcreate" => getViewData($crf_id)->crfcus_comdatecreate,
+            "edit_ivoicetype" => getViewData($crf_id)->crfcus_addresstype,
+            "edit_address" => getViewData($crf_id)->crfcus_address,
+            "edit_contactname" => getViewData($crf_id)->crfcus_contactname,
+            "edit_contacttel" => getViewData($crf_id)->crfcus_phone,
+            "edit_contactfax" => getViewData($crf_id)->crfcus_fax,
+            "edit_contactemail" => getViewData($crf_id)->crfcus_email,
+            "edit_regiscapital" => getViewData($crf_id)->crfcus_regiscapital,
+            "edit_comtype" => getViewData($crf_id)->crfcus_companytype,
+            "editprimanage" => getPrimanageEdit(getViewData($crf_id)->crfcus_formno),
+            "edit_busitype" => getViewData($crf_id)->crfcus_typebussi,
+            "crfcus_id" => getViewData($crf_id)->crfcus_id,
+            "edit_forecast" => getViewData($crf_id)->crfcus_forecast,
+            "edit_creditterm" =>  $creditterm1,
+            "edit_creditname" => $creditname1,
+            "edit_conditionbill" => getViewData($crf_id)->crfcus_conditionbill,
+            "edit_conditionmoney" => getViewData($crf_id)->crfcus_conditionmoney,
+            "edit_finance" => getViewData($crf_id)->crf_finance,
+            "datenow" => date("d-m-Y"),
+            "edit_moneylimit" => getViewData($crf_id)->crfcus_moneylimit,
+            "get_file1" => getViewData($crf_id)->crfcus_file1,
+            "get_file2" => getViewData($crf_id)->crfcus_file2,
+            "get_file3" => getViewData($crf_id)->crfcus_file3,
+            "get_file4" => getViewData($crf_id)->crfcus_file4,
+            "get_file5" => getViewData($crf_id)->crfcus_file5,
+            "get_file6" => getViewData($crf_id)->crfcus_file6,
+            "get_crfid" => getViewData($crf_id)->crf_id,
+            "get_changearea" => getViewData($crf_id)->crf_sub_oldcus_changearea,
+            "get_changeaddress" => getViewData($crf_id)->crf_sub_oldcus_changeaddress,
+            "get_changecredit" => getViewData($crf_id)->crf_sub_oldcus_changecredit,
+            "get_changefinance" => getViewData($crf_id)->crf_sub_oldcus_changefinance,
+            "get_cuscode" => getViewData($crf_id)->crfcus_code,
+            "get_file7" => getViewData($crf_id)->crfcus_tablebill,
+            "get_file8" => getViewData($crf_id)->crfcus_mapbill,
+            "get_datebill" => getViewData($crf_id)->crfcus_datebill,
+            "get_mapbill2" => getViewData($crf_id)->crfcus_mapbill2,
+            "get_cheuqetable" => getViewData($crf_id)->crfcus_cheuqetable,
+            "get_cheuqedetail" => getViewData($crf_id)->crfcus_cheuqedetail,
+            "geturl" => $this->uri->segment(2),
+            "get_comtype2" => getViewData($crf_id)->crfcus_comtype2,
+            "get_formno" => getViewData($crf_id)->crfcus_formno,
+            "get_comtype31" => getViewData($crf_id)->crfcus_comtype31,
+            "get_comtype32" => getViewData($crf_id)->crfcus_comtype32,
+            "get_comtype33" => getViewData($crf_id)->crfcus_comtype33,
+            "get_comtype34" => getViewData($crf_id)->crfcus_comtype34,
+            "get_condition_credit" => getViewData($crf_id)->crf_condition_credit,
+            "get_creditterm2code" => $creditterm2,
+            "get_creditterm2name" => $creditname2,
 
-    getHead();
-    getContentData("edit_viewEx" , $data);
-    getFooter();
-}
+            "edit_crf_finance_status" => getViewData($crf_id)->crf_finance_status,
+            "edit_crf_finance_change_status" => getViewData($crf_id)->crf_finance_change_status,
+            "edit_crf_finance_change_number" => getViewData($crf_id)->crf_finance_change_number,
+            "edit_crf_finance_change_total" => getViewData($crf_id)->crf_finance_change_total,
+            "edit_crf_finance_change_detail" => getViewData($crf_id)->crf_finance_change_detail,
+            "crfcus_mapurl" => getViewData($crf_id)->crfcus_mapurl,
+            "crfcus_mapfile" => getViewData($crf_id)->crfcus_mapfile,
+            "crfcus_taxid" => getViewData($crf_id)->crfcus_taxid,
+            "crfcus_branch" => getViewData($crf_id)->crfcus_branch,
+            "crfcus_products" => getViewData($crf_id)->crfcus_products,
+            "crf_sub_oldcus_editcustomer" => getViewData($crf_id)->crf_sub_oldcus_editcustomer
+
+        );
 
 
 
-public function saveEditdataEx()
-{
-    $this->main->saveEditdataEx();
-}
-
-
-
-
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-// Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
-
-
-
-
-
-
-public function testcode()
-{
-    $deptcodeTo = 1006;
-    $posiTo = 75;
-$to = array();
-    foreach(getuserEmailTo($deptcodeTo , $posiTo)->result_array() as $rs){
-        $to[] = $rs['memberemail'];
+        getHead();
+        getContentData("edit_view", $data);
+        getFooter();
     }
 
-    print_r($to);
-    
+    public function save_editdata()
+    {
+        $this->main->save_editdata();
+    }
 
 
-
-}
-
-
-
-
-// Report Zone
-public function reportExport()
-{
-    $this->main->reportExport();
-}
-
-
-public function reportExportdate()
-{
-    $this->main->reportExportdate();
-}
-
-public function reportTh()
-{
-    $this->main->reportTh();
-}
-public function reportThdate()
-{
-    $this->main->reportThdate();
-}
+    public function canceldata($crfid, $crfformno)
+    {
+        $this->main->canceldata($crfid, $crfformno);
+    }
+    public function canceldataEx($crfid, $crfformno)
+    {
+        $this->main->canceldataEx($crfid, $crfformno);
+    }
 
 
 
 
-// Config zone
-public function configemail()
-{
-    $data = array(
-        "title" => "test"
-    );
-
-    getHead();
-    getContent("configemail" , $data);
-    getFooter();
-}
-public function saveSettingEmail()
-{
-    $this->load->model("email_model");
-    $this->email_model->saveSettingEmail();
-}
+    // EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
+    // EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE EDIT ZONE
 
 
 
 
-public function loaddata_all()
-{
-    $limit = "5";
-    $page = $this->uri->segment(3);
-    $start = ($page - 1) * $limit;
-    $output = '';
-    $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
-    $this->db->from("crf_maindata");
-    $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
-    $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
-    $this->db->join('crf_suboldcus', 'crf_suboldcus.crfsubold_id = crf_maindata.crf_sub_oldcus_changearea');
 
-    $this->db->order_by("crf_formno", "DESC");
-    $this->db->limit($limit, $start);
-    $query = $this->db->get();
 
-    foreach ($query->result() as $row) {
 
-        $bgcolor = "background-color:#E8E8E8;";
-        $fontcolor = "color:#000000;";
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
 
-        if ($row->crf_status == "Open") {
-            $statusColor = "color:#0066FF;";
-            $lineStatusColor = "background-color:#0066FF;height:3px;";
-        } else if ($row->crf_status == "Completed") {
-            $statusColor = "color:#009900;";
-            $lineStatusColor = "background-color:#009900;height:3px;";
-        } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
-            $statusColor = "color:#CC0000;";
-            $lineStatusColor = "background-color:#CC0000;height:3px;";
+
+    public function editdataEx($crfexid)
+    {
+
+
+        if (viewdataEX($crfexid)->crfexcus_file == "") {
+            $file = 'ไม่มีไฟล์อยู่ในระบบ';
         } else {
-            $statusColor = "color:#0066FF;";
-            $lineStatusColor = "background-color:#0066FF;height:3px;";
+            $file = viewdataEX($crfexid)->crfexcus_file;
         }
 
-        if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
-            $salesreps = $row->crfw_salesreps;
-        } else {
-            $salesreps = $row->crfcus_salesreps;
+
+        $data = array(
+            'username' => getUser()->Fname . " " . getUser()->Lname,
+            'deptcode' => getUser()->DeptCode,
+            'deptname' => getUser()->Dept,
+            'ecode' => getUser()->ecode,
+            'posi' => getUser()->posi,
+            'datenow' => date("d-m-Y H:i:s"),
+            'formcode' => getFormCodeEN(),
+
+            'checkEdit-crfex_company' => viewdataEX($crfexid)->crfex_company,
+            'checkEdit-crfex_custype' => viewdataEX($crfexid)->crfex_custype,
+            'checkEdit-crfex_curcustopic1' => viewdataEX($crfexid)->crfex_curcustopic1,
+            'checkEdit-crfex_curcustopic2' => viewdataEX($crfexid)->crfex_curcustopic2,
+            'checkEdit-crfex_formno' => viewdataEX($crfexid)->crfex_formno,
+            'checkEdit-crfex_id' => viewdataEX($crfexid)->crfex_id,
+            'checkEditPage' => $this->uri->segment(2),
+
+
+            'edit-crfex_datecreate' => conDateFromDb(viewdataEX($crfexid)->crfex_datecreate),
+            'edit-crfex_customercode' => viewdataEX($crfexid)->crfexcus_code,
+            'edit-crfex_salesreps' => viewdataEX($crfexid)->crfexcus_salesreps,
+            'edit-crfex_cusnameEN' => viewdataEX($crfexid)->crfexcus_nameEN,
+            'edit-crfex_cusnameTH' => viewdataEX($crfexid)->crfexcus_nameTH,
+            'edit-crfex_address' => viewdataEX($crfexid)->crfexcus_address,
+            'edit-crfex_tel' => viewdataEX($crfexid)->crfexcus_tel,
+            'edit-crfex_fax' => viewdataEX($crfexid)->crfexcus_fax,
+            'edit-crfex_email' => viewdataEX($crfexid)->crfexcus_email,
+            'edit-crfex_file' => $file,
+            'edit-crfex_fileAdd' => base_url('upload/') . $file,
+            'edit-crfex_payment' => viewdataEX($crfexid)->crfexcus_payment,
+            'edit-crfex_creditlimit' => viewdataEX($crfexid)->crfex_pcreditlimit,
+            'edit-crfex_term' => viewdataEX($crfexid)->crfex_pterm,
+            'edit-crfex_discount' => viewdataEX($crfexid)->crfex_pdiscount,
+            'edit-crfex_creditlimit2' => viewdataEX($crfexid)->crfex_ccreditlimit,
+            'edit-crfex_term2' => viewdataEX($crfexid)->crfex_cterm,
+            'edit-crfex_discount2' => viewdataEX($crfexid)->crfex_cdiscount,
+            'edit-crfex_combg' => viewdataEX($crfexid)->crfexcus_bg,
+
+            'edit-crfex_his_month1' => viewdataEX($crfexid)->crfexcus_his_month1,
+            'edit-crfex_his_tvolume1' => viewdataEX($crfexid)->crfexcus_his_tvolume1,
+            'edit-crfex_histsales1' => viewdataEX($crfexid)->crfexcus_histsales1,
+
+            'edit-crfex_his_month2' => viewdataEX($crfexid)->crfexcus_his_month2,
+            'edit-crfex_his_tvolume2' => viewdataEX($crfexid)->crfexcus_his_tvolume2,
+            'edit-crfex_histsales2' => viewdataEX($crfexid)->crfexcus_histsales2,
+
+            'edit-crfex_his_month3' => viewdataEX($crfexid)->crfexcus_his_month3,
+            'edit-crfex_his_tvolume3' => viewdataEX($crfexid)->crfexcus_his_tvolume3,
+            'edit-crfex_histsales3' => viewdataEX($crfexid)->crfexcus_histsales3,
+
+            'crfex_creditlimit_condition' => viewdataEx($crfexid)->crfex_creditlimit_condition,
+            'crfex_term_condition' => viewdataEx($crfexid)->crfex_term_condition,
+            'crfex_discount_condition' => viewdataEx($crfexid)->crfex_discount_condition,
+            'crfex_creditlimit_need' => viewdataEx($crfexid)->crfex_creditlimit_need,
+            'crfex_term_need' => viewdataEx($crfexid)->crfex_term_need,
+            'crfex_discount_need' => viewdataEx($crfexid)->crfex_discount_need,
+            'crfex_creditlimit_sum' => viewdataEx($crfexid)->crfex_creditlimit_sum,
+            'crfex_term_sum' => viewdataEx($crfexid)->crfex_term_sum,
+            'crfex_discount_sum' => viewdataEx($crfexid)->crfex_discount_sum,
+
+
+
+        );
+
+
+
+
+        getHead();
+        getContentData("edit_viewEx", $data);
+        getFooter();
+    }
+
+
+
+    public function saveEditdataEx()
+    {
+        $this->main->saveEditdataEx();
+    }
+
+
+
+
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+    // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone // Edit data export zone
+
+
+
+
+
+
+    public function testcode()
+    {
+        $deptcodeTo = 1006;
+        $posiTo = 75;
+        $to = array();
+        foreach (getuserEmailTo($deptcodeTo, $posiTo)->result_array() as $rs) {
+            $to[] = $rs['memberemail'];
         }
 
-        if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
-            $address = $row->crfcus_address;
-        } else {
-            $address = $row->crfcus_address;
-        }
+        print_r($to);
+    }
 
-        $topicTH = $row->crf_topic;
 
-        if ($row->crf_topic1 != '') {
-            $topicTH .= " / " . $row->crf_topic1;
-        }
-        if ($row->crf_topic2 != '') {
-            $topicTH .= " / " . $row->crf_topic2;
-        }
-        if ($row->crf_topic3 != '') {
-            $topicTH .= " / " . $row->crf_topic3;
-        }
-        if ($row->crf_topic4 != '') {
-            $topicTH .= " / " . $row->crf_topic4;
-        }
 
-        $output .= '
+
+    // Report Zone
+    public function reportExport()
+    {
+        $this->main->reportExport();
+    }
+
+
+    public function reportExportdate()
+    {
+        $this->main->reportExportdate();
+    }
+
+    public function reportTh()
+    {
+        $this->main->reportTh();
+    }
+    public function reportThdate()
+    {
+        $this->main->reportThdate();
+    }
+
+
+
+
+    // Config zone
+    public function configemail()
+    {
+        $data = array(
+            "title" => "test"
+        );
+
+        getHead();
+        getContent("configemail", $data);
+        getFooter();
+    }
+    public function saveSettingEmail()
+    {
+        $this->load->model("email_model");
+        $this->email_model->saveSettingEmail();
+    }
+
+
+
+
+    public function loaddata_all()
+    {
+        $limit = "5";
+        $page = $this->uri->segment(3);
+        $start = ($page - 1) * $limit;
+        $output = '';
+        $this->db->select("crf_formno , crf_id , crf_datecreate , crf_alltype_subname , crf_status , crfcus_name , crfcus_address , crfcus_salesreps , crfsubold_name , crf_topic , crf_topic1 , crf_topic2 , crf_topic3 , crf_topic4 , crfw_salesreps , crf_sub_oldcus_changearea , crf_sub_oldcus_changeaddress , crf_sub_oldcus_changecredit , crf_sub_oldcus_changefinance , crfw_cusaddress");
+        $this->db->from("crf_maindata");
+        $this->db->join('crf_alltype', 'crf_alltype.crf_alltype_subcode = crf_maindata.crf_type');
+        $this->db->join('crf_customers_temp', 'crf_customers_temp.crfcus_formno = crf_maindata.crf_formno');
+        $this->db->join('crf_suboldcus', 'crf_suboldcus.crfsubold_id = crf_maindata.crf_sub_oldcus_changearea');
+
+        $this->db->order_by("crf_formno", "DESC");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+
+            $bgcolor = "background-color:#E8E8E8;";
+            $fontcolor = "color:#000000;";
+
+            if ($row->crf_status == "Open") {
+                $statusColor = "color:#0066FF;";
+                $lineStatusColor = "background-color:#0066FF;height:3px;";
+            } else if ($row->crf_status == "Completed") {
+                $statusColor = "color:#009900;";
+                $lineStatusColor = "background-color:#009900;height:3px;";
+            } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
+                $statusColor = "color:#CC0000;";
+                $lineStatusColor = "background-color:#CC0000;height:3px;";
+            } else {
+                $statusColor = "color:#0066FF;";
+                $lineStatusColor = "background-color:#0066FF;height:3px;";
+            }
+
+            if ($row->crf_sub_oldcus_changearea == 1 && $row->crf_status != "Completed") {
+                $salesreps = $row->crfw_salesreps;
+            } else {
+                $salesreps = $row->crfcus_salesreps;
+            }
+
+            if ($row->crf_sub_oldcus_changeaddress == 2 && $row->crf_status != "Completed") {
+                $address = $row->crfcus_address;
+            } else {
+                $address = $row->crfcus_address;
+            }
+
+            $topicTH = $row->crf_topic;
+
+            if ($row->crf_topic1 != '') {
+                $topicTH .= " / " . $row->crf_topic1;
+            }
+            if ($row->crf_topic2 != '') {
+                $topicTH .= " / " . $row->crf_topic2;
+            }
+            if ($row->crf_topic3 != '') {
+                $topicTH .= " / " . $row->crf_topic3;
+            }
+            if ($row->crf_topic4 != '') {
+                $topicTH .= " / " . $row->crf_topic4;
+            }
+
+            $output .= '
   <div class="card mt-3">
   <div class="card-header" style="' . $bgcolor . $fontcolor . '">
         <div class="col-md-3 col-sm-12">
@@ -1203,50 +1234,44 @@ public function loaddata_all()
   </div>
 </div>
   ';
-    }
-    $output .= '</table>';
+        }
+        $output .= '</table>';
 
 
-    $queryCount = $this->db->get("crf_maindata");
-    $numrowCount = $queryCount->num_rows();
+        $queryCount = $this->db->get("crf_maindata");
+        $numrowCount = $queryCount->num_rows();
 
-    $numofpage = ceil($numrowCount/$limit);
-    // display the links to the pages
-    $output .= '
+        $numofpage = ceil($numrowCount / $limit);
+        // display the links to the pages
+        $output .= '
     <div class="row">
         <div class="col-md-12">
         <nav aria-label="Page navigation example">
         <ul class="pagination">
     ';
-for ($page=1;$page<=$numofpage;$page++) {
-    // echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
-    $output .= '
+        for ($page = 1; $page <= $numofpage; $page++) {
+            // echo '<a href="index.php?page=' . $page . '">' . $page . '</a> ';
+            $output .= '
 
 
-    <li class="page-item"><a class="page-link" id="pagination_link" href="#">'.$page.'</a></li>
+    <li class="page-item"><a class="page-link" id="pagination_link" href="#">' . $page . '</a></li>
 
 
     
     ';
-
-  }
-  $output .= '
+        }
+        $output .= '
   </ul>
   </nav>
   <div align="center" class="mt-2">
-					<span>รวมทั้งสิ้น</span>&nbsp;'.$numrowCount.'&nbsp;<span>รายการ</span>
+					<span>รวมทั้งสิ้น</span>&nbsp;' . $numrowCount . '&nbsp;<span>รายการ</span>
 				</div>
   </div>
   </div>
   ';
 
 
-    echo $output;
-}
-
-
-
-
-
+        echo $output;
+    }
 }
 // Main Controller

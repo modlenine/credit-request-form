@@ -80,20 +80,22 @@
                 <div class="row form-group mt-3 p-2" id="curcustopic_addpage" style="display:none;">
                     <div class="col-md-3 form-group">
                         <div class="form-check">
-                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic1_add" id="crfex_curcustopic1_add" value="Change customer information">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic1_add" id="crfex_curcustopic_add" value="Change customer information">
                             <label for="my-input" class="form-check-label">Change customer information.</label>
                         </div>
                     </div>
                     <div class="col-md-3 form-group">
                         <div class="form-check">
-                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic2_add" id="crfex_curcustopic2_add" value="Change credit & term">
+                            <input class="form-check-input " type="checkbox" name="crfex_curcustopic2_add" id="crfex_curcustopic_add" value="Change credit & term">
                             <label for="my-input" class="form-check-label">Change credit & term</label>
                         </div>
                     </div>
+
                 </div>
+                <div id="alert_crfex_topic"></div>
 
 
-            <!-- Check Customer id -->
+                <!-- Check Customer id -->
                 <input hidden type="text" name="getCusid" id="getCusid">
 
                 <div class="row form-group">
@@ -175,14 +177,17 @@
                 <div class="row form-group mt-3">
                     <div class="col-md-6">
                         <label for="">Payment</label>
-                        <input type="text" name="crfex_payment" id="crfex_payment" class="form-control" required>
+                        <input type="text" name="crfex_payment" id="crfex_payment" class="form-control form-control-sm" required>
                     </div>
                 </div>
-                <label>Propose</label>
-                <div class="row form-group">
+
+
+
+                <label class="proposeCredit">Propose</label>
+                <div class="row form-group proposeCredit">
                     <div class="col-md-6">
                         <div class="input-group mb-3">
-                            <input name="crfex_creditlimit" id="crfex_creditlimit" type="number" class="form-control" placeholder="Propose credit limit." aria-label="Propose credit limit." aria-describedby="basic-addon2">
+                            <input name="crfex_creditlimit" id="crfex_creditlimit" type="text" class="form-control" placeholder="Propose credit limit." aria-label="Propose credit limit." aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
                             </div>
@@ -210,11 +215,12 @@
                 </div>
 
 
-                <label>Current</label>
-                <div class="row form-group">
+                <label class="currentCredit">Current</label>
+                <div class="row form-group currentCredit">
                     <div class="col-md-6">
                         <div class="input-group mb-3">
-                            <input name="crfex_creditlimit2" id="crfex_creditlimit2" type="number" class="form-control" placeholder="Current credit limit." aria-label="Current credit limit." aria-describedby="basic-addon2">
+                            <input name="crfex_creditlimit2" id="crfex_creditlimit2" type="text" class="form-control oldcredit" placeholder="Current credit limit." aria-label="Current credit limit." aria-describedby="basic-addon2">
+                            <input hidden type="text" name="crfex_creditlimit2usecal" id="crfex_creditlimit2usecal">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">THB</span>
                             </div>
@@ -232,6 +238,93 @@
                     <div class="col-md-3">
                         <div class="input-group mb-3">
                             <input name="crfex_discount2" id="crfex_discount2" type="number" class="form-control" placeholder="Discount" aria-label="Discount" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- For condition -->
+                <div class="row form-group creditlimitCondition" style="display:none;">
+                    <div class="col-md-6">
+                    <label for="">Condition of credit limit</label>
+                        <select name="creditlimit_condition" id="creditlimit_condition" class="form-control form-control-sm">
+                            <option value="">Please choose condition.</option>
+                            <option value="writeup">Write up</option>
+                            <option value="writedown">Write down</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="">Condition of term</label>
+                        <select name="term_condition" id="term_condition" class="form-control form-control-sm">
+                            <option value="">Please choose condition.</option>
+                            <option value="writeup">Write up</option>
+                            <option value="writedown">Write down</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="">Condition of discount</label>
+                        <select name="discount_condition" id="discount_condition" class="form-control form-control-sm">
+                            <option value="">Please choose condition.</option>
+                            <option value="writeup">Write up</option>
+                            <option value="writedown">Write down</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- For calculate -->
+                <div class="row form-group calCurrentCus">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input name="cal_crfex_creditlimit2" id="cal_crfex_creditlimit2" type="text" class="form-control" placeholder="Request credit limit." aria-label="Request credit limit." aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">THB</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input name="cal_crfex_term2" id="cal_crfex_term2" type="number" class="form-control" placeholder="Request Term" aria-label="Request Term" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input name="cal_crfex_discount2" id="cal_crfex_discount2" type="number" class="form-control" placeholder="Request Discount" aria-label="Request Discount" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- For sum -->
+                <div class="row form-group SumCurrentCus">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_creditlimit2" id="sum_crfex_creditlimit2" type="text" class="form-control" placeholder="Summary credit limit." aria-label="CuSummaryrrent credit limit." aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">THB</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_term2" id="sum_crfex_term2" type="number" class="form-control" placeholder="Summary Term" aria-label="Summary Term" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_discount2" id="sum_crfex_discount2" type="number" class="form-control" placeholder="Summary Discount" aria-label="Summary Discount" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">%</span>
                             </div>

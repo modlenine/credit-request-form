@@ -3002,7 +3002,13 @@ $(document).ready(function () {
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone// Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
     // Export Zone Export Zone Export Zone Export Zone Export Zone Export Zone
-
+    // Add Comma to number
+    $('#crfex_creditlimit , #crfex_creditlimit2').val(function (index, value) {
+        return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+    });
 
     $('#usercrfex_submit').prop('disabled', true);
 
@@ -3038,7 +3044,12 @@ $(document).ready(function () {
 
     // Add page Zone
     if ($('#checkAddPage').val() == 'addEx') {
+        // Hidden current credit
+        $('.currentCredit').css('display', 'none');
 
+        $('.calCurrentCus , .SumCurrentCus').css('display', 'none');
+
+        $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment , #crfex_customercode , #crfex_combg').prop('readonly', true);
 
 
         $('#crfex_cusnameEN').blur(function () {
@@ -3077,11 +3088,14 @@ $(document).ready(function () {
             }
 
 
-            // When click new customer // When click new customer// When click new customer
-            // When click new customer // When click new customer// When click new customer
-            // When click new customer // When click new customer// When click new customer
 
 
+
+
+
+            // When click new customer // When click new customer// When click new customer
+            // When click new customer // When click new customer// When click new customer
+            // When click new customer // When click new customer// When click new customer
 
 
             if ($(this).val() == 1) {
@@ -3249,36 +3263,73 @@ $(document).ready(function () {
                 });
 
 
+                $('input[name=crfex_creditlimit]').keyup(function (event) {/*****Comma function*******/
+                    var price = $(this).val();
+                    var checkNumber = /[^A-Za-zก-เ]/.test(price);
+                    // alert(checkNumber);
+                    if (checkNumber == true) {
+                        // skip for arrow keys
+                        if (event.which >= 37 && event.which <= 40)
+                            return;
+
+                        // format number
+                        $(this).val(function (index, value) {
+                            return value
+                                .replace(/\D/g, "")
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                ;
+                        });
+                    } else {
+                        alert('Please fill number only!');
+                        $('input[name=crfex_creditlimit]').val('');
+                    }
+
+                });
+
+
+
+
+                $('#curcustopic_addpage').css('display', 'none');
+
+                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly', false);
+
+
 
             } else if ($(this).val() == 2) {
 
+
+                $('.currentCredit').css('display', '');
+                $('.proposeCredit').css('display', 'none');
+
                 $('#curcustopic_addpage').css('display', '');
-                $('#crfex_customercode').prop('readonly', false);
+                $('#crfex_customercode , #crfex_cusnameEN').prop('readonly', false);
                 $('.crfex_topic').css('display', '');
 
-                $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly', true);
+                $('#crfex_salesreps  , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment').prop('readonly', true);
 
                 $('#alert_crfex_salesreps , #alert_crfex_cusnameEN , #alert_crfex_address , #alert_crfex_tel , #alert_crfex_email , #alert_crfex_creditlimit , #alert_crfex_term').html('');
 
 
                 // check topic select
                 $('#crfex_customercode').click(function () {
-                    if ($('#crfex_curcustopic').val() == '') {
+                    var crfex_curcustopic = $('input[type="checkbox"][id="crfex_curcustopic_add"]:checked');
+                    if (crfex_curcustopic.length < 1) {
                         $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
                         $('#crfex_customercode').val('');
-                        exit;
+                        $('#autoCusCodeEx').html('');
                     }
                 });
-                $('#crfex_customercode').keyup(function () {
-                    if ($('#crfex_curcustopic').val() == '') {
+                $('#crfex_customercode').blur(function () {
+                    var crfex_curcustopic2 = $('input[type="checkbox"][id="crfex_curcustopic_add"]:checked');
+                    if (crfex_curcustopic2.length < 1) {
                         $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
                         $('#crfex_customercode').val('');
-                        exit;
+                        $('#autoCusCodeEx').html('');
                     }
                 });
 
 
-                $('#crfex_curcustopic1_add').click(function () {
+                $('input[name="crfex_curcustopic1_add"]').click(function () {
                     if ($(this).prop('checked') == true) {
                         $('#alert_crfex_topic').html('');
                         $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly', false);
@@ -3291,15 +3342,141 @@ $(document).ready(function () {
                                 $('#usercrfex_submit').prop('disabled', true);
                             }
                         });
+                        $('#crfex_salesreps').blur(function () {
+                            if ($(this).val() != '') {
+                                $('#usercrfex_submit').prop('disabled', false);
+                            } else {
+                                alert('Please fill address');
+                                $('#usercrfex_submit').prop('disabled', true);
+                            }
+                        });
+                        $('#crfex_tel').blur(function () {
+                            if ($(this).val() != '') {
+                                $('#usercrfex_submit').prop('disabled', false);
+                            } else {
+                                alert('Please fill address');
+                                $('#usercrfex_submit').prop('disabled', true);
+                            }
+                        });
+                        $('#crfex_email').blur(function () {
+                            if ($(this).val() != '') {
+                                $('#usercrfex_submit').prop('disabled', false);
+                            } else {
+                                alert('Please fill address');
+                                $('#usercrfex_submit').prop('disabled', true);
+                            }
+                        });
                     } else {
                         $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly', true);
                     }
                 });
 
-                $('#crfex_curcustopic2_add').click(function () {
+                $('input[name="crfex_curcustopic2_add"]').click(function () {
                     if ($(this).prop('checked') == true) {
-                        $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', false);
+                        $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
                         // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
+                        $('.calCurrentCus , .SumCurrentCus , .creditlimitCondition').css('display', '');
+
+                        // Calculate credit limit
+                        $('#cal_crfex_creditlimit2').keyup(function () {
+                            var oldcreditlimit = parseInt($('#crfex_creditlimit2usecal').val());
+                            var requestcredit = parseInt($('#cal_crfex_creditlimit2').val());
+                            var sumCreditlimit = 0;
+                            if ($('#creditlimit_condition').val() == 'writeup') {
+                                sumCreditlimit = oldcreditlimit + requestcredit;
+                            } else if ($('#creditlimit_condition').val() == 'writedown') {
+                                sumCreditlimit = oldcreditlimit - requestcredit;
+                            }
+                            $('#sum_crfex_creditlimit2').val(sumCreditlimit);
+                            $('#sum_crfex_creditlimit2').val(function (index, value) {
+                                return value
+                                    .replace(/\D/g, "")
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                    ;
+                            });
+
+                            $('#usercrfex_submit').prop('disabled', false);
+                        });
+                        // Calculate credit limit
+
+
+                        // Calculate credit term
+                        $('#cal_crfex_term2').keyup(function () {
+                            var oldterm = parseInt($('#crfex_term2').val());
+                            var requestterm = parseInt($('#cal_crfex_term2').val());
+                            var sumterm = 0;
+                            if ($('#term_condition').val() == 'writeup') {
+                                sumterm = oldterm + requestterm;
+                            } else if ($('#term_condition').val() == 'writedown') {
+                                if (requestterm >= oldterm) {
+                                    alert('Please check request term!!');
+                                    $('#cal_crfex_term2').val('');
+                                } else {
+                                    sumterm = oldterm - requestterm;
+                                }
+                            }
+                            $('#sum_crfex_term2').val(sumterm);
+                            $('#usercrfex_submit').prop('disabled', false);
+                        });
+                        $('#cal_crfex_term2').change(function () {
+                            var oldterm = parseInt($('#crfex_term2').val());
+                            var requestterm = parseInt($('#cal_crfex_term2').val());
+                            var sumterm = 0;
+                            if ($('#term_condition').val() == 'writeup') {
+                                sumterm = oldterm + requestterm;
+                            } else if ($('#term_condition').val() == 'writedown') {
+                                if (requestterm >= oldterm) {
+                                    alert('Please check request term!!');
+                                    $('#cal_crfex_term2').val('');
+                                } else {
+                                    sumterm = oldterm - requestterm;
+                                }
+                            }
+                            $('#sum_crfex_term2').val(sumterm);
+                            $('#usercrfex_submit').prop('disabled', false);
+                        });
+                        // Calculate credit term
+
+
+
+                        $('#cal_crfex_discount2').keyup(function(){
+                            var olddiscount = parseInt($('#crfex_discount2').val());
+                            var requestdiscount = parseInt($('#cal_crfex_discount2').val());
+                            var sumdiscount = 0;
+                            if($('#discount_condition').val() == 'writeup'){
+                                sumdiscount = olddiscount + requestdiscount;
+                            }else if($('#discount_condition').val() == 'writedown'){
+                                if(requestdiscount > olddiscount){
+                                    alert('Please check request discount!!');
+                                    $('#cal_crfex_discount2').val('');
+                                }else{
+                                    sumdiscount = olddiscount - requestdiscount;
+                                }
+                            }
+                            $('#sum_crfex_discount2').val(sumdiscount);
+                            $('#usercrfex_submit').prop('disabled', false);
+                        });
+                        $('#cal_crfex_discount2').change(function(){
+                            var olddiscount = parseInt($('#crfex_discount2').val());
+                            var requestdiscount = parseInt($('#cal_crfex_discount2').val());
+                            var sumdiscount = 0;
+                            if($('#discount_condition').val() == 'writeup'){
+                                sumdiscount = olddiscount + requestdiscount;
+                            }else if($('#discount_condition').val() == 'writedown'){
+                                if(requestdiscount > olddiscount){
+                                    alert('Please check request discount!!');
+                                    $('#cal_crfex_discount2').val('');
+                                }else{
+                                    sumdiscount = olddiscount - requestdiscount;
+                                }
+                            }
+                            $('#sum_crfex_discount2').val(sumdiscount);
+                            $('#usercrfex_submit').prop('disabled', false);
+                        });
+
+
+
+
                     } else {
                         $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
                     }
@@ -3350,6 +3527,7 @@ $(document).ready(function () {
                     $('#crfex_email').val(data_crfex_email);
                     $('#crfex_fileShow').text(data_crfex_file);
                     $('#crfex_creditlimit2').val(data_crfex_creditlimit);
+                    $('#crfex_creditlimit2usecal').val(data_crfex_creditlimit);
                     $('#crfex_term2').val(data_crfex_term);
                     $('#crfex_discount2').val(data_crfex_discount);
                     $('#crfex_combg').val(data_crfex_bg);
@@ -3368,9 +3546,16 @@ $(document).ready(function () {
                         $('#crf_company_ca').prop('checked', true);
                     }
 
+                    $('#crfex_creditlimit2').val(function (index, value) {
+                        return value
+                            .replace(/\D/g, "")
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            ;
+                    });
 
 
-                    $('#autoCusCodeEx').html('')
+
+                    $('#autoCusCodeEx').html('');
 
                 });
 
@@ -3394,6 +3579,8 @@ $(document).ready(function () {
     // Control view export page
     if ($('#checkPage').val() == 'viewdataEx') {
 
+        $('.view_currentCredit').css('display', 'none');
+
         $('#crf_company_sln_view , #crf_company_poly_view , #crf_company_ca_view').attr('onclick', 'return false');
 
         if ($('#check_crf_company').val() == 'sln') {
@@ -3409,7 +3596,7 @@ $(document).ready(function () {
 
 
         // Add Comma to number
-        $('#crfex_creditlimit , #crfex_creditlimit2').val(function (index, value) {
+        $('#crfex_creditlimit , #crfex_creditlimit2 , #sum_crfex_creditlimit2 , #cal_crfex_creditlimit2').val(function (index, value) {
             return value
                 .replace(/\D/g, "")
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -3434,9 +3621,13 @@ $(document).ready(function () {
 
             if ($('#checkcurcustopic2').val() != '') {
                 $('input:checkbox[name="crfex_curcustopic2"]').prop('checked', true);
+                $('.creditlimitCondition_view , .calCurrentCus_view , .SumCurrentCus_view').css('display', '');
             } else {
                 $('input:checkbox[name="crfex_curcustopic2"]').prop('checked', false);
             }
+
+            $('.view_currentCredit').css('display', '');
+            $('.view_proposeCredit').css('display', 'none');
         }
 
 
@@ -3471,7 +3662,7 @@ $(document).ready(function () {
             });
 
         }
-        else if (checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed') {
+        else if (checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
             $('.managerSection').css('display', 'none');
             $('.managerSection1').css('display', '');
 
@@ -3489,7 +3680,7 @@ $(document).ready(function () {
             } else {
                 $('.csAddBrDection').css('display', '');
             }
-        } else if (checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed') {
+        } else if (checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
             if (checkCusType == 2) {
                 $('.csAddBrDection1').remove();
             } else {
@@ -3520,7 +3711,7 @@ $(document).ready(function () {
             });
 
         }
-        else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed') {
+        else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
             $('.accManagerApprove1').css('display', '');
         }
 
@@ -3537,7 +3728,8 @@ $(document).ready(function () {
         // Control director approve section
         if (checkStatus == 'Account Manager Approved' && checkCusPosi > 75) {
             $('.directorApprove').css('display', '');
-            $('#ex_directorSubmit').prop('disabled', true);
+            $('.directorApprove2').css('display', '');
+            $('#ex_directorSubmit , #ex_directorSubmit2').prop('disabled', true);
             $('input:radio[name="ex_directorApprove"]').click(function () {
                 if ($(this).val() != '') {
                     $('#ex_directorSubmit').prop('disabled', false);
@@ -3545,8 +3737,32 @@ $(document).ready(function () {
                     $('#ex_directorSubmit').prop('disabled', true);
                 }
             });
-        } else if (checkStatus == 'Director Approved' || checkStatus == 'Completed') {
-            $('.directorApprove1').css('display', '');
+            $('input:radio[name="ex_directorApprove2"]').click(function () {
+                if ($(this).val() != '') {
+                    $('#ex_directorSubmit2').prop('disabled', false);
+                } else {
+                    $('#ex_directorSubmit2').prop('disabled', true);
+                }
+            });
+        } else if (checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
+
+            // เช็คว่าเป็นลูกค้าเก่าที่แก้ไขข้อมูลลูกค้าหรือไม่
+            if ($('#acc_curcustopic1').val() == '' || $('#acc_curcustopic2').val() != '') {
+                if ($('#check_director_status').val() == 'Approve') {
+                    $('.directorApprove1show').css('display', '');
+                } else {
+                    $('.directorApprove').css('display', '');
+                }
+                if ($('#check_director_status2').val() == 'Approve') {
+                    $('.directorApprove2show').css('display', '');
+                } else {
+                    $('.directorApprove2').css('display', '');
+                }
+            } else {
+
+            }
+
+
         }
 
         if ($('#check_director_status').val() == 'Approve') {
@@ -3555,9 +3771,15 @@ $(document).ready(function () {
             $('#ex_directorApprove2').prop('checked', true);
         }
 
+        if ($('#check_director_status2').val() == 'Approve') {
+            $('#ex_directorApprove21').prop('checked', true);
+        } else if ($('#check_director_status').val() == 'Not approve') {
+            $('#ex_directorApprove22').prop('checked', true);
+        }
+
 
         // Control account staff when add new customer
-        if (checkStatus == 'Director Approved' && checkUserDeptView == 1003) {
+        if (checkStatus == 'Director Approved' && checkUserDeptView == 1003 || checkStatus == 'Wait account staff process' && checkUserDeptView == 1003) {
             $('.accAddCustomerCode').css('display', '');
             if (checkCusType == 2) {
                 $('.filcuscode').css('display', 'none');
@@ -3589,15 +3811,12 @@ $(document).ready(function () {
                 });
             }
 
-
-
-
-
         } else if (checkStatus == 'Completed') {
             if (checkCusType == 2) {
-                $('.accAddCustomerCode1').remove();
-            } else {
                 $('.accAddCustomerCode1').css('display', '');
+                $('.showcuscodeacc').remove();
+            } else {
+
             }
 
         }
@@ -3617,10 +3836,20 @@ $(document).ready(function () {
 
             $('#embedshow_viewEx').attr('src', data_file);
 
+            var viewExfile = data_file.substr(-3, 4);
+            if (viewExfile == 'jpg' || viewExfile == 'JPG' || viewExfile == 'png' || viewExfile == 'PNG') {
+                $('#embedshow_viewExImg').attr('src', data_file);
+                $('#embedshow_viewEx').hide();
+            } else {
+                $('#embedshow_viewEx').attr('src', data_file);
+                $('#embedshow_viewExImg').hide();
+            }
+
         });
 
+
     }
-    // End check page
+    // End View page
 
 
 
@@ -3632,6 +3861,36 @@ $(document).ready(function () {
 
     if ($('#checkEditPage').val() == "editdataEx") {
 
+        $('.edit_currentCredit').css('display', 'none');
+        // Add Comma to number
+        $('#crfex_creditlimit , #crfex_creditlimit2').val(function (index, value) {
+            return value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                ;
+        });
+        $('input[name=crfex_creditlimit]').keyup(function (event) {/*****Comma function*******/
+            var price = $(this).val();
+            var checkNumber = /[^A-Za-zก-เ]/.test(price);
+            // alert(checkNumber);
+            if (checkNumber == true) {
+                // skip for arrow keys
+                if (event.which >= 37 && event.which <= 40)
+                    return;
+
+                // format number
+                $(this).val(function (index, value) {
+                    return value
+                        .replace(/\D/g, "")
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        ;
+                });
+            } else {
+                alert('Please fill number only!');
+                $('input[name=crfex_creditlimit]').val('');
+            }
+
+        });
 
 
 
@@ -3708,6 +3967,15 @@ $(document).ready(function () {
 
         if ($('#checkEdit_crfex_custype').val() == 2) {
             $('#crfex_custype2').prop('checked', true);
+            $('.exEditCreditlimitPro').css('display','none');
+            $('.exEditcurrentCredit , .creditlimitCondition').css('display' , '');
+
+            $('#sum_crfex_creditlimit2Edit , #cal_crfex_creditlimit2Edit').val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
 
             // Check Current customer method
 
@@ -3724,12 +3992,109 @@ $(document).ready(function () {
 
             if ($('#checkEdit_crfex_curcustopic2').val() != '') {
                 $('#crfex_curcustopic2').prop('checked', true);
-                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', false);
-                // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , true);
+                $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment').prop('readonly', false);
+                $('#crfex_creditlimit2 , #crfex_term2Edit , #crfex_discount2Edit').prop('readonly' , true);
+
+
+                // Calculate credit limit
+                $('#cal_crfex_creditlimit2Edit').keyup(function () {
+                    var oldcreditlimit = parseInt($('#crfex_creditlimit2usecalEdit').val());
+                    var requestcredit = parseInt($('#cal_crfex_creditlimit2Edit').val());
+                    var sumCreditlimit = 0;
+                    if ($('#creditlimit_conditionEdit').val() == 'writeup') {
+                        sumCreditlimit = oldcreditlimit + requestcredit;
+                    } else if ($('#creditlimit_conditionEdit').val() == 'writedown') {
+                        sumCreditlimit = oldcreditlimit - requestcredit;
+                    }
+                    $('#sum_crfex_creditlimit2Edit').val(sumCreditlimit);
+                    $('#sum_crfex_creditlimit2Edit').val(function (index, value) {
+                        return value
+                            .replace(/\D/g, "")
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            ;
+                    });
+
+                });
+                // Calculate credit limit
+
+
+                // Calculate credit term
+                $('#cal_crfex_term2Edit').keyup(function () {
+                    var oldterm = parseInt($('#crfex_term2Edit').val());
+                    var requestterm = parseInt($('#cal_crfex_term2Edit').val());
+                    var sumterm = 0;
+                    if ($('#term_conditionEdit').val() == 'writeup') {
+                        sumterm = oldterm + requestterm;
+                    } else if ($('#term_conditionEdit').val() == 'writedown') {
+                        if (requestterm >= oldterm) {
+                            alert('Please check request term!!');
+                            $('#cal_crfex_term2Edit').val('');
+                        } else {
+                            sumterm = oldterm - requestterm;
+                        }
+                    }
+                    $('#sum_crfex_term2Edit').val(sumterm);
+                });
+                $('#cal_crfex_term2Edit').change(function () {
+                    var oldterm = parseInt($('#crfex_term2Edit').val());
+                    var requestterm = parseInt($('#cal_crfex_term2Edit').val());
+                    var sumterm = 0;
+                    if ($('#term_conditionEdit').val() == 'writeup') {
+                        sumterm = oldterm + requestterm;
+                    } else if ($('#term_conditionEdit').val() == 'writedown') {
+                        if (requestterm >= oldterm) {
+                            alert('Please check request term!!');
+                            $('#cal_crfex_term2Edit').val('');
+                        } else {
+                            sumterm = oldterm - requestterm;
+                        }
+                    }
+                    $('#sum_crfex_term2Edit').val(sumterm);
+                });
+                // Calculate credit term
+
+
+
+                $('#cal_crfex_discount2Edit').keyup(function(){
+                    var olddiscount = parseInt($('#crfex_discount2Edit').val());
+                    var requestdiscount = parseInt($('#cal_crfex_discount2Edit').val());
+                    var sumdiscount = 0;
+                    if($('#discount_conditionEdit').val() == 'writeup'){
+                        sumdiscount = olddiscount + requestdiscount;
+                    }else if($('#discount_conditionEdit').val() == 'writedown'){
+                        if(requestdiscount > olddiscount){
+                            alert('Please check request discount!!');
+                            $('#cal_crfex_discount2Edit').val('');
+                        }else{
+                            sumdiscount = olddiscount - requestdiscount;
+                        }
+                    }
+                    $('#sum_crfex_discount2Edit').val(sumdiscount);
+                });
+                $('#cal_crfex_discount2Edit').change(function(){
+                    var olddiscount = parseInt($('#crfex_discount2Edit').val());
+                    var requestdiscount = parseInt($('#cal_crfex_discount2Edit').val());
+                    var sumdiscount = 0;
+                    if($('#discount_conditionEdit').val() == 'writeup'){
+                        sumdiscount = olddiscount + requestdiscount;
+                    }else if($('#discount_conditionEdit').val() == 'writedown'){
+                        if(requestdiscount > olddiscount){
+                            alert('Please check request discount!!');
+                            $('#cal_crfex_discount2Edit').val('');
+                        }else{
+                            sumdiscount = olddiscount - requestdiscount;
+                        }
+                    }
+                    $('#sum_crfex_discount2Edit').val(sumdiscount);
+                });
+
+
+
+                
             } else {
                 $('#crfex_curcustopic2').prop('checked', false);
                 $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
-                // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_file , #crfex_combg , #crfex_his_month1 , #crfex_his_tvolume1 , #crfex_histsales1 , #crfex_his_month2 , #crfex_his_tvolume2 , #crfex_histsales2 , #crfex_his_month3 , #crfex_his_tvolume3 , #crfex_histsales3').prop('readonly' , false);
+                
             }
 
         } else {

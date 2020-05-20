@@ -90,7 +90,7 @@ function saveAccMgr($crfid)
 
     $customerType = $obj->gci()->input->post("accMgr_cusTypeForEmail");
 
-    if($customerType == 1){
+    if ($customerType == 1) {
         if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
             $status = "Account Manager Approved";
         } else {
@@ -120,7 +120,7 @@ function saveAccMgr($crfid)
         } else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
             $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
         }
-    }else{
+    } else {
 
         if ($method3 || $method4 != 0) {
 
@@ -128,7 +128,7 @@ function saveAccMgr($crfid)
                 $status = "Account Manager Approved";
             } else {
                 $status = "Account Manager Not approved";
-    
+
                 $arCustomerTemp = array(
                     "crfcus_tempstatus" => "Not approve",
                     "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
@@ -136,7 +136,7 @@ function saveAccMgr($crfid)
                 $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("accMgrCuscode"));
                 $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
             }
-    
+
             $arAccMgr = array(
                 "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
                 "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
@@ -144,22 +144,22 @@ function saveAccMgr($crfid)
                 "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
                 "crf_status" => $status
             );
-    
+
             $obj->gci()->db->where("crf_id", $crfid);
             $obj->gci()->db->update("crf_maindata", $arAccMgr);
-    
+
             if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 1) {
                 $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
             } else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
                 $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
             }
         } else {
-    
+
             if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
                 $status = "Account staff process";
             } else {
                 $status = "Account Manager Not approved";
-    
+
                 $arCustomerTemp = array(
                     "crfcus_tempstatus" => "Not approve",
                     "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
@@ -167,7 +167,7 @@ function saveAccMgr($crfid)
                 $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("accMgrCuscode"));
                 $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
             }
-    
+
             $arAccMgr = array(
                 "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
                 "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
@@ -175,14 +175,12 @@ function saveAccMgr($crfid)
                 "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
                 "crf_status" => $status
             );
-    
+
             $obj->gci()->db->where("crf_id", $crfid);
             $obj->gci()->db->update("crf_maindata", $arAccMgr);
             $obj->gci()->email->sendemail_toAccStaff3($obj->gci()->input->post("accMgrFormno"));
         }
-
     }
-
 }
 
 
@@ -206,7 +204,7 @@ function saveDerector1($crfid)
         $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director1Cuscode"));
         $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
     }
-    
+
     $arDirector = array(
         "crf_director_detail1" => $obj->gci()->input->post("crf_director_detail1"),
         "crf_director_name1" => $obj->gci()->input->post("crf_director_name1"),
@@ -294,28 +292,27 @@ function saveDirector2ChangSales($crfid)
         }
 
 
-            $arUpdateCusTemp = array(
-                "crfcus_tempstatus" => "Updated",
-                "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
+        $arUpdateCusTemp = array(
+            "crfcus_tempstatus" => "Updated",
+            "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
+        if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+
+            $obj->gci()->db->select("crfcus_salesreps");
+            $obj->gci()->db->from("crf_customers_temp");
             $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-            if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+            $queryTemp = $obj->gci()->db->get();
 
-                $obj->gci()->db->select("crfcus_salesreps");
-                $obj->gci()->db->from("crf_customers_temp");
-                $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-                $queryTemp = $obj->gci()->db->get();
-
-                foreach ($queryTemp->result() as $result) {
-                    $arUpdateToCustomers = array(
-                        "crfcus_salesreps" => $result->crfcus_salesreps,
-                        "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
-                    );
-                    $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
-                    $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
-                }
+            foreach ($queryTemp->result() as $result) {
+                $arUpdateToCustomers = array(
+                    "crfcus_salesreps" => $result->crfcus_salesreps,
+                    "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+                );
+                $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
+                $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
             }
- 
+        }
     } else {
 
         $arCustomerTemp = array(
@@ -387,35 +384,34 @@ function saveDirector2ChangeAddress($crfid)
         }
 
 
-            $arUpdateCusTemp = array(
-                "crfcus_tempstatus" => "Updated",
-                "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
+        $arUpdateCusTemp = array(
+            "crfcus_tempstatus" => "Updated",
+            "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
+        if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+
+            $obj->gci()->db->select("crfcus_addresstype , crfcus_address , crfcus_contactname , crfcus_phone , crfcus_fax , crfcus_email , crfcus_regiscapital , crfcus_file1");
+            $obj->gci()->db->from("crf_customers_temp");
             $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-            if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+            $queryTemp = $obj->gci()->db->get();
 
-                $obj->gci()->db->select("crfcus_addresstype , crfcus_address , crfcus_contactname , crfcus_phone , crfcus_fax , crfcus_email , crfcus_regiscapital , crfcus_file1");
-                $obj->gci()->db->from("crf_customers_temp");
-                $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-                $queryTemp = $obj->gci()->db->get();
-
-                foreach ($queryTemp->result() as $result) {
-                    $arUpdateToCustomers = array(
-                        "crfcus_addresstype" => $result->crfcus_addresstype,
-                        "crfcus_address" => $result->crfcus_address,
-                        // "crfcus_contactname" => $result->crfcus_contactname,
-                        // "crfcus_phone" => $result->crfcus_phone,
-                        // "crfcus_fax" => $result->crfcus_fax,
-                        // "crfcus_email" => $result->crfcus_email,
-                        // "crfcus_regiscapital" => $result->crfcus_regiscapital,
-                        "crfcus_file1" => $result->crfcus_file1,
-                        "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
-                    );
-                    $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
-                    $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
-                }
+            foreach ($queryTemp->result() as $result) {
+                $arUpdateToCustomers = array(
+                    "crfcus_addresstype" => $result->crfcus_addresstype,
+                    "crfcus_address" => $result->crfcus_address,
+                    // "crfcus_contactname" => $result->crfcus_contactname,
+                    // "crfcus_phone" => $result->crfcus_phone,
+                    // "crfcus_fax" => $result->crfcus_fax,
+                    // "crfcus_email" => $result->crfcus_email,
+                    // "crfcus_regiscapital" => $result->crfcus_regiscapital,
+                    "crfcus_file1" => $result->crfcus_file1,
+                    "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+                );
+                $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
+                $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
             }
-
+        }
     } else {
 
         $arCustomerTemp = array(
@@ -478,28 +474,27 @@ function saveDirector2ChangeCredit($crfid)
             $obj->gci()->db->update("crf_maindata", $arDirector);
         }
 
-            $arUpdateCusTemp = array(
-                "crfcus_tempstatus" => "Updated",
-                "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
+        $arUpdateCusTemp = array(
+            "crfcus_tempstatus" => "Updated",
+            "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
+        if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+
+            $obj->gci()->db->select("crfcus_creditterm2");
+            $obj->gci()->db->from("crf_customers_temp");
             $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-            if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+            $queryTemp = $obj->gci()->db->get();
 
-                $obj->gci()->db->select("crfcus_creditterm2");
-                $obj->gci()->db->from("crf_customers_temp");
-                $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-                $queryTemp = $obj->gci()->db->get();
-
-                foreach ($queryTemp->result() as $result) {
-                    $arUpdateToCustomers = array(
-                        "crfcus_creditterm" => $result->crfcus_creditterm2,
-                        "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
-                    );
-                    $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
-                    $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
-                }
+            foreach ($queryTemp->result() as $result) {
+                $arUpdateToCustomers = array(
+                    "crfcus_creditterm" => $result->crfcus_creditterm2,
+                    "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+                );
+                $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
+                $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
             }
-
+        }
     } else {
 
         $arCustomerTemp = array(
@@ -564,28 +559,27 @@ function saveDirector2ChangeMoney($crfid)
             $obj->gci()->db->update("crf_maindata", $arDirector);
         }
 
-            $arUpdateCusTemp = array(
-                "crfcus_tempstatus" => "Updated",
-                "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
+        $arUpdateCusTemp = array(
+            "crfcus_tempstatus" => "Updated",
+            "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
+        if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+
+            $obj->gci()->db->select("crfcus_moneylimit2");
+            $obj->gci()->db->from("crf_customers_temp");
             $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-            if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+            $queryTemp = $obj->gci()->db->get();
 
-                $obj->gci()->db->select("crfcus_moneylimit2");
-                $obj->gci()->db->from("crf_customers_temp");
-                $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-                $queryTemp = $obj->gci()->db->get();
-
-                foreach ($queryTemp->result() as $result) {
-                    $arUpdateToCustomers = array(
-                        "crfcus_moneylimit" => $result->crfcus_moneylimit2,
-                        "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
-                    );
-                    $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
-                    $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
-                }
+            foreach ($queryTemp->result() as $result) {
+                $arUpdateToCustomers = array(
+                    "crfcus_moneylimit" => $result->crfcus_moneylimit2,
+                    "crfcus_usermodify_datetime" => date("Y-m-d H:i:s")
+                );
+                $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
+                $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
             }
-
+        }
     } else {
         $arCustomerTemp = array(
             "crfcus_tempstatus" => "Not approve",
@@ -649,54 +643,53 @@ function saveDirector2editCustomer($crfid)
             $obj->gci()->db->update("crf_maindata", $arDirector);
         }
 
-            $arUpdateCusTemp = array(
-                "crfcus_tempstatus" => "Updated",
-                "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
+        $arUpdateCusTemp = array(
+            "crfcus_tempstatus" => "Updated",
+            "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
+        );
+        $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
+        if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+
+            $obj->gci()->db->select("crfcus_contactname , crfcus_phone , crfcus_fax , crfcus_email , crfcus_regiscapital , crfcus_mapurl , crfcus_mapfile");
+            $obj->gci()->db->from("crf_customers_temp");
             $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-            if ($obj->gci()->db->update("crf_customers_temp", $arUpdateCusTemp)) {
+            $queryTemp = $obj->gci()->db->get();
 
-                $obj->gci()->db->select("crfcus_contactname , crfcus_phone , crfcus_fax , crfcus_email , crfcus_regiscapital , crfcus_mapurl , crfcus_mapfile");
-                $obj->gci()->db->from("crf_customers_temp");
-                $obj->gci()->db->where("crfcus_formno", $obj->gci()->input->post("direc2FormNo"));
-                $queryTemp = $obj->gci()->db->get();
-
-                foreach ($queryTemp->result() as $result) {
-                    $arUpdateToCustomers = array(
-                        "crfcus_contactname" => $result->crfcus_contactname,
-                        "crfcus_phone" => $result->crfcus_phone,
-                        "crfcus_fax" => $result->crfcus_fax,
-                        "crfcus_email" => $result->crfcus_email,
-                        "crfcus_regiscapital" => $result->crfcus_regiscapital,
-                        "crfcus_mapurl" => $result->crfcus_mapurl,
-                        "crfcus_mapfile" => $result->crfcus_mapfile
-                    );
-                    $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
-                    $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
-                }
-
-
-
-                if (deletePrimanage3($obj->gci()->input->post("Director2Cuscode"))) {
-                    $obj->gci()->db->select("crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email , crf_pricusid");
-                    $obj->gci()->db->from("crf_pri_manage_temp");
-                    $obj->gci()->db->where("crf_pricus_formno", $obj->gci()->input->post("direc2FormNo"));
-                    $queryPriTemp = $obj->gci()->db->get();
-
-                    foreach ($queryPriTemp->result() as $rs) {
-
-                        $arsavePri = array(
-                            "crf_pricusid" => $rs->crf_pricusid,
-                            "crf_primanage_dept" => $rs->crf_primanage_dept,
-                            "crf_primanage_name" => $rs->crf_primanage_name,
-                            "crf_primanage_posi" => $rs->crf_primanage_posi,
-                            "crf_primanage_email" => $rs->crf_primanage_email
-                        );
-                        $obj->gci()->db->insert("crf_pri_manage", $arsavePri);
-                    }
-                }
+            foreach ($queryTemp->result() as $result) {
+                $arUpdateToCustomers = array(
+                    "crfcus_contactname" => $result->crfcus_contactname,
+                    "crfcus_phone" => $result->crfcus_phone,
+                    "crfcus_fax" => $result->crfcus_fax,
+                    "crfcus_email" => $result->crfcus_email,
+                    "crfcus_regiscapital" => $result->crfcus_regiscapital,
+                    "crfcus_mapurl" => $result->crfcus_mapurl,
+                    "crfcus_mapfile" => $result->crfcus_mapfile
+                );
+                $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
+                $obj->gci()->db->update("crf_customers", $arUpdateToCustomers);
             }
 
+
+
+            if (deletePrimanage3($obj->gci()->input->post("Director2Cuscode"))) {
+                $obj->gci()->db->select("crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email , crf_pricusid");
+                $obj->gci()->db->from("crf_pri_manage_temp");
+                $obj->gci()->db->where("crf_pricus_formno", $obj->gci()->input->post("direc2FormNo"));
+                $queryPriTemp = $obj->gci()->db->get();
+
+                foreach ($queryPriTemp->result() as $rs) {
+
+                    $arsavePri = array(
+                        "crf_pricusid" => $rs->crf_pricusid,
+                        "crf_primanage_dept" => $rs->crf_primanage_dept,
+                        "crf_primanage_name" => $rs->crf_primanage_name,
+                        "crf_primanage_posi" => $rs->crf_primanage_posi,
+                        "crf_primanage_email" => $rs->crf_primanage_email
+                    );
+                    $obj->gci()->db->insert("crf_pri_manage", $arsavePri);
+                }
+            }
+        }
     } else {
         $arCustomerTemp = array(
             "crfcus_tempstatus" => "Not approve",
@@ -1024,19 +1017,38 @@ function exAccMgrApprove($crfexid)
 {
     $obj = new addfn();
     $obj->gci()->load->model('main/email_model', 'email');
-    $arAccMgr = array(
-        "crfex_accmgr_status" => $obj->gci()->input->post("ex_accMgrApprove"),
-        "crfex_accmgr_username" => $obj->gci()->input->post("ex_accMgrApproveName"),
-        "crfex_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_accMgrApproveDateTime")),
-        "crfex_accmgr_detail" => $obj->gci()->input->post("ex_accMgrApproveDetail"),
-        "crfex_status" => "Account Manager Approved"
-    );
-    $obj->gci()->db->where("crfex_id", $crfexid);
-    $obj->gci()->db->update("crfex_maindata", $arAccMgr);
+
 
     if ($obj->gci()->input->post("accMgr_cusType") == 1) {
+
+        $arAccMgr = array(
+            "crfex_accmgr_status" => $obj->gci()->input->post("ex_accMgrApprove"),
+            "crfex_accmgr_username" => $obj->gci()->input->post("ex_accMgrApproveName"),
+            "crfex_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_accMgrApproveDateTime")),
+            "crfex_accmgr_detail" => $obj->gci()->input->post("ex_accMgrApproveDetail"),
+            "crfex_status" => "Account Manager Approved"
+        );
+        $obj->gci()->db->where("crfex_id", $crfexid);
+        $obj->gci()->db->update("crfex_maindata", $arAccMgr);
+
         $obj->gci()->email->sendemail_toDirectorEx($obj->gci()->input->post("accMgrFromno"));
     } else if ($obj->gci()->input->post("accMgr_cusType") == 2) {
+        if ($obj->gci()->input->post("accMgr_curcustopic2") == "") {
+            $status = "Wait account staff process";
+        }else{
+            $status = "Account Manager Approved";
+        }
+        $arAccMgr = array(
+            "crfex_accmgr_status" => $obj->gci()->input->post("ex_accMgrApprove"),
+            "crfex_accmgr_username" => $obj->gci()->input->post("ex_accMgrApproveName"),
+            "crfex_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_accMgrApproveDateTime")),
+            "crfex_accmgr_detail" => $obj->gci()->input->post("ex_accMgrApproveDetail"),
+            "crfex_status" => $status
+        );
+        $obj->gci()->db->where("crfex_id", $crfexid);
+        $obj->gci()->db->update("crfex_maindata", $arAccMgr);
+
+
         $obj->gci()->email->sendemail_toDirectorEx2($obj->gci()->input->post("accMgrFromno"));
     }
 }
@@ -1048,7 +1060,7 @@ function exDirectorApprove($crfexid)
     $obj = new addfn();
     $obj->gci()->load->model('main/email_model', 'email');
 
-    if ($obj->gci()->input->post("check_custype_direc") == 1) {
+    if (checkdirecStatus($crfexid, 2)->crfex_directorapp_status2 == "Approve") {
         // Maindata table
         $arDirector = array(
             "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
@@ -1059,153 +1071,53 @@ function exDirectorApprove($crfexid)
         );
         $obj->gci()->db->where("crfex_id", $crfexid);
         $obj->gci()->db->update("crfex_maindata", $arDirector);
+
         $obj->gci()->email->sendemail_toAccStaffEx($obj->gci()->input->post("checkDirecFormNo"));
-    } else if ($obj->gci()->input->post("check_custype_direc") == 2) {
-
-
-        if ($obj->gci()->input->post("checkDireccurcustopic1") != '') {
-
-            if ($obj->gci()->input->post("ex_directorApprove") == "Approve") {
-                $arDirector = array(
-                    "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
-                    "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
-                    "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
-                    "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
-                    "crfex_status" => "Director Approved"
-                );
-                $obj->gci()->db->where("crfex_id", $crfexid);
-                $obj->gci()->db->update("crfex_maindata", $arDirector);
-
-
-                $arUpdateTemp = array(
-                    "crfexcus_tempstatus" => "Updated",
-                    "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
-                );
-                $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                if ($obj->gci()->db->update("crfex_customers_temp", $arUpdateTemp)) {
-
-                    $obj->gci()->db->select("crfexcus_area , crfexcus_salesreps , crfexcus_nameEN , crfexcus_nameTH , crfexcus_address ,crfexcus_file , crfexcus_tel , crfexcus_fax , crfexcus_email , crfexcus_bg , crfexcus_his_month1 , crfexcus_his_tvolume1 , crfexcus_histsales1 , crfexcus_his_month2 , crfexcus_his_tvolume2 , crfexcus_histsales2 , crfexcus_his_month3 , crfexcus_his_tvolume3 , crfexcus_histsales3 ");
-                    $obj->gci()->db->from("crfex_customers_temp");
-                    $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                    $query = $obj->gci()->db->get();
-
-                    foreach ($query->result() as $result) {
-
-                        $arUpdateCustomer = array(
-                            "crfexcus_area" => $result->crfexcus_area,
-                            "crfexcus_salesreps" => $result->crfexcus_salesreps,
-                            "crfexcus_nameEN" => $result->crfexcus_nameEN,
-                            "crfexcus_nameTH" => $result->crfexcus_nameTH,
-                            "crfexcus_address" => $result->crfexcus_address,
-                            "crfexcus_file" => $result->crfexcus_file,
-                            "crfexcus_tel" => $result->crfexcus_tel,
-                            "crfexcus_fax" => $result->crfexcus_fax,
-                            "crfexcus_email" => $result->crfexcus_email,
-                            "crfexcus_bg" => $result->crfexcus_bg,
-                            "crfexcus_his_month1" => $result->crfexcus_his_month1,
-                            "crfexcus_his_tvolume1" => $result->crfexcus_his_tvolume1,
-                            "crfexcus_histsales1" => $result->crfexcus_histsales1,
-                            "crfexcus_his_month2" => $result->crfexcus_his_month2,
-                            "crfexcus_his_tvolume2" => $result->crfexcus_his_tvolume2,
-                            "crfexcus_histsales2" => $result->crfexcus_histsales2,
-                            "crfexcus_his_month3" => $result->crfexcus_his_month3,
-                            "crfexcus_his_tvolume3" => $result->crfexcus_his_tvolume3,
-                            "crfexcus_histsales3" => $result->crfexcus_histsales3,
-                        );
-                        $obj->gci()->db->where("crfexcus_id", $obj->gci()->input->post("checkDirecCusid"));
-                        $obj->gci()->db->update("crfex_customers", $arUpdateCustomer);
-                    }
-                }
-            } else {
-
-                $arDirector = array(
-                    "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
-                    "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
-                    "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
-                    "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
-                    "crfex_status" => "Director Not approve"
-                );
-                $obj->gci()->db->where("crfex_id", $crfexid);
-                $obj->gci()->db->update("crfex_maindata", $arDirector);
-
-                $arUpdateTemp = array(
-                    "crfexcus_tempstatus" => "Not approve",
-                    "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
-                );
-                $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                $obj->gci()->db->update("crfex_customers_temp", $arUpdateTemp);
-            }
-        }
+    } else {
+        // Maindata table
+        $arDirector = array(
+            "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
+            "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
+            "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
+            "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
+            "crfex_status" => "Waiting for second director approve"
+        );
+        $obj->gci()->db->where("crfex_id", $crfexid);
+        $obj->gci()->db->update("crfex_maindata", $arDirector);
+    }
+}
 
 
 
+function exDirectorApprove2($crfexid)
+{
+    $obj = new addfn();
+    $obj->gci()->load->model('main/email_model', 'email');
 
+    if (checkdirecStatus($crfexid, 1)->crfex_directorapp_status == "Approve") {
+        // Maindata table
+        $arDirector = array(
+            "crfex_directorapp_status2" => $obj->gci()->input->post("ex_directorApprove2"),
+            "crfex_directorapp_username2" => $obj->gci()->input->post("ex_directorApproveName2"),
+            "crfex_directorapp_datetime2" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime2")),
+            "crfex_directorapp_detail2" => $obj->gci()->input->post("ex_directorApproveDetail2"),
+            "crfex_status" => "Director Approved"
+        );
+        $obj->gci()->db->where("crfex_id", $crfexid);
+        $obj->gci()->db->update("crfex_maindata", $arDirector);
 
-        if ($obj->gci()->input->post("checkDireccurcustopic2") != '') {
-
-            if ($obj->gci()->input->post("ex_directorApprove") == "Approve") {
-
-                $arDirector = array(
-                    "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
-                    "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
-                    "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
-                    "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
-                    "crfex_status" => "Director Approved"
-                );
-                $obj->gci()->db->where("crfex_id", $crfexid);
-                $obj->gci()->db->update("crfex_maindata", $arDirector);
-
-
-                $arUpdateTemp = array(
-                    "crfexcus_tempstatus" => "Updated",
-                    "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
-                );
-                $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                if ($obj->gci()->db->update("crfex_customers_temp", $arUpdateTemp)) {
-
-                    $obj->gci()->db->select("crfexcus_area , crfexcus_creditlimit2 , crfexcus_term2 , crfexcus_discount2");
-                    $obj->gci()->db->from("crfex_customers_temp");
-                    $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                    $query = $obj->gci()->db->get();
-
-                    foreach ($query->result() as $result) {
-
-                        $arUpdateCustomer = array(
-                            "crfexcus_area" => $result->crfexcus_area,
-                            "crfexcus_creditlimit" => $result->crfexcus_creditlimit2,
-                            "crfexcus_term" => $result->crfexcus_term2,
-                            "crfexcus_discount" => $result->crfexcus_discount2,
-                        );
-                        $obj->gci()->db->where("crfexcus_id", $obj->gci()->input->post("checkDirecCusid"));
-                        $obj->gci()->db->update("crfex_customers", $arUpdateCustomer);
-                    }
-                }
-            } else {
-
-                $arDirector = array(
-                    "crfex_directorapp_status" => $obj->gci()->input->post("ex_directorApprove"),
-                    "crfex_directorapp_username" => $obj->gci()->input->post("ex_directorApproveName"),
-                    "crfex_directorapp_datetime" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime")),
-                    "crfex_directorapp_detail" => $obj->gci()->input->post("ex_directorApproveDetail"),
-                    "crfex_status" => "Director Not approve"
-                );
-                $obj->gci()->db->where("crfex_id", $crfexid);
-                $obj->gci()->db->update("crfex_maindata", $arDirector);
-
-                $arUpdateTemp = array(
-                    "crfexcus_tempstatus" => "Not approve",
-                    "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
-                );
-                $obj->gci()->db->where("crfexcus_formno", $obj->gci()->input->post("checkDirecFormNo"));
-                $obj->gci()->db->update("crfex_customers_temp", $arUpdateTemp);
-            }
-        }
-
-        $obj->gci()->email->sendemail_toAccStaffEx2($obj->gci()->input->post("checkDirecFormNo"));
-
-
-        // Customer table
-
+        $obj->gci()->email->sendemail_toAccStaffEx($obj->gci()->input->post("checkDirecFormNo"));
+    } else {
+        // Maindata table
+        $arDirector = array(
+            "crfex_directorapp_status2" => $obj->gci()->input->post("ex_directorApprove2"),
+            "crfex_directorapp_username2" => $obj->gci()->input->post("ex_directorApproveName2"),
+            "crfex_directorapp_datetime2" => conDateTimeToDb($obj->gci()->input->post("ex_directorApproveDateTime2")),
+            "crfex_directorapp_detail2" => $obj->gci()->input->post("ex_directorApproveDetail2"),
+            "crfex_status" => "Waiting for second director approve"
+        );
+        $obj->gci()->db->where("crfex_id", $crfexid);
+        $obj->gci()->db->update("crfex_maindata", $arDirector);
     }
 }
 
@@ -1217,20 +1129,7 @@ function exAccountAddCusCode($crfexid)
     $obj = new addfn();
     $obj->gci()->load->model('main/email_model', 'email');
 
-
-    if ($obj->gci()->input->post("check_custype_accstaff") == 2) {
-        // Maindata table
-        $arAccCusCodeMain = array(
-
-            "crfex_accuserpost" => $obj->gci()->input->post("ex_accName"),
-            "crfex_accdatetime" => conDateTimeToDb($obj->gci()->input->post("ex_accDateTime")),
-            "crfex_accmemo" => $obj->gci()->input->post("ex_accMemo"),
-            "crfex_status" => "Completed"
-        );
-        $obj->gci()->db->where("crfex_id", $crfexid);
-        $obj->gci()->db->update("crfex_maindata", $arAccCusCodeMain);
-        $obj->gci()->email->sendemail_toOwnerEx2($obj->gci()->input->post("accFormno"));
-    } else if ($obj->gci()->input->post("check_custype_accstaff") == 1) {
+    if ($obj->gci()->input->post("check_custype_accstaff") == 1) {
         $arCustomerTemp = array(
             "crfexcus_code" => $obj->gci()->input->post("ex_accCostomerCode"),
             "crfexcus_tempstatus" => "Updated",
@@ -1299,4 +1198,121 @@ function exAccountAddCusCode($crfexid)
             $obj->gci()->email->sendemail_toOwnerEx($obj->gci()->input->post("accFormno"));
         }
     }
+}
+
+
+
+
+function accChangeInformation()
+{
+    $obj = new addfn();
+
+    $formno = $obj->gci()->input->post("accFormno");
+    $cusid = $obj->gci()->input->post("accCusCode_getCusid");
+    $query = $obj->gci()->db->query("SELECT 
+    crfexcus_salesreps,
+    crfexcus_nameEN,
+    crfexcus_nameTH,
+    crfexcus_address,
+    crfexcus_tel,
+    crfexcus_fax,
+    crfexcus_email,
+    crfexcus_his_month1,
+    crfexcus_his_tvolume1,
+    crfexcus_histsales1,
+    crfexcus_his_month2,
+    crfexcus_his_tvolume2,
+    crfexcus_histsales2,
+    crfexcus_his_month3,
+    crfexcus_his_tvolume3,
+    crfexcus_histsales3
+    FROM crfex_customers_temp
+    WHERE crfexcus_formno = '$formno'
+    ");
+
+    foreach($query->result() as $rss){
+        $arUpdateTocus = array(
+            "crfexcus_salesreps" => $rss->crfexcus_salesreps,
+            "crfexcus_nameEN" => $rss->crfexcus_nameEN,
+            "crfexcus_nameTH" => $rss->crfexcus_nameTH,
+            "crfexcus_address" => $rss->crfexcus_address,
+            "crfexcus_tel" => $rss->crfexcus_tel,
+            "crfexcus_fax" => $rss->crfexcus_fax,
+            "crfexcus_email" => $rss->crfexcus_email,
+            "crfexcus_his_month1" => $rss->crfexcus_his_month1,
+            "crfexcus_his_tvolume1" => $rss->crfexcus_his_tvolume1,
+            "crfexcus_histsales1" => $rss->crfexcus_histsales1,
+            "crfexcus_his_month2" => $rss->crfexcus_his_month2,
+            "crfexcus_his_tvolume2" => $rss->crfexcus_his_tvolume2,
+            "crfexcus_histsales2" => $rss->crfexcus_histsales2,
+            "crfexcus_his_month3" => $rss->crfexcus_his_month3,
+            "crfexcus_his_tvolume3" => $rss->crfexcus_his_tvolume3,
+            "crfexcus_histsales3" => $rss->crfexcus_histsales3
+        );
+        $obj->gci()->db->where("crfexcus_id" , $cusid);
+        $obj->gci()->db->update("crfex_customers" , $arUpdateTocus);
+    }
+
+    $arUpdateTemp = array(
+        "crfexcus_tempstatus" => "Updated",
+        "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
+    );
+    $obj->gci()->db->where("crfexcus_formno" , $formno);
+    $obj->gci()->db->update("crfex_customers_temp" , $arUpdateTemp);
+}
+
+
+
+function accChangeCreditlimit()
+{
+    $obj = new addfn();
+
+    $obj = new addfn();
+
+    $formno = $obj->gci()->input->post("accFormno");
+    $cusid = $obj->gci()->input->post("accCusCode_getCusid");
+    $query = $obj->gci()->db->query("SELECT 
+    crfexcus_creditlimit2new,
+    crfexcus_term2new,
+    crfexcus_discount2new,
+    crfexcus_creditlimit,
+    crfexcus_term,
+    crfexcus_discount
+    FROM crfex_customers_temp
+    WHERE crfexcus_formno = '$formno'
+    ");
+
+    foreach($query->result() as $rss){
+
+        if($rss->crfexcus_creditlimit2new != ""){
+            $creditlimit2new = $rss->crfexcus_creditlimit2new;
+        }else{
+            $creditlimit2new = $rss->crfexcus_creditlimit;
+        }
+
+        if($rss->crfexcus_term2new == 0){
+            $term2new = $rss->crfexcus_term;
+        }else{
+            $term2new = $rss->crfexcus_term2new;
+        }
+
+        if($rss->crfexcus_discount2new == 0){
+            $discount2new = $rss->crfexcus_discount;
+        }else{
+            $discount2new = $rss->crfexcus_discount2new;
+        }
+
+
+
+
+        $arUpdateTocus = array(
+            "crfexcus_creditlimit" => $creditlimit2new,
+            "crfexcus_term" => $term2new,
+            "crfexcus_discount" => $discount2new,
+
+        );
+        $obj->gci()->db->where("crfexcus_id" , $cusid);
+        $obj->gci()->db->update("crfex_customers" , $arUpdateTocus);
+    }
+
 }

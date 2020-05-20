@@ -178,8 +178,8 @@
                     </div>
                 </div>
 
-                <label for="">Propose</label>
-            <div class="row form-group">
+                <label for="" class="view_proposeCredit">Propose</label>
+            <div class="row form-group view_proposeCredit">
                 <div class="col-md-6">
 
                     <div class="input-group mb-3">
@@ -210,8 +210,8 @@
 
 
 
-            <label for="">Current</label>
-            <div class="row form-group">
+            <label for="" class="view_currentCredit">Current</label>
+            <div class="row form-group view_currentCredit">
                 <div class="col-md-6">
 
                     <div class="input-group mb-3">
@@ -239,6 +239,96 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+                <!-- For condition -->
+                <div class="row form-group creditlimitCondition_view" style="display:none;">
+                    <div class="col-md-6">
+                    <label for="">Condition of credit limit</label>
+                        <select readonly name="creditlimit_condition" id="creditlimit_condition" class="form-control form-control-sm">
+                            <option value="">{crfex_creditlimit_condition}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="">Condition of term</label>
+                        <select readonly name="term_condition" id="term_condition" class="form-control form-control-sm">
+                            <option value="">{crfex_term_condition}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="">Condition of discount</label>
+                        <select readonly name="discount_condition" id="discount_condition" class="form-control form-control-sm">
+                            <option value="">{crfex_discount_condition}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- For calculate -->
+                <div class="row form-group calCurrentCus_view">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input readonly name="cal_crfex_creditlimit2" id="cal_crfex_creditlimit2" type="text" class="form-control" placeholder="Request credit limit." aria-label="Request credit limit." aria-describedby="basic-addon2" value="{crfex_creditlimit_need}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">THB</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="cal_crfex_term2" id="cal_crfex_term2" type="number" class="form-control" placeholder="Request Term" aria-label="Request Term" aria-describedby="basic-addon2" value="{crfex_term_need}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="cal_crfex_discount2" id="cal_crfex_discount2" type="number" class="form-control" placeholder="Request Discount" aria-label="Request Discount" aria-describedby="basic-addon2" value="{crfex_discount_need}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- For sum -->
+                <div class="row form-group SumCurrentCus_view">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_creditlimit2" id="sum_crfex_creditlimit2" type="text" class="form-control" placeholder="Summary credit limit." aria-label="CuSummaryrrent credit limit." aria-describedby="basic-addon2" value="{crfex_creditlimit_sum}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">THB</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_term2" id="sum_crfex_term2" type="number" class="form-control" placeholder="Summary Term" aria-label="Summary Term" aria-describedby="basic-addon2" value="{crfex_term_sum}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-3">
+                            <input readonly name="sum_crfex_discount2" id="sum_crfex_discount2" type="number" class="form-control" placeholder="Summary Discount" aria-label="Summary Discount" aria-describedby="basic-addon2" value="{crfex_discount_sum}">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
 
 
             <div class="row form-group">
@@ -473,6 +563,8 @@
             <!-- Check Zone -->
             <input hidden type="text" name="accMgrFromno" id="accMgrFromno" value="{crfex_formno}">
             <input hidden type="text" name="accMgr_cusType" id="accMgr_cusType" value="{customertype}">
+            <input hidden type="text" name="accMgr_curcustopic1" id="accMgr_curcustopic1" value="{crfex_curcustopic1}">
+            <input hidden type="text" name="accMgr_curcustopic2" id="accMgr_curcustopic2" value="{crfex_curcustopic2}">
 
                 <div class="row form-group">
 
@@ -527,7 +619,7 @@
 
 
 
-            <!-- Director apparove zone -->
+            <!-- Director apparove zone1 -->
             <form action="{exDirectorApprove}" method="POST" name="" class="directorApprove" style="display:none;">
             <input hidden type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
             <input hidden type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
@@ -567,7 +659,7 @@
             </form>
 
 
-            <form method="POST" name="" class="directorApprove1" style="display:none;">
+            <form method="POST" name="" class="directorApprove1show" style="display:none;">
                 <hr>
                 <h6><b><u>FOR DIRECTOR</u></b></h6>
                 <div class="row form-group">
@@ -589,15 +681,93 @@
                     </div>
                 </div>
             </form>
-            <!-- Director apparove zone -->
+            <!-- Director apparove zone1 -->
+
+
+
+
+                <!-- Director apparove zone2 -->
+                <form action="{exDirectorApprove2}" method="POST" name="" class="directorApprove2" style="display:none;">
+            <input hidden type="text" name="check_custype_direc" id="check_custype_direc" value="{customertype}">
+            <input hidden type="text" name="check_methodcurcus" id="check_methodcurcus" value="{crfex_methodcurcus}">
+
+            <input hidden type="text" name="checkDirecFormNo" id="checkDirecFormNo" value="{crfex_formno}">
+
+            <input hidden type="text" name="checkDireccurcustopic1" id="checkDireccurcustopic1" value="{crfex_curcustopic1}">
+            <input hidden type="text" name="checkDireccurcustopic2" id="checkDireccurcustopic2" value="{crfex_curcustopic2}">
+
+            <input hidden type="text" name="checkDirecCusid" id="checkDirecCusid" value="{crfexcus_id}">
+
+                <h6><b><u>FOR DIRECTOR</u></b></h6>
+                <div class="row form-group">
+
+                    <div class="col-md-12 form-group">
+                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
+                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                    </div>
+                    <div class="col-md-8 form-group">
+                        <label for="">Reasons for approval.</label>
+                        <textarea name="ex_directorApproveDetail2" id="ex_directorApproveDetail2" cols="30" rows="3" class="form-control form-control-sm"></textarea>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">Director Approver.</label>
+                        <input readonly type="text" name="ex_directorApproveName2" id="ex_directorApproveName2" class="form-control form-control-sm" value="{username}">
+                        <input readonly type="text" name="ex_directorApproveDateTime2" id="ex_directorApproveDateTime2" class="form-control form-control-sm mt-1" value="{datenow}">
+                    </div>
+                </div>
+
+
+                <div class="row form-group ">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="ex_directorSubmit2" name="ex_directorSubmit2">Submit</button></div>
+                </div>
+            </form>
+
+
+            <form method="POST" name="" class="directorApprove2show" style="display:none;">
+                <hr>
+                <h6><b><u>FOR DIRECTOR</u></b></h6>
+                <div class="row form-group">
+
+                <!-- Check director approve status -->
+                <input hidden type="text" name="check_director_status2" id="check_director_status2" value="{crfex_directorapp_status2}">
+                    <div class="col-md-12 form-group">
+                        <input type="radio" name="ex_directorApprove21" id="ex_directorApprove21" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
+                        <input type="radio" name="ex_directorApprove22" id="ex_directorApprove22" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                    </div>
+                    <div class="col-md-8 form-group">
+                        <label for="">Reasons for approval.</label>
+                        <textarea readonly name="ex_directorApproveDetail" id="ex_directorApproveDetail" cols="30" rows="3" class="form-control form-control-sm">{crfex_directorapp_detail2}</textarea>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">Director Approver.</label>
+                        <input readonly type="text" name="ex_directorApproveName" id="ex_directorApproveName" class="form-control form-control-sm" value="{crfex_directorapp_username2}">
+                        <input readonly type="text" name="ex_directorApproveDateTime" id="ex_directorApproveDateTime" class="form-control form-control-sm mt-1" value="{crfex_directorapp_datetime2}">
+                    </div>
+                </div>
+            </form>
+            <!-- Director apparove zone2 -->
+
+
+
+
+
+
+
 
 
 
             <!-- account staff zone -->
             <form action="{exAccountAddCusCode}" method="POST" name="" class="accAddCustomerCode" style="display:none;">
+
+            <!-- For check data to update table -->
+            <input hidden type="text" name="check_custype_accstaff" id="check_custype_accstaff" value="{customertype}">
+            <input hidden type="text" name="acc_curcustopic1" id="acc_curcustopic1" value="{crfex_curcustopic1}">
+            <input hidden type="text" name="acc_curcustopic2" id="acc_curcustopic2" value="{crfex_curcustopic2}">
                 <hr>
                 <h6><b><u>FOR ACCOUNT</u></b></h6>
-                <input hidden type="text" name="check_custype_accstaff" id="check_custype_accstaff" value="{customertype}">
+
                 <div class="row form-group">
                     <div class="col-md-8 form-group filcuscode">
                         <label for="">CUSTOMER CODE</label>
@@ -629,7 +799,7 @@
                 <hr>
                 <h6><b><u>FOR ACCOUNT</u></b></h6>
                 <div class="row form-group">
-                    <div class="col-md-8 form-group">
+                    <div class="col-md-8 form-group showcuscodeacc">
                         <label for="">CUSTOMER CODE</label>
                         <input readonly type="text" name="ex_accCostomerCode" id="ex_accCostomerCode" class="form-control form-control-sm" value="{customercode}">
                     </div>

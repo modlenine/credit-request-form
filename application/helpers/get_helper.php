@@ -452,9 +452,20 @@ function viewdataEX($crfexid)
     crfex_maindata.crfex_pcreditlimit,
     crfex_maindata.crfex_pterm,
     crfex_maindata.crfex_pdiscount,
+
     crfex_maindata.crfex_ccreditlimit,
     crfex_maindata.crfex_cterm,
     crfex_maindata.crfex_cdiscount,
+    crfex_maindata.crfex_creditlimit_condition,
+    crfex_maindata.crfex_term_condition,
+    crfex_maindata.crfex_discount_condition,
+    crfex_maindata.crfex_creditlimit_need,
+    crfex_maindata.crfex_term_need,
+    crfex_maindata.crfex_discount_need,
+    crfex_maindata.crfex_creditlimit_sum,
+    crfex_maindata.crfex_term_sum,
+    crfex_maindata.crfex_discount_sum,
+
     crfex_maindata.crfex_brcode,
     crfex_maindata.crfex_userpost,
     crfex_maindata.crfex_userdept,
@@ -485,6 +496,10 @@ function viewdataEX($crfexid)
     crfex_maindata.crfex_topic,
     crfex_maindata.crfex_curcustopic1,
     crfex_maindata.crfex_curcustopic2,
+    crfex_maindata.crfex_directorapp_status2,
+    crfex_maindata.crfex_directorapp_username2,
+    crfex_maindata.crfex_directorapp_datetime2,
+    crfex_maindata.crfex_directorapp_detail2,
 
     crfex_customers_temp.crfexcus_code,
     crfex_customers_temp.crfexcus_datecreate,
@@ -622,3 +637,17 @@ function getdataToReportEx()
     $result = $obj->gci()->db->get();
     return $result->result();
 }
+
+
+
+function checkdirecStatus($crfexid , $diretype)
+{
+    $obj = new getfn();
+    if($diretype == 1){
+        $query = $obj->gci()->db->query("SELECT crfex_directorapp_status FROM crfex_maindata WHERE crfex_id ='$crfexid' ");
+    }else if($diretype == 2){
+        $query = $obj->gci()->db->query("SELECT crfex_directorapp_status2 FROM crfex_maindata WHERE crfex_id ='$crfexid' ");
+    }
+    return $query->row();
+}
+// export end

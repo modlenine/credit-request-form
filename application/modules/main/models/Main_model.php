@@ -1907,8 +1907,8 @@ class Main_model extends CI_Model
             if ($_FILES["crfex_file"]["name"] != "") {
                 $file = "crfex_file";
                 $fileType = "Document";
-                $this->uploadFiles($file, $fileType);
-                $resultFile = $this->uploadFiles($file, $fileType);
+                $this->uploadFiles($file, $fileType , $getFormNo);
+                $resultFile = $this->uploadFiles($file, $fileType , $getFormNo);
             } else {
                 $resultFile = "";
                 echo "Not found document !<br>";
@@ -1929,7 +1929,7 @@ class Main_model extends CI_Model
                 "crfexcus_fax" => $this->input->post("crfex_fax"),
                 "crfexcus_email" => $this->input->post("crfex_email"),
                 "crfexcus_payment" => $this->input->post("crfex_payment"),
-                "crfexcus_creditlimit" => $this->input->post("crfex_creditlimit"),
+                "crfexcus_creditlimit" => conPrice($this->input->post("crfex_creditlimit")),
                 "crfexcus_term" => $this->input->post("crfex_term"),
                 "crfexcus_discount" => $this->input->post("crfex_discount"),
                 "crfexcus_bg" => $this->input->post("crfex_combg"),
@@ -1950,7 +1950,7 @@ class Main_model extends CI_Model
                 "crfex_company" => $this->input->post("crfex_company"),
                 "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                 "crfex_custype" => $this->input->post("crfex_custype"),
-                "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                "crfex_pcreditlimit" => conPrice($this->input->post("crfex_creditlimit")),
                 "crfex_pterm" => $this->input->post("crfex_term"),
                 "crfex_pdiscount" => $this->input->post("crfex_discount"),
                 "crfex_userpost" => $this->input->post("crfex_usercreate"),
@@ -1982,6 +1982,7 @@ class Main_model extends CI_Model
             foreach ($query->result() as $result) {
                 $arGetdataToTemp = array(
                     "crfexcus_formno" => $getFormNo,
+                    "crfexcus_area" => $result->crfexcus_area,
                     "crfexcus_id" => $result->crfexcus_id,
                     "crfexcus_code" => $result->crfexcus_code,
                     "crfexcus_brcode" => $result->crfexcus_brcode,
@@ -2067,11 +2068,11 @@ class Main_model extends CI_Model
 
                     $armaindata = array(
                         "crfex_formno" => $getFormNo,
-                        "crfex_customerid" => $getCustomerNumber,
+                        "crfex_customerid" => $this->input->post("getCusid"),
                         "crfex_company" => $this->input->post("crfex_company"),
                         "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                         "crfex_custype" => $this->input->post("crfex_custype"),
-                        "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
+                        "crfex_ccreditlimit" => conPrice($this->input->post("crfex_creditlimit2")),
                         "crfex_cterm" => $this->input->post("crfex_term2"),
                         "crfex_cdiscount" => $this->input->post("crfex_discount2"),
                         "crfex_userpost" => $this->input->post("crfex_usercreate"),
@@ -2100,26 +2101,33 @@ class Main_model extends CI_Model
                 if ($this->input->post("crfex_curcustopic2_add") != '') {
 
                     $arUpdateCustomerTemp = array(
-                        "crfexcus_creditlimit2" => $this->input->post("crfex_creditlimit"),
-                        "crfexcus_term2" => $this->input->post("crfex_term"),
-                        "crfexcus_discount2" => $this->input->post("crfex_discount"),
-
+                        "crfexcus_creditlimit2new" => conPrice($this->input->post("sum_crfex_creditlimit2")),
+                        "crfexcus_term2new" => $this->input->post("sum_crfex_term2"),
+                        "crfexcus_discount2new" => $this->input->post("sum_crfex_discount2"),
                         "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
                     );
                     $this->db->where("crfexcus_formno", $getFormNo);
                     if ($this->db->update("crfex_customers_temp", $arUpdateCustomerTemp)) {
                         $armaindata = array(
                             "crfex_formno" => $getFormNo,
-                            "crfex_customerid" => $getCustomerNumber,
+                            "crfex_customerid" => $this->input->post("getCusid"),
                             "crfex_company" => $this->input->post("crfex_company"),
                             "crfex_datecreate" => conDateToDb($this->input->post("crfex_datecreate")),
                             "crfex_custype" => $this->input->post("crfex_custype"),
-                            "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
+
+                            "crfex_ccreditlimit" => conPrice($this->input->post("crfex_creditlimit2")),
                             "crfex_cterm" => $this->input->post("crfex_term2"),
                             "crfex_cdiscount" => $this->input->post("crfex_discount2"),
-                            "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
-                            "crfex_pterm" => $this->input->post("crfex_term"),
-                            "crfex_pdiscount" => $this->input->post("crfex_discount"),
+                            "crfex_creditlimit_condition" => $this->input->post("creditlimit_condition"),
+                            "crfex_term_condition" => $this->input->post("term_condition"),
+                            "crfex_discount_condition" => $this->input->post("discount_condition"),
+                            "crfex_creditlimit_need" => $this->input->post("cal_crfex_creditlimit2"),
+                            "crfex_term_need" => $this->input->post("cal_crfex_term2"),
+                            "crfex_discount_need" => $this->input->post("cal_crfex_discount2"),
+                            "crfex_creditlimit_sum" => conPrice($this->input->post("sum_crfex_creditlimit2")),
+                            "crfex_term_sum" => $this->input->post("sum_crfex_term2"),
+                            "crfex_discount_sum" => $this->input->post("sum_crfex_discount2"),
+
                             "crfex_userpost" => $this->input->post("crfex_usercreate"),
                             "crfex_userdept" => $this->input->post("crfex_userdeptcode"),
                             "crfex_userdatetime" => conDateTimeToDb($this->input->post("crfex_userdatetime")),
@@ -2615,9 +2623,34 @@ class Main_model extends CI_Model
         exDirectorApprove($crfexid);
     }
 
+    public function exDirectorApprove2($crfexid)
+    {
+        exDirectorApprove2($crfexid);
+    }
+
     public function exAccountAddCusCode($crfexid)
     {
-        exAccountAddCusCode($crfexid);
+        if ($this->input->post("check_custype_accstaff") == 1) {
+            exAccountAddCusCode($crfexid);
+        } else if ($this->input->post("check_custype_accstaff") == 2) {
+
+            if ($this->input->post("acc_curcustopic1") != "") {
+                accChangeInformation();
+            }
+
+            if ($this->input->post("acc_curcustopic2") != "") {
+                accChangeCreditlimit();
+            }
+            // Maindata table
+            $arAccCusCodeMain = array(
+                "crfex_accuserpost" => $this->input->post("ex_accName"),
+                "crfex_accdatetime" => conDateTimeToDb($this->input->post("ex_accDateTime")),
+                "crfex_accmemo" => $this->input->post("ex_accMemo"),
+                "crfex_status" => "Completed"
+            );
+            $this->db->where("crfex_id", $crfexid);
+            $this->db->update("crfex_maindata", $arAccCusCodeMain);
+        }
     }
 
 
@@ -3147,67 +3180,141 @@ class Main_model extends CI_Model
             // Update data to temp table
 
 
-            // Check file Change or not
-            if ($_FILES["crfex_file"]["name"] != "") {
-                $file = "crfex_file";
-                $fileType = "Customer file";
-                $this->uploadFiles($file, $fileType);
-                $resultFile = $this->uploadFiles($file, $fileType);
-            } else {
-                $resultFile = $this->input->post("crfex_fileShowOld");
-            }
+            if ($this->input->post("checkEditCustype") == 1) {
+
+                // Check file Change or not
+                if ($_FILES["crfex_file"]["name"] != "") {
+                    $file = "crfex_file";
+                    $fileType = "Customer file";
+                    $this->uploadFiles($file, $fileType , $this->input->post("checkEditFormNo"));
+                    $resultFile = $this->uploadFiles($file, $fileType,$this->input->post("checkEditFormNo"));
+                } else {
+                    $resultFile = $this->input->post("crfex_fileShowOld");
+                }
 
 
 
-            $arUpdateToTemp = array(
-                "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
-                "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
-                "crfexcus_nameTH" => $this->input->post("crfex_cusnameTH"),
-                "crfexcus_address" => $this->input->post("crfex_address"),
-                "crfexcus_file" => $resultFile,
-                "crfexcus_tel" => $this->input->post("crfex_tel"),
-                "crfexcus_fax" => $this->input->post("crfex_fax"),
-                "crfexcus_email" => $this->input->post("crfex_email"),
-                "crfexcus_payment" => $this->input->post("crfex_payment"),
-                "crfexcus_bg" => $this->input->post("crfex_combg"),
-                "crfexcus_his_month1" => $this->input->post("crfex_his_month1"),
-                "crfexcus_his_tvolume1" => $this->input->post("crfex_his_tvolume1"),
-                "crfexcus_histsales1" => $this->input->post("crfex_histsales1"),
-                "crfexcus_his_month2" => $this->input->post("crfex_his_month2"),
-                "crfexcus_his_tvolume2" => $this->input->post("crfex_his_tvolume2"),
-                "crfexcus_histsales2" => $this->input->post("crfex_histsales2"),
-                "crfexcus_his_month3" => $this->input->post("crfex_his_month3"),
-                "crfexcus_his_tvolume3" => $this->input->post("crfex_his_tvolume3"),
-                "crfexcus_histsales3" => $this->input->post("crfex_histsales3"),
+                $arUpdateToTemp = array(
+                    "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
+                    "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
+                    "crfexcus_nameTH" => $this->input->post("crfex_cusnameTH"),
+                    "crfexcus_address" => $this->input->post("crfex_address"),
+                    "crfexcus_file" => $resultFile,
+                    "crfexcus_tel" => $this->input->post("crfex_tel"),
+                    "crfexcus_fax" => $this->input->post("crfex_fax"),
+                    "crfexcus_email" => $this->input->post("crfex_email"),
+                    "crfexcus_payment" => $this->input->post("crfex_payment"),
+                    "crfexcus_creditlimit" => conPrice($this->input->post("crfex_creditlimit")),
+                    "crfexcus_term" => $this->input->post("crfex_term"),
+                    "crfexcus_discount" => $this->input->post("crfex_discount"),
+                    "crfexcus_bg" => $this->input->post("crfex_combg"),
+                    "crfexcus_his_month1" => $this->input->post("crfex_his_month1"),
+                    "crfexcus_his_tvolume1" => $this->input->post("crfex_his_tvolume1"),
+                    "crfexcus_histsales1" => $this->input->post("crfex_histsales1"),
+                    "crfexcus_his_month2" => $this->input->post("crfex_his_month2"),
+                    "crfexcus_his_tvolume2" => $this->input->post("crfex_his_tvolume2"),
+                    "crfexcus_histsales2" => $this->input->post("crfex_histsales2"),
+                    "crfexcus_his_month3" => $this->input->post("crfex_his_month3"),
+                    "crfexcus_his_tvolume3" => $this->input->post("crfex_his_tvolume3"),
+                    "crfexcus_histsales3" => $this->input->post("crfex_histsales3"),
 
-                "crfexcus_usermodify" => $this->input->post("crfex_usercreate"),
-                "crfexcus_userecodemodify" => $this->input->post("crfex_userecode"),
-                "crfexcus_userdeptcodemodify" => $this->input->post("crfex_userdeptcode"),
-                "crfexcus_datetimemodify" => date("Y-m-d H:i:s"),
-                "crfexcus_tempstatus" => "Processing",
-                "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
-            );
-            $this->db->where("crfexcus_formno", $this->input->post("checkEditFormNo"));
-            if ($this->db->update("crfex_customers_temp", $arUpdateToTemp)) {
-                // Update data to crfex_maindata
-                $arUpdateMaindata = array(
-                    "crfex_company" => $this->input->post("crfex_company"),
-                    "crfex_curcustopic1" => $this->input->post("crfex_curcustopic1"),
-                    "crfex_curcustopic2" => $this->input->post("crfex_curcustopic2"),
-                    "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
-                    "crfex_pterm" => $this->input->post("crfex_term"),
-                    "crfex_pdiscount" => $this->input->post("crfex_discount"),
-                    "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
-                    "crfex_cterm" => $this->input->post("crfex_term2"),
-                    "crfex_cdiscount" => $this->input->post("crfex_discount2"),
-                    "crfex_status" => "Edited",
-                    "crfex_usermodify" => $this->input->post("crfex_usercreate"),
-                    "crfex_datetimemodify" => date("Y-m-d H:i:s")
+                    "crfexcus_usermodify" => $this->input->post("crfex_usercreate"),
+                    "crfexcus_userecodemodify" => $this->input->post("crfex_userecode"),
+                    "crfexcus_userdeptcodemodify" => $this->input->post("crfex_userdeptcode"),
+                    "crfexcus_datetimemodify" => date("Y-m-d H:i:s"),
+                    "crfexcus_tempstatus" => "Processing",
+                    "crfexcus_datetimeupdate" => date("Y-m-d H:i:s")
                 );
-                $this->db->where("crfex_id", $this->input->post("checkEditFormId"));
-                $this->db->update("crfex_maindata", $arUpdateMaindata);
+                $this->db->where("crfexcus_formno", $this->input->post("checkEditFormNo"));
+                if ($this->db->update("crfex_customers_temp", $arUpdateToTemp)) {
+                    // Update data to crfex_maindata
+                    $arUpdateMaindata = array(
+                        "crfex_company" => $this->input->post("crfex_company"),
+                        "crfex_curcustopic1" => $this->input->post("crfex_curcustopic1"),
+                        "crfex_curcustopic2" => $this->input->post("crfex_curcustopic2"),
+                        "crfex_pcreditlimit" => $this->input->post("crfex_creditlimit"),
+                        "crfex_pterm" => $this->input->post("crfex_term"),
+                        "crfex_pdiscount" => $this->input->post("crfex_discount"),
+                        "crfex_ccreditlimit" => $this->input->post("crfex_creditlimit2"),
+                        "crfex_cterm" => $this->input->post("crfex_term2"),
+                        "crfex_cdiscount" => $this->input->post("crfex_discount2"),
+                        "crfex_status" => "Edited",
+                        "crfex_usermodify" => $this->input->post("crfex_usercreate"),
+                        "crfex_datetimemodify" => date("Y-m-d H:i:s")
+                    );
+                    $this->db->where("crfex_id", $this->input->post("checkEditFormId"));
+                    $this->db->update("crfex_maindata", $arUpdateMaindata);
+                }
+                header("refresh:0; url=" . base_url('main/listex'));
+            } else if ($this->input->post("checkEditCustype") == 2) {
+
+                if ($this->input->post("crfex_curcustopic1") != "") {
+
+                    // Check file Change or not
+                if ($_FILES["crfex_file"]["name"] != "") {
+                    $file = "crfex_file";
+                    $fileType = "Customer file";
+                    $this->uploadFiles($file, $fileType , $this->input->post("checkEditFormNo"));
+                    $resultFile = $this->uploadFiles($file, $fileType , $this->input->post("checkEditFormNo"));
+                } else {
+                    $resultFile = $this->input->post("crfex_fileShowOld");
+                }
+
+                    $arUpdateToTemp = array(
+                        "crfexcus_salesreps" => $this->input->post("crfex_salesreps"),
+                        "crfexcus_nameEN" => $this->input->post("crfex_cusnameEN"),
+                        "crfexcus_nameTH" => $this->input->post("crfex_cusnameTH"),
+                        "crfexcus_address" => $this->input->post("crfex_address"),
+                        "crfexcus_tel" => $this->input->post("crfex_tel"),
+                        "crfexcus_fax" => $this->input->post("crfex_fax"),
+                        "crfexcus_email" => $this->input->post("crfex_email"),
+                        "crfexcus_file" => $resultFile
+                    );
+                    $this->db->where("crfexcus_formno" , $this->input->post("checkEditFormNo"));
+                    $this->db->update("crfex_customers_temp" , $arUpdateToTemp);
+
+                    $arUpdateToMain = array(
+                        "crfex_curcustopic1" => $this->input->post("crfex_curcustopic1"),
+                        "crfex_status" => "Edited",
+                        "crfex_usermodify" => $this->input->post("crfex_usercreate"),
+                        "crfex_datetimemodify" => date("Y-m-d H:i:s")
+                    );
+                    $this->db->where("crfex_id" , $this->input->post("checkEditFormId"));
+                    $this->db->update("crfex_maindata" , $arUpdateToMain);
+
+                }
+                if ($this->input->post("crfex_curcustopic2") != "") {
+
+                    $arUpdateToTemp = array(
+                        "crfexcus_payment" => $this->input->post("crfex_payment"),
+                        "crfexcus_creditlimit2new" => conPrice($this->input->post("sum_crfex_creditlimit2Edit")),
+                        "crfexcus_term2new" => $this->input->post("sum_crfex_term2Edit"),
+                        "crfexcus_discount2new" => $this->input->post("sum_crfex_discount2Edit")
+                    );
+                    $this->db->where("crfexcus_formno" , $this->input->post("checkEditFormNo"));
+                    $this->db->update("crfex_customers_temp" , $arUpdateToTemp);
+
+                    $arUpdateToMain = array(
+                        "crfex_curcustopic2" => $this->input->post("crfex_curcustopic2"),
+                        "crfex_creditlimit_condition" => $this->input->post("creditlimit_conditionEdit"),
+                        "crfex_term_condition" => $this->input->post("term_conditionEdit"),
+                        "crfex_discount_condition" => $this->input->post("discount_conditionEdit"),
+                        "crfex_creditlimit_need" => conPrice($this->input->post("cal_crfex_creditlimit2Edit")),
+                        "crfex_term_need" => $this->input->post("cal_crfex_term2Edit"),
+                        "crfex_discount_need" => $this->input->post("cal_crfex_discount2Edit"),
+                        "crfex_creditlimit_sum" => conPrice($this->input->post("sum_crfex_creditlimit2Edit")),
+                        "crfex_term_sum" => $this->input->post("sum_crfex_term2Edit"),
+                        "crfex_discount_sum" => $this->input->post("sum_crfex_discount2Edit"),
+                        "crfex_status" => "Edited",
+                        "crfex_usermodify" => $this->input->post("crfex_usercreate"),
+                        "crfex_datetimemodify" => date("Y-m-d H:i:s")
+                    );
+                    $this->db->where("crfex_id" , $this->input->post("checkEditFormId"));
+                    $this->db->update("crfex_maindata" , $arUpdateToMain);
+
+                }
+                header("refresh:0; url=" . base_url('main/listex'));
             }
-            header("refresh:0; url=" . base_url('main/listex'));
         }
     }
 
