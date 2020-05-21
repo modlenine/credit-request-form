@@ -50,6 +50,19 @@ function autoSearchCustomerDetailEx(cusCode) {
     });
 }
 
+function autoSearchCustomerDetailExName(cusName) {
+    $.ajax({
+        url: 'main/searchCustomerDetailExName',
+        method: 'POST',
+        data: {
+            cusName: cusName
+        },
+        success: function (data) {
+            $('#autoCusCodeExName').html(data);
+        }
+    });
+}
+
 
 function setChecked(targetval) {
     $('input:checkbox[name="crf_process"]').each(function () {

@@ -329,6 +329,10 @@ class Main extends MX_Controller
     {
         $this->main->searchCustomerDetailEx();
     }
+    public function searchCustomerDetailExName()
+    {
+        $this->main->searchCustomerDetailExName();
+    }
 
     public function queryProcessUse()
     {

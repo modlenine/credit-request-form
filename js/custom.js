@@ -3052,29 +3052,6 @@ $(document).ready(function () {
         $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email , #crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2 , #crfex_payment , #crfex_customercode , #crfex_combg').prop('readonly', true);
 
 
-        $('#crfex_cusnameEN').blur(function () {
-            var cusname = $(this).val();
-            var comName = $('input:radio[name="crfex_company"]:checked').val();
-            if (cusname != '') {
-                checkDuplicateNameCustomerEx(cusname, comName);
-                checkCustomersNameEn(cusname);
-            } else {
-                $('#alert_crfex_cusnameEN').html('');
-            }
-        });
-
-        $('#crfex_cusnameTH').blur(function () {
-            var cusname = $(this).val();
-            if (cusname != '') {
-                checkCustomersNameTH(cusname);
-            } else {
-                $('#alert_crfex_cusnameTH').html('');
-            }
-        });
-
-
-
-
 
 
         $('input[name="crfex_custype"]').click(function () {
@@ -3099,6 +3076,28 @@ $(document).ready(function () {
 
 
             if ($(this).val() == 1) {
+
+
+                $('#crfex_cusnameEN').blur(function () {
+                    var cusname = $(this).val();
+                    var comName = $('input:radio[name="crfex_company"]:checked').val();
+                    if (cusname != '') {
+                        checkDuplicateNameCustomerEx(cusname, comName);
+                        checkCustomersNameEn(cusname);
+                    } else {
+                        $('#alert_crfex_cusnameEN').html('');
+                    }
+                });
+
+                $('#crfex_cusnameTH').blur(function () {
+                    var cusname = $(this).val();
+                    if (cusname != '') {
+                        checkCustomersNameTH(cusname);
+                    } else {
+                        $('#alert_crfex_cusnameTH').html('');
+                    }
+                });
+
                 $('#crfex_customercode').prop('readonly', true);
 
                 $('#crfex_his_month1 , #crfex_his_month2 , #crfex_his_month3 , #crfex_his_tvolume1 , #crfex_his_tvolume2 , #crfex_his_tvolume3 , #crfex_histsales1 , #crfex_histsales2 , #crfex_histsales3 , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
@@ -3311,20 +3310,20 @@ $(document).ready(function () {
 
 
                 // check topic select
-                $('#crfex_customercode').click(function () {
+                $('#crfex_customercode , #crfex_cusnameEN').click(function () {
                     var crfex_curcustopic = $('input[type="checkbox"][id="crfex_curcustopic_add"]:checked');
                     if (crfex_curcustopic.length < 1) {
                         $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
-                        $('#crfex_customercode').val('');
-                        $('#autoCusCodeEx').html('');
+                        $('#crfex_customercode , #crfex_cusnameEN').val('');
+                        $('#autoCusCodeEx , #alert_crfex_cusnameEN').html('');
                     }
                 });
-                $('#crfex_customercode').blur(function () {
+                $('#crfex_customercode , #crfex_cusnameEN').blur(function () {
                     var crfex_curcustopic2 = $('input[type="checkbox"][id="crfex_curcustopic_add"]:checked');
                     if (crfex_curcustopic2.length < 1) {
                         $('#alert_crfex_topic').html('<div class="alert alert-danger" role="alert">Please select the topic.</div>');
-                        $('#crfex_customercode').val('');
-                        $('#autoCusCodeEx').html('');
+                        $('#crfex_customercode, #crfex_cusnameEN').val('');
+                        $('#autoCusCodeEx , #alert_crfex_cusnameEN').html('');
                     }
                 });
 
@@ -3373,6 +3372,7 @@ $(document).ready(function () {
 
                 $('input[name="crfex_curcustopic2_add"]').click(function () {
                     if ($(this).prop('checked') == true) {
+                        $('#alert_crfex_topic').html('');
                         $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
                         // $('#crfex_salesreps , #crfex_cusnameEN , #crfex_cusnameTH , #crfex_address , #crfex_tel , #crfex_fax , #crfex_email').prop('readonly' , true);
                         $('.calCurrentCus , .SumCurrentCus , .creditlimitCondition').css('display', '');
@@ -3439,34 +3439,34 @@ $(document).ready(function () {
 
 
 
-                        $('#cal_crfex_discount2').keyup(function(){
+                        $('#cal_crfex_discount2').keyup(function () {
                             var olddiscount = parseInt($('#crfex_discount2').val());
                             var requestdiscount = parseInt($('#cal_crfex_discount2').val());
                             var sumdiscount = 0;
-                            if($('#discount_condition').val() == 'writeup'){
+                            if ($('#discount_condition').val() == 'writeup') {
                                 sumdiscount = olddiscount + requestdiscount;
-                            }else if($('#discount_condition').val() == 'writedown'){
-                                if(requestdiscount > olddiscount){
+                            } else if ($('#discount_condition').val() == 'writedown') {
+                                if (requestdiscount > olddiscount) {
                                     alert('Please check request discount!!');
                                     $('#cal_crfex_discount2').val('');
-                                }else{
+                                } else {
                                     sumdiscount = olddiscount - requestdiscount;
                                 }
                             }
                             $('#sum_crfex_discount2').val(sumdiscount);
                             $('#usercrfex_submit').prop('disabled', false);
                         });
-                        $('#cal_crfex_discount2').change(function(){
+                        $('#cal_crfex_discount2').change(function () {
                             var olddiscount = parseInt($('#crfex_discount2').val());
                             var requestdiscount = parseInt($('#cal_crfex_discount2').val());
                             var sumdiscount = 0;
-                            if($('#discount_condition').val() == 'writeup'){
+                            if ($('#discount_condition').val() == 'writeup') {
                                 sumdiscount = olddiscount + requestdiscount;
-                            }else if($('#discount_condition').val() == 'writedown'){
-                                if(requestdiscount > olddiscount){
+                            } else if ($('#discount_condition').val() == 'writedown') {
+                                if (requestdiscount > olddiscount) {
                                     alert('Please check request discount!!');
                                     $('#cal_crfex_discount2').val('');
-                                }else{
+                                } else {
                                     sumdiscount = olddiscount - requestdiscount;
                                 }
                             }
@@ -3556,6 +3556,81 @@ $(document).ready(function () {
 
 
                     $('#autoCusCodeEx').html('');
+
+                });
+
+
+
+
+                // Get Old customer information to form when keyup
+                $('#crfex_cusnameEN').on('keyup', function () {
+                    var cusName = $(this).val();
+                    if (cusName != '') {
+                        autoSearchCustomerDetailExName(cusName);
+                    } else {
+                        $('#autoCusCodeExName').html('')
+                    }
+
+                });
+
+                $(document).on('click', '.selectCusCodeExName', function () {
+
+                    var data_crfex_salesreps = $(this).attr('data_crfex_salesreps');
+                    var data_crfex_cusnameEN = $(this).attr('data_crfex_cusnameEN');
+                    var data_crfex_cusnameTH = $(this).attr('data_crfex_cusnameTH');
+                    var data_crfex_address = $(this).attr('data_crfex_address');
+                    var data_crfex_tel = $(this).attr('data_crfex_tel');
+                    var data_crfex_fax = $(this).attr('data_crfex_fax');
+                    var data_crfex_email = $(this).attr('data_crfex_email');
+                    var data_crfex_file = $(this).attr('data_crfex_file');
+                    var data_crfex_creditlimit = $(this).attr('data_crfex_creditlimit');
+                    var data_crfex_term = $(this).attr('data_crfex_term');
+                    var data_crfex_discount = $(this).attr('data_crfex_discount');
+                    var data_crfex_bg = $(this).attr('data_crfex_bg');
+                    var data_crfex_cuscode = $(this).attr('data_crfex_cuscode');
+                    var data_crfex_cusid = $(this).attr('data_crfex_cusid');
+                    var data_crfex_cuspayment = $(this).attr('data_crfex_cuspayment');
+                    var data_crfexcus_area = $(this).attr('data_crfexcus_area');
+
+
+                    $('#crfex_salesreps').val(data_crfex_salesreps);
+                    $('#crfex_cusnameEN').val(data_crfex_cusnameEN);
+                    $('#crfex_cusnameTH').val(data_crfex_cusnameTH);
+                    $('#crfex_address').val(data_crfex_address);
+                    $('#crfex_tel').val(data_crfex_tel);
+                    $('#crfex_fax').val(data_crfex_fax);
+                    $('#crfex_email').val(data_crfex_email);
+                    $('#crfex_fileShow').text(data_crfex_file);
+                    $('#crfex_creditlimit2').val(data_crfex_creditlimit);
+                    $('#crfex_creditlimit2usecal').val(data_crfex_creditlimit);
+                    $('#crfex_term2').val(data_crfex_term);
+                    $('#crfex_discount2').val(data_crfex_discount);
+                    $('#crfex_combg').val(data_crfex_bg);
+                    $('#crfex_customercode').val(data_crfex_cuscode);
+                    $('#getCusid').val(data_crfex_cusid);
+                    $('#crfex_payment').val(data_crfex_cuspayment);
+                    $('#checkAreaAddEn').val(data_crfexcus_area);
+
+                    if (data_crfexcus_area == 'sln') {
+                        $('#crf_company_sln').prop('checked', true);
+                    }
+                    if (data_crfexcus_area == 'poly') {
+                        $('#crf_company_poly').prop('checked', true);
+                    }
+                    if (data_crfexcus_area == 'ca') {
+                        $('#crf_company_ca').prop('checked', true);
+                    }
+
+                    $('#crfex_creditlimit2').val(function (index, value) {
+                        return value
+                            .replace(/\D/g, "")
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            ;
+                    });
+
+
+
+                    $('#autoCusCodeExName').html('');
 
                 });
 
@@ -3967,8 +4042,8 @@ $(document).ready(function () {
 
         if ($('#checkEdit_crfex_custype').val() == 2) {
             $('#crfex_custype2').prop('checked', true);
-            $('.exEditCreditlimitPro').css('display','none');
-            $('.exEditcurrentCredit , .creditlimitCondition').css('display' , '');
+            $('.exEditCreditlimitPro').css('display', 'none');
+            $('.exEditcurrentCredit , .creditlimitCondition').css('display', '');
 
             $('#sum_crfex_creditlimit2Edit , #cal_crfex_creditlimit2Edit').val(function (index, value) {
                 return value
@@ -3993,7 +4068,7 @@ $(document).ready(function () {
             if ($('#checkEdit_crfex_curcustopic2').val() != '') {
                 $('#crfex_curcustopic2').prop('checked', true);
                 $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment').prop('readonly', false);
-                $('#crfex_creditlimit2 , #crfex_term2Edit , #crfex_discount2Edit').prop('readonly' , true);
+                $('#crfex_creditlimit2 , #crfex_term2Edit , #crfex_discount2Edit').prop('readonly', true);
 
 
                 // Calculate credit limit
@@ -4055,33 +4130,33 @@ $(document).ready(function () {
 
 
 
-                $('#cal_crfex_discount2Edit').keyup(function(){
+                $('#cal_crfex_discount2Edit').keyup(function () {
                     var olddiscount = parseInt($('#crfex_discount2Edit').val());
                     var requestdiscount = parseInt($('#cal_crfex_discount2Edit').val());
                     var sumdiscount = 0;
-                    if($('#discount_conditionEdit').val() == 'writeup'){
+                    if ($('#discount_conditionEdit').val() == 'writeup') {
                         sumdiscount = olddiscount + requestdiscount;
-                    }else if($('#discount_conditionEdit').val() == 'writedown'){
-                        if(requestdiscount > olddiscount){
+                    } else if ($('#discount_conditionEdit').val() == 'writedown') {
+                        if (requestdiscount > olddiscount) {
                             alert('Please check request discount!!');
                             $('#cal_crfex_discount2Edit').val('');
-                        }else{
+                        } else {
                             sumdiscount = olddiscount - requestdiscount;
                         }
                     }
                     $('#sum_crfex_discount2Edit').val(sumdiscount);
                 });
-                $('#cal_crfex_discount2Edit').change(function(){
+                $('#cal_crfex_discount2Edit').change(function () {
                     var olddiscount = parseInt($('#crfex_discount2Edit').val());
                     var requestdiscount = parseInt($('#cal_crfex_discount2Edit').val());
                     var sumdiscount = 0;
-                    if($('#discount_conditionEdit').val() == 'writeup'){
+                    if ($('#discount_conditionEdit').val() == 'writeup') {
                         sumdiscount = olddiscount + requestdiscount;
-                    }else if($('#discount_conditionEdit').val() == 'writedown'){
-                        if(requestdiscount > olddiscount){
+                    } else if ($('#discount_conditionEdit').val() == 'writedown') {
+                        if (requestdiscount > olddiscount) {
                             alert('Please check request discount!!');
                             $('#cal_crfex_discount2Edit').val('');
-                        }else{
+                        } else {
                             sumdiscount = olddiscount - requestdiscount;
                         }
                     }
@@ -4090,11 +4165,11 @@ $(document).ready(function () {
 
 
 
-                
+
             } else {
                 $('#crfex_curcustopic2').prop('checked', false);
                 $('#crfex_creditlimit , #crfex_term , #crfex_discount , #crfex_payment , #crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
-                
+
             }
 
         } else {

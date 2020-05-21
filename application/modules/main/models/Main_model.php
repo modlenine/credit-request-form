@@ -1735,6 +1735,84 @@ class Main_model extends CI_Model
 
 
 
+    public function searchCustomerDetailExName()
+    {
+        $cusName = "";
+        $cusName = $this->input->post("cusName");
+        $query = $this->db->query("SELECT
+        crfex_customers.crfexcus_id,
+        crfex_customers.crfexcus_code,
+        crfex_customers.crfexcus_datecreate,
+        crfex_customers.crfexcus_salesreps,
+        crfex_customers.crfexcus_nameEN,
+        crfex_customers.crfexcus_nameTH,
+        crfex_customers.crfexcus_address,
+        crfex_customers.crfexcus_file,
+        crfex_customers.crfexcus_tel,
+        crfex_customers.crfexcus_fax,
+        crfex_customers.crfexcus_email,
+        crfex_customers.crfexcus_creditlimit,
+        crfex_customers.crfexcus_term,
+        crfex_customers.crfexcus_discount,
+        crfex_customers.crfexcus_bg,
+        crfex_customers.crfexcus_his_month1,
+        crfex_customers.crfexcus_his_tvolume1,
+        crfex_customers.crfexcus_histsales1,
+        crfex_customers.crfexcus_his_month2,
+        crfex_customers.crfexcus_his_tvolume2,
+        crfex_customers.crfexcus_histsales2,
+        crfex_customers.crfexcus_his_month3,
+        crfex_customers.crfexcus_his_tvolume3,
+        crfex_customers.crfexcus_histsales3,
+        crfex_customers.crfexcus_usercreate,
+        crfex_customers.crfexcus_userecode,
+        crfex_customers.crfexcus_userdeptcode,
+        crfex_customers.crfexcus_userdatetimecreate,
+        crfex_customers.crfexcus_usermodify,
+        crfex_customers.crfexcus_userecodemodify,
+        crfex_customers.crfexcus_userdeptcodemodify,
+        crfex_customers.crfexcus_datetimemodify,
+        crfex_customers.crfexcus_payment,
+        crfex_customers.crfexcus_area
+        FROM
+        crfex_customers
+        WHERE crfexcus_nameEN LIKE '$cusName%' ORDER BY crfexcus_code DESC
+        ");
+
+
+        $output = "";
+        foreach ($query->result() as $rs) {
+            $output .= "<ul class='list-group'>";
+            $output .= "<a href='javascript:void(0)' class='selectCusCodeExName' 
+            data_crfex_salesreps = '$rs->crfexcus_salesreps'
+            data_crfex_cusnameEN = '$rs->crfexcus_nameEN'
+            data_crfex_cusnameTH = '$rs->crfexcus_nameTH'
+            data_crfex_address = '$rs->crfexcus_address'
+            data_crfex_tel = '$rs->crfexcus_tel'
+            data_crfex_fax = '$rs->crfexcus_fax'
+            data_crfex_email = '$rs->crfexcus_email'
+            data_crfex_file = '$rs->crfexcus_file'
+            data_crfex_creditlimit = '$rs->crfexcus_creditlimit'
+            data_crfex_term = '$rs->crfexcus_term'
+            data_crfex_discount = '$rs->crfexcus_discount'
+            data_crfex_bg = '$rs->crfexcus_bg'
+            data_crfex_cuscode = '$rs->crfexcus_code'
+            data_crfex_cusid = '$rs->crfexcus_id'
+            data_crfex_cuspayment = '$rs->crfexcus_payment'
+            data_crfexcus_area = '$rs->crfexcus_area'
+
+            ><li class='list-group-item'>" . $rs->crfexcus_nameEN . " (" . $rs->crfexcus_area . ")" . "</li></a>";
+            $output .= "</ul>";
+        }
+
+        echo $output;
+    }
+
+
+
+
+
+
 
 
 

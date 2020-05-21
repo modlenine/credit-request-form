@@ -125,6 +125,7 @@
                         <label for="">Customer name (in English) : &nbsp;</label>
                         <input type="text" name="crfex_cusnameEN" id="crfex_cusnameEN" class="form-control form-control-sm">
                         <div id="alert_crfex_cusnameEN"></div>
+                        <div id="autoCusCodeExName"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">Customer name (in Thai)</label>
