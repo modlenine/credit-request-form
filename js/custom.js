@@ -96,6 +96,36 @@ $(document).ready(function () {
         // 2 = ลูกค้าเดิม
         if ($(this).val() == 2) {
             var unclick = 'return false';
+
+
+            // Control Save Data ลูกค้าเก่า
+            $('#crf_customercode').on('keyup', function () {
+                var cusCode = $(this).val();
+                if (cusCode != '') {
+                    autoSearchCustomerDetail(cusCode);
+                } else {
+                    $('#autoCusCode').html('')
+                }
+
+            });
+
+
+
+            // Auto search customer name
+            $('#crf_customername').on('keyup', function () {
+                var cusname = $(this).val();
+
+                if (cusname != '') {
+                    autoSearchCustomerDetailName(cusname);
+                } else {
+                    $('#autoCusname').html('')
+                }
+            });
+
+
+
+
+
             $('#alert_custype').html('');
 
             $('.suboldcustomer').css('display', '');
@@ -2557,15 +2587,15 @@ $(document).ready(function () {
 
 
     // Control Save Data ลูกค้าเก่า
-    $('#crf_customercode').on('keyup', function () {
-        var cusCode = $(this).val();
-        if (cusCode != '') {
-            autoSearchCustomerDetail(cusCode);
-        } else {
-            $('#autoCusCode').html('')
-        }
+    // $('#crf_customercode').on('keyup', function () {
+    //     var cusCode = $(this).val();
+    //     if (cusCode != '') {
+    //         autoSearchCustomerDetail(cusCode);
+    //     } else {
+    //         $('#autoCusCode').html('')
+    //     }
 
-    });
+    // });
 
     $(document).on('click', '.selectCusCode', function () {
 
@@ -2751,15 +2781,17 @@ $(document).ready(function () {
 
 
     // Auto search customer name
-    $('#crf_customername').on('keyup', function () {
-        var cusname = $(this).val();
+    // $('#crf_customername').on('keyup', function () {
+    //     var cusname = $(this).val();
 
-        if (cusname != '') {
-            autoSearchCustomerDetailName(cusname);
-        } else {
-            $('#autoCusname').html('')
-        }
-    });
+    //     if (cusname != '') {
+    //         autoSearchCustomerDetailName(cusname);
+    //     } else {
+    //         $('#autoCusname').html('')
+    //     }
+    // });
+
+
     $(document).on('click', '.selectCusName', function () {
         var data_crf_salesreps = $(this).attr('data_crf_salesreps');
         var data_crf_customername = $(this).attr('data_crf_customername');
@@ -3684,6 +3716,7 @@ $(document).ready(function () {
             // Un check radio button
             $('input:radio[id="crfex_custype2v"]').attr('onclick', 'return false');
             $('#crfex_custype1v').prop('checked', true);
+            $('.view_currentCredit , .creditlimitCondition_view , .calCurrentCus_view , .SumCurrentCus_view').remove();
         } else if ($('#check_crfex_custype').val() == 2) {
             $('input:radio[id="crfex_custype2v"]').prop('checked', true);
             $('.excurcusmethod').css('display', '');
@@ -3737,7 +3770,7 @@ $(document).ready(function () {
             });
 
         }
-        else if (checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
+        else if (checkStatus == 'Manager approved' || checkStatus == 'CS Added BR CODE' || checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve' || checkStatus == 'Manager Not Approve' || checkStatus == 'Account Manager Not Approve' || checkStatus == 'Director Not Approve') {
             $('.managerSection').css('display', 'none');
             $('.managerSection1').css('display', '');
 
@@ -3786,7 +3819,7 @@ $(document).ready(function () {
             });
 
         }
-        else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve') {
+        else if (checkStatus == 'Account Manager Approved' || checkStatus == 'Director Approved' || checkStatus == 'Completed' || checkStatus == 'Waiting for second director approve' || checkStatus == 'Account Manager Not Approve' || checkStatus == 'Director Not Approve') {
             $('.accManagerApprove1').css('display', '');
         }
 
@@ -3836,8 +3869,9 @@ $(document).ready(function () {
             } else {
 
             }
-
-
+        } else if (checkStatus == 'Director Not Approve') {
+            $('.directorApprove1show').css('display', '');
+            $('.directorApprove2show').css('display', '');
         }
 
         if ($('#check_director_status').val() == 'Approve') {
@@ -3848,7 +3882,7 @@ $(document).ready(function () {
 
         if ($('#check_director_status2').val() == 'Approve') {
             $('#ex_directorApprove21').prop('checked', true);
-        } else if ($('#check_director_status').val() == 'Not approve') {
+        } else if ($('#check_director_status2').val() == 'Not approve') {
             $('#ex_directorApprove22').prop('checked', true);
         }
 
@@ -4033,6 +4067,7 @@ $(document).ready(function () {
             $('.cusHistory').prop('readonly', true);
             $('input:checkbox').attr('onclick', 'return false');
             $('#crfex_creditlimit2 , #crfex_term2 , #crfex_discount2').prop('readonly', true);
+            $('.exEditcurrentCredit , .creditlimitCondition , .calCurrentCus , .SumCurrentCus').remove();
 
         } else {
             $('#crfex_custype1').prop('checked', false);

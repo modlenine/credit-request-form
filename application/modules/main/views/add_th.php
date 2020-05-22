@@ -307,7 +307,7 @@
                 <label for="">
                     <h6><b><u>บุคคลในแต่ละระดับบริหารที่สำคัญ</u></b>&nbsp;&nbsp;<a href="javascript:void(0)"><i id="editPrimanage_addpage" class="fas fa-edit" style="color:orange;display:none;"></i></a></h6>
                 </label>
-                <input type="text" name="checkprimanagenull" id="checkprimanagenull">
+                <input hidden type="text" name="checkprimanagenull" id="checkprimanagenull">
                 <div id="priManage" class="row form-group newPrimanage">
                     <div class="col-md-3 form-group">
                         <label for="">หน่วยงาน</label>

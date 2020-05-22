@@ -2310,7 +2310,7 @@ class Main_model extends CI_Model
             } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
-            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
+            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not Approve" || $row->crfex_status == "Manager Not Approve" || $row->crfex_status == "Director Not Approve") {
                 $statusColor = "color:#CC0000;";
                 $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
@@ -2407,7 +2407,7 @@ class Main_model extends CI_Model
             } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
-            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
+            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not Approve" || $row->crfex_status == "Manager Not Approve" || $row->crfex_status == "Director Not Approve") {
                 $statusColor = "color:#CC0000;";
                 $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
@@ -2503,7 +2503,7 @@ class Main_model extends CI_Model
             } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
-            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
+            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not Approve" || $row->crfex_status == "Manager Not Approve" || $row->crfex_status == "Director Not Approve") {
                 $statusColor = "color:#CC0000;";
                 $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
@@ -2601,7 +2601,7 @@ class Main_model extends CI_Model
             } else if ($row->crfex_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
-            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not approved") {
+            } else if ($row->crfex_status == "Cancel" || $row->crfex_status == "Sales Manager Not Approve" || $row->crfex_status == "Account Manager Not Approve" || $row->crfex_status == "Manager Not Approve" || $row->crfex_status == "Director Not Approve") {
                 $statusColor = "color:#CC0000;";
                 $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
@@ -3093,6 +3093,8 @@ class Main_model extends CI_Model
 
                 if ($this->input->post("crf_sub_oldcus_editcustomer") != "") {
                     $arUpdateCustomer = array(
+                        "crfcus_taxid" => $this->input->post("edit_customertaxid"),
+                        "crfcus_branch" => $this->input->post("edit_customerbranch"),
                         "crfcus_contactname" => $this->input->post("edit_namecontact"),
                         "crfcus_phone" => $this->input->post("edit_telcontact"),
                         "crfcus_fax" => $this->input->post("edit_faxcontact"),
@@ -3100,6 +3102,7 @@ class Main_model extends CI_Model
                         "crfcus_regiscapital" => conPrice($this->input->post("edit_regiscost")),
                         "crfcus_mapurl" => $mapUrl,
                         "crfcus_mapfile" => $resultMapFile,
+                        "crfcus_products" => $this->input->post("edit_crf_customer_products"),
                         "crfcus_usermodify" => $this->input->post("crf_userpost"),
                         "crfcus_usermodify_ecode" => $this->input->post("crf_userecodepost"),
                         "crfcus_usermodify_deptcode" => $this->input->post("crf_userdeptcodepost"),

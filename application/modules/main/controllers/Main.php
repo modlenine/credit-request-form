@@ -771,7 +771,7 @@ class Main extends MX_Controller
     {
         if (isset($_POST['ex_csSubmit'])) {
             $this->main->exCsAddBr($crfexid);
-            header("refresh:0; url=" . base_url('main/listex'));
+            
         }
     }
 

@@ -27,13 +27,13 @@
 
 
                 <!-- Get data for check -->
-                <input  type="text" name="checkEdit_crfex_company" id="checkEdit_crfex_company" value="{checkEdit-crfex_company}">
-                <input  type="text" name="checkEditFormNo" id="checkEditFormNo" value="{checkEdit-crfex_formno}">
-                <input  type="text" name="checkEditFormId" id="checkEditFormId" value="{checkEdit-crfex_id}">
-                <input  type="text" name="checkEditPage" id="checkEditPage" value="{checkEditPage}">
-                <input  type="text" name="checkEditCustype" id="checkEditCustype" value="{checkEdit-crfex_custype}">
-                <input  type="text" name="checkEditcurcustopic1" id="checkEditcurcustopic1" value="{checkEdit-crfex_curcustopic1}">
-                <input  type="text" name="checkEditcurcustopic2" id="checkEditcurcustopic2" value="{checkEdit-crfex_curcustopic2}">
+                <input hidden type="text" name="checkEdit_crfex_company" id="checkEdit_crfex_company" value="{checkEdit-crfex_company}">
+                <input hidden type="text" name="checkEditFormNo" id="checkEditFormNo" value="{checkEdit-crfex_formno}">
+                <input hidden type="text" name="checkEditFormId" id="checkEditFormId" value="{checkEdit-crfex_id}">
+                <input hidden type="text" name="checkEditPage" id="checkEditPage" value="{checkEditPage}">
+                <input hidden type="text" name="checkEditCustype" id="checkEditCustype" value="{checkEdit-crfex_custype}">
+                <input hidden type="text" name="checkEditcurcustopic1" id="checkEditcurcustopic1" value="{checkEdit-crfex_curcustopic1}">
+                <input hidden type="text" name="checkEditcurcustopic2" id="checkEditcurcustopic2" value="{checkEdit-crfex_curcustopic2}">
 
                 <div id="alert_crfex_company"></div>
                 <div class="row form-group mt-3 p-2">

@@ -41,6 +41,7 @@ function getDataEmail($formno)
     crf_topic2,
     crf_topic3,
     crf_topic4,
+    crf_topic5,
     c.crfcus_name,
     c.crfcus_salesreps,
     c.crfcus_formno,
@@ -122,6 +123,10 @@ function getDataEmailEx($formno)
     a.crfex_directorapp_datetime,
     a.crfex_directorapp_status,
     a.crfex_directorapp_detail,
+    a.crfex_directorapp_username2,
+    a.crfex_directorapp_datetime2,
+    a.crfex_directorapp_status2,
+    a.crfex_directorapp_detail2,
     a.crfex_acccuscode,
     a.crfex_accuserpost,
     a.crfex_accdatetime,
@@ -267,7 +272,7 @@ function emailSaveDataTH($subject , $body ,$to , $cc)
           }
         </style>
     '.$body;
-    // $mail->send();
+    $mail->send();
 }
 
 

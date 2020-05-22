@@ -443,14 +443,14 @@
                 <hr>
                 <h6><b><u>FOR SALES OR CS MANAGER APPROVE</u></b></h6>
                 <!-- Check Zone -->
-                <input hidden type="text" name="mgr_FormnoEx" id="mgr_FormnoEx" value="{crfex_formno}">
-                <input hidden type="text" name="mgr_cusType" id="mgr_cusType" value="{customertype}">
+                <input  type="text" name="mgr_FormnoEx" id="mgr_FormnoEx" value="{crfex_formno}">
+                <input  type="text" name="mgr_cusType" id="mgr_cusType" value="{customertype}">
 
 
                 <div class="row form-group">
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_mgrApprove" id="ex_mgrApprove" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_mgrApprove" id="ex_mgrApprove" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_mgrApprove" id="ex_mgrApprove" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -478,7 +478,7 @@
 
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_mgrApprove1" id="ex_mgrApprove1" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_mgrApprove2" id="ex_mgrApprove2" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_mgrApprove2" id="ex_mgrApprove2" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -570,7 +570,7 @@
 
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_accMgrApprove" id="ex_accMgrApprove" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_accMgrApprove" id="ex_accMgrApprove" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_accMgrApprove" id="ex_accMgrApprove" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -599,7 +599,7 @@
                 <input hidden type="text" name="check_ex_accMgrApprove" id="check_ex_accMgrApprove" value="{crfex_accmgr_status}">
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_accMgrApprove1" id="ex_accMgrApprove1" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_accMgrApprove2" id="ex_accMgrApprove2" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_accMgrApprove2" id="ex_accMgrApprove2" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -637,7 +637,7 @@
 
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_directorApprove" id="ex_directorApprove" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_directorApprove" id="ex_directorApprove" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_directorApprove" id="ex_directorApprove" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -668,7 +668,7 @@
                 <input hidden type="text" name="check_director_status" id="check_director_status" value="{crfex_directorapp_status}">
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_directorApprove1" id="ex_directorApprove1" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -703,7 +703,7 @@
 
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_directorApprove2" id="ex_directorApprove2" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
@@ -734,7 +734,7 @@
                 <input hidden type="text" name="check_director_status2" id="check_director_status2" value="{crfex_directorapp_status2}">
                     <div class="col-md-12 form-group">
                         <input type="radio" name="ex_directorApprove21" id="ex_directorApprove21" value="Approve">&nbsp;<label for="">Approve</label>&nbsp;&nbsp;
-                        <input type="radio" name="ex_directorApprove22" id="ex_directorApprove22" value="Notapprove">&nbsp;<label for="">Not approve</label>
+                        <input type="radio" name="ex_directorApprove22" id="ex_directorApprove22" value="Not approve">&nbsp;<label for="">Not approve</label>
                     </div>
                     <div class="col-md-8 form-group">
                         <label for="">Reasons for approval.</label>
