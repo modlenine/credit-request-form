@@ -42,6 +42,8 @@ function saveApprove($crfid)
             "crf_mgrapprove_status" => $obj->gci()->input->post("mgr_appro"),
             "crf_status" => "Manager Not Approve"
         );
+        $obj->gci()->db->where("crf_id", $crfid);
+        $obj->gci()->db->update("crf_maindata", $mgrArray);
 
         $arCustomerTemp = array(
             "crfcus_tempstatus" => "Not approve",
@@ -58,14 +60,14 @@ function saveApprove($crfid)
         if ($obj->gci()->input->post("mgr_appro") == "อนุมัติ"){
             $obj->gci()->email->sendemail_toCs($obj->gci()->input->post("saleMgrFormno"));
         }else{
-
+            $obj->gci()->email->sendemail_InMgrNotApprove($obj->gci()->input->post("saleMgrFormno"));
         }
         
     } else if ($obj->gci()->input->post("cusTypeForEmail") == 2) {
         if ($obj->gci()->input->post("mgr_appro") == "อนุมัติ"){
             $obj->gci()->email->sendemail_toAccMgr2($obj->gci()->input->post("saleMgrFormno"));
         }else{
-            
+            $obj->gci()->email->sendemail_InMgrNotApprove($obj->gci()->input->post("saleMgrFormno"));
         }
         
     }
@@ -112,43 +114,95 @@ function saveAccMgr($crfid)
     $customerType = $obj->gci()->input->post("accMgr_cusTypeForEmail");
 
     if ($customerType == 1) {
+
         if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
-            $status = "Account Manager Approved";
+            $arAccMgr = array(
+                "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                "crf_status" => "Account Manager Approved"
+            );
+    
+            $obj->gci()->db->where("crf_id", $crfid);
+            $obj->gci()->db->update("crf_maindata", $arAccMgr);
         } else {
-            $status = "Account Manager Not approved";
 
             $arCustomerTemp = array(
+                "crfcus_brcode" => "",
                 "crfcus_tempstatus" => "Not approve",
                 "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
             );
             $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("accMgrCuscode"));
             $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
+
+            $arAccMgr = array(
+                "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                "crf_status" => "Account Manager Not approve"
+            );
+    
+            $obj->gci()->db->where("crf_id", $crfid);
+            $obj->gci()->db->update("crf_maindata", $arAccMgr);
         }
 
-        $arAccMgr = array(
-            "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
-            "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
-            "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
-            "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
-            "crf_status" => $status
-        );
 
-        $obj->gci()->db->where("crf_id", $crfid);
-        $obj->gci()->db->update("crf_maindata", $arAccMgr);
+
+
+
 
         if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 1) {
-            $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
+            if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ"){
+                $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
+            }else{
+                $obj->gci()->email->sendemail_InAccMgrNotApprove($obj->gci()->input->post("accMgrFormno"));
+            }
+            
         } else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
-            $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+            if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ"){
+                $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+            }else{
+                $obj->gci()->email->sendemail_InAccMgrNotApprove($obj->gci()->input->post("accMgrFormno"));
+            }
+            
         }
+
     } else {
 
         if ($method3 || $method4 != 0) {
 
             if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
-                $status = "Account Manager Approved";
+
+                $arAccMgr = array(
+                    "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                    "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                    "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                    "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                    "crf_status" => "Account Manager Approved"
+                );
+    
+                $obj->gci()->db->where("crf_id", $crfid);
+                $obj->gci()->db->update("crf_maindata", $arAccMgr);
+    
+                // if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 1) {
+                //     $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
+                // } else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
+                //     $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+                // }
             } else {
-                $status = "Account Manager Not approved";
+
+                $arAccMgr = array(
+                    "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                    "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                    "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                    "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                    "crf_status" => "Account Manager Not approve"
+                );
+    
+                $obj->gci()->db->where("crf_id", $crfid);
+                $obj->gci()->db->update("crf_maindata", $arAccMgr);
 
                 $arCustomerTemp = array(
                     "crfcus_tempstatus" => "Not approve",
@@ -158,28 +212,31 @@ function saveAccMgr($crfid)
                 $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
             }
 
-            $arAccMgr = array(
-                "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
-                "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
-                "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
-                "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
-                "crf_status" => $status
-            );
-
-            $obj->gci()->db->where("crf_id", $crfid);
-            $obj->gci()->db->update("crf_maindata", $arAccMgr);
-
-            if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 1) {
-                $obj->gci()->email->sendemail_toDerector1($obj->gci()->input->post("accMgrFormno"));
-            } else if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
-                $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+            if ($obj->gci()->input->post("accMgr_cusTypeForEmail") == 2) {
+                if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ"){
+                    $obj->gci()->email->sendemail_toDerector1type2($obj->gci()->input->post("accMgrFormno"));
+                }else{
+                    $obj->gci()->email->sendemail_InAccMgrNotApprove($obj->gci()->input->post("accMgrFormno"));
+                }
+                
             }
+
+
         } else {
 
             if ($obj->gci()->input->post("mgracc_appro") == "อนุมัติ") {
-                $status = "Account staff process";
+                $arAccMgr = array(
+                    "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                    "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                    "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                    "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                    "crf_status" => "Account staff process"
+                );
+    
+                $obj->gci()->db->where("crf_id", $crfid);
+                $obj->gci()->db->update("crf_maindata", $arAccMgr);
+                $obj->gci()->email->sendemail_toAccStaff3($obj->gci()->input->post("accMgrFormno"));
             } else {
-                $status = "Account Manager Not approved";
 
                 $arCustomerTemp = array(
                     "crfcus_tempstatus" => "Not approve",
@@ -187,19 +244,19 @@ function saveAccMgr($crfid)
                 );
                 $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("accMgrCuscode"));
                 $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
+
+                $arAccMgr = array(
+                    "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
+                    "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
+                    "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
+                    "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
+                    "crf_status" => "Account Manager Not approve"
+                );
+    
+                $obj->gci()->db->where("crf_id", $crfid);
+                $obj->gci()->db->update("crf_maindata", $arAccMgr);
+                $obj->gci()->email->sendemail_InAccMgrNotApprove($obj->gci()->input->post("accMgrFormno"));
             }
-
-            $arAccMgr = array(
-                "crf_accmgr_detail" => $obj->gci()->input->post("crf_accmgr_detail"),
-                "crf_accmgr_name" => $obj->gci()->input->post("crf_accmgr_name"),
-                "crf_accmgr_datetime" => conDateTimeToDb($obj->gci()->input->post("crf_accmgr_datetime")),
-                "crf_accmgrapprove_status" => $obj->gci()->input->post("mgracc_appro"),
-                "crf_status" => $status
-            );
-
-            $obj->gci()->db->where("crf_id", $crfid);
-            $obj->gci()->db->update("crf_maindata", $arAccMgr);
-            $obj->gci()->email->sendemail_toAccStaff3($obj->gci()->input->post("accMgrFormno"));
         }
     }
 }
@@ -209,33 +266,47 @@ function saveDerector1($crfid)
 {
     $obj = new addfn();
     $obj->gci()->load->model('main/email_model', 'email');
+
     if ($obj->gci()->input->post("director1_appro") == "อนุมัติ") {
         if (check_directorapprove($crfid)->crf_directorapprove_status2 == "อนุมัติ") {
             $status = "Directors approved";
         } else {
             $status = "Waiting for second director approve";
         }
+        $arDirector = array(
+            "crf_director_detail1" => $obj->gci()->input->post("crf_director_detail1"),
+            "crf_director_name1" => $obj->gci()->input->post("crf_director_name1"),
+            "crf_director_datetime1" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime1")),
+            "crf_directorapprove_status1" => $obj->gci()->input->post("director1_appro"),
+            "crf_status" => $status
+        );
+    
+        $obj->gci()->db->where("crf_id", $crfid);
+        $obj->gci()->db->update("crf_maindata", $arDirector);
     } else {
-        $status = "Director Not approved";
+        $status = "Director Not approve";
 
         $arCustomerTemp = array(
+            "crfcus_brcode" => "",
             "crfcus_tempstatus" => "Not approve",
             "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
         );
         $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director1Cuscode"));
         $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
+
+        $arDirector = array(
+            "crf_director_detail1" => $obj->gci()->input->post("crf_director_detail1"),
+            "crf_director_name1" => $obj->gci()->input->post("crf_director_name1"),
+            "crf_director_datetime1" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime1")),
+            "crf_directorapprove_status1" => $obj->gci()->input->post("director1_appro"),
+            "crf_status" => $status
+        );
+    
+        $obj->gci()->db->where("crf_id", $crfid);
+        $obj->gci()->db->update("crf_maindata", $arDirector);
+            $obj->gci()->email->sendemail_InDirectorNotApprove($obj->gci()->input->post("direc2FormNo"));
     }
 
-    $arDirector = array(
-        "crf_director_detail1" => $obj->gci()->input->post("crf_director_detail1"),
-        "crf_director_name1" => $obj->gci()->input->post("crf_director_name1"),
-        "crf_director_datetime1" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime1")),
-        "crf_directorapprove_status1" => $obj->gci()->input->post("director1_appro"),
-        "crf_status" => $status
-    );
-
-    $obj->gci()->db->where("crf_id", $crfid);
-    $obj->gci()->db->update("crf_maindata", $arDirector);
 
     // if($obj->gci()->input->post("direc1_cusTypeForEmail") == 1){
     //     $obj->gci()->email->sendemail_toDerector2($obj->gci()->input->post("director1Formno"));
@@ -257,27 +328,41 @@ function saveDerector2($crfid)
         } else {
             $status = "Waiting for second director approve";
         }
+
+        $arDirector = array(
+            "crf_director_detail2" => $obj->gci()->input->post("crf_director_detail2"),
+            "crf_director_name2" => $obj->gci()->input->post("crf_director_name2"),
+            "crf_director_datetime2" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime2")),
+            "crf_directorapprove_status2" => $obj->gci()->input->post("director2_appro"),
+            "crf_status" => $status
+        );
+    
+        $obj->gci()->db->where("crf_id", $crfid);
+        $obj->gci()->db->update("crf_maindata", $arDirector);
     } else {
-        $status = "Director Not approved";
+        $status = "Director Not approve";
 
         $arCustomerTemp = array(
+            "crfcus_brcode" => "",
             "crfcus_tempstatus" => "Not approve",
             "crfcus_datetimeupdate" => date("Y-m-d H:i:s")
         );
         $obj->gci()->db->where("crfcus_id", $obj->gci()->input->post("Director2Cuscode"));
         $obj->gci()->db->update("crf_customers_temp", $arCustomerTemp);
+
+        $arDirector = array(
+            "crf_director_detail2" => $obj->gci()->input->post("crf_director_detail2"),
+            "crf_director_name2" => $obj->gci()->input->post("crf_director_name2"),
+            "crf_director_datetime2" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime2")),
+            "crf_directorapprove_status2" => $obj->gci()->input->post("director2_appro"),
+            "crf_status" => $status
+        );
+    
+        $obj->gci()->db->where("crf_id", $crfid);
+        $obj->gci()->db->update("crf_maindata", $arDirector);
+        $obj->gci()->email->sendemail_InDirectorNotApprove($obj->gci()->input->post("direc2FormNo"));
     }
 
-    $arDirector = array(
-        "crf_director_detail2" => $obj->gci()->input->post("crf_director_detail2"),
-        "crf_director_name2" => $obj->gci()->input->post("crf_director_name2"),
-        "crf_director_datetime2" => conDateTimeToDb($obj->gci()->input->post("crf_director_datetime2")),
-        "crf_directorapprove_status2" => $obj->gci()->input->post("director2_appro"),
-        "crf_status" => $status
-    );
-
-    $obj->gci()->db->where("crf_id", $crfid);
-    $obj->gci()->db->update("crf_maindata", $arDirector);
     // $obj->gci()->email->sendemail_toAccStaff($obj->gci()->input->post("direc2FormNo"));
 }
 

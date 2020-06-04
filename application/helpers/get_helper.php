@@ -144,7 +144,7 @@ function getCustomerNumber()
     $obj = new getfn();
     // check formno ซ้ำในระบบ
     $checkRowdata = $obj->gci()->db->query("SELECT
-    crfcus_id FROM crf_customers_temp ORDER BY crfcus_id DESC LIMIT 1 
+    crfcus_id FROM crf_customers ORDER BY crfcus_id DESC LIMIT 1 
     ");
     $result = $checkRowdata->num_rows();
 
@@ -651,3 +651,116 @@ function checkdirecStatus($crfexid , $diretype)
     return $query->row();
 }
 // export end
+
+
+
+function getcustomerlist()
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crf_customers.crfcus_id,
+    crf_customers.crfcus_code,
+    crf_customers.crfcus_brcode,
+    crf_customers.crfcus_salesreps,
+    crf_customers.crfcus_name,
+    crf_customers.crfcus_comdatecreate,
+    crf_customers.crfcus_taxid,
+    crf_customers.crfcus_branch,
+    crf_customers.crfcus_addresstype,
+    crf_customers.crfcus_address,
+    crf_customers.crfcus_contactname,
+    crf_customers.crfcus_phone,
+    crf_customers.crfcus_fax,
+    crf_customers.crfcus_email,
+    crf_customers.crfcus_regiscapital,
+    crf_customers.crfcus_mapurl,
+    crf_customers.crfcus_mapfile,
+    crf_customers.crfcus_companytype,
+    crf_customers.crfcus_comtype2,
+    crf_customers.crfcus_comtype31,
+    crf_customers.crfcus_comtype32,
+    crf_customers.crfcus_comtype33,
+    crf_customers.crfcus_comtype34,
+    crf_customers.crfcus_typebussi,
+    crf_customers.crfcus_products,
+    crf_customers.crfcus_forecast,
+    crf_customers.crfcus_file1,
+    crf_customers.crfcus_file2,
+    crf_customers.crfcus_file3,
+    crf_customers.crfcus_file4,
+    crf_customers.crfcus_file5,
+    crf_customers.crfcus_file6,
+    crf_customers.crfcus_creditterm,
+    crf_customers.crfcus_creditterm2,
+    crf_customers.crfcus_conditionbill,
+    crf_customers.crfcus_tablebill,
+    crf_customers.crfcus_mapbill,
+    crf_customers.crfcus_datebill,
+    crf_customers.crfcus_mapbill2,
+    crf_customers.crfcus_conditionmoney,
+    crf_customers.crfcus_cheuqetable,
+    crf_customers.crfcus_cheuqedetail,
+    crf_customers.crfcus_moneylimit,
+    crf_customers.crfcus_moneylimit2,
+    crf_customers.crfcus_usercreate,
+    crf_customers.crfcus_usercreate_ecode,
+    crf_customers.crfcus_usercreate_deptcode,
+    crf_customers.crfcus_datemodify,
+    crf_customers.crfcus_usermodify,
+    crf_customers.crfcus_usermodify_ecode,
+    crf_customers.crfcus_usermodify_deptcode,
+    crf_customers.crfcus_usermodify_datetime,
+    crf_customers.crfcus_area
+    FROM
+    crf_customers
+    ORDER BY crf_customers.crfcus_id DESC");
+    return $query;
+}
+
+
+
+function getcustomerlistEx()
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crfex_customers.crfexcus_id,
+    crfex_customers.crfexcus_area,
+    crfex_customers.crfexcus_code,
+    crfex_customers.crfexcus_brcode,
+    crfex_customers.crfexcus_datecreate,
+    crfex_customers.crfexcus_salesreps,
+    crfex_customers.crfexcus_nameEN,
+    crfex_customers.crfexcus_nameTH,
+    crfex_customers.crfexcus_address,
+    crfex_customers.crfexcus_file,
+    crfex_customers.crfexcus_tel,
+    crfex_customers.crfexcus_fax,
+    crfex_customers.crfexcus_email,
+    crfex_customers.crfexcus_payment,
+    crfex_customers.crfexcus_creditlimit,
+    crfex_customers.crfexcus_term,
+    crfex_customers.crfexcus_discount,
+    crfex_customers.crfexcus_bg,
+    crfex_customers.crfexcus_his_month1,
+    crfex_customers.crfexcus_his_tvolume1,
+    crfex_customers.crfexcus_histsales1,
+    crfex_customers.crfexcus_his_month2,
+    crfex_customers.crfexcus_his_tvolume2,
+    crfex_customers.crfexcus_histsales2,
+    crfex_customers.crfexcus_his_month3,
+    crfex_customers.crfexcus_his_tvolume3,
+    crfex_customers.crfexcus_histsales3,
+    crfex_customers.crfexcus_usercreate,
+    crfex_customers.crfexcus_userecode,
+    crfex_customers.crfexcus_userdeptcode,
+    crfex_customers.crfexcus_userdatetimecreate,
+    crfex_customers.crfexcus_usermodify,
+    crfex_customers.crfexcus_userecodemodify,
+    crfex_customers.crfexcus_userdeptcodemodify,
+    crfex_customers.crfexcus_datetimemodify
+    FROM
+    crfex_customers
+    ORDER BY crfexcus_id DESC
+    ");
+    return $query;
+}

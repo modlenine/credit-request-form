@@ -6,7 +6,7 @@ class Report extends MX_Controller
     {
         parent::__construct();
         //Do your magic here
-        require_once("vendor/autoload.php");
+        // require_once("vendor/autoload.php");
     }
 
 

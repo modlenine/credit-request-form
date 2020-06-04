@@ -3,16 +3,16 @@ $(document).ready(function () {
 
     // Date pickup use 	// Date pickup use 	// Date pickup use
     // Date pickup use 	// Date pickup use 	// Date pickup use
-    $('.datapicker').pickadate({
-        monthsFull: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
-        weekdaysShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-        today: 'วันนี้',
-        clear: 'ล้าง',
-        format: 'dd-mm-yyyy',
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenName: true,
-        editable: true
-    });
+    // $('.datapicker').pickadate({
+    //     monthsFull: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+    //     weekdaysShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+    //     today: 'วันนี้',
+    //     clear: 'ล้าง',
+    //     format: 'dd-mm-yyyy',
+    //     formatSubmit: 'yyyy-mm-dd',
+    //     hiddenName: true,
+    //     editable: true
+    // });
 
 
     // Set Default Form  // Set Default Form 
@@ -2336,7 +2336,7 @@ $(document).ready(function () {
 
     if (checkDeptCodeL == checkDeptCode && checkUserecodeL != checkUserecode && checkUserPosi > 15) {
         $('.author_manager').css('display', '');
-    } else if (checkStatus == "Sales Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process") {
+    } else if (checkStatus == "Manager Approved" || checkStatus == "CS POST BR" || checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process" || checkStatus == "Manager Not Approve" || checkStatus == "Account Manager Not approve" || checkStatus == "Director Not approve") {
         $('.author_manager').css('display', '');
     } else {
         $('.author_manager').css('display', 'none');
@@ -2420,14 +2420,14 @@ $(document).ready(function () {
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
         }
-    } else if (checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeSales == 1 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeAddress == 2 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeCreditTerm == 3 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeFinance == 4 || checkStatus == "Sales Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && editCustomer == 5) {
+    } else if (checkStatus == "Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeSales == 1 || checkStatus == "Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeAddress == 2 || checkStatus == "Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeCreditTerm == 3 || checkStatus == "Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && changeFinance == 4 || checkStatus == "Manager Approved" && checkDeptCodeL == 1003 && checkUserPosi > 15 && editCustomer == 5) {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
         }
     }
 
-    if (checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process") {
+    if (checkStatus == "Account Manager Approved" || checkStatus == "Directors approved" || checkStatus == "Completed" || checkStatus == "Account staff process" || checkStatus == "Account Manager Not approve" || checkStatus == "Director Not approve") {
         $('.acc_manager').css('display', '');
         if ($('#formgraccappro').val() == "") {
             $('.formgr_appro , #forcrf_accmgr_detail , #forcrf_accmgr_name , #forcrf_accmgr_datatime').css('display', 'none');
@@ -2465,15 +2465,15 @@ $(document).ready(function () {
         } else {
             $('.director1_appro , #crf_director_detail1 ,#crf_director_name1 , #crf_director_datatime1 , #director_submit1').css('display', 'none');
         }
-    } else if (checkStatus == "Waiting for second director approve" || checkStatus == "Second director approved" || checkStatus == "Directors approved") {
+    } else if (checkStatus == "Waiting for second director approve" || checkStatus == "Second director approved" || checkStatus == "Directors approved" || checkStatus == "Director Not approve") {
         $('.director1').css('display', '');
         $('.director1_appro , #crf_director_detail1 ,#crf_director_name1 , #crf_director_datatime1 , #director_submit1').css('display', 'none');
     }
 
     if ($('#checkfordirector1_appro').val() == "อนุมัติ") {
         $('input:radio[id="fordirector1_appro1"]').prop('checked', true);
-    } else {
-        $('input:radio[id="fordirector1_appro2"]').prop('checked', false);
+    } else if($('#checkfordirector1_appro').val() == "ไม่อนุมัติ"){
+        $('input:radio[id="fordirector1_appro2"]').prop('checked', true);
     }
 
     // validate submit button
@@ -2498,15 +2498,15 @@ $(document).ready(function () {
         } else {
             $('.director2_appro , #crf_director_detail2 ,#crf_director_name2 , #crf_director_datatime2 , #director_submit2').css('display', 'none');
         }
-    } else if (checkStatus == "Second director approved" || checkStatus == "Directors approved") {
+    } else if (checkStatus == "Second director approved" || checkStatus == "Directors approved" || checkStatus == "Director Not approve") {
         $('.director2').css('display', '');
         $('.director2_appro , #crf_director_detail2 ,#crf_director_name2 , #crf_director_datatime2 , #director_submit2').css('display', 'none');
     }
 
     if ($('#checkfordirector2_appro').val() == "อนุมัติ") {
         $('input:radio[id="fordirector2_appro1"]').prop('checked', true);
-    } else {
-        $('input:radio[id="fordirector2_appro2"]').prop('checked', false);
+    } else if($('#checkfordirector2_appro').val() == "ไม่อนุมัติ"){
+        $('input:radio[id="fordirector2_appro2"]').prop('checked', true);
     }
 
     // validate submit button
@@ -2628,7 +2628,7 @@ $(document).ready(function () {
         var data_crf_condition_money = $(this).attr('data_crf_condition_money');
         var data_crf_recive_cheuqetable = $(this).attr('data_crf_recive_cheuqetable');
         var data_crf_recive_cheuqedetail = $(this).attr('data_crf_recive_cheuqedetail');
-        var data_crf_finance = $(this).attr('data_crf_finance');
+        // var data_crf_finance = $(this).attr('data_crf_finance');
         var data_crf_finance_req_number = $(this).attr('data_crf_finance_req_number');
         var data_crf_cusid = $(this).attr('data_crf_cusid');
         var data_crf_creditterm2 = $(this).attr('data_crf_creditterm2');
@@ -2664,7 +2664,7 @@ $(document).ready(function () {
         $('#getmapfile_addpage').val(data_crf_mapfile);
         $('#crf_customer_product').val(data_crfcus_products);
 
-        // $('#value_crf_finance').val(data_crf_finance);
+
 
         if (data_crf_creditterm2 != '') {
             $('#crf_creditterm option:selected').val(data_crf_creditterm2).text(data_crf_creditterm2name);
@@ -2719,7 +2719,7 @@ $(document).ready(function () {
             $('input:radio[class="crf_typeofbussi2"]').prop('checked', true);
         }
 
-
+        $('.newPrimanage').css('display', 'none');
         queryProcessUse(data_crf_cusid);
         queryPrimanageUse(data_crf_cusid);
 
@@ -2756,13 +2756,6 @@ $(document).ready(function () {
         }
 
 
-        // if (data_crf_finance == "ขอวงเงิน") {
-        //     $('input:radio[class="crf_financev1"]').prop('checked', true);
-        //     $('.finance_request_detail').css('display', '');
-        //     $('#crf_finance_req_number').val(data_crf_finance_req_number);
-        // } else if (data_crf_finance == "ปรับวงเงิน") {
-        //     $('input:radio[class="crf_financev2"]').prop('checked', true);
-        // }
 
         $('#crf_finance_req_number').val(function (index, value) {
             return value
@@ -2822,7 +2815,7 @@ $(document).ready(function () {
         var data_crf_condition_money = $(this).attr('data_crf_condition_money');
         var data_crf_recive_cheuqetable = $(this).attr('data_crf_recive_cheuqetable');
         var data_crf_recive_cheuqedetail = $(this).attr('data_crf_recive_cheuqedetail');
-        var data_crf_finance = $(this).attr('data_crf_finance');
+        // var data_crf_finance = $(this).attr('data_crf_finance');
         var data_crf_finance_req_number = $(this).attr('data_crf_finance_req_number');
         var data_crf_cusid = $(this).attr('data_crf_cusid');
         var data_crf_creditterm2 = $(this).attr('data_crf_creditterm2');
@@ -2858,7 +2851,6 @@ $(document).ready(function () {
         $('#getmapfile_addpage').val(data_crf_mapfile);
         $('#crf_customer_product').val(data_crfcus_products);
 
-        // $('#value_crf_finance').val(data_crf_finance);
 
         if (data_crf_creditterm2 != '') {
             $('#crf_creditterm option:selected').val(data_crf_creditterm2).text(data_crf_creditterm2name);
@@ -2951,13 +2943,6 @@ $(document).ready(function () {
         }
 
 
-        // if (data_crf_finance == "ขอวงเงิน") {
-        //     $('input:radio[class="crf_financev1"]').prop('checked', true);
-        //     $('.finance_request_detail').css('display', '');
-        //     $('#crf_finance_req_number').val(data_crf_finance_req_number);
-        // } else if (data_crf_finance == "ปรับวงเงิน") {
-        //     $('input:radio[class="crf_financev2"]').prop('checked', true);
-        // }
 
         $('#crf_finance_req_number').val(function (index, value) {
             return value
@@ -4716,6 +4701,56 @@ $(document).ready(function () {
     // Button edit map url and map file
 
 
+
+// Zone load customer list
+if($('#checkPagecuslist').val() == "customerList"){
+    loadcustomerlist();
+}
+
+$('#addcus_customercode').blur(function(){
+    var cuscode = $('#addcus_customercode').val();
+    var area = $('input:radio[name="addcus_company"]:checked').val();
+    checkCuscodeManual(cuscode , area);
+});
+
+// Export
+if($('#checkPagecuslistEx').val() == "customerListEx"){
+    loadcustomerlistEx();
+}
+$('#addcusex_customercode').blur(function(){
+    var cuscode = $('#addcusex_customercode').val();
+    var area = $('input:radio[name="addcusex_company"]:checked').val();
+    checkCuscodeManualEx(cuscode , area);
+});
+
+
+
+// Check fill add customer manual export zone
+
+
+// Check company
+$('#addcusex_customercode').click(function(){
+    var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
+    if(addcusex_company.length < 1){
+        $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
+        $('#addcusex_customercode').val('');
+        exit;
+    }else{
+        $('#alert_addcusex_company').html('');
+    }
+});
+
+$('#addcusex_customercode').keyup(function(){
+    var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
+    if(addcusex_company.length < 1){
+        $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
+        $('#addcusex_customercode').val('');
+        exit;
+    }else{
+        $('#alert_addcusex_company').html('');
+    }
+});
+// Check company
 
 
 

@@ -1277,5 +1277,18 @@ class Main extends MX_Controller
 
         echo $output;
     }
+
+
+
+    public function geturl()
+    {
+        // echo $_SERVER['DOCUMENT_ROOT']. '/intsys/crf/upload/qrcode/';
+        $url = 'https://www.saleecolour.com/';
+        echo shorturl($url);
+    }
+
+
+
+
 }
 // Main Controller

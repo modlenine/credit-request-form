@@ -800,7 +800,7 @@ class Main_model extends CI_Model
             } else if ($row->crf_status == "Completed") {
                 $statusColor = "color:#009900;";
                 $lineStatusColor = "background-color:#009900;height:3px;";
-            } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved") {
+            } else if ($row->crf_status == "Cancel" || $row->crf_status == "Sales Manager Not Approve" || $row->crf_status == "Account Manager Not approved" || $row->crf_status == "Manager Not Approve" || $row->crf_status == "Account Manager Not approve" || $row->crf_status == "Director Not approve") {
                 $statusColor = "color:#CC0000;";
                 $lineStatusColor = "background-color:#CC0000;height:3px;";
             } else {
@@ -1460,12 +1460,12 @@ class Main_model extends CI_Model
         crf_customers.crfcus_cheuqetable,
         crf_customers.crfcus_cheuqedetail,
         crf_customers.crfcus_moneylimit,
-        crf_maindata.crf_finance,
+        -- crf_maindata.crf_finance,
         crf_customers.crfcus_usercreate,
         crf_customers.crfcus_usercreate_ecode,
         crf_customers.crfcus_usercreate_deptcode,
         crf_customers.crfcus_datemodify,
-        crf_maindata.crf_id,
+        -- crf_maindata.crf_id,
         crf_customers.crfcus_creditterm2,
         crf_customers.crfcus_area,
         crf_customers.crfcus_taxid,
@@ -1477,8 +1477,8 @@ class Main_model extends CI_Model
         crf_customers
         INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
         INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
-        INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
-        WHERE crfcus_code LIKE '$cusCode%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_maindata.crf_id DESC
+        -- INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
+        WHERE crfcus_code LIKE '$cusCode%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_customers.crfcus_id DESC
         ");
         $output = "";
         foreach ($query->result() as $rs) {
@@ -1514,7 +1514,6 @@ class Main_model extends CI_Model
             data_crf_mapbill = '$rs->crfcus_mapbill'
             data_crf_datebill = '$rs->crfcus_datebill'
             data_crf_mapbill2 = '$rs->crfcus_mapbill2'
-            data_crf_finance = '$rs->crf_finance'
             data_crf_finance_req_number = '$rs->crfcus_moneylimit'
             data_crf_creditterm2 = '$rs->crfcus_creditterm2'
             data_crf_creditterm2name = '$rs->crfcus_creditterm2'
@@ -1581,12 +1580,12 @@ class Main_model extends CI_Model
             crf_customers.crfcus_cheuqetable,
             crf_customers.crfcus_cheuqedetail,
             crf_customers.crfcus_moneylimit,
-            crf_maindata.crf_finance,
+            -- crf_maindata.crf_finance,
             crf_customers.crfcus_usercreate,
             crf_customers.crfcus_usercreate_ecode,
             crf_customers.crfcus_usercreate_deptcode,
             crf_customers.crfcus_datemodify,
-            crf_maindata.crf_id,
+            -- crf_maindata.crf_id,
             crf_customers.crfcus_creditterm2,
             crf_customers.crfcus_area,
             crf_customers.crfcus_taxid,
@@ -1598,8 +1597,8 @@ class Main_model extends CI_Model
             crf_customers
             INNER JOIN crf_company_type ON crf_company_type.crf_comid = crf_customers.crfcus_companytype
             INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm
-            INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
-            WHERE crfcus_name LIKE '%$cusname%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_maindata.crf_id DESC
+            -- INNER JOIN crf_maindata ON crf_maindata.crf_cuscode = crf_customers.crfcus_id
+            WHERE crfcus_name LIKE '%$cusname%' GROUP BY crf_customers.crfcus_code , crf_customers.crfcus_area  ORDER BY crf_customers.crfcus_id DESC
             ");
         $output = "";
         foreach ($query->result() as $rs) {
@@ -1635,7 +1634,6 @@ class Main_model extends CI_Model
                 data_crf_mapbill = '$rs->crfcus_mapbill'
                 data_crf_datebill = '$rs->crfcus_datebill'
                 data_crf_mapbill2 = '$rs->crfcus_mapbill2'
-                data_crf_finance = '$rs->crf_finance'
                 data_crf_finance_req_number = '$rs->crfcus_moneylimit'
                 data_crf_creditterm2 = '$rs->crfcus_creditterm2'
                 data_crf_creditterm2name = '$rs->crfcus_creditterm2'

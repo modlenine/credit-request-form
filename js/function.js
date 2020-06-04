@@ -474,3 +474,154 @@ function insertEmailSystem(email_account , email_password)
 
 
 
+// Function load customerlist
+function loadcustomerlist()
+{
+    $.ajax({
+        url:"/crf/customers/fetchCustomerlist",
+        method:"POST",
+        data:{
+
+        },
+        success:function(data){
+            $('#showCustomersList').html(data);
+
+            $('#customers_list thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#customers_list').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
+
+// Check Cuscode manual duplicate
+function checkCuscodeManual(cuscode , area)
+{
+    $.ajax({
+        url:"/crf/customers/fetchCustomercode",
+        method:"POST",
+        data:{
+            cuscode:cuscode,
+            area:area
+        },
+        success:function(data){
+            if(data > 0){
+                $('#alertCuscode').fadeIn();
+                $('#alertCuscode').html('<div class="alert alert-danger" role="alert">พบข้อมูลซ้ำในระบบ</div>').fadeOut(3500);
+                $('#addcus_customercode').val('');
+            }
+        }
+    });
+}
+
+// Export
+function loadcustomerlistEx()
+{
+    $.ajax({
+        url:"/crf/customers/fetchCustomerlistEx",
+        method:"POST",
+        data:{
+
+        },
+        success:function(data){
+            $('#showCustomersListEx').html(data);
+
+            $('#customers_listEx thead th').each(function() {
+                var title = $(this).text();
+                $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
+            });
+
+            var table = $('#customers_listEx').DataTable({
+                "columnDefs": [{
+                    "searching": false,
+                    "orderable": false,
+                    "targets": "_all"
+                }],
+                dom: 'Bfrtip',
+                "buttons": [{
+                        extend: 'copyHtml5',
+                        title: 'Credit request form.'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        autoFilter: true,
+                        title: 'Credit request form.'
+                    }
+                ],
+                "order": [
+                    [0, 'desc']
+                ]
+            });
+
+
+            table.columns().every(function() {
+                var table = this;
+                $('input', this.header()).on('keyup change', function() {
+                    if (table.search() !== this.value) {
+                        table.search(this.value).draw();
+                    }
+                });
+            });
+        }
+    });
+}
+
+
+// Check Duplicate customer code
+function checkCuscodeManualEx(cuscode , area)
+{
+    $.ajax({
+        url:"/crf/customers/fetchCustomercodeEx",
+        method:"POST",
+        data:{
+            cuscode:cuscode,
+            area:area
+        },
+        success:function(data){
+            if(data > 0){
+                $('#alertCuscodeEx').fadeIn();
+                $('#alertCuscodeEx').html('<div class="alert alert-danger" role="alert">Found Duplicate customer code!!</div>').fadeOut(3500);
+                $('#addcusex_customercode').val('');
+            }
+        }
+    });
+}
+
+
+
+
+
+

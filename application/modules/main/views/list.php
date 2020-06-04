@@ -44,7 +44,7 @@
 					<option value="จากเลขที่คำขอ">จากเลขที่คำขอ</option>
 					<option value="จากชื่อบริษัท">จากชื่อบริษัท</option>
 				</select>&nbsp;
-				<a href="javascript:void(0)" id="clearSearch"><i class="fas fa-trash-restore m-2" style="font-size:24px;color:#FF6600"></i></a>
+				<a href="javascript:void(0)" id="clearSearch"><i class="fas fa-undo m-2" style="font-size:24px;color:#FF6600"></i></a>
 			</div>
 
 			<!-- ค้นหาจากวันที่ -->
