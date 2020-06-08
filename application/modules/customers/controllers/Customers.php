@@ -67,7 +67,9 @@ class Customers extends MX_Controller {
             "datenow" => date("d-m-Y"),
             "username" => getUser()->Fname." ".getUser()->Lname,
             "deptname" => getUser()->Dept,
-            "datetimenow" => date("d-m-Y H:i:s")
+            "datetimenow" => date("d-m-Y H:i:s"),
+            "deptcode" => getUser()->DeptCode,
+            "ecode" => getUser()->ecode
         );
         getHead();
         getContentData("addcustomerEx" , $data);

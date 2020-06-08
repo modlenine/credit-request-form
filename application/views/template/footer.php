@@ -21,7 +21,7 @@
                                            </a>
                                        </li>
                                    </ul> -->
-                                   <a href="#">Version 1.0.0.1</a>
+                                   <a href="#">Version 1.0.0.2</a>
                                </div>
                                <div class="app-footer-right">
                                    <!-- <ul class="nav">

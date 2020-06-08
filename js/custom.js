@@ -1,74 +1,108 @@
 $(document).ready(function () {
 
+    // แก้ไขใหม่ ค่าตั้งต้น
 
-    // Date pickup use 	// Date pickup use 	// Date pickup use
-    // Date pickup use 	// Date pickup use 	// Date pickup use
-    // $('.datapicker').pickadate({
-    //     monthsFull: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
-    //     weekdaysShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-    //     today: 'วันนี้',
-    //     clear: 'ล้าง',
-    //     format: 'dd-mm-yyyy',
-    //     formatSubmit: 'yyyy-mm-dd',
-    //     hiddenName: true,
-    //     editable: true
-    // });
+if($('#checkPageAddTH').val() == "addTH"){
 
+    // ช่องประเภทลูกค้า
+    $('input:radio[name="crf_type"]').prop('disabled', true);
 
-    // Set Default Form  // Set Default Form 
-    // Customer Code
-    $('#crf_customercode').prop('readonly', true);
+    // ช่อง Sales reps
+    $('#crf_salesreps').prop('disabled', true);
 
-    // Sales Reps
-    $('#crf_salesreps').prop('readonly', true);
-
-    // ชื่อลูกค้า :
-    $('#crf_customername').prop('readonly', true);
-
-    // ที่อยู่สำหรับการเปิดใบกำกับภาษี :
-    $('#crf_addressname').prop('readonly', true);
-
-    // ผู้ติดต่อ
-    $('#crf_namecontact').prop('readonly', true);
-
-    // เบอร์โทร
-    $('#crf_telcontact').prop('readonly', true);
-
-    // เบอร์แฟกซ์
-    $('#crf_faxcontact').prop('readonly', true);
-
-    // อีเมล
-    $('#crf_emailcontact').prop('readonly', true);
-
-    // ทุนจดทะเบียน
-    $('#crf_regiscost').prop('readonly', true);
-
-    // คาดการณ์ปริมาณการขาย
-    $('#crf_forecast').prop('readonly', true);
-
-    $('#user_submit').prop('disabled', true);
-    // Set Default Form    // Set Default Form 
-
-
-
-
-    //เลขที่ผู้เสียภาษี
-    $('#crf_customertaxid').prop('readonly', true);
-
-    //สาขา
-    $('#crf_customerbranch').prop('readonly', true);
-
-    //แผนที่ลิ้ง
-    $('#crf_mapurl').prop('readonly', true);
-
-    //แผนที่ ไฟล์
-    $('#crf_mapfile').prop('readonly', true);
+    // ชื่อลูกค้า
+    $('#crf_customername').prop('disabled', true);
 
     // วันที่ก่อตั้ง
-    $('#crf_cuscompanycreate').prop('readonly', true);
+    $('#crf_cuscompanycreate').prop('disabled', true);
+
+    // เลขผู้เสียภาษี
+    $('#crf_customertaxid').prop('disabled', true);
+
+    // สาขา
+    $('#crf_customerbranch').prop('disabled', true);
+
+    // ประเภทที่อยู่
+    $('input:radio[name="crf_addresstype"]').prop('disabled', true);
+    $('#crf_addressname').prop('disabled', true);
+
+    // ผู้ติดต่อ
+    $('#crf_namecontact').prop('disabled', true);
+
+    // เบอร์โทรของผู้ติดต่อ
+    $('#crf_telcontact').prop('disabled', true);
+
+    // เบอร์แฟ็ก
+    $('#crf_faxcontact').prop('disabled', true);
+
+    // Email
+    $('#crf_emailcontact').prop('disabled', true);
+
+    // ทุนจดทะเบียน
+    $('#crf_regiscost').prop('disabled', true);
+
+    // แผนที่ลิ้งจาก google
+    $('#crf_mapurl').prop('disabled', true);
+
+    // แผนที่ไฟล์อัพโหลด
+    $('#crf_mapfile').prop('disabled', true);
+
+    // ประเภทบริษัท
+    $('input:radio[name="crf_companytype"]').prop('disabled', true);
+
+    // ประเภทของธุรกิจ
+    $('input:radio[name="crf_typeofbussi"]').prop('disabled', true);
 
     // ผลิตภัณฑ์ของลูกค้า
-    $('#crf_customer_product').prop('readonly', true);
+    $('#crf_customer_product').prop('disabled', true);
+
+    // การคาดการ
+    $('#crf_forecast').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file1').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file2').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file3').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file4').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file5').prop('disabled', true);
+
+    // ไฟล์1
+    $('#crf_file6').prop('disabled', true);
+
+    // credit term
+    $('#crf_creditterm').prop('disabled', true);
+
+    // เงื่อนไขการวางบิล
+    $('input:radio[name="crf_condition_bill"]').prop('disabled', true);
+
+
+    // เงื่อนไขการรับชำระเงิน
+    $('input:radio[name="crf_condition_money"]').prop('disabled', true);
+
+    // วงเงินการค้า
+    $('input:radio[name="crf_finance"]').prop('disabled', true);
+
+    // ปุ่ม Submit
+    $('#user_submit').prop('disabled', true);
+
+
+    // เช็คหลังกดเลือกบริษัท
+    $('input:radio[name="crf_company"]').click(function () {
+        if ($(this).val() != '') {
+            // ช่องประเภทลูกค้า
+            $('input:radio[name="crf_type"]').prop('disabled', false);
+        } else {
+            $('input:radio[name="crf_type"]').prop('disabled', true);
+        }
+    });
 
 
 
@@ -95,6 +129,97 @@ $(document).ready(function () {
         // Control Sub old customer กรณีลูกค้าเดิม
         // 2 = ลูกค้าเดิม
         if ($(this).val() == 2) {
+
+
+
+
+// ช่อง Sales reps
+$('#crf_salesreps').prop('disabled', true);
+
+// ชื่อลูกค้า
+$('#crf_customername').prop('disabled', true);
+
+// วันที่ก่อตั้ง
+$('#crf_cuscompanycreate').prop('disabled', true);
+
+// เลขผู้เสียภาษี
+$('#crf_customertaxid').prop('disabled', true);
+
+// สาขา
+$('#crf_customerbranch').prop('disabled', true);
+
+// ประเภทที่อยู่
+$('input:radio[name="crf_addresstype"]').prop('disabled', true);
+$('#crf_addressname').prop('disabled', true);
+
+// ผู้ติดต่อ
+$('#crf_namecontact').prop('disabled', true);
+
+// เบอร์โทรของผู้ติดต่อ
+$('#crf_telcontact').prop('disabled', true);
+
+// เบอร์แฟ็ก
+$('#crf_faxcontact').prop('disabled', true);
+
+// Email
+$('#crf_emailcontact').prop('disabled', true);
+
+// ทุนจดทะเบียน
+$('#crf_regiscost').prop('disabled', true);
+
+// แผนที่ลิ้งจาก google
+$('#crf_mapurl').prop('disabled', true);
+
+// แผนที่ไฟล์อัพโหลด
+$('#crf_mapfile').prop('disabled', true);
+
+// ประเภทบริษัท
+$('input:radio[name="crf_companytype"]').prop('disabled', true);
+
+// ประเภทของธุรกิจ
+$('input:radio[name="crf_typeofbussi"]').prop('disabled', true);
+
+// ผลิตภัณฑ์ของลูกค้า
+$('#crf_customer_product').prop('disabled', true);
+
+// การคาดการ
+$('#crf_forecast').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file1').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file2').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file3').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file4').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file5').prop('disabled', true);
+
+// ไฟล์1
+$('#crf_file6').prop('disabled', true);
+
+// credit term
+$('#crf_creditterm').prop('disabled', true);
+
+// เงื่อนไขการวางบิล
+$('input:radio[name="crf_condition_bill"]').prop('disabled', true);
+
+
+// เงื่อนไขการรับชำระเงิน
+$('input:radio[name="crf_condition_money"]').prop('disabled', true);
+
+// วงเงินการค้า
+$('input:radio[name="crf_finance"]').prop('disabled', true);
+
+// ปุ่ม Submit
+$('#user_submit').prop('disabled', true);
+
+
             var unclick = 'return false';
 
 
@@ -126,92 +251,102 @@ $(document).ready(function () {
 
 
 
-            $('#alert_custype').html('');
+            // $('#alert_custype').html('');
 
             $('.suboldcustomer').css('display', '');
 
-            // Set Readonly
+            // // Set Readonly
 
             // Customer Code
             $('#crf_customercode').prop('readonly', false);
 
-            // Sales Reps
-            $('#crf_salesreps').prop('readonly', true);
+            // // Sales Reps
+            // $('#crf_salesreps').prop('readonly', true);
 
             // ชื่อลูกค้า :
-            $('#crf_customername').prop('readonly', false);
+            $('#crf_customername').prop('disabled', false);
 
-            // ที่อยู่สำหรับการเปิดใบกำกับภาษี :
-            $('#crf_addressname').prop('readonly', true);
+            // // ที่อยู่สำหรับการเปิดใบกำกับภาษี :
+            // $('#crf_addressname').prop('readonly', true);
 
-            // ผู้ติดต่อ
-            $('#crf_namecontact').prop('readonly', true);
+            // // ผู้ติดต่อ
+            // $('#crf_namecontact').prop('readonly', true);
 
-            // เบอร์โทร
-            $('#crf_telcontact').prop('readonly', true);
+            // // เบอร์โทร
+            // $('#crf_telcontact').prop('readonly', true);
 
-            // เบอร์แฟกซ์
-            $('#crf_faxcontact').prop('readonly', true);
+            // // เบอร์แฟกซ์
+            // $('#crf_faxcontact').prop('readonly', true);
 
-            // อีเมล
-            $('#crf_emailcontact').prop('readonly', true);
+            // // อีเมล
+            // $('#crf_emailcontact').prop('readonly', true);
 
-            // ทุนจดทะเบียน
-            $('#crf_regiscost').prop('readonly', true);
+            // // ทุนจดทะเบียน
+            // $('#crf_regiscost').prop('readonly', true);
 
-            // คาดการณ์ปริมาณการขาย
-            $('#crf_forecast').prop('readonly', true);
+            // // คาดการณ์ปริมาณการขาย
+            // $('#crf_forecast').prop('readonly', true);
 
-            //วันที่ก่อตั้ง
-            $('#crf_cuscompanycreate').prop('readonly', true);
+            // //วันที่ก่อตั้ง
+            // $('#crf_cuscompanycreate').prop('readonly', true);
 
             //วงเงิน
             $('.finance_request_detail').css('display', '');
             $('#crf_finance_req_number').prop('readonly', true);
 
 
-            // Default upload file
-            $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', 'none');
+            // // Default upload file
+            // $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', 'none');
 
-            // Control radio button
-            $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled', true);
+            // // Control radio button
+            // $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled', true);
 
-            // Control Credit Term
-            $('#crf_creditterm').prop('disabled', true);
-
-
-            //เลขที่ผู้เสียภาษี
-            $('#crf_customertaxid').prop('readonly', true);
-
-            //สาขา
-            $('#crf_customerbranch').prop('readonly', true);
-
-            //แผนที่ลิ้ง
-            $('#crf_mapurl').prop('readonly', true);
-
-            //แผนที่ ไฟล์
-            $('#crf_mapfile').prop('readonly', true);
-
-            // วันที่ก่อตั้ง
-            $('#crf_cuscompanycreate').prop('readonly', true);
-
-            // ผลิตภัณฑ์ของลูกค้า
-            $('#crf_customer_product').prop('readonly', true);
+            // // Control Credit Term
+            // $('#crf_creditterm').prop('disabled', true);
 
 
-            $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2 , #crf_companytype2').prop('readonly', true);
+            // //เลขที่ผู้เสียภาษี
+            // $('#crf_customertaxid').prop('readonly', true);
 
-            $('#fromoldcus1 , #fromoldcus2').css('display', '');
-            $('#foredit1 , #foredit2').css('display', 'none');
+            // //สาขา
+            // $('#crf_customerbranch').prop('readonly', true);
+
+            // //แผนที่ลิ้ง
+            // $('#crf_mapurl').prop('readonly', true);
+
+            // //แผนที่ ไฟล์
+            // $('#crf_mapfile').prop('readonly', true);
+
+            // // วันที่ก่อตั้ง
+            // $('#crf_cuscompanycreate').prop('readonly', true);
+
+            // // ผลิตภัณฑ์ของลูกค้า
+            // $('#crf_customer_product').prop('readonly', true);
+
+            // // Creditterm
+            // $('#crf_creditterm').prop('disabled', false);
+
+
+            // $('#crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2 , #crf_companytype2').prop('readonly', true);
+
+            // // File All
+            // $('#crf_file1 , #crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6').prop('disabled', false);
+
+            // $('#fromoldcus1 , #fromoldcus2').css('display', '');
+            // $('#foredit1 , #foredit2').css('display', 'none');
+
+
+
+
+
+
+
 
 
             // Control กรณีเลือก เปลี่ยนเขตการขาย
             $('input:checkbox[name="crf_sub_oldcus_changearea"]').click(function () {
                 if ($(this).prop("checked") == true) {
-                    $('#crf_salesreps').prop('readonly', false);
-                    // $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', 'none');
-                    // $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled' , true);
-                    // $('#crf_creditterm').prop('disabled' , true);
+                    $('#crf_salesreps').prop('disabled', false);
                     $('inpur:checkbox').prop('disabled', true);
                     $('#crf_salesreps').keyup(function () {
                         if ($(this).val() != '') {
@@ -219,18 +354,66 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    $('#crf_salesreps').prop('readonly', true);
+                    $('#crf_salesreps').prop('disabled', true);
                     // $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
                 }
+
+                // เช็คความถูกต้องของการกรอกข้อมูล
+                $('#crf_salesreps').blur(function () {
+                    if ($(this).val() == '') {
+                        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+                        $('#crf_customername').val('');
+                    } else {
+                        // เช็คความถูกต้องของการกรอก sales reps
+                        if (minsalesreps($(this).val()) == false) {
+                            $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ให้ถูกต้องด้วยค่ะ ต้องขึ้นต้นด้วย M หรือ D แล้วตามด้วยตัวเลข 4</div>');
+                            // $(this).val('');
+                            $('#user_submit').prop('disabled' , true);
+                        } else {
+                            $('#alert_salesreps').html('');
+                            $('#user_submit').prop('disabled' , false);
+                        }
+                    }
+                });
+                $('#crf_salesreps').focusout(function () {
+                    if ($(this).val() == '') {
+                        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+                        $('#crf_customername').val('');
+                    } else {
+                        // เช็คความถูกต้องของการกรอก sales reps
+                        if (minsalesreps($(this).val()) == false) {
+                            $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ให้ถูกต้องด้วยค่ะ ต้องขึ้นต้นด้วย M หรือ D แล้วตามด้วยตัวเลข 4</div>');
+                            // $(this).val('');
+                            $('#user_submit').prop('disabled' , true);
+                        } else {
+                            $('#alert_salesreps').html('');
+                            $('#user_submit').prop('disabled' , false);
+    
+                        }
+                    }
+                });
+                $('#crf_salesreps').keyup(function () {
+                    if ($(this).val() == '') {
+                        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+                        $('#crf_customername').val('');
+                    } else {
+                        $('#alert_salesreps').html('');
+                    }
+                });
+                // Check ข้อมูลช่อง Sale Rep ว่ามีการกรอกข้อมูลหรือไม่
             });
+
+
+
 
 
             // Control กรณีเลือก เปลี่ยนที่อยู่
             $('input:checkbox[name="crf_sub_oldcus_changeaddress"]').click(function () {
 
                 if ($(this).prop("checked") == true) {
-                    $('#crf_addressname').prop('readonly', false);
-                    $('.crf_file1').css('display', '');
+                    $('#crf_addressname').prop('disabled', false);
+                    $('#crf_file1').prop('disabled', false);
+                    $('#crf_file1').attr('required','');
                     $('input:radio[name="crf_addresstype"]').prop('disabled', false);
 
                     $('#crf_addressname').blur(function () {
@@ -245,16 +428,14 @@ $(document).ready(function () {
                         if ($(this).val() != '') {
                             $('#user_submit').prop('disabled', false);
                         } else {
-                            $('#user_submit').prop('disabled', false);
+                            $('#user_submit').prop('disabled', true);
                         }
                     });
 
                 } else {
-                    $('#crf_addressname').prop('readonly', true);
-                    // $('.crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
-                    $('#crf_addressname').prop('readonly', true);
+                    $('#crf_addressname').prop('disabled', true);
                     $('input:radio[name="crf_addresstype"]').prop('disabled', true);
-                    $('.crf_file1').css('display', 'none');
+                    $('.crf_file1').prop('disabled', true);
                 }
             });
 
@@ -265,7 +446,7 @@ $(document).ready(function () {
                 if ($(this).prop("checked") == true) {
 
 
-                    $('#crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile').prop('readonly', false);
+                    $('#crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile').prop('disabled', false);
                     $('#editMapFile_addpage , #editMapUrl_addpage , #editPrimanage_addpage').css('display', '');
                     $('#editMapUrl_addpage').click(function () {
                         $('#foredit1').toggle('display', '');
@@ -1096,136 +1277,148 @@ $(document).ready(function () {
 
 
         } else if ($(this).val() == 1) {
+            // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input// Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input
+            // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input
+            // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input // Zone ลูกค้าใหม่ Control input
 
-            //
-            $('#alert_crf_sub_oldcus').html('');
-
-            $('#alert_custype').html('');
-            // UnSet Readonly
-
-            // Customer Code
-            $('#crf_customercode').prop('readonly', true);
-
-            // Sales Reps
-            $('#crf_salesreps').prop('readonly', false);
-
-            // ชื่อลูกค้า :
-            $('#crf_customername').prop('readonly', false);
-
-            // ที่อยู่สำหรับการเปิดใบกำกับภาษี :
-            $('#crf_addressname').prop('readonly', false);
-
-            // ผู้ติดต่อ
-            $('#crf_namecontact').prop('readonly', false);
-
-            // เบอร์โทร
-            $('#crf_telcontact').prop('readonly', false);
-
-            // เบอร์แฟกซ์
-            $('#crf_faxcontact').prop('readonly', false);
-
-            // อีเมล
-            $('#crf_emailcontact').prop('readonly', false);
-
-            // ทุนจดทะเบียน
-            $('#crf_regiscost').prop('readonly', false);
-
-            // คาดการณ์ปริมาณการขาย
-            $('#crf_forecast').prop('readonly', false);
-
-            //วันที่ก่อตั้ง
-            $('#crf_cuscompanycreate').prop('readonly', false);
-
-
-            // Control radio button
-            $('input:radio[name="crf_addresstype"],[name="crf_companytype"],[name="crf_typeofbussi"],[name="crf_condition_bill"],[name="crf_condition_money"],[name="crf_finance"]').prop('disabled', false);
-
-            // Control money limit
-            $('#crf_finance_req_number').prop('readonly', false);
-
-
-            // Control Credit Term
-            $('#crf_creditterm').prop('disabled', false);
-
-
-
-            // Default upload file
-            $('.crf_file1 , .crf_file2 , .crf_file3 , .crf_file4 , .crf_file5 , .crf_file6').css('display', '');
-
-            //เลขที่ผู้เสียภาษี
-            $('#crf_customertaxid').prop('readonly', false);
-
-            //สาขา
-            $('#crf_customerbranch').prop('readonly', false);
-
-            //แผนที่ลิ้ง
-            $('#crf_mapurl').prop('readonly', false);
-
-            //แผนที่ ไฟล์
-            $('#crf_mapfile').prop('readonly', false);
-
-            // วันที่ก่อตั้ง
-            $('#crf_cuscompanycreate').prop('readonly', false);
-
-            // ผลิตภัณฑ์ของลูกค้า
-            $('#crf_customer_product').prop('readonly', false);
-
-
-
-            $('.change_credit').css('display', 'none');
-            $('.suboldcustomer').css('display', 'none');
-
+            // New code update 04-06-2020
             $('input:radio[class="crf_financev1"]').prop('checked', true);
             $('input:radio[class="crf_financev2"]').prop('disabled', true);
-
             $('.finance_request_detail').css('display', '');
 
-            // Clear ประเภทการดำเนินงาน
-            $('#crf_sub_oldcus_changearea , #crf_sub_oldcus_changeaddress ,#crf_sub_oldcus_changecredit , #crf_sub_oldcus_changefinance').prop('checked', false);
 
-            // Clear รหัสลูกค้า
-            $('#crf_customercode').val('');
+            // ช่อง Sales reps
+            $('#crf_salesreps').prop('disabled', false);
 
-            // Clear Alert การเลือกประเภทการดำเนินการ
-            $('#alert_crf_sub_oldcus').fadeOut();
+            // ชื่อลูกค้า
+            $('#crf_customername').prop('disabled', false);
+
+            // วันที่ก่อตั้ง
+            $('#crf_cuscompanycreate').prop('disabled', false);
+
+            // เลขผู้เสียภาษี
+            $('#crf_customertaxid').prop('disabled', false);
+
+            // สาขา
+            $('#crf_customerbranch').prop('disabled', false);
+
+            // ประเภทที่อยู่
+            $('input:radio[name="crf_addresstype"]').prop('disabled', false);
+            $('#crf_addressname').prop('disabled', false);
+
+            // ผู้ติดต่อ
+            $('#crf_namecontact').prop('disabled', false);
+
+            // เบอร์โทรของผู้ติดต่อ
+            $('#crf_telcontact').prop('disabled', false);
+
+            // เบอร์แฟ็ก
+            $('#crf_faxcontact').prop('disabled', false);
+
+            // Email
+            $('#crf_emailcontact').prop('disabled', false);
+
+            // ทุนจดทะเบียน
+            $('#crf_regiscost').prop('disabled', false);
+
+            // แผนที่ลิ้งจาก google
+            $('#crf_mapurl').prop('disabled', false);
+
+            // แผนที่ไฟล์อัพโหลด
+            $('#crf_mapfile').prop('disabled', false);
+
+            // ประเภทบริษัท
+            $('input:radio[name="crf_companytype"]').prop('disabled', false);
+
+            // ประเภทของธุรกิจ
+            $('input:radio[name="crf_typeofbussi"]').prop('disabled', false);
+
+            // ผลิตภัณฑ์ของลูกค้า
+            $('#crf_customer_product').prop('disabled', false);
+
+            // การคาดการ
+            $('#crf_forecast').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file1').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file2').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file3').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file4').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file5').prop('disabled', false);
+
+            // ไฟล์1
+            $('#crf_file6').prop('disabled', false);
+
+            // credit term
+            $('#crf_creditterm').prop('disabled', false);
+
+            // เงื่อนไขการวางบิล
+            $('input:radio[name="crf_condition_bill"]').prop('disabled', false);
 
 
+            // เงื่อนไขการรับชำระเงิน
+            $('input:radio[name="crf_condition_money"]').prop('disabled', false);
 
+            // วงเงินการค้า
+            $('input:radio[name="crf_finance"]').prop('disabled', false);
             // Check ข้อมูลช่อง Sale Rep ว่ามีการกรอกข้อมูลหรือไม่
+
+
             $('#crf_salesreps').blur(function () {
                 if ($(this).val() == '') {
                     $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
                     $('#crf_customername').val('');
-                }
-            });
-            $('#crf_customername').focus(function () {
-                if ($('#crf_salesreps').val() == '') {
-                    $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
                 } else {
-                    $('#alert_salesreps').html('');
+                    // เช็คความถูกต้องของการกรอก sales reps
+                    if (minsalesreps($(this).val()) == false) {
+                        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ให้ถูกต้องด้วยค่ะ ต้องขึ้นต้นด้วย M หรือ D แล้วตามด้วยตัวเลข 4</div>');
+                        $(this).val('');
+                    } else {
+                        $('#alert_salesreps').html('');
+                        $('#user_submit').prop('disabled' , false);
+                    }
                 }
             });
-            $('#crf_customername').keyup(function () {
-                if ($('#crf_salesreps').val() == '') {
+            $('#crf_salesreps').focusout(function () {
+                if ($(this).val() == '') {
+                    $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+                    $('#crf_customername').val('');
+                } else {
+                    // เช็คความถูกต้องของการกรอก sales reps
+                    if (minsalesreps($(this).val()) == false) {
+                        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ให้ถูกต้องด้วยค่ะ ต้องขึ้นต้นด้วย M หรือ D แล้วตามด้วยตัวเลข 4</div>');
+                        $(this).val('');
+                    } else {
+                        $('#alert_salesreps').html('');
+                        $('#user_submit').prop('disabled' , false);
+
+                    }
+                }
+            });
+            $('#crf_salesreps').keyup(function () {
+                if ($(this).val() == '') {
                     $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
                     $('#crf_customername').val('');
                 } else {
                     $('#alert_salesreps').html('');
-                    $('#alert_customername').html('');
                 }
             });
             // Check ข้อมูลช่อง Sale Rep ว่ามีการกรอกข้อมูลหรือไม่
 
 
+
+
+
+
             // Check ข้อมูลช่อง ชื่อลูกค้าว่ามีการกรอกข้อมูลหรือไม่
-            $('#crf_cuscompanycreate').focus(function () {
-                if ($('#crf_customername').val() == '') {
-                    $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
-                    $('#crf_cuscompanycreate').val('');
-                } else {
-                    $('#alert_customername').html('');
-                }
-            });
             $('#crf_customername').blur(function () {
                 var cusname = $('#crf_customername').val();
                 var comname = $('input:radio[name="crf_company"]:checked').val();
@@ -1234,9 +1427,24 @@ $(document).ready(function () {
                 } else {
                     $('#alert_customername').html('');
                     checkDuplicateNameCustomer(cusname, comname);
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            $('#crf_customername').focusout(function () {
+                var cusname = $('#crf_customername').val();
+                var comname = $('input:radio[name="crf_company"]:checked').val();
+                if ($(this).val() == '') {
+                    $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+                } else {
+                    $('#alert_customername').html('');
+                    checkDuplicateNameCustomer(cusname, comname);
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
             // Check ข้อมูลช่อง ชื่อลูกค้าว่ามีการกรอกข้อมูลหรือไม่
+
+
+
 
 
             // Check วันที่ก่อตั้งว่ามีการเลือกหรือไม่ // Check วันที่ก่อตั้งว่ามีการเลือกหรือไม่
@@ -1245,6 +1453,15 @@ $(document).ready(function () {
                     $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
                 } else {
                     $('#alert_cuscompanycreate').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            $('#crf_cuscompanycreate').focusout(function () {
+                if ($(this).val() == '') {
+                    $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
+                } else {
+                    $('#alert_cuscompanycreate').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
@@ -1253,41 +1470,92 @@ $(document).ready(function () {
                     $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
                 } else {
                     $('#alert_cuscompanycreate').html('');
-                }
-            });
-
-            $('#crf_addressname').focus(function () {
-                if ($('#crf_cuscompanycreate').val() == '') {
-                    $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
-                    $('#crf_addressname').val('');
-                } else {
-                    $('#alert_cuscompanycreate').html('');
-                }
-
-                var crf_addresstype = $('input:radio[name="crf_addresstype"]:checked');
-                if (crf_addresstype.length < 1) {
-                    $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกที่อยู่สำหรับเปิดใบกำกับภาษีด้วยค่ะ</div>');
-                    $('#crf_addressname').val('');
-                } else {
-                    $('#alert_addresstype').html('');
-                }
-            });
-
-            $('#crf_addressname').keyup(function () {
-                if ($('#crf_cuscompanycreate').val() == '') {
-                    $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
-                    $('#crf_addressname').val('');
-                }
-
-                var crf_addresstype = $('input:radio[name="crf_addresstype"]:checked');
-                if (crf_addresstype.length < 1) {
-                    $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกที่อยู่สำหรับเปิดใบกำกับภาษีด้วยค่ะ</div>');
-                    $('#crf_addressname').val('');
-                } else {
-                    $('#alert_addresstype').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
             // Check วันที่ก่อตั้งว่ามีการเลือกหรือไม่ // Check วันที่ก่อตั้งว่ามีการเลือกหรือไม่
+
+
+
+            // check เลขที่ผู้เสียภาษี
+            $('#crf_customertaxid').blur(function () {
+                if ($(this).val() == '') {
+                    $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+                } else {
+                    if (checktax($(this).val()) == false) {
+                        $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
+                        // $('#crf_customertaxid').val('');
+                        $('#user_submit').prop('disabled' , true);
+                        $('#checkSubmitBtn').val(1);
+                    } else {
+                        $('#alert_crf_customertaxid').html('');
+                        $('#user_submit').prop('disabled' , false);
+                    }
+                }
+            });
+            $('#crf_customertaxid').focusout(function () {
+                if ($(this).val() == '') {
+                    $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+                } else {
+                    if (checktax($(this).val()) == false) {
+                        $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
+                        // $(this).val('');
+                        $('#user_submit').prop('disabled' , true);
+                    } else {
+                        $('#alert_crf_customertaxid').html('');
+                        $('#user_submit').prop('disabled' , false);
+                    }
+                }
+            });
+            // check เลขที่ผู้เสียภาษี
+
+
+
+            // Check สาขา
+            $('#crf_customerbranch').blur(function(){
+                if($(this).val() == ''){
+                    $('#alert_crf_customerbranch').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+                }else{
+                    $('#alert_crf_customerbranch').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            $('#crf_customerbranch').focusout(function(){
+                if($(this).val() == ''){
+                    $('#alert_crf_customerbranch').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+                }else{
+                    $('#alert_crf_customerbranch').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            //Check สาขา
+
+
+
+
+            // Check เลือกประเภทที่อยู่
+            $('#crf_addressname').focus(function(){
+                var crf_addresstype = $('input:radio[name="crf_addresstype"]:checked');
+                if(crf_addresstype.length < 1){
+                    $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+                }else{
+                    $('#alert_addresstype').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            $('input:radio[name="crf_addresstype"]').click(function(){
+                if($(this).val() == ''){
+                    $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+                }else{
+                    $('#alert_addresstype').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+
+            // Check เลือกประเภทที่อยู่
+
+
+
 
 
             // Check Address Name Check Address Name Check Address Name
@@ -1296,30 +1564,29 @@ $(document).ready(function () {
                     $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
                 } else {
                     $('#alert_addressname').html('');
+                    $('#user_submit').prop('disabled' , false);
+                }
+            });
+            $('#crf_addressname').focusout(function () {
+                if ($(this).val() == '') {
+                    $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
+                } else {
+                    $('#alert_addressname').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
             $('#crf_addressname').keyup(function () {
-                if ($(this).val() != '') {
-                    $('#alert_addressname').html('');
-                }
-            });
-            $('#crf_namecontact').focus(function () {
-                if ($('#crf_addressname').val() == '') {
+                if ($(this).val() == '') {
                     $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
-                    $('#crf_namecontact').val('');
-                } else {
-                    $('#alert_addressname').html('');
-                }
-            });
-            $('#crf_namecontact').keyup(function () {
-                if ($('#crf_addressname').val() == '') {
-                    $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
-                    $('#crf_namecontact').val('');
-                } else {
+                }else{
                     $('#alert_addressname').html('');
                 }
             });
             // Check Address Name Check Address Name Check Address Name
+
+
+
+
 
 
             // Check ช่องผู้ติดต่อว่ามีการกรอกข้อมูลเข้ามาหรือไม่
@@ -1328,30 +1595,28 @@ $(document).ready(function () {
                     $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
                 } else {
                     $('#alert_namecontact').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
-            $('#crf_telcontact').focus(function () {
-                if ($('#crf_namecontact').val() == '') {
+            $('#crf_namecontact').focusout(function () {
+                if ($(this).val() == '') {
                     $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_telcontact').val('');
                 } else {
                     $('#alert_namecontact').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
-            $('#crf_telcontact').keyup(function () {
-                if ($('#crf_namecontact').val() == '') {
-                    $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_telcontact').val('');
-                } else {
-                    $('#alert_namecontact').html('');
-                }
-            });
+
             $('#crf_namecontact').keyup(function () {
-                if ($(this).val() != '') {
+                if ($(this).val() == '') {
+                    $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
+                }else{
                     $('#alert_namecontact').html('');
                 }
             });
             // Check ช่องผู้ติดต่อว่ามีการกรอกข้อมูลเข้ามาหรือไม่
+
+
 
 
 
@@ -1360,63 +1625,78 @@ $(document).ready(function () {
                 if ($(this).val() == '') {
                     $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
                 } else {
-                    $('#alert_telcontact').html('');
+                    if(checkTelPat($(this).val()) == false){
+                        $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเฉพาะตัวเลขเท่านั้น</div>');
+                        $('#user_submit').prop('disabled' , true);
+                    }else{
+                        $('#alert_telcontact').html('');
+                        $('#user_submit').prop('disabled' , false);
+                    }
                 }
             });
-            $('#crf_emailcontact').focus(function () {
-                if ($('#crf_telcontact').val() == '') {
+
+            $('#crf_telcontact').focusout(function () {
+                if ($(this).val() == '') {
                     $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_emailcontact').val('');
                 } else {
-                    $('#alert_telcontact').html('');
+                    if(checkTelPat($(this).val()) == false){
+                        $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเฉพาะตัวเลขเท่านั้น</div>');
+                        $('#user_submit').prop('disabled' , true);
+                    }else{
+                        $('#alert_telcontact').html('');
+                        $('#user_submit').prop('disabled' , false);
+                    }
                 }
             });
-            $('#crf_emailcontact').keyup(function () {
-                if ($('#crf_telcontact').val() == '') {
-                    $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_emailcontact').val('');
-                } else {
-                    $('#alert_telcontact').html('');
-                }
-            });
+
             $('#crf_telcontact').keyup(function () {
                 if ($(this).val() != '') {
+                    $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
+                }else{
                     $('#alert_telcontact').html('');
                 }
             });
             // Check ช่องเบอร์โทรว่ามีการกรอกข้อมูลหรือไม่
 
 
+
+
+
+
             // Check ช่อง อีเมลว่ามีการกรอกข้อมูลหรือไม่
-            $('#crf_emailcontact').blur(function () {
-                if ($(this).val() == '') {
-                    $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
-                } else {
-                    $('#alert_emailcontact').html('');
-                }
-            });
-            $('#crf_regiscost').focus(function () {
-                if ($('#crf_emailcontact').val() == '') {
-                    $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_regiscost').val('');
-                } else {
-                    $('#alert_emailcontact').html('');
-                }
-            });
-            $('#crf_regiscost').keyup(function () {
-                if ($('#crf_emailcontact').val() == '') {
-                    $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
-                    $('#crf_regiscost').val('');
-                } else {
-                    $('#alert_emailcontact').html('');
-                }
-            });
-            $('#crf_emailcontact').keyup(function () {
-                if ($(this).val() != '') {
-                    $('#alert_emailcontact').html('');
-                }
-            });
+            // $('#crf_emailcontact').blur(function () {
+            //     if ($(this).val() == '') {
+            //         $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
+            //     } else {
+            //         $('#alert_emailcontact').html('');
+            //     }
+            // });
+            // $('#crf_regiscost').focus(function () {
+            //     if ($('#crf_emailcontact').val() == '') {
+            //         $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
+            //         $('#crf_regiscost').val('');
+            //     } else {
+            //         $('#alert_emailcontact').html('');
+            //     }
+            // });
+            // $('#crf_regiscost').keyup(function () {
+            //     if ($('#crf_emailcontact').val() == '') {
+            //         $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
+            //         $('#crf_regiscost').val('');
+            //     } else {
+            //         $('#alert_emailcontact').html('');
+            //     }
+            // });
+            // $('#crf_emailcontact').keyup(function () {
+            //     if ($(this).val() != '') {
+            //         $('#alert_emailcontact').html('');
+            //     }
+            // });
             // Check ช่อง อีเมลว่ามีการกรอกข้อมูลหรือไม่
+
+
+
+
 
 
             // Check ช่อง ทุนจดทะเบียน
@@ -1425,35 +1705,32 @@ $(document).ready(function () {
                     $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
                 } else {
                     $('#alert_regiscost').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
-            $('input:radio[name="crf_companytype"]').click(function () {
-                if ($('#crf_regiscost').val() == '') {
+            $('#crf_regiscost').focusout(function () {
+                if ($(this).val() == '') {
                     $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
-                    $('#crf_regiscost').val('');
                 } else {
                     $('#alert_regiscost').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
-
-                $('#crf_companytype2 , #crf_companytype3_1_1 , #crf_companytype3_1_2 , #crf_companytype3_2_1 , #crf_companytype3_2_2').val('');
             });
-            // $('#crf_regiscost').keyup(function(){
-            //     if($('#crf_emailcontact').val() == ''){
-            //         $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
-            //         $('#user_submit').prop('disabled' , true);
-            //         $('#crf_regiscost').val('');
-            //     }else{
-            //         $('#alert_emailcontact').html('');
-            //         $('#user_submit').prop('disabled' , false);
-            //     }
-            // });
+        
             $('#crf_regiscost').keyup(function () {
-                if ($(this).val() != '') {
+                if ($(this).val() == '') {
+                    $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
+                }else{
                     $('#alert_regiscost').html('');
                 }
             });
             // Check ช่อง ทุนจดทะเบียน
 
+
+
+            // Check ประเภทบริษัท
+
+            // Check ประเภทบริษัท
 
 
             // Check ช่องรายชื่อบุคคลในแต่ระดับบริหารที่สำคัญ
@@ -1477,16 +1754,7 @@ $(document).ready(function () {
                 }
             });
 
-            // $('#crf_regiscost').keyup(function(){
-            //     if($('#crf_emailcontact').val() == ''){
-            //         $('#alert_emailcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุอีเมลผู้ติดต่อด้วยค่ะ</div>');
-            //         $('#user_submit').prop('disabled' , true);
-            //         $('#crf_regiscost').val('');
-            //     }else{
-            //         $('#alert_emailcontact').html('');
-            //         $('#user_submit').prop('disabled' , false);
-            //     }
-            // });
+
             $('#crf_primanage_dept , #crf_primanage_name , #crf_primanage_posi , #crf_primanage_email').keyup(function () {
                 if ($(this).val() != '') {
                     $('#alert_primanage').html('');
@@ -1519,6 +1787,8 @@ $(document).ready(function () {
 
             });
             // Check ประเภทของ ธุรกิจว่ามีการเลือกข้อมูลหรือไม่
+
+
 
 
             // Check กระบวนการผลิตว่ามีการเลือกข้อมูลเข้ามาหรือไม่
@@ -1578,6 +1848,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file1').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
 
                 if ($('#crf_file2').val() == '') {
@@ -1585,6 +1856,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file2').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
 
                 if ($('#crf_file3').val() == '') {
@@ -1592,6 +1864,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file3').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
 
                 if ($('#crf_file4').val() == '') {
@@ -1599,6 +1872,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file4').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
 
                 if ($('#crf_file5').val() == '') {
@@ -1606,6 +1880,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file5').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
 
                 if ($('#crf_file6').val() == '') {
@@ -1613,6 +1888,7 @@ $(document).ready(function () {
                     $('#crf_creditterm').val('');
                 } else {
                     $('#alert_file6').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
             // Check File Upload ว่ามีการอัพโหลดไฟล์หรือยังก่อ่นที่จะเลือก Credit term
@@ -1622,38 +1898,45 @@ $(document).ready(function () {
             $('#crf_file1').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file1').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
             $('#crf_file2').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file2').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
             $('#crf_file3').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file3').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
             $('#crf_file4').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file4').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
             $('#crf_file5').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file5').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
 
             $('#crf_file6').change(function () {
                 if ($(this).val() != '') {
                     $('#alert_file6').html('');
+                    $('#user_submit').prop('disabled' , false);
                 }
             });
+
             // Check Upload File 1 - 6 Element
 
 
@@ -1760,6 +2043,12 @@ $(document).ready(function () {
             // Check ช่องวงเงินที่ต้องการว่ามีการกรอกข้อมูลหรือไม่
 
 
+            // Check ขั้นตอนสุดท้าย
+            // $('#user_submit').click(function(){
+            //     checkBeforeSave();
+            // })
+
+
 
 
 
@@ -1771,6 +2060,10 @@ $(document).ready(function () {
 
 
     });
+
+}
+// End Control Add page
+
 
     //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม
     //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม //Control Radio crf_type Control หัวข้อ ลูกค้าใหม่ , ลูกค้าเดิม
@@ -2472,7 +2765,7 @@ $(document).ready(function () {
 
     if ($('#checkfordirector1_appro').val() == "อนุมัติ") {
         $('input:radio[id="fordirector1_appro1"]').prop('checked', true);
-    } else if($('#checkfordirector1_appro').val() == "ไม่อนุมัติ"){
+    } else if ($('#checkfordirector1_appro').val() == "ไม่อนุมัติ") {
         $('input:radio[id="fordirector1_appro2"]').prop('checked', true);
     }
 
@@ -2505,7 +2798,7 @@ $(document).ready(function () {
 
     if ($('#checkfordirector2_appro').val() == "อนุมัติ") {
         $('input:radio[id="fordirector2_appro1"]').prop('checked', true);
-    } else if($('#checkfordirector2_appro').val() == "ไม่อนุมัติ"){
+    } else if ($('#checkfordirector2_appro').val() == "ไม่อนุมัติ") {
         $('input:radio[id="fordirector2_appro2"]').prop('checked', true);
     }
 
@@ -4702,55 +4995,55 @@ $(document).ready(function () {
 
 
 
-// Zone load customer list
-if($('#checkPagecuslist').val() == "customerList"){
-    loadcustomerlist();
-}
-
-$('#addcus_customercode').blur(function(){
-    var cuscode = $('#addcus_customercode').val();
-    var area = $('input:radio[name="addcus_company"]:checked').val();
-    checkCuscodeManual(cuscode , area);
-});
-
-// Export
-if($('#checkPagecuslistEx').val() == "customerListEx"){
-    loadcustomerlistEx();
-}
-$('#addcusex_customercode').blur(function(){
-    var cuscode = $('#addcusex_customercode').val();
-    var area = $('input:radio[name="addcusex_company"]:checked').val();
-    checkCuscodeManualEx(cuscode , area);
-});
-
-
-
-// Check fill add customer manual export zone
-
-
-// Check company
-$('#addcusex_customercode').click(function(){
-    var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
-    if(addcusex_company.length < 1){
-        $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
-        $('#addcusex_customercode').val('');
-        exit;
-    }else{
-        $('#alert_addcusex_company').html('');
+    // Zone load customer list
+    if ($('#checkPagecuslist').val() == "customerList") {
+        loadcustomerlist();
     }
-});
 
-$('#addcusex_customercode').keyup(function(){
-    var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
-    if(addcusex_company.length < 1){
-        $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
-        $('#addcusex_customercode').val('');
-        exit;
-    }else{
-        $('#alert_addcusex_company').html('');
+    $('#addcus_customercode').blur(function () {
+        var cuscode = $('#addcus_customercode').val();
+        var area = $('input:radio[name="addcus_company"]:checked').val();
+        checkCuscodeManual(cuscode, area);
+    });
+
+    // Export
+    if ($('#checkPagecuslistEx').val() == "customerListEx") {
+        loadcustomerlistEx();
     }
-});
-// Check company
+    $('#addcusex_customercode').blur(function () {
+        var cuscode = $('#addcusex_customercode').val();
+        var area = $('input:radio[name="addcusex_company"]:checked').val();
+        checkCuscodeManualEx(cuscode, area);
+    });
+
+
+
+    // Check fill add customer manual export zone
+
+
+    // Check company
+    $('#addcusex_customercode').click(function () {
+        var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
+        if (addcusex_company.length < 1) {
+            $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
+            $('#addcusex_customercode').val('');
+            exit;
+        } else {
+            $('#alert_addcusex_company').html('');
+        }
+    });
+
+    $('#addcusex_customercode').keyup(function () {
+        var addcusex_company = $('input:radio[name="addcusex_company"]:checked');
+        if (addcusex_company.length < 1) {
+            $('#alert_addcusex_company').html('<div class="alert alert-danger" role="alert">Please choose company !!</div>');
+            $('#addcusex_customercode').val('');
+            exit;
+        } else {
+            $('#alert_addcusex_company').html('');
+        }
+    });
+    // Check company
 
 
 

@@ -622,6 +622,160 @@ function checkCuscodeManualEx(cuscode , area)
 
 
 
+// Function control add page th new 05-06-2020
+function minsalesreps(salesrepIn)
+{
+    var checkSalesrepIn = /(^D[0-9]{4,4}$|^M[0-9]{4,4}$)/.test(salesrepIn);
+    return checkSalesrepIn;
+}
+
+// Function เช็คเลขที่ผู้เสียภาษี
+function checktax(taxIn)
+{
+    var checkTax = /(^[0-9]{13}$)/.test(taxIn);
+    return checkTax;
+}
+
+// Function เช็ครูปแบบของเบอร์โทรศัพท์ กรอกเฉพาะตัวเลขเท่านั้น
+function checkTelPat(telIn)
+{
+    var checkTelPat = /(^[0-9]{10,15}$)/.test(telIn);
+    return checkTelPat;
+}
+
+// Check ข้อมูลทุกฟิลด์ที่จำเป็น
+function checkBeforeSave()
+{
+    if($('input:radio[name="crf_type"]:checked').val() == 1){
+
+   
+    // เช็ค sales reps
+    if($('#crf_salesreps').val() == ''){
+        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_customername').val() == ''){
+        // เช็คชื่อบริษัท
+        $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_cuscompanycreate').val() == ''){
+        // เช็ควันที่ก่อตั้ง
+        $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_customertaxid').val() == ''){
+        // เช็คเลขที่ผู้เสียภาษี
+        $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if(checktax($('#crf_customertaxid').val()) == false){
+    
+            $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
+            $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_customerbranch').val() == ''){
+        // เช็คสาขา
+        $('#alert_crf_customerbranch').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('input:radio[name="crf_addresstype"]:checked').length < 1){
+        // เช็คประเภทของที่อยู่ลูกค้า
+        $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_addressname').val() == ''){
+        // เช็คที่อยู่ของลูกค้า
+        $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_namecontact').val() == ''){
+        $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_telcontact').val() == ''){
+        $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_regiscost').val() == ''){
+        $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('input:radio[name="crf_companytype"]:checked').length < 1){
+        $('#alert_companytype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('input:radio[name="crf_typeofbussi"]:checked').length < 1){
+        $('#alert_typeofbussi').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file1').val() == ''){
+        $('#alert_file1').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file2').val() == ''){
+        $('#alert_file2').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file3').val() == ''){
+        $('#alert_file3').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file4').val() == ''){
+        $('#alert_file4').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file5').val() == ''){
+        $('#alert_file5').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_file6').val() == ''){
+        $('#alert_file6').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+
+    }else if($('#crf_creditterm').val() == ''){
+        $('#alert_creditterm').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+    }else if($('input:radio[name=crf_condition_bill]:checked').length < 1){
+        $('#alert_condition_bill').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+    }else if($('input:radio[name="crf_condition_money"]:checked').length < 1){
+        $('#alert_condition_money').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
+        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
+        $('#user_submit').prop('disabled' , true);
+    }
+    else{
+        $('#user_submit').prop('disabled' , false);
+    }
+}else if($('input:radio[name="crf_type"]:checked').val() == 2){
+    
+}
+    
+}
+
+
+
 
 
 

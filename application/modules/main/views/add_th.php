@@ -130,7 +130,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">Sales Reps : &nbsp;</label>
-                        <input type="text" name="crf_salesreps" id="crf_salesreps" class="form-control form-control-sm">
+                        <input type="text" name="crf_salesreps" id="crf_salesreps" class="form-control form-control-sm" minlength="4">
                         <div id="alert_salesreps"></div>
                     </div>
                 </div>
@@ -157,10 +157,12 @@
                     <div class="col-md-6 form-group">
                         <label for="">เลขที่ผู้เสียภาษี</label>
                         <input type="text" name="crf_customertaxid" id="crf_customertaxid" class="form-control form-control-sm">
+                        <div id="alert_crf_customertaxid"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">สาขา</label>
                         <input type="text" name="crf_customerbranch" id="crf_customerbranch" class="form-control form-control-sm">
+                        <div id="alert_crf_customerbranch"></div>
                     </div>
                 </div>
 
@@ -508,7 +510,6 @@
                 <br>
 
 
-
                 <label for="">
                     <h6><b><u>เงื่อนไขการวางบิล</u></b></h6>
                 </label>
@@ -681,40 +682,16 @@
                 <div class="row form-group">
                     <div class="col-md-4"></div>
                     <div class="col-md-4"><button type="reset" class="btn btn-warning btn-block" id="user_reset" name="user_reset" onclick="return location.reload()">Reset</button></div>
-                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="user_submit" name="user_submit">Submit</button></div>
+                    <div class="col-md-4"><button type="submit" class="btn btn-info btn-block" id="user_submit" name="user_submit" onclick="checkBeforeSave()">Submit</button></div>
+                </div>
+                <div class="row">
+                    <input hidden type="text" name="checkPageAddTH" id="checkPageAddTH" value="<?=$this->uri->segment(2)?>">
+                <div id="alert_submit" class="col-md-12"></div>
                 </div>
                 <hr>
             </form>
 
 
-
-
-            <!-- Section สำหรับ CS , Sales Manager -->
-            <form action="">
-                <h6 class="author_manager"><b><u>สำหรับผู้จัดการ</u></b></h6>
-                <div class="row form-group author_manager">
-                    <div class="col-md-12">
-                        <input type="radio" name="mgr_appro" id="mgr_appro" value="อนุมัติ">&nbsp;<label>อนุมัติ</label>&nbsp;&nbsp;
-                        <input type="radio" name="mgr_appro" id="mgr_appro" value="ไม่อนุมัติ">&nbsp;<label>ไม่อนุมัติ</label>
-                    </div>
-                    <div class="col-md-8 form-group">
-                        <label>เหตุผลการอนุมัติ</label>
-                        <textarea name="crf_mgrapprove_detail" id="crf_mgrapprovedetail" cols="30" rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="">ผู้อนุมัติ</label>
-                        <input type="text" name="crf_mgrapprove_name" id="crf_mgeapprove_name" class="form-control form-control-sm">
-                        <input type="text" name="crf_mgrapprove_datetime" id="crf_mgrapprove_datetime" class="form-control form-control-sm mt-1" value="<?= date("d-m-Y H:i:s"); ?>">
-                    </div>
-                </div>
-                <div class="row form-group author_manager">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-info btn-block" id="mgr_submit" name="mgr_submit">Submit</button></div>
-                </div>
-                <hr class="author_manager">
-            </form>
-            <!-- Section สำหรับ CS , Sales Manager -->
 
 
         </div>
