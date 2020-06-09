@@ -113,6 +113,7 @@ if($('#checkPageAddTH').val() == "addTH"){
     $('.suboldcustomer').css('display', 'none');
 
     $('input[name=crf_type]').click(function () {
+        $('#checkCompany').val($(this).val());
 
         // Check การเลือกบริษัท หากไม่ได้เลือกจะไม่สามารถไป Step ต่อไปได้
         var crf_company = $('input[type="radio"][name=crf_company]:checked');
@@ -129,6 +130,7 @@ if($('#checkPageAddTH').val() == "addTH"){
         // Control Sub old customer กรณีลูกค้าเดิม
         // 2 = ลูกค้าเดิม
         if ($(this).val() == 2) {
+            
 
 
 
@@ -1426,7 +1428,10 @@ $('#user_submit').prop('disabled', true);
                     $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
                 } else {
                     $('#alert_customername').html('');
-                    checkDuplicateNameCustomer(cusname, comname);
+                    if($('#checkCompany').val() == 1){
+                        checkDuplicateNameCustomer(cusname, comname);
+                    }
+                    
                     $('#user_submit').prop('disabled' , false);
                 }
             });
@@ -1437,7 +1442,7 @@ $('#user_submit').prop('disabled', true);
                     $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
                 } else {
                     $('#alert_customername').html('');
-                    checkDuplicateNameCustomer(cusname, comname);
+                    // checkDuplicateNameCustomer(cusname, comname);
                     $('#user_submit').prop('disabled' , false);
                 }
             });

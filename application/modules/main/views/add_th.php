@@ -19,7 +19,7 @@
 
 <body>
     <div class="container bg-white p-3">
-
+<input hidden type="text" name="checkCompany" id="checkCompany">
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
             <form action="<?= base_url('main/savedata') ?>" method="POST" id="form1" enctype="multipart/form-data">
