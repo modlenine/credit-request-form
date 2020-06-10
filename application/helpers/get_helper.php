@@ -764,3 +764,83 @@ function getcustomerlistEx()
     ");
     return $query;
 }
+
+
+
+
+// Fuction get customer information
+function getcustomerdata($cuscode)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crf_customers.crfcus_id,
+    crf_customers.crfcus_code,
+    crf_customers.crfcus_brcode,
+    crf_customers.crfcus_salesreps,
+    crf_customers.crfcus_name,
+    crf_customers.crfcus_comdatecreate,
+    crf_customers.crfcus_taxid,
+    crf_customers.crfcus_branch,
+    crf_customers.crfcus_addresstype,
+    crf_customers.crfcus_address,
+    crf_customers.crfcus_contactname,
+    crf_customers.crfcus_phone,
+    crf_customers.crfcus_fax,
+    crf_customers.crfcus_email,
+    crf_customers.crfcus_regiscapital,
+    crf_customers.crfcus_mapurl,
+    crf_customers.crfcus_mapfile,
+    crf_customers.crfcus_companytype,
+    crf_customers.crfcus_comtype2,
+    crf_customers.crfcus_comtype31,
+    crf_customers.crfcus_comtype32,
+    crf_customers.crfcus_comtype33,
+    crf_customers.crfcus_comtype34,
+    crf_customers.crfcus_typebussi,
+    crf_customers.crfcus_products,
+    crf_customers.crfcus_forecast,
+    crf_customers.crfcus_file1,
+    crf_customers.crfcus_file2,
+    crf_customers.crfcus_file3,
+    crf_customers.crfcus_file4,
+    crf_customers.crfcus_file5,
+    crf_customers.crfcus_file6,
+    crf_customers.crfcus_creditterm,
+    crf_customers.crfcus_creditterm2,
+    crf_customers.crfcus_conditionbill,
+    crf_customers.crfcus_tablebill,
+    crf_customers.crfcus_mapbill,
+    crf_customers.crfcus_datebill,
+    crf_customers.crfcus_mapbill2,
+    crf_customers.crfcus_conditionmoney,
+    crf_customers.crfcus_cheuqetable,
+    crf_customers.crfcus_cheuqedetail,
+    crf_customers.crfcus_moneylimit,
+    crf_customers.crfcus_moneylimit2,
+    crf_customers.crfcus_usercreate,
+    crf_customers.crfcus_usercreate_ecode,
+    crf_customers.crfcus_usercreate_deptcode,
+    crf_customers.crfcus_datemodify,
+    crf_customers.crfcus_usermodify,
+    crf_customers.crfcus_usermodify_ecode,
+    crf_customers.crfcus_usermodify_deptcode,
+    crf_customers.crfcus_usermodify_datetime,
+    crf_customers.crfcus_area,
+    credit_term_category.credit_name
+    FROM
+    crf_customers
+    INNER JOIN credit_term_category ON credit_term_category.credit_id = crf_customers.crfcus_creditterm    
+    WHERE crfcus_code = '$cuscode'
+    ");
+    return $query->row();
+}
+
+function getPrimanageCus($crfcus_id)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crf_primanage_id , crf_primanage_dept , crf_primanage_name , crf_primanage_posi , crf_primanage_email
+    FROM crf_pri_manage WHERE crf_pricusid = '$crfcus_id' ORDER BY crf_primanage_id DESC
+    ");
+    return $query;
+}

@@ -20,7 +20,7 @@
 
             ?>
                 <tr>
-                    <td><?= $rs->crfcus_code ?></td>
+                    <td><b><a href="<?=base_url('customers/view_customerdata/').$rs->crfcus_code?>"><?= $rs->crfcus_code ?></a></b></td>
                     <td><?= $rs->crfcus_area ?></td>
                     <td><?= $rs->crfcus_name ?></td>
                     <td><?= $rs->crfcus_address ?></td>

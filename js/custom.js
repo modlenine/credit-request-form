@@ -4208,7 +4208,7 @@ $('#user_submit').prop('disabled', true);
                 $('.accAddCustomerCode1').css('display', '');
                 $('.showcuscodeacc').remove();
             } else {
-
+                $('.accAddCustomerCode1').css('display', '');
             }
 
         }

@@ -104,6 +104,18 @@ class Customers extends MX_Controller {
     }
 
 
+    public function view_customerdata($cuscode)
+    {
+        $data = array(
+            "title" => "Customer information",
+            "result" => getcustomerdata($cuscode)
+        );
+        getHead();
+        $this->load->view("view_customerdata" , $data);
+        getFooter();
+    }
+
+
 
 
 
