@@ -8,6 +8,8 @@ public function __construct()
 {
     parent::__construct();
     //Do your magic here
+    $this->db3 = $this->load->database('pricemarkup',TRUE);
+    date_default_timezone_set("Asia/Bangkok");
 }
 
 public function index()
@@ -281,7 +283,6 @@ public function checkCustomerCode()
 }
 
 
-
 public function saveCustomerEx()
 {
     $getCustomerNumber = getCustomerNumberEX();
@@ -336,6 +337,118 @@ public function checkCustomerCodeEx()
     $queryforcheckcuscode = $this->db->query("SELECT crfexcus_code FROM crfex_customers WHERE crfexcus_code = '$cuscode' and crfexcus_area = '$cusarea' ");
     echo $queryforcheckcuscode->num_rows();
 }
+
+
+
+// Search customer data zone
+public function searchcustomerdata()
+{
+    $cuscode = $this->input->post("cuscode");
+    $query = $this->db3->query("SELECT * FROM getcusforcrf_th where accountnum like '$cuscode%' LIMIT 10 ");
+    $output = "";
+    foreach ($query->result() as $rs) {
+        $output .= "<ul class='list-group'>";
+        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
+
+        data_addcus_code = '$rs->accountnum'
+        data_addcus_name = '$rs->name'
+        data_addcus_address = '$rs->address'
+        data_addcus_phone = '$rs->phone'
+        data_addcus_fax = '$rs->telefax'
+        data_addcus_email = '$rs->email'
+        data_addcus_taxid = '$rs->bpc_whtid'
+        data_addcus_area = '$rs->dataAreaId'
+        
+        ><li class='list-group-item'>" . $rs->accountnum . "&nbsp;" . $rs->name . " (" . $rs->dataAreaId . ")" . "</li></a>";
+        $output .= "</ul>";
+    }
+
+    echo $output;
+}
+
+
+// Search customer data zone
+public function searchcustomerdataname()
+{
+    $cusname = $this->input->post("cusname");
+    $query = $this->db3->query("SELECT * FROM getcusforcrf_th where getcusforcrf_th.name like '%$cusname%' LIMIT 10 ");
+    $output = "";
+    foreach ($query->result() as $rs) {
+        $output .= "<ul class='list-group'>";
+        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
+
+        data_addcus_code = '$rs->accountnum'
+        data_addcus_name = '$rs->name'
+        data_addcus_address = '$rs->address'
+        data_addcus_phone = '$rs->phone'
+        data_addcus_fax = '$rs->telefax'
+        data_addcus_email = '$rs->email'
+        data_addcus_taxid = '$rs->bpc_whtid'
+        data_addcus_area = '$rs->dataAreaId'
+        
+        ><li class='list-group-item'>" . $rs->name . "&nbsp;" . $rs->accountnum . " (" . $rs->dataAreaId . ")" . "</li></a>";
+        $output .= "</ul>";
+    }
+
+    echo $output;
+}
+
+
+
+// Search customer data zone
+public function searchcustomerdataex()
+{
+    $cuscode = $this->input->post("cuscode");
+    $query = $this->db3->query("SELECT * FROM getcusforcrf_en where accountnum like '$cuscode%' LIMIT 10 ");
+    $output = "";
+    foreach ($query->result() as $rs) {
+        $output .= "<ul class='list-group'>";
+        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcodeex'
+
+        data_addcus_codeex = '$rs->accountnum'
+        data_addcus_nameex = '$rs->name'
+        data_addcus_addressex = '$rs->address'
+        data_addcus_phoneex = '$rs->phone'
+        data_addcus_faxex = '$rs->telefax'
+        data_addcus_emailex = '$rs->email'
+        data_addcus_taxidex = '$rs->bpc_whtid'
+        data_addcus_areaex = '$rs->dataAreaId'
+        
+        ><li class='list-group-item'>" . $rs->accountnum . "&nbsp;" . $rs->name . " (" . $rs->dataAreaId . ")" . "</li></a>";
+        $output .= "</ul>";
+    }
+
+    echo $output;
+}
+
+
+// Search customer data zone
+public function searchcustomerdatanameex()
+{
+    $cusname = $this->input->post("cusname");
+    $query = $this->db3->query("SELECT * FROM getcusforcrf_en where name like '%$cusname%' LIMIT 10 ");
+    $output = "";
+    foreach ($query->result() as $rs) {
+        $output .= "<ul class='list-group'>";
+        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcodeex'
+
+        data_addcus_codeex = '$rs->accountnum'
+        data_addcus_nameex = '$rs->name'
+        data_addcus_addressex = '$rs->address'
+        data_addcus_phoneex = '$rs->phone'
+        data_addcus_faxex = '$rs->telefax'
+        data_addcus_emailex = '$rs->email'
+        data_addcus_taxidex = '$rs->bpc_whtid'
+        data_addcus_areaex = '$rs->dataAreaId'
+        
+        ><li class='list-group-item'>" . $rs->name . "&nbsp;" . $rs->accountnum . " (" . $rs->dataAreaId . ")" . "</li></a>";
+        $output .= "</ul>";
+    }
+
+    echo $output;
+}
+
+
 
     
 

@@ -14,7 +14,7 @@
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
             <form action="<?= base_url('customers/saveCustomerEx') ?>" method="POST" id="form1" enctype="multipart/form-data">
-
+                <input hidden type="text" name="checkaddcuspageen" id="checkaddcuspageen" value="{geturl}">
                 <!-- Document Head -->
                 <div class="row form-group">
                     <div align="left" class="col-md-6">
@@ -62,8 +62,9 @@
                         <label for="">Customer code</label>
                         <input type="text" name="addcusex_customercode" id="addcusex_customercode" class="form-control form-control-sm" required>
                         <div id="alertCuscodeEx"></div>
+                        <div id="autocuscodemanualex"></div>
                     </div>
-                    
+
 
                     <div class="col-md-4">
                         <label for="">Sales Reps</label>
@@ -79,6 +80,7 @@
                     <div class="col-md-6 form-group">
                         <label for="">Customer name (in English) : &nbsp;</label>
                         <input type="text" name="addcusex_cusnameEN" id="addcusex_cusnameEN" class="form-control form-control-sm" required>
+                        <div id="autocuscodemanualnameex"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">Customer name (in Thai)</label>

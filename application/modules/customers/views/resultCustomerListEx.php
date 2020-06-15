@@ -18,7 +18,7 @@
 
             ?>
                 <tr>
-                    <td><?= $rs->crfexcus_code ?></td>
+                    <td><b><a href="<?=base_url('customers/view_customerdataEx/').$rs->crfexcus_code?>"><?= $rs->crfexcus_code ?></a></b></td>
                     <td><?= $rs->crfexcus_area ?></td>
                     <td><?= $rs->crfexcus_nameEN ?></td>
                     <td><?= $rs->crfexcus_address ?></td>

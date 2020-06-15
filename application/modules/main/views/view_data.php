@@ -246,10 +246,12 @@ if ($result->crf_status == "Open") {
 
                 <div class="col-md-3">
                         <label for="">แผนที่ (ลิ้งจาก Googlemap) :</label>
-                        <a href="<?=$result->crfcus_mapurl?>" target="_blank"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:green;"></i></span></a>
+                        <input hidden type="text" name="checkfilelink" id="checkfilelink" value="<?=$result->crfcus_mapurl?>">
+                        <a id="maplink" href="<?=$result->crfcus_mapurl?>" target="_blank"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:green;"></i></span></a>
                     </div>
                     <div class="col-md-3">
                         <label for="">แนบไฟล์แผนที่ (jpg , png , pdf) :</label>
+                        <input hidden type="text" name="checkmapfile" id="checkmapfile" value="<?=$result->crfcus_mapfile?>">
                         <a id="mapfilelink" href="#" data-toggle="modal" data-target="#showmapfile" data_mapfile = "<?=$result->crfcus_mapfile?>"><span><i class="fas fa-map-marked-alt" style="font-size:28px;color:orange;"></i></span></a>
                     </div>
             </div><br>
@@ -419,7 +421,7 @@ if ($result->crf_status == "Open") {
 
                 </div>
                 <div class="col-md-4 form-group crf_file4">
-                    <label for="">งบแสดงฐานะทางการเงิน</label><br>
+                    <label for="">งบดุล</label><br>
                     <span><a id="datafile4" href="#" data-toggle="modal" data-target="#show_file4" data_file4="<?= $result->crfcus_file4 ?>"><b><?= $result->crfcus_file4 ?></b></a></span>
 
                 </div>
@@ -429,7 +431,7 @@ if ($result->crf_status == "Open") {
 
                 </div>
                 <div class="col-md-4 crf_file6">
-                    <label for="">อัตราส่วนสภาพคล่อง</label><br>
+                    <label for="">วิเคราะห์ผลการดำเนินงาน</label><br>
                     <span><a id="datafile6" href="#" data-toggle="modal" data-target="#show_file6" data_file6="<?= $result->crfcus_file6 ?>"><b><?= $result->crfcus_file6 ?></b></a></span>
 
                 </div>
@@ -615,7 +617,7 @@ if ($result->crf_status == "Open") {
                         $moneylimitnow = $result->crf_finance_req_number;
                     }
                     ?>
-                    <label for="">วงเงิน</label>
+                    <label for="" class="labelcrf_finance_old_view">วงเงิน</label>
                     <input readonly type="text" name="crf_finance_old_view" id="crf_finance_old_view" class="form-control form-control-sm" value="<?= $moneylimitnow ?>">
                 </div>
             </div>

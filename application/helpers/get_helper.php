@@ -844,3 +844,52 @@ function getPrimanageCus($crfcus_id)
     ");
     return $query;
 }
+
+
+
+// Function get customer information export
+function getcustomerdataex($cuscodeex)
+{
+    $obj = new getfn();
+    $query = $obj->gci()->db->query("SELECT
+    crfex_customers.crfexcus_id,
+    crfex_customers.crfexcus_area,
+    crfex_customers.crfexcus_code,
+    crfex_customers.crfexcus_brcode,
+    crfex_customers.crfexcus_datecreate,
+    crfex_customers.crfexcus_salesreps,
+    crfex_customers.crfexcus_nameEN,
+    crfex_customers.crfexcus_nameTH,
+    crfex_customers.crfexcus_address,
+    crfex_customers.crfexcus_file,
+    crfex_customers.crfexcus_tel,
+    crfex_customers.crfexcus_fax,
+    crfex_customers.crfexcus_email,
+    crfex_customers.crfexcus_payment,
+    crfex_customers.crfexcus_creditlimit,
+    crfex_customers.crfexcus_term,
+    crfex_customers.crfexcus_discount,
+    crfex_customers.crfexcus_bg,
+    crfex_customers.crfexcus_his_month1,
+    crfex_customers.crfexcus_his_tvolume1,
+    crfex_customers.crfexcus_histsales1,
+    crfex_customers.crfexcus_his_month2,
+    crfex_customers.crfexcus_his_tvolume2,
+    crfex_customers.crfexcus_histsales2,
+    crfex_customers.crfexcus_his_month3,
+    crfex_customers.crfexcus_his_tvolume3,
+    crfex_customers.crfexcus_histsales3,
+    crfex_customers.crfexcus_usercreate,
+    crfex_customers.crfexcus_userecode,
+    crfex_customers.crfexcus_userdeptcode,
+    crfex_customers.crfexcus_userdatetimecreate,
+    crfex_customers.crfexcus_usermodify,
+    crfex_customers.crfexcus_userecodemodify,
+    crfex_customers.crfexcus_userdeptcodemodify,
+    crfex_customers.crfexcus_datetimemodify
+    FROM
+    crfex_customers
+    WHERE crfexcus_code = '$cuscodeex'
+    ");
+    return $query->row();
+}

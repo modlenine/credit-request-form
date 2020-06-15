@@ -20,6 +20,7 @@
 <body>
     <div class="container bg-white p-3">
 <input hidden type="text" name="checkCompany" id="checkCompany">
+<input type="text" name="checkbaseurl" id="checkbaseurl" value="<?=base_url()?>">
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
             <form action="<?= base_url('main/savedata') ?>" method="POST" id="form1" enctype="multipart/form-data">
@@ -77,7 +78,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
                 <div id="alert_crf_sub_oldcus"></div>
@@ -405,31 +405,43 @@
                 <div class="row form-group">
                     <div class="col-md-4 form-group crf_file1">
                         <label for="">ภพ.20 / ภธ.09</label><br>
+                        <div id="cus2showfile1"></div>
+                        <input hidden type="text" name="editcusoldfile1" id="editcusoldfile1">
                         <input type="file" name="crf_file1" id="crf_file1" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file1"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file2">
                         <label for="">หนังสือรับรอง</label><br>
+                        <div id="cus2showfile2"></div>
+                        <input hidden type="text" name="editcusoldfile2" id="editcusoldfile2">
                         <input type="file" name="crf_file2" id="crf_file2" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file2"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file3">
                         <label for="">ข้อมูลทั่วไป</label><br>
+                        <div id="cus2showfile3"></div>
+                        <input hidden type="text" name="editcusoldfile3" id="editcusoldfile3">
                         <input type="file" name="crf_file3" id="crf_file3" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file3"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file4">
-                        <label for="">งบแสดงฐานะทางการเงิน</label><br>
+                        <label for="">งบดุล</label><br>
+                        <div id="cus2showfile4"></div>
+                        <input hidden type="text" name="editcusoldfile4" id="editcusoldfile4">
                         <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file4"></div>
                     </div>
                     <div class="col-md-4 crf_file5">
                         <label for="">งบกำไรขาดทุน</label><br>
+                        <div id="cus2showfile5"></div>
+                        <input hidden type="text" name="editcusoldfile5" id="editcusoldfile5">
                         <input type="file" name="crf_file5" id="crf_file5" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file5"></div>
                     </div>
                     <div class="col-md-4 crf_file6">
-                        <label for="">อัตราส่วนสภาพคล่อง</label>
+                        <label for="">วิเคราะห์ผลการดำเนินงาน</label>
+                        <div id="cus2showfile6"></div>
+                        <input hidden type="text" name="editcusoldfile6" id="editcusoldfile6">
                         <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".pdf, .jpg, .png">
                         <div id="alert_file6"></div>
                     </div>

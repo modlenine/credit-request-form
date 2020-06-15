@@ -455,7 +455,7 @@
                         <div id="alert_file3"></div>
                     </div>
                     <div class="col-md-4 form-group crf_file4">
-                        <label for="">งบแสดงฐานะทางการเงิน</label><br>
+                        <label for="">งบดุล</label><br>
                         <input hidden type="text" name="get_crf_file4" id="get_crf_file4" value="{get_file4}">
                         <input type="file" name="crf_file4" id="crf_file4" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
                         <a id="datafile4" href="#" data-toggle="modal" data-target="#show_file4" data_file4="{get_file4}"><label for=""><b>{get_file4}</b></label></a>
@@ -469,7 +469,7 @@
                         <div id="alert_file5"></div>
                     </div>
                     <div class="col-md-4 crf_file6">
-                        <label for="">อัตราส่วนสภาพคล่อง</label>
+                        <label for="">วิเคราะห์ผลการดำเนินงาน</label>
                         <input hidden type="text" name="get_crf_file6" id="get_crf_file6" value="{get_file6}">
                         <input type="file" name="crf_file6" id="crf_file6" class="form-control form-control-sm" accept=".jpg,.png,.pdf">
                         <a id="datafile6" href="#" data-toggle="modal" data-target="#show_file6" data_file6="{get_file6}"><label for=""><b>{get_file6}</b></label></a>

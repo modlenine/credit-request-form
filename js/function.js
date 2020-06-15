@@ -474,6 +474,7 @@ function insertEmailSystem(email_account , email_password)
 
 
 
+
 // Function load customerlist
 function loadcustomerlist()
 {
@@ -546,6 +547,10 @@ function checkCuscodeManual(cuscode , area)
         }
     });
 }
+
+
+
+
 
 // Export
 function loadcustomerlistEx()
@@ -622,6 +627,11 @@ function checkCuscodeManualEx(cuscode , area)
 
 
 
+
+
+
+
+
 // Function control add page th new 05-06-2020
 function minsalesreps(salesrepIn)
 {
@@ -654,6 +664,7 @@ function checkBeforeSave()
         $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
         $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
         $('#user_submit').prop('disabled' , true);
+        return false;
 
     }else if($('#crf_customername').val() == ''){
         // เช็คชื่อบริษัท
@@ -772,6 +783,70 @@ function checkBeforeSave()
     
 }
     
+}
+
+
+
+
+// New function for control add customer manual page
+function autosearchCustomermanual(cuscode)
+{
+    $.ajax({
+        url: '/crf/customers/searchcustomerdata',
+        method: 'POST',
+        data: {
+            cuscode: cuscode
+        },
+        success: function (data) {
+            $('#autocuscodemanual').html(data);
+        }
+    });
+}
+
+
+function autosearchCustomermanualname(cusname)
+{
+    $.ajax({
+        url: '/crf/customers/searchcustomerdataname',
+        method: 'POST',
+        data: {
+            cusname: cusname
+        },
+        success: function (data) {
+            $('#autocuscodemanualname').html(data);
+        }
+    });
+}
+
+
+
+function autosearchCustomermanualex(cuscode)
+{
+    $.ajax({
+        url: '/crf/customers/searchcustomerdataex',
+        method: 'POST',
+        data: {
+            cuscode: cuscode
+        },
+        success: function (data) {
+            $('#autocuscodemanualex').html(data);
+        }
+    });
+}
+
+
+function autosearchCustomermanualnameex(cusname)
+{
+    $.ajax({
+        url: '/crf/customers/searchcustomerdatanameex',
+        method: 'POST',
+        data: {
+            cusname: cusname
+        },
+        success: function (data) {
+            $('#autocuscodemanualnameex').html(data);
+        }
+    });
 }
 
 

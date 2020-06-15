@@ -23,7 +23,7 @@
 
         <div class="mt-3 p-3" style="border:solid #ccc 1px; background-color:#F8F8FF;">
             <form action="<?= base_url('customers/saveCustomer') ?>" method="POST" id="form1" enctype="multipart/form-data">
-
+<input hidden type="text" name="checkaddcuspage" id="checkaddcuspage" value="{checkurl}">
                 <!-- Document Head -->
                 <div class="row form-group">
                     <div align="left" class="col-md-6">
@@ -59,6 +59,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="alert_addcus_company"></div>
 
 
 
@@ -71,13 +72,14 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">Customer code : &nbsp;</label>
-                        <input type="text" name="addcus_customercode" id="addcus_customercode" class="form-control form-control-sm" >
+                        <input type="text" name="addcus_customercode" id="addcus_customercode" class="form-control form-control-sm" required>
                         <div id="alertCuscode"></div>
+                        <div id="autocuscodemanual"></div>
                     </div>
                     
                     <div class="col-md-4 form-group">
                         <label for="">Sales Reps : &nbsp;</label>
-                        <input type="text" name="addcus_salesreps" id="addcus_salesreps" class="form-control form-control-sm">
+                        <input type="text" name="addcus_salesreps" id="addcus_salesreps" class="form-control form-control-sm" required>
                     </div>
                 </div>
 
@@ -88,22 +90,23 @@
                 <div class="row form-group">
                     <div class="col-md-8 form-group">
                         <label for="">ชื่อลูกค้า : &nbsp;</label>
-                        <input type="text" name="addcus_customername" id="addcus_customername" class="form-control form-control-sm">
+                        <input type="text" name="addcus_customername" id="addcus_customername" class="form-control form-control-sm" required>
+                        <div id="autocuscodemanualname"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="">วันที่ก่อตั้ง</label>
-                        <input type="date" name="addcus_cuscompanycreate" id="addcus_cuscompanycreate" class="form-control form-control-sm">
+                        <input type="date" name="addcus_cuscompanycreate" id="addcus_cuscompanycreate" class="form-control form-control-sm" required>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6 form-group">
                         <label for="">เลขที่ผู้เสียภาษี</label>
-                        <input type="text" name="addcus_customertaxid" id="addcus_customertaxid" class="form-control form-control-sm">
+                        <input type="text" name="addcus_customertaxid" id="addcus_customertaxid" class="form-control form-control-sm" required>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">สาขา</label>
-                        <input type="text" name="addcus_customerbranch" id="addcus_customerbranch" class="form-control form-control-sm">
+                        <input type="text" name="addcus_customerbranch" id="addcus_customerbranch" class="form-control form-control-sm" required>
                     </div>
                 </div>
 
@@ -130,18 +133,18 @@
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <textarea name="addcus_addressname" id="addcus_addressname" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea name="addcus_addressname" id="addcus_addressname" cols="30" rows="3" class="form-control" required></textarea>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6 form-group">
                         <label for="">ผู้ติดต่อ</label>
-                        <input type="text" name="addcus_namecontact" id="addcus_namecontact" class="form-control form-control-sm">
+                        <input type="text" name="addcus_namecontact" id="addcus_namecontact" class="form-control form-control-sm" required>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="">เบอร์โทร</label>
-                        <input type="text" name="addcus_telcontact" id="addcus_telcontact" class="form-control form-control-sm">
+                        <input type="text" name="addcus_telcontact" id="addcus_telcontact" class="form-control form-control-sm" required>
                     </div>
                 </div>
 
@@ -360,7 +363,7 @@
                     <div class="col-md-4 form-group">
 
                         <label for="">โปรดเลือกรายการ</label>
-                        <select name="addcus_creditterm" id="addcus_creditterm" class="form-control">
+                        <select name="addcus_creditterm" id="addcus_creditterm" class="form-control" required>
                             <option value=""></option>
                             {getCreditTerm}
                             <option value="{credit_id}">{credit_name}</option>
@@ -472,7 +475,7 @@
                 <div class="row form-group finance_request_detail">
                     <div class="col-md-6">
                         <label for="">วงเงิน</label>
-                        <input type="text" name="crf_finance_req_number" id="crf_finance_req_number" class="form-control form-control-sm">
+                        <input type="text" name="crf_finance_req_number" id="crf_finance_req_number" class="form-control form-control-sm" required>
                     </div>
                 </div>
 

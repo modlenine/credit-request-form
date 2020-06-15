@@ -11,6 +11,7 @@
 
 
     <script src="<?= base_url("js/jquery.min.js") ?>"></script>
+<!--     <script src="<?= base_url('js/fontawsome.js') ?>"></script> -->
 
 
 
@@ -34,9 +35,6 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/pickadate/classic.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/pickadate/classic.date.css') ?>" />
     <!-- Date pickadate Style -->
-
-    <!-- <script defer src="<?=base_url()?>assets/fontawesome/js/all.js"></script>  -->
-    <!--load all styles -->
 
 
     <style>
@@ -221,14 +219,14 @@ getModal();
 
                             <li>
                                 <a href="<?=base_url('customers/addCustomer')?>" class="">
-                                    <i class="metismenu-icon fas fa-plus-square"></i><b>TH</b>
-                                    เพิ่มลูกค้า ในประเทศ (Manual)
+                                    <i class="metismenu-icon fas fa-database"></i><b>TH</b>
+                                    เพิ่มฐานข้อมูลลูกค้า (Manual)
                                 </a>
                             </li>
 
                             <li>
                                 <a href="<?=base_url('customers/customerList')?>" class="">
-                                    <i class="metismenu-icon fas fa-plus-square"></i><b>TH</b>
+                                    <i class="metismenu-icon fas fa-th-list"></i><b>TH</b>
                                     รายชื่อลูกค้าในประเทศ
                                 </a>
                             </li>
@@ -258,13 +256,14 @@ getModal();
 
                             <li>
                                 <a href="<?=base_url('customers/addCustomerEx')?>" class="">
-                                <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>
-                                    เพิ่มลูกค้า ต่างประเทศ (Manual)
+                                <i class="metismenu-icon fas fa-database"></i><b>EN</b>
+                                    เพิ่มฐานข้อมูลลูกค้า (Manual)
                                 </a>
                             </li>
+
                             <li>
                                 <a href="<?=base_url('customers/customerListEx')?>" class="">
-                                <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>
+                                <i class="metismenu-icon fas fa-th-list"></i><b>EN</b>
                                     รายชื่อลูกค้า ต่างประเทศ
                                 </a>
                             </li>
@@ -308,7 +307,13 @@ if(getUser()->ecode != "M1809"){
                             <li>
                                 <a>
                                     <i class="metismenu-icon fas fa-user"></i>
-                                    สวัสดีคุณ &nbsp;<?=getUser()->Fname."&nbsp;".getUser()->Lname?>
+                                    สวัสดีคุณ &nbsp;<?=getUser()->Fname?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?=base_url('Training.pdf')?>" target="_blank">
+                                    <i class="metismenu-icon fas fa-book"></i>
+                                    คู่มือการใช้งาน
                                 </a>
                             </li>
                             <li>
