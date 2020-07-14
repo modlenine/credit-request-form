@@ -79,7 +79,7 @@
                     
                     <div class="col-md-4 form-group">
                         <label for="">Sales Reps : &nbsp;</label>
-                        <input type="text" name="addcus_salesreps" id="addcus_salesreps" class="form-control form-control-sm" required>
+                        <input type="text" name="addcus_salesreps" id="addcus_salesreps" class="form-control form-control-sm" value="<?=getUser()->ecode?>">
                     </div>
                 </div>
 

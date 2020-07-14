@@ -961,6 +961,7 @@ if ($result->crf_status == "Open") {
                             <label for="">รหัสลูกค้า</label>
                             <input type="text" name="cusCode" id="cusCode" class="form-control form-control-sm">
                             <input readonly type="text" name="forcusCode" id="forcusCode" class="form-control form-control-sm" value="<?= $result->crf_savecustomercode ?>">
+                            <div id="alertCheckTH"></div>
                         </div>
 
                         <div class="col-md-8 accForcus2">

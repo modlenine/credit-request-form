@@ -33,8 +33,11 @@ class Customers extends MX_Controller {
 
   public function saveCustomer()
   {
-    $this->customer->saveCustomer();
+    if(isset($_POST['addcus_submit'])){
+      $this->customer->saveCustomer();
     header("refresh:0; url=".base_url());
+    }
+    
   }
 
   public function customerList()

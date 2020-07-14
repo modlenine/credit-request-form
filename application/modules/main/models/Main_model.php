@@ -164,7 +164,7 @@ class Main_model extends CI_Model
 
 
             $arcustomer = array(
-                "crfcus_id" => $getCustomerNumber,
+                // "crfcus_id" => $getCustomerNumber,
                 "crfcus_formno" => $getFormNo,
                 "crfcus_area" => $this->input->post("crf_company"),
                 "crfcus_salesreps" => $this->input->post("crf_salesreps"),
@@ -216,7 +216,7 @@ class Main_model extends CI_Model
 
             $arsavedata = array(
                 "crf_formno" => $getFormNo,
-                "crf_cuscode" => $getCustomerNumber,
+                // "crf_cuscode" => $getCustomerNumber,
                 "crf_company" => $this->input->post("crf_company"),
                 "crf_datecreate" => conDateToDb($this->input->post("crf_datecreate")),
                 "crf_type" => $this->input->post("crf_type"),

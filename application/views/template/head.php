@@ -11,7 +11,7 @@
 
 
     <script src="<?= base_url("js/jquery.min.js") ?>"></script>
-<!--     <script src="<?= base_url('js/fontawsome.js') ?>"></script> -->
+    <!--     <script src="<?= base_url('js/fontawsome.js') ?>"></script> -->
 
 
 
@@ -90,6 +90,7 @@
         thead input {
             width: 100%;
         }
+
     </style>
 </head>
 <?php
@@ -249,21 +250,21 @@ getModal();
 
                             <li>
                                 <a href="<?=base_url('main/addEx')?>" class="">
-                                <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>
+                                    <i class="metismenu-icon fas fa-plus-circle"></i><b>EN</b>
                                     เพิ่มรายการ ต่างประเทศ
                                 </a>
                             </li>
 
                             <li>
                                 <a href="<?=base_url('customers/addCustomerEx')?>" class="">
-                                <i class="metismenu-icon fas fa-database"></i><b>EN</b>
+                                    <i class="metismenu-icon fas fa-database"></i><b>EN</b>
                                     เพิ่มฐานข้อมูลลูกค้า (Manual)
                                 </a>
                             </li>
 
                             <li>
                                 <a href="<?=base_url('customers/customerListEx')?>" class="">
-                                <i class="metismenu-icon fas fa-th-list"></i><b>EN</b>
+                                    <i class="metismenu-icon fas fa-th-list"></i><b>EN</b>
                                     รายชื่อลูกค้า ต่างประเทศ
                                 </a>
                             </li>
@@ -276,14 +277,14 @@ getModal();
 
 
                             <?php
-$emailShow = "";
-if(getUser()->ecode != "M1809"){
-    $emailShow = ' style="display:none;" ';
-}else{
-    $emailShow = '';
-}
+                            $emailShow = "";
+                            if(getUser()->ecode != "M1809"){
+                                $emailShow = ' style="display:none;" ';
+                            }else{
+                                $emailShow = '';
+                            }
 
-?>
+                            ?>
 
 
                             <li class="app-sidebar__heading">User Profile</li>
@@ -295,12 +296,12 @@ if(getUser()->ecode != "M1809"){
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
-                                <li>
-                                <a href="<?=base_url('main/configemail')?>" class="">
-                                    <i class="metismenu-icon fas fa-print"></i>
-                                    ตั้งค่า Email
-                                </a>
-                            </li>
+                                    <li>
+                                        <a href="<?=base_url('main/configemail')?>" class="">
+                                            <i class="metismenu-icon fas fa-print"></i>
+                                            ตั้งค่า Email
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

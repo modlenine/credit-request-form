@@ -37,7 +37,6 @@ private function uploadFiles($fileinput = '', $filenameType = '', $cusid)
 
 public function saveCustomer()
 {
-    
     $getCustomerNumber = getCustomerNumber();
 
     $report_date = "";
@@ -188,7 +187,7 @@ public function saveCustomer()
             "crfcus_phone" => $this->input->post("addcus_telcontact"),
             "crfcus_fax" => $this->input->post("addcus_faxcontact"),
             "crfcus_email" => $this->input->post("addcus_emailcontact"),
-            "crfcus_regiscapital" => $this->input->post("addcus_regiscost"),
+            "crfcus_regiscapital" => conPrice($this->input->post("addcus_regiscost")),
             "crfcus_companytype" => $this->input->post("crf_companytype"),
             "crfcus_comtype2" => $this->input->post("crf_companytype2"),
             "crfcus_comtype31" => $this->input->post("crf_companytype3_1_1"),
@@ -268,7 +267,6 @@ public function saveCustomer()
         $this->db->insert("crf_userlog", $aruserlog);
 
         // $this->email_model->sendemail_savedatath($getFormNo);
-
     }
 }
 
@@ -340,15 +338,63 @@ public function checkCustomerCodeEx()
 
 
 
-// Search customer data zone
-public function searchcustomerdata()
-{
-    $cuscode = $this->input->post("cuscode");
-    $query = $this->db3->query("SELECT * FROM getcusforcrf_th where accountnum like '$cuscode%' LIMIT 10 ");
-    $output = "";
-    foreach ($query->result() as $rs) {
-        $output .= "<ul class='list-group'>";
-        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
+    // Search customer data zone
+    public function searchcustomerdata()
+    {
+        $cuscode = $this->input->post("cuscode");
+        $query = $this->db3->query("SELECT * FROM getcusforcrf_th where accountnum like '$cuscode%' LIMIT 10 ");
+        $output = "";
+        foreach ($query->result() as $rs) {
+
+            switch ($rs->PaymTermId) {
+                case "Advance":
+                    $creditid = 1;
+                    $creditname = "Advance ( โอนเงินก่อนส่งของ )";
+                    break;
+                case "Cash":
+                    $creditid = 2;
+                    $creditname = "Cash";
+                    break;
+                case "7D":
+                    $creditid = 3;
+                    $creditname = "7 Day";
+                    break;
+                case "15D":
+                    $creditid = 4;
+                    $creditname = "15 Day";
+                    break;
+                case "30D":
+                    $creditid = 5;
+                    $creditname = "30 Day";
+                    break;
+                case "45D":
+                    $creditid = 6;
+                    $creditname = "45 Day";
+                    break;
+                case "60D":
+                    $creditid = 7;
+                    $creditname = "60 Day";
+                    break;
+                case "75D":
+                    $creditid = 8;
+                    $creditname = "75 Day";
+                    break;
+                case "90D":
+                    $creditid = 9;
+                    $creditname = "90 Day";
+                    break;
+                case "120D":
+                    $creditid = 10;
+                    $creditname = "120 Day";
+                    break;
+                default:
+                    $creditid = "";
+                    $creditname = "";
+                break;
+            }
+
+            $output .= "<ul class='list-group'>";
+            $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
 
         data_addcus_code = '$rs->accountnum'
         data_addcus_name = '$rs->name'
@@ -358,24 +404,77 @@ public function searchcustomerdata()
         data_addcus_email = '$rs->email'
         data_addcus_taxid = '$rs->bpc_whtid'
         data_addcus_area = '$rs->dataAreaId'
+        data_addcus_branch = '$rs->SLC_idBranchTxt'
+        data_addcus_termid = '$creditid'
+        data_addcus_termname = '$creditname'
+        data_addcus_creditlimit = '$rs->CreditMax'
+        data_addcus_fristname = '$rs->Firstname'
         
         ><li class='list-group-item'>" . $rs->accountnum . "&nbsp;" . $rs->name . " (" . $rs->dataAreaId . ")" . "</li></a>";
-        $output .= "</ul>";
+            $output .= "</ul>";
+        }
+
+        echo $output;
     }
 
-    echo $output;
-}
 
+    // Search customer data zone
+    public function searchcustomerdataname()
+    {
+        $cusname = $this->input->post("cusname");
+        $query = $this->db3->query("SELECT * FROM getcusforcrf_th where getcusforcrf_th.name like '%$cusname%' LIMIT 10 ");
+        $output = "";
+        foreach ($query->result() as $rs) {
 
-// Search customer data zone
-public function searchcustomerdataname()
-{
-    $cusname = $this->input->post("cusname");
-    $query = $this->db3->query("SELECT * FROM getcusforcrf_th where getcusforcrf_th.name like '%$cusname%' LIMIT 10 ");
-    $output = "";
-    foreach ($query->result() as $rs) {
-        $output .= "<ul class='list-group'>";
-        $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
+            switch ($rs->PaymTermId) {
+                case "Advance":
+                    $creditid = 1;
+                    $creditname = "Advance ( โอนเงินก่อนส่งของ )";
+                    break;
+                case "Cash":
+                    $creditid = 2;
+                    $creditname = "Cash";
+                    break;
+                case "7D":
+                    $creditid = 3;
+                    $creditname = "7 Day";
+                    break;
+                case "15D":
+                    $creditid = 4;
+                    $creditname = "15 Day";
+                    break;
+                case "30D":
+                    $creditid = 5;
+                    $creditname = "30 Day";
+                    break;
+                case "45D":
+                    $creditid = 6;
+                    $creditname = "45 Day";
+                    break;
+                case "60D":
+                    $creditid = 7;
+                    $creditname = "60 Day";
+                    break;
+                case "75D":
+                    $creditid = 8;
+                    $creditname = "75 Day";
+                    break;
+                case "90D":
+                    $creditid = 9;
+                    $creditname = "90 Day";
+                    break;
+                case "120D":
+                    $creditid = 10;
+                    $creditname = "120 Day";
+                    break;
+                case "":
+                    $creditid = "";
+                    $creditname = "";
+                break;
+            }
+
+            $output .= "<ul class='list-group'>";
+            $output .= "<a href='javascript:void(0)' class='selectCusCodeManualcode'
 
         data_addcus_code = '$rs->accountnum'
         data_addcus_name = '$rs->name'
@@ -385,13 +484,18 @@ public function searchcustomerdataname()
         data_addcus_email = '$rs->email'
         data_addcus_taxid = '$rs->bpc_whtid'
         data_addcus_area = '$rs->dataAreaId'
+        data_addcus_branch = '$rs->SLC_idBranchTxt'
+        data_addcus_termid = '$creditid'
+        data_addcus_termname = '$creditname'
+        data_addcus_creditlimit = '$rs->CreditMax'
+        data_addcus_firstname = '$rs->Firstname'
         
         ><li class='list-group-item'>" . $rs->name . "&nbsp;" . $rs->accountnum . " (" . $rs->dataAreaId . ")" . "</li></a>";
-        $output .= "</ul>";
-    }
+            $output .= "</ul>";
+        }
 
-    echo $output;
-}
+        echo $output;
+    }
 
 
 

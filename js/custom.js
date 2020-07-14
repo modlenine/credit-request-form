@@ -7,7 +7,9 @@ $(document).ready(function () {
         $('input:radio[name="crf_type"]').click(function () {
             if ($(this).val() == 1) {
 
-                $('#crf_customercode , #crf_cusid , #crf_salesreps , #crf_customername , #crf_cuscompanycreate , #crf_customertaxid , #crf_customerbranch , #crf_addressname , #crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile , #crf_customer_product , #crf_forecast , #crf_file1 ,#crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6 , #crf_finance_req_number , #oldCreditTerm , #crf_creditterm').val('');
+                $('#crf_customercode , #crf_cusid , #crf_customername , #crf_cuscompanycreate , #crf_customertaxid , #crf_customerbranch , #crf_addressname , #crf_namecontact , #crf_telcontact , #crf_faxcontact , #crf_emailcontact , #crf_regiscost , #crf_mapurl , #crf_mapfile , #crf_customer_product , #crf_forecast , #crf_file1 ,#crf_file2 , #crf_file3 , #crf_file4 , #crf_file5 , #crf_file6 , #crf_finance_req_number , #oldCreditTerm , #crf_creditterm').val('');
+
+                $('#crf_salesreps').val($('#crf_userecodepost').val())
 
 
                 $('#crf_customercode').prop('disabled', true);
@@ -2484,11 +2486,11 @@ $(document).ready(function () {
 
 
     // Check mapfile upload
-    if($('#checkmapfile').val() == ""){
-        $('#mapfilelink').attr('data-target' , '');
+    if ($('#checkmapfile').val() == "") {
+        $('#mapfilelink').attr('data-target', '');
     }
-    if($('#checkfilelink').val() == ""){
-        $('#maplink').attr('href' , 'javascript:voide(0)').removeAttr('target');
+    if ($('#checkfilelink').val() == "") {
+        $('#maplink').attr('href', 'javascript:voide(0)').removeAttr('target');
     }
 
 
@@ -2928,12 +2930,20 @@ $(document).ready(function () {
 
     // validate submit button
     $('#acc_staff').prop('disabled', true);
+
+
     $('#cusCode').click(function () {
-        if ($(this).val() != '') {
-            $('#acc_staff').prop('disabled', false);
-        } else {
+
+
+        if (checkTH($(this).val()) != true) {
             $('#acc_staff').prop('disabled', true);
+            $('#alertCheckTH').html('<div class="alert alert-danger" role="alert">กรุณากรอก TH ให้ถูกต้องค่ะ (ตัวอย่าง TH-0000)</div>');
+        } else {
+            $('#acc_staff').prop('disabled', false);
+            $('#alertCheckTH').html('');
         }
+
+
     });
     $('#accStaffMemo').click(function () {
         if ($(this).val() != '') {
@@ -2943,10 +2953,12 @@ $(document).ready(function () {
         }
     });
     $('#cusCode').keyup(function () {
-        if ($(this).val() != '') {
-            $('#acc_staff').prop('disabled', false);
-        } else {
+        if (checkTH($(this).val()) != true) {
             $('#acc_staff').prop('disabled', true);
+            $('#alertCheckTH').html('<div class="alert alert-danger" role="alert">กรุณากรอก TH ให้ถูกต้องค่ะ (ตัวอย่าง TH-0000)</div>');
+        } else {
+            $('#acc_staff').prop('disabled', false);
+            $('#alertCheckTH').html('');
         }
     });
     $('#accStaffMemo').keyup(function () {
@@ -2957,10 +2969,12 @@ $(document).ready(function () {
         }
     });
     $('#cusCode').blur(function () {
-        if ($(this).val() != '') {
-            $('#acc_staff').prop('disabled', false);
-        } else {
+        if (checkTH($(this).val()) != true) {
             $('#acc_staff').prop('disabled', true);
+            $('#alertCheckTH').html('<div class="alert alert-danger" role="alert">กรุณากรอก TH ให้ถูกต้องค่ะ (ตัวอย่าง TH-0000)</div>');
+        } else {
+            $('#acc_staff').prop('disabled', false);
+            $('#alertCheckTH').html('');
         }
     });
 
@@ -3047,7 +3061,7 @@ $(document).ready(function () {
 
         $('#custype2file1').click(function () {
             var dataFile1 = $(this).attr('data_cus2file1');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3066,7 +3080,7 @@ $(document).ready(function () {
 
         $('#custype2file2').click(function () {
             var dataFile2 = $(this).attr('data_cus2file2');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3085,7 +3099,7 @@ $(document).ready(function () {
 
         $('#custype2file3').click(function () {
             var dataFile3 = $(this).attr('data_cus2file3');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3104,7 +3118,7 @@ $(document).ready(function () {
 
         $('#custype2file4').click(function () {
             var dataFile4 = $(this).attr('data_cus2file4');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3123,7 +3137,7 @@ $(document).ready(function () {
 
         $('#custype2file5').click(function () {
             var dataFile5 = $(this).attr('data_cus2file5');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3142,7 +3156,7 @@ $(document).ready(function () {
 
         $('#custype2file6').click(function () {
             var dataFile6 = $(this).attr('data_cus2file6');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3157,7 +3171,7 @@ $(document).ready(function () {
         });
 
 
-        
+
 
 
 
@@ -3373,7 +3387,7 @@ $(document).ready(function () {
 
         $('#custype2file1').click(function () {
             var dataFile1 = $(this).attr('data_cus2file1');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3392,7 +3406,7 @@ $(document).ready(function () {
 
         $('#custype2file2').click(function () {
             var dataFile2 = $(this).attr('data_cus2file2');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3411,7 +3425,7 @@ $(document).ready(function () {
 
         $('#custype2file3').click(function () {
             var dataFile3 = $(this).attr('data_cus2file3');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3430,7 +3444,7 @@ $(document).ready(function () {
 
         $('#custype2file4').click(function () {
             var dataFile4 = $(this).attr('data_cus2file4');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3449,7 +3463,7 @@ $(document).ready(function () {
 
         $('#custype2file5').click(function () {
             var dataFile5 = $(this).attr('data_cus2file5');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -3468,7 +3482,7 @@ $(document).ready(function () {
 
         $('#custype2file6').click(function () {
             var dataFile6 = $(this).attr('data_cus2file6');
-            var url = base_url+'upload/';
+            var url = base_url + 'upload/';
 
             // $('#embedshowfile1').attr('src', url + dataFile1);
 
@@ -5437,6 +5451,7 @@ $(document).ready(function () {
 
 
 
+    // control addCustomer
     // Get customer data Zone add customer manual
     if ($('#checkaddcuspage').val() == "addCustomer") {
 
@@ -5472,6 +5487,11 @@ $(document).ready(function () {
             var data_addcus_email = $(this).attr('data_addcus_email');
             var data_addcus_taxid = $(this).attr('data_addcus_taxid');
             var data_addcus_area = $(this).attr('data_addcus_area');
+            var data_addcus_branch = $(this).attr('data_addcus_branch');
+            var data_addcus_termid = $(this).attr('data_addcus_termid');
+            var data_addcus_termname = $(this).attr('data_addcus_termname');
+            var data_addcus_creditlimit = $(this).attr('data_addcus_creditlimit');
+            var data_addcus_firstname = $(this).attr('data_addcus_firstname');
 
 
             $('#addcus_customercode').val(data_addcus_code);
@@ -5481,6 +5501,37 @@ $(document).ready(function () {
             $('#addcus_faxcontact').val(data_addcus_fax);
             $('#addcus_emailcontact').val(data_addcus_email);
             $('#addcus_customertaxid').val(data_addcus_taxid);
+            $('#addcus_customerbranch').val(data_addcus_branch);
+            $('#addcus_creditterm option:selected').val(data_addcus_termid).text(data_addcus_termname);
+            $('#crf_finance_req_number').val(data_addcus_creditlimit);
+            $('#addcus_namecontact').val(data_addcus_firstname);
+
+            $('input:radio[id="addcus_addresstype1"]').prop('checked', true);
+
+            $('#crf_finance_req_number').val(function (index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    ;
+            });
+
+
+
+            // Convert Currency to comma
+            $('input[name=addcus_regiscost]').keyup(function (event) {/*****Comma function*******/
+
+                // skip for arrow keys
+                if (event.which >= 37 && event.which <= 40)
+                    return;
+
+                // format number
+                $(this).val(function (index, value) {
+                    return value
+                        .replace(/\D/g, "")
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        ;
+                });
+            });
 
             if (data_addcus_area == 'sln') {
                 $('input:radio[id="addcus_company_sln"]').prop('checked', true);
@@ -5569,6 +5620,11 @@ $(document).ready(function () {
 
     }
     // Export zone control by page
+
+
+
+
+
 
 
 

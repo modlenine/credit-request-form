@@ -23,14 +23,14 @@ function autoSearchCustomerDetail(cusCode) {
     });
 }
 
-function autoSearchCustomerDetailName(cusName){
+function autoSearchCustomerDetailName(cusName) {
     $.ajax({
         url: 'main/searchCustomerDetailName',
         method: 'POST',
         data: {
             cusName: cusName
         },
-        success: function(data){
+        success: function (data) {
             $('#autoCusname').html(data);
         }
     });
@@ -124,7 +124,7 @@ function filterCreditTerm(oldCredit, creditMethod) {
 }
 
 
-function checkDuplicateNameCustomer(cusName , comName) {
+function checkDuplicateNameCustomer(cusName, comName) {
     $.ajax({
         url: 'main/checkDuplicateNameCustomer',
         method: 'POST',
@@ -138,7 +138,7 @@ function checkDuplicateNameCustomer(cusName , comName) {
                 if (conF == false) {
                     $('#crf_customername').val('');
                 }
-            }else{
+            } else {
 
             }
 
@@ -146,7 +146,7 @@ function checkDuplicateNameCustomer(cusName , comName) {
     });
 }
 
-function checkDuplicateNameCustomerEx(cusName , comName) {
+function checkDuplicateNameCustomerEx(cusName, comName) {
     $.ajax({
         url: 'main/checkDuplicateNameCustomerEx',
         method: 'POST',
@@ -161,7 +161,7 @@ function checkDuplicateNameCustomerEx(cusName , comName) {
                     $('#crfex_cusnameEN').val('');
                     $('#alert_crfex_cusnameEN').html('');
                 }
-            }else{
+            } else {
 
             }
 
@@ -175,15 +175,15 @@ function checkDuplicateNameCustomerEx(cusName , comName) {
 
 // Edit zone on view page
 // edit sales reps
-function edit_salesreps(editcusid , editsalesreps){
+function edit_salesreps(editcusid, editsalesreps) {
     $.ajax({
-        url:'main/editViewPage',
-        method:'POST',
-        data:{
-            "editcusid" : editcusid,
-            "editsalesreps" : editsalesreps
+        url: 'main/editViewPage',
+        method: 'POST',
+        data: {
+            "editcusid": editcusid,
+            "editsalesreps": editsalesreps
         },
-        success:function(res){
+        success: function (res) {
             console.log(res);
         }
     });
@@ -192,13 +192,12 @@ function edit_salesreps(editcusid , editsalesreps){
 
 
 //Function for check duplicate BR Code
-function checkDupliBR(query)
-{
+function checkDupliBR(query) {
     $.ajax({
         url: "main/checkbrcode",
         method: "post",
-        data: { query:query },
-        success: function(data){
+        data: { query: query },
+        success: function (data) {
             console.log(data);
         }
     });
@@ -208,30 +207,28 @@ function checkDupliBR(query)
 
 
 // Check Customer name for export
-function checkCustomersNameEn(cusname)
-{
+function checkCustomersNameEn(cusname) {
     var checkCusname = /[^ก-เ]{4,100}$/.test(cusname);
 
-    if(checkCusname == true){
+    if (checkCusname == true) {
         $('#alert_crfex_cusnameEN').html('<div class="alert alert-success" role="alert"><i class="fas fa-check-circle"></i>&nbsp;Customer name correct pattern</div>');
-        $('#usercrfex_edit').prop('disabled' , false);
-    }else{
+        $('#usercrfex_edit').prop('disabled', false);
+    } else {
         $('#alert_crfex_cusnameEN').html('<div class="alert alert-danger" role="alert">Please use Customer name on english language only.</div>');
-        $('#usercrfex_edit').prop('disabled' , true);
+        $('#usercrfex_edit').prop('disabled', true);
     }
 }
 
 // Check Customer name for export
-function checkCustomersNameTH(cusname)
-{
+function checkCustomersNameTH(cusname) {
     var checkCusname = /[^A-Za-z0-9]{4,100}$/.test(cusname);
 
-    if(checkCusname == true){
+    if (checkCusname == true) {
         $('#alert_crfex_cusnameTH').html('<div class="alert alert-success" role="alert"><i class="fas fa-check-circle"></i>&nbsp;Customer name correct pattern</div>');
-        $('#usercrfex_edit').prop('disabled' , false);
-    }else{
+        $('#usercrfex_edit').prop('disabled', false);
+    } else {
         $('#alert_crfex_cusnameTH').html('<div class="alert alert-danger" role="alert">Please use Customer name on Thai language only.</div>');
-        $('#usercrfex_edit').prop('disabled' , true);
+        $('#usercrfex_edit').prop('disabled', true);
     }
 }
 
@@ -239,18 +236,17 @@ function checkCustomersNameTH(cusname)
 
 // Report Zone
 
-function loadreportEx()
-{
+function loadreportEx() {
     $.ajax({
-        url:"/crf/main/reportExport",
-        method:"POST",
-        data:{
+        url: "/crf/main/reportExport",
+        method: "POST",
+        data: {
 
         },
-        success:function(data){
+        success: function (data) {
             $('#showTable').html(data);
 
-            $('#report_listEx thead th').each(function() {
+            $('#report_listEx thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -263,14 +259,14 @@ function loadreportEx()
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form export.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form export.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form export.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form export.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -278,9 +274,9 @@ function loadreportEx()
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -293,19 +289,18 @@ function loadreportEx()
 
 
 
-function loadreportExdate(datestart , dateend)
-{
+function loadreportExdate(datestart, dateend) {
     $.ajax({
-        url:"/crf/main/reportExportdate",
-        method:"POST",
-        data:{
+        url: "/crf/main/reportExportdate",
+        method: "POST",
+        data: {
             datestart: datestart,
             dateend: dateend
         },
-        success:function(data){
+        success: function (data) {
             $('#showTable').html(data);
 
-            $('#report_listEx thead th').each(function() {
+            $('#report_listEx thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -318,14 +313,14 @@ function loadreportExdate(datestart , dateend)
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form export.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form export.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form export.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form export.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -333,9 +328,9 @@ function loadreportExdate(datestart , dateend)
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -346,18 +341,17 @@ function loadreportExdate(datestart , dateend)
 }
 
 
-function loadreport()
-{
+function loadreport() {
     $.ajax({
-        url:"/crf/main/reportTh",
-        method:"POST",
-        data:{
+        url: "/crf/main/reportTh",
+        method: "POST",
+        data: {
 
         },
-        success:function(data){
+        success: function (data) {
             $('#showTableTH').html(data);
 
-            $('#report_list thead th').each(function() {
+            $('#report_list thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -370,14 +364,14 @@ function loadreport()
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -385,9 +379,9 @@ function loadreport()
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -398,19 +392,18 @@ function loadreport()
 }
 
 
-function loadreportdate(datestart,dateend)
-{
+function loadreportdate(datestart, dateend) {
     $.ajax({
-        url:"/crf/main/reportThdate",
-        method:"POST",
-        data:{
+        url: "/crf/main/reportThdate",
+        method: "POST",
+        data: {
             datestart: datestart,
             dateend: dateend
         },
-        success:function(data){
+        success: function (data) {
             $('#showTableTH').html(data);
 
-            $('#report_list thead th').each(function() {
+            $('#report_list thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -423,14 +416,14 @@ function loadreportdate(datestart,dateend)
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -438,9 +431,9 @@ function loadreportdate(datestart,dateend)
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -456,38 +449,36 @@ function loadreportdate(datestart,dateend)
 
 
 // Setting page function
-function insertEmailSystem(email_account , email_password)
-{
+function insertEmailSystem(email_account, email_password) {
     $.ajax({
         url: "main/saveSettingEmail",
         method: "POST",
-        data:{
+        data: {
             email_account: email_account,
             email_password: email_password
         },
-        success:function(data){
+        success: function (data) {
             alert("Add Email Success");
         }
     });
-} 
+}
 
 
 
 
 
 // Function load customerlist
-function loadcustomerlist()
-{
+function loadcustomerlist() {
     $.ajax({
-        url:"/crf/customers/fetchCustomerlist",
-        method:"POST",
-        data:{
+        url: "/crf/customers/fetchCustomerlist",
+        method: "POST",
+        data: {
 
         },
-        success:function(data){
+        success: function (data) {
             $('#showCustomersList').html(data);
 
-            $('#customers_list thead th').each(function() {
+            $('#customers_list thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -500,14 +491,14 @@ function loadcustomerlist()
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -515,9 +506,9 @@ function loadcustomerlist()
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -529,17 +520,16 @@ function loadcustomerlist()
 
 
 // Check Cuscode manual duplicate
-function checkCuscodeManual(cuscode , area)
-{
+function checkCuscodeManual(cuscode, area) {
     $.ajax({
-        url:"/crf/customers/fetchCustomercode",
-        method:"POST",
-        data:{
-            cuscode:cuscode,
-            area:area
+        url: "/crf/customers/fetchCustomercode",
+        method: "POST",
+        data: {
+            cuscode: cuscode,
+            area: area
         },
-        success:function(data){
-            if(data > 0){
+        success: function (data) {
+            if (data > 0) {
                 $('#alertCuscode').fadeIn();
                 $('#alertCuscode').html('<div class="alert alert-danger" role="alert">พบข้อมูลซ้ำในระบบ</div>').fadeOut(3500);
                 $('#addcus_customercode').val('');
@@ -553,18 +543,17 @@ function checkCuscodeManual(cuscode , area)
 
 
 // Export
-function loadcustomerlistEx()
-{
+function loadcustomerlistEx() {
     $.ajax({
-        url:"/crf/customers/fetchCustomerlistEx",
-        method:"POST",
-        data:{
+        url: "/crf/customers/fetchCustomerlistEx",
+        method: "POST",
+        data: {
 
         },
-        success:function(data){
+        success: function (data) {
             $('#showCustomersListEx').html(data);
 
-            $('#customers_listEx thead th').each(function() {
+            $('#customers_listEx thead th').each(function () {
                 var title = $(this).text();
                 $(this).html(title + ' <input type="text" class="col-search-input" placeholder="Search ' + title + '" />');
             });
@@ -577,14 +566,14 @@ function loadcustomerlistEx()
                 }],
                 dom: 'Bfrtip',
                 "buttons": [{
-                        extend: 'copyHtml5',
-                        title: 'Credit request form.'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        title: 'Credit request form.'
-                    }
+                    extend: 'copyHtml5',
+                    title: 'Credit request form.'
+                },
+                {
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    title: 'Credit request form.'
+                }
                 ],
                 "order": [
                     [0, 'desc']
@@ -592,9 +581,9 @@ function loadcustomerlistEx()
             });
 
 
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var table = this;
-                $('input', this.header()).on('keyup change', function() {
+                $('input', this.header()).on('keyup change', function () {
                     if (table.search() !== this.value) {
                         table.search(this.value).draw();
                     }
@@ -606,17 +595,16 @@ function loadcustomerlistEx()
 
 
 // Check Duplicate customer code
-function checkCuscodeManualEx(cuscode , area)
-{
+function checkCuscodeManualEx(cuscode, area) {
     $.ajax({
-        url:"/crf/customers/fetchCustomercodeEx",
-        method:"POST",
-        data:{
-            cuscode:cuscode,
-            area:area
+        url: "/crf/customers/fetchCustomercodeEx",
+        method: "POST",
+        data: {
+            cuscode: cuscode,
+            area: area
         },
-        success:function(data){
-            if(data > 0){
+        success: function (data) {
+            if (data > 0) {
                 $('#alertCuscodeEx').fadeIn();
                 $('#alertCuscodeEx').html('<div class="alert alert-danger" role="alert">Found Duplicate customer code!!</div>').fadeOut(3500);
                 $('#addcusex_customercode').val('');
@@ -633,164 +621,159 @@ function checkCuscodeManualEx(cuscode , area)
 
 
 // Function control add page th new 05-06-2020
-function minsalesreps(salesrepIn)
-{
+function minsalesreps(salesrepIn) {
     var checkSalesrepIn = /(^D[0-9]{4,4}$|^M[0-9]{4,4}$)/.test(salesrepIn);
     return checkSalesrepIn;
 }
 
 // Function เช็คเลขที่ผู้เสียภาษี
-function checktax(taxIn)
-{
+function checktax(taxIn) {
     var checkTax = /(^[0-9]{13}$)/.test(taxIn);
     return checkTax;
 }
 
 // Function เช็ครูปแบบของเบอร์โทรศัพท์ กรอกเฉพาะตัวเลขเท่านั้น
-function checkTelPat(telIn)
-{
+function checkTelPat(telIn) {
     var checkTelPat = /(^[0-9]{10,15}$)/.test(telIn);
     return checkTelPat;
 }
 
 // Check ข้อมูลทุกฟิลด์ที่จำเป็น
-function checkBeforeSave()
-{
-    if($('input:radio[name="crf_type"]:checked').val() == 1){
+function checkBeforeSave() {
+    if ($('input:radio[name="crf_type"]:checked').val() == 1) {
 
-   
-    // เช็ค sales reps
-    if($('#crf_salesreps').val() == ''){
-        $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
-        return false;
 
-    }else if($('#crf_customername').val() == ''){
-        // เช็คชื่อบริษัท
-        $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        // เช็ค sales reps
+        if ($('#crf_salesreps').val() == '') {
+            $('#alert_salesreps').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุข้อมูล Sales Reps ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
+            return false;
 
-    }else if($('#crf_cuscompanycreate').val() == ''){
-        // เช็ควันที่ก่อตั้ง
-        $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_customername').val() == '') {
+            // เช็คชื่อบริษัท
+            $('#alert_customername').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อลูกค้าด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_customertaxid').val() == ''){
-        // เช็คเลขที่ผู้เสียภาษี
-        $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_cuscompanycreate').val() == '') {
+            // เช็ควันที่ก่อตั้ง
+            $('#alert_cuscompanycreate').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุวันที่ก่อตั้งด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if(checktax($('#crf_customertaxid').val()) == false){
-    
+        } else if ($('#crf_customertaxid').val() == '') {
+            // เช็คเลขที่ผู้เสียภาษี
+            $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
+
+        } else if (checktax($('#crf_customertaxid').val()) == false) {
+
             $('#alert_crf_customertaxid').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
             $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเลขที่ประจำตัวผู้เสียภาษีให้ครบถ้วยทั้ง 13 หลักโดยต้องระบุเป็นตัวเลขเท่านั้น</div>');
-            $('#user_submit').prop('disabled' , true);
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_customerbranch').val() == ''){
-        // เช็คสาขา
-        $('#alert_crf_customerbranch').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_customerbranch').val() == '') {
+            // เช็คสาขา
+            $('#alert_crf_customerbranch').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุสาขา ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('input:radio[name="crf_addresstype"]:checked').length < 1){
-        // เช็คประเภทของที่อยู่ลูกค้า
-        $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('input:radio[name="crf_addresstype"]:checked').length < 1) {
+            // เช็คประเภทของที่อยู่ลูกค้า
+            $('#alert_addresstype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทที่อยู่ด้วยค่ะ ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_addressname').val() == ''){
-        // เช็คที่อยู่ของลูกค้า
-        $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_addressname').val() == '') {
+            // เช็คที่อยู่ของลูกค้า
+            $('#alert_addressname').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุที่อยู่สำหรับการเปิดใบกำกับภาษีด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_namecontact').val() == ''){
-        $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_namecontact').val() == '') {
+            $('#alert_namecontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุชื่อผู้ติดต่อด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_telcontact').val() == ''){
-        $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_telcontact').val() == '') {
+            $('#alert_telcontact').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุเบอร์ผู้ติดต่อด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_regiscost').val() == ''){
-        $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_regiscost').val() == '') {
+            $('#alert_regiscost').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาระบุทุนจดทะเบียนด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('input:radio[name="crf_companytype"]:checked').length < 1){
-        $('#alert_companytype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('input:radio[name="crf_companytype"]:checked').length < 1) {
+            $('#alert_companytype').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทบริษัทด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('input:radio[name="crf_typeofbussi"]:checked').length < 1){
-        $('#alert_typeofbussi').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('input:radio[name="crf_typeofbussi"]:checked').length < 1) {
+            $('#alert_typeofbussi').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกประเภทธุรกิจด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file1').val() == ''){
-        $('#alert_file1').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file1').val() == '') {
+            $('#alert_file1').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ภพ.20 ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file2').val() == ''){
-        $('#alert_file2').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file2').val() == '') {
+            $('#alert_file2').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ หนังสือรับรอง ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file3').val() == ''){
-        $('#alert_file3').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file3').val() == '') {
+            $('#alert_file3').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ ข้อมูลทั่วไป ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file4').val() == ''){
-        $('#alert_file4').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file4').val() == '') {
+            $('#alert_file4').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบแสดงฐานะทางการเงิน ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file5').val() == ''){
-        $('#alert_file5').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file5').val() == '') {
+            $('#alert_file5').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ งบกำไรขาดทุน ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_file6').val() == ''){
-        $('#alert_file6').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_file6').val() == '') {
+            $('#alert_file6').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาอัพโหลดไฟล์ อัตราส่วนสภาพคล่อง ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
 
-    }else if($('#crf_creditterm').val() == ''){
-        $('#alert_creditterm').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
-    }else if($('input:radio[name=crf_condition_bill]:checked').length < 1){
-        $('#alert_condition_bill').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
-    }else if($('input:radio[name="crf_condition_money"]:checked').length < 1){
-        $('#alert_condition_money').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
-        $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
-        $('#user_submit').prop('disabled' , true);
+        } else if ($('#crf_creditterm').val() == '') {
+            $('#alert_creditterm').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือก Credit Term ด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
+        } else if ($('input:radio[name=crf_condition_bill]:checked').length < 1) {
+            $('#alert_condition_bill').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการวางบิลด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
+        } else if ($('input:radio[name="crf_condition_money"]:checked').length < 1) {
+            $('#alert_condition_money').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
+            $('#alert_submit').html('<div class="alert alert-danger" role="alert">กรุณาเลือกเงื่อนไขการชำระเงินด้วยค่ะ</div>');
+            $('#user_submit').prop('disabled', true);
+        }
+        else {
+            $('#user_submit').prop('disabled', false);
+        }
+    } else if ($('input:radio[name="crf_type"]:checked').val() == 2) {
+
     }
-    else{
-        $('#user_submit').prop('disabled' , false);
-    }
-}else if($('input:radio[name="crf_type"]:checked').val() == 2){
-    
-}
-    
+
 }
 
 
 
 
 // New function for control add customer manual page
-function autosearchCustomermanual(cuscode)
-{
+function autosearchCustomermanual(cuscode) {
     $.ajax({
         url: '/crf/customers/searchcustomerdata',
         method: 'POST',
@@ -804,8 +787,7 @@ function autosearchCustomermanual(cuscode)
 }
 
 
-function autosearchCustomermanualname(cusname)
-{
+function autosearchCustomermanualname(cusname) {
     $.ajax({
         url: '/crf/customers/searchcustomerdataname',
         method: 'POST',
@@ -820,8 +802,7 @@ function autosearchCustomermanualname(cusname)
 
 
 
-function autosearchCustomermanualex(cuscode)
-{
+function autosearchCustomermanualex(cuscode) {
     $.ajax({
         url: '/crf/customers/searchcustomerdataex',
         method: 'POST',
@@ -835,8 +816,7 @@ function autosearchCustomermanualex(cuscode)
 }
 
 
-function autosearchCustomermanualnameex(cusname)
-{
+function autosearchCustomermanualnameex(cusname) {
     $.ajax({
         url: '/crf/customers/searchcustomerdatanameex',
         method: 'POST',
@@ -848,6 +828,18 @@ function autosearchCustomermanualnameex(cusname)
         }
     });
 }
+
+
+
+// เพิ่มล่าสุด 14-07-2020
+// ตรวจสอบการกรอกข้อมูล Customer code
+function checkTH(thinput) {
+    var checkTH = /(^[TH]{2}-{1}[0-9]{4}$)/.test(thinput);
+    return checkTH;
+}
+
+
+
 
 
 
